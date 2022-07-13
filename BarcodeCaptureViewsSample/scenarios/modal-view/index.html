@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barcode Capture Views Sample</title>
+    <script src="index.js" type="module"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        color: #333;
+        font-size: 1.3rem;
+      }
+
+      body {
+        font-family: Helvetica, sans-serif;
+      }
+
+      .hidden {
+        display: none !important;
+        opacity: 0;
+        transition: opacity 300ms;
+      }
+
+      .wrapper {
+        padding: 24px;
+      }
+
+      .form,
+      .form input {
+        font-size: 1.3rem;
+      }
+
+      #input {
+        width: 300px;
+      }
+
+      #data-capture-view {
+        height: 100%;
+        width: 100%;
+      }
+
+      .result-row .symbology {
+        margin-top: 8px;
+        font-size: 0.9em;
+        color: #2ec1ce;
+      }
+
+      #modal {
+        display: grid;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: all 300ms;
+      }
+
+      #modal.open {
+        opacity: 1;
+      }
+
+      @supports (-webkit-touch-callout: none) {
+        #modal {
+          height: -webkit-fill-available;
+        }
+      }
+
+      #modal .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      #modal .modal-inner {
+        padding: 24px;
+        width: 0;
+        height: 0;
+        background-color: white;
+        box-shadow: 3px 4px 12px 4px #919191;
+        z-index: 2;
+        transition: all 300ms;
+      }
+
+      #modal.open .modal-inner {
+        width: 80vw;
+        height: 80vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Modal View</h1>
+      <p>The barcode scanner will open in a dialog when the user clicks the field.</p>
+      <div class="form">
+        <label>Barcode:</label>
+        <input id="input" type="text" placeholder="Loading barcode picker..." />
+      </div>
+    </div>
+    <div id="modal" class="hidden">
+      <div class="overlay"></div>
+      <div class="modal-inner">
+        <div id="data-capture-view"></div>
+      </div>
+    </div>
+  </body>
+</html>

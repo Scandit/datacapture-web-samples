@@ -1,0 +1,20 @@
+{
+    "name": "idcaptureextendedsample",
+    "displayName": "IdCaptureExtendedSample",
+    "version": "1.0.0",
+    "author": "Scandit",
+    "description": "Examples of how to integrate ID Capture into your application.",
+    "main": "index.js",
+    "scripts": {
+        "serve": "http-server . -c-1 -p 8888 -m '{\"application/wasm\": [\"wasm\"]}'",
+        "build": "node scripts/build.js"
+    },
+    "dependencies": {
+        "scandit-web-datacapture-barcode": "6.13.2"
+    },
+    "devDependencies": {
+        "fs-extra": "^10.0.1",
+        "http-server": "^14.1.0",
+        "typescript": "^4.5.2"
+    }
+}
