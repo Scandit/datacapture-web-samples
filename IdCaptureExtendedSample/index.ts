@@ -1,83 +1,71 @@
-import * as Scandit from "scandit-web-datacapture-barcode";
-
-/* eslint-disable-next-line import/extensions */
-import * as UI from "./ui.js";
+import * as SDCCore from "scandit-web-datacapture-core";
+import * as SDCId from "scandit-web-datacapture-id";
+import * as UI from "./ui";
 
 const LICENSE_KEY = "YOUR_LICENSE_KEY_HERE";
 
 type Mode = "barcode" | "mrz" | "viz";
 
-let context: Scandit.DataCaptureContext;
-let idCapture: Scandit.IdCapture;
-let view: Scandit.DataCaptureView;
-let overlay: Scandit.IdCaptureOverlay;
-let camera: Scandit.Camera;
+let context: SDCCore.DataCaptureContext;
+let idCapture: SDCId.IdCapture;
+let view: SDCCore.DataCaptureView;
+let overlay: SDCId.IdCaptureOverlay;
+let camera: SDCCore.Camera;
 let currentMode: Mode;
 
 // A map defining which document types we enable depending on the selected mode.
-const supportedDocumentsByMode: { [key in Mode]: Scandit.IdDocumentType[] } = {
+const supportedDocumentsByMode: { [key in Mode]: SDCId.IdDocumentType[] } = {
   barcode: [
-    Scandit.IdDocumentType.AAMVABarcode,
-    Scandit.IdDocumentType.ColombiaIdBarcode,
-    Scandit.IdDocumentType.USUSIdBarcode,
-    Scandit.IdDocumentType.ArgentinaIdBarcode,
-    Scandit.IdDocumentType.SouthAfricaDlBarcode,
-    Scandit.IdDocumentType.SouthAfricaIdBarcode,
+    SDCId.IdDocumentType.AAMVABarcode,
+    SDCId.IdDocumentType.ColombiaIdBarcode,
+    SDCId.IdDocumentType.ColombiaDlBarcode,
+    SDCId.IdDocumentType.USUSIdBarcode,
+    SDCId.IdDocumentType.ArgentinaIdBarcode,
+    SDCId.IdDocumentType.SouthAfricaDlBarcode,
+    SDCId.IdDocumentType.SouthAfricaIdBarcode,
   ],
   mrz: [
-    Scandit.IdDocumentType.VisaMRZ,
-    Scandit.IdDocumentType.PassportMRZ,
-    Scandit.IdDocumentType.SwissDLMRZ,
-    Scandit.IdDocumentType.IdCardMRZ,
+    SDCId.IdDocumentType.VisaMRZ,
+    SDCId.IdDocumentType.PassportMRZ,
+    SDCId.IdDocumentType.SwissDLMRZ,
+    SDCId.IdDocumentType.IdCardMRZ,
+    SDCId.IdDocumentType.ChinaMainlandTravelPermitMRZ,
+    SDCId.IdDocumentType.ChinaExitEntryPermitMRZ,
   ],
-  viz: [Scandit.IdDocumentType.DLVIZ, Scandit.IdDocumentType.IdCardVIZ],
+  viz: [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ],
 };
 
 // Apply the newly selected mode.
 // eslint-disable-next-line sonarjs/cognitive-complexity
-function applyNewMode(mode: Mode): void {
+async function applyNewMode(mode: Mode): Promise<void> {
   currentMode = mode;
   // We need to remove the current idCapture mode, as it is immutable
-  context.removeMode(idCapture);
+  await context.removeMode(idCapture);
 
   // Create the IdCapture settings needed for the selected mode
-  const settings = new Scandit.IdCaptureSettings();
+  const settings = new SDCId.IdCaptureSettings();
   settings.supportedDocuments = supportedDocumentsByMode[mode];
   // For VIZ documents, we enable scanning both sides and want to get the ID image
   if (mode === "viz") {
-    settings.supportedSides = Scandit.SupportedSides.FrontAndBack;
-    settings.setShouldPassImageTypeToResult(Scandit.IdImageType.Face, true);
+    settings.supportedSides = SDCId.SupportedSides.FrontAndBack;
+    settings.setShouldPassImageTypeToResult(SDCId.IdImageType.Face, true);
   }
   // Create the IdCapture mode with the new settings
-  idCapture = Scandit.IdCapture.forContext(context, settings);
+  idCapture = await SDCId.IdCapture.forContext(context, settings);
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: (idCaptureInstance: Scandit.IdCapture, session) => {
+    didCaptureId: async (idCaptureInstance: SDCId.IdCapture, session) => {
       // Disable the IdCapture mode to handle the current result
-      idCapture.isEnabled = false;
+      await idCapture.setEnabled(false);
 
       const capturedId = session.newlyCapturedId;
       if (!capturedId) {
         return;
       }
 
-      // Handle US Driver license case
-      if (capturedId.vizResult?.documentType === Scandit.DocumentType.DrivingLicense) {
-        if (
-          capturedId.capturedResultTypes.includes(Scandit.CapturedResultType.VIZResult) &&
-          capturedId.capturedResultTypes.includes(Scandit.CapturedResultType.AAMVABarcodeResult)
-        ) {
-          UI.showResult(capturedId);
-          void idCapture.reset();
-        } else {
-          UI.confirmScanningBackside(capturedId);
-        }
-        return;
-      }
-
       if (capturedId.vizResult?.isBackSideCaptureSupported === true) {
-        if (capturedId.vizResult.capturedSides === Scandit.SupportedSides.FrontAndBack) {
+        if (capturedId.vizResult.capturedSides === SDCId.SupportedSides.FrontAndBack) {
           UI.showResult(capturedId);
           void idCapture.reset();
         } else {
@@ -88,61 +76,54 @@ function applyNewMode(mode: Mode): void {
         void idCapture.reset();
       }
     },
-    didRejectId: () => {
-      idCapture.isEnabled = false;
+    didRejectId: async () => {
+      await idCapture.setEnabled(false);
       UI.showWarning("Document type not supported.");
     },
   });
 
   // Apply a new overlay for the newly created IdCapture mode
-  view.removeOverlay(overlay);
-  overlay = Scandit.IdCaptureOverlay.withIdCaptureForView(idCapture, view);
+  await view.removeOverlay(overlay);
+  overlay = await SDCId.IdCaptureOverlay.withIdCaptureForView(idCapture, view);
 }
 
 async function run(): Promise<void> {
   // Configure the library
-  await Scandit.configure(LICENSE_KEY, {
+  await SDCCore.configure({
+    licenseKey: LICENSE_KEY,
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
-    enableIdCapture: true,
+    moduleLoaders: [SDCId.idCaptureLoader()],
   });
 
   // Create the context (it will use the license key passed to configure by default)
-  context = Scandit.DataCaptureContext.create();
-  // Monitor the context's status for errors
-  context.addListener({
-    didChangeStatus: (contextInstance: Scandit.DataCaptureContext, status) => {
-      if (!status.isValid) {
-        throw new Error(status.message);
-      }
-    },
-  });
+  context = await SDCCore.DataCaptureContext.create();
 
   // Set the default camera as frame source. Apply the recommended settings from the IdCapture mode.
-  camera = Scandit.Camera.default;
+  camera = SDCCore.Camera.default;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const settings: Scandit.CameraSettings = Scandit.IdCapture.recommendedCameraSettings;
+  const settings: SDCCore.CameraSettings = SDCId.IdCapture.recommendedCameraSettings;
   await camera.applySettings(settings);
   await context.setFrameSource(camera);
 
   // Create the view and connect it to the DOM
-  view = Scandit.DataCaptureView.forContext(context);
+  view = await SDCCore.DataCaptureView.forContext(context);
   view.connectToElement(UI.elements.dataCaptureView);
-  view.addControl(new Scandit.CameraSwitchControl());
+  view.addControl(new SDCCore.CameraSwitchControl());
 
   // Enable the mode selected by default
   currentMode = UI.getSelectedMode() as Mode;
 
-  applyNewMode(currentMode);
+  await applyNewMode(currentMode);
   // Disable the IdCapture mode until the camera is accessed
-  idCapture.isEnabled = false;
+  await idCapture.setEnabled(false);
 
   // Finally, switch on the camera
-  await camera.switchToDesiredState(Scandit.FrameSourceState.On);
-  idCapture.isEnabled = true;
+  await camera.switchToDesiredState(SDCCore.FrameSourceState.On);
+  await idCapture.setEnabled(true);
 }
 
-window.dispatchAction = (...arguments_) => {
+window.dispatchAction = async (...arguments_) => {
   const [action] = arguments_;
   switch (action) {
     case UI.Action.SWITCH_MODE:
@@ -151,20 +132,20 @@ window.dispatchAction = (...arguments_) => {
         if (mode === currentMode) {
           return;
         }
-        applyNewMode(mode);
         UI.onModeSwitched(buttonElement);
+        await applyNewMode(mode);
       }
       break;
     case UI.Action.CLOSE_RESULT:
       UI.closeResults();
-      idCapture.isEnabled = true;
+      await idCapture.setEnabled(true);
       break;
     case UI.Action.CLOSE_WARNING:
       UI.closeDialog();
-      idCapture.isEnabled = true;
+      await idCapture.setEnabled(true);
       break;
     case UI.Action.SCAN_BACKSIDE:
-      idCapture.isEnabled = true;
+      await idCapture.setEnabled(true);
       UI.closeDialog();
       break;
     case UI.Action.SKIP_BACKSIDE: {
@@ -178,13 +159,14 @@ window.dispatchAction = (...arguments_) => {
 };
 
 run().catch((error) => {
+  console.error(error);
   alert(error);
 });
 
 type ActionParameters<A extends UI.Action> = A extends UI.Action.SWITCH_MODE
   ? [mode: Mode, button: HTMLButtonElement]
   : A extends UI.Action.SKIP_BACKSIDE
-  ? [Scandit.CapturedId]
+  ? [SDCId.CapturedId]
   : never;
 
 declare global {

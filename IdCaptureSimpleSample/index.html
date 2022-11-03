@@ -4,18 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ID Capture Extended Sample</title>
+    <title>ID Capture Simple Sample</title>
     <link rel="stylesheet" href="./style.css" />
     <script data-id="scandit-main" src="index.js" type="module"></script>
   </head>
   <body>
     <div id="wrapper" class="h-full">
       <div id="data-capture-view"></div>
-      <div id="selector">
-        <button onclick="window.dispatchAction('SWITCH_MODE', 'barcode', this)" data-mode="barcode">Barcode</button>
-        <button onclick="window.dispatchAction('SWITCH_MODE', 'mrz', this)" data-mode="mrz">MRZ</button>
-        <button class="active" onclick="window.dispatchAction('SWITCH_MODE', 'viz', this)" data-mode="viz">VIZ</button>
-      </div>
     </div>
     <div id="alert" hidden></div>
     <div id="result" class="h-full" hidden>

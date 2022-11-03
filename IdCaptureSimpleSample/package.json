@@ -1,6 +1,6 @@
 {
-  "name": "web-idcapture-extended-sample",
-  "displayName": "WebIdCaptureExtendedSample",
+  "name": "web-id-capture-simple-sample",
+  "displayName": "WebIdCaptureSimpleSample",
   "version": "1.0.0",
   "author": "Scandit",
   "description": "Examples of how to integrate ID Capture into your application.",

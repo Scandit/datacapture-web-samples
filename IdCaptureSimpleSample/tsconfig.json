@@ -8,5 +8,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "files": ["scenarios/fullscreen-view/index.ts", "scenarios/split-view/index.ts", "scenarios/modal-view/index.ts"]
+  "files": ["index.ts", "ui.ts"]
 }

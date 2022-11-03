@@ -12,12 +12,13 @@ npm install
 
 ## How to run
 
-Insert your license key in `index.js`, replacing the placeholder `YOUR_LICENSE_KEY_HERE` with your license key.
+Insert your license key into `index.ts`, replacing the placeholder `YOUR_LICENSE_KEY_HERE` with your license key.
 
-Run the application
+Build and serve the application:
 
 ```bash
-npm start
+npm run build
+npm run serve
 ```
 
 Open http://localhost:8888.
@@ -27,7 +28,7 @@ Open http://localhost:8888.
 You can use an SSH tunnel to access the running sample from another device via the internet. To do so, you can install [ngrok](https://ngrok.com/) and create a tunnel to the running sample:
 
 ```bash
-# execute this after npm start
+# execute this after npm run serve
 ngrok http 8888
 ```
 

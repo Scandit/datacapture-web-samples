@@ -1,4 +1,5 @@
-import * as Scandit from "scandit-web-datacapture-barcode";
+import { sanitize } from "dompurify";
+import * as SDCId from "scandit-web-datacapture-id";
 
 export enum Action {
   SWITCH_MODE = "SWITCH_MODE",
@@ -19,30 +20,33 @@ export const elements = {
 };
 
 export function getSelectedMode(): string {
-  return elements.selector.querySelector("button.active")!.getAttribute("data-mode")!;
+  return (elements.selector.querySelector("button.active") as HTMLElement).dataset.mode!;
 }
 
-export function onModeSwitched(buttonElement: HTMLButtonElement) {
+export function onModeSwitched(buttonElement: HTMLButtonElement): void {
   elements.selector.querySelector("button.active")?.classList.remove("active");
   buttonElement.classList.add("active");
 }
 
-export function confirmScanningBackside(capturedId: Scandit.CapturedId) {
+export function confirmScanningBackside(capturedId: SDCId.CapturedId): void {
   elements.alert.innerHTML = `
-    <p>This document has additional data in the visual inspection zone on the back of the card.</p>
+    <p>This document has additional data on the back of the card.</p>
     <div>
       <button skip>Skip</button>
       <button onclick="window.dispatchAction('SCAN_BACKSIDE')">Scan</button>
     </div>
   `;
   const skipButton = elements.alert.querySelector("button[skip]")!;
-  skipButton.addEventListener("click", () => window.dispatchAction(Action.SKIP_BACKSIDE, capturedId));
+  skipButton.addEventListener("click", () => {
+    window.dispatchAction(Action.SKIP_BACKSIDE, capturedId);
+  });
   elements.alert.removeAttribute("hidden");
 }
 
-export function showWarning(text: string) {
+export function showWarning(text: string): void {
+  /* eslint-disable-next-line no-unsanitized/property */
   elements.alert.innerHTML = `
-    <p>${text}</p>
+    <p>${sanitize(text)}</p>
     <div class="single">
       <button onclick="window.dispatchAction('CLOSE_WARNING')">Close</button>
     </div>
@@ -50,55 +54,58 @@ export function showWarning(text: string) {
   elements.alert.removeAttribute("hidden");
 }
 
-export function showResult(capturedId: Scandit.CapturedId) {
-  function f(value: any): any {
-    if (!value) {
-      return "empty";
-    } else if (value instanceof Scandit.DateResult) {
+export function showResult(capturedId: SDCId.CapturedId): void {
+  function f(value: unknown): string {
+    if (value == null || value === "") {
+      return "<i>empty</i>";
+    }
+    if (value instanceof SDCId.DateResult) {
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (value.day && value.month && value.year) {
         return `${value.year}-${value.month}-${value.day}`;
-      } else {
-        return "empty";
       }
-    } else if (value instanceof Scandit.ProfessionalDrivingPermit) {
+      return "<i>empty</i>";
+    }
+    if (value instanceof SDCId.ProfessionalDrivingPermit) {
       return `<div>
           <p class="label">Codes</p><p>${f(value.codes)}</p>
           <p class="label">Date of Expiry</p><p>${f(value.dateOfExpiry)}</p>
         </div>`;
-    } else if (value instanceof Scandit.VehicleRestriction) {
+    }
+    if (value instanceof SDCId.VehicleRestriction) {
       return `<div>
           <p class="label">Vehicle Code</p><p>${f(value.vehicleCode)}</p>
           <p class="label">Vehicle Restriction</p><p>${f(value.vehicleRestriction)}</p>
           <p class="label">Date of Issue</p><p>${f(value.dateOfIssue)}</p>
         </div>`;
-    } else if (value instanceof Array) {
-      return value.map(f).join("<br>");
-    } else {
-      return value;
     }
+    if (Array.isArray(value)) {
+      return value.map((element) => f(element)).join("<br>");
+    }
+    return sanitize(value as string);
   }
 
   let result = "";
   let header = "";
 
   type CommonFields = Pick<
-    Scandit.VIZResult,
-    | "firstName"
-    | "lastName"
-    | "fullName"
-    | "sex"
-    | "dateOfBirth"
-    | "nationality"
+    SDCId.VIZResult,
     | "address"
-    | "documentType"
-    | "issuingCountryIso"
-    | "issuingCountry"
-    | "documentNumber"
+    | "dateOfBirth"
     | "dateOfExpiry"
     | "dateOfIssue"
+    | "documentNumber"
+    | "documentType"
+    | "firstName"
+    | "fullName"
+    | "issuingCountry"
+    | "issuingCountryIso"
+    | "lastName"
+    | "nationality"
+    | "sex"
   >;
 
-  function commonFields(data: CommonFields) {
+  function commonFields(data: CommonFields): void {
     result += `<p class="label">First Name</p><p>${f(data.firstName)}</p>`;
     result += `<p class="label">Last Name</p><p>${f(data.lastName)}</p>`;
     result += `<p class="label">Full Name</p><p>${f(data.fullName)}</p>`;
@@ -114,9 +121,9 @@ export function showResult(capturedId: Scandit.CapturedId) {
     result += `<p class="label">Date of Issue</p><p>${f(data.dateOfIssue)}</p>`;
   }
 
-  if (capturedId.idImageOfType(Scandit.IdImageType.Face)) {
+  if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
     result += `<p class="label">Face</p>`;
-    result += `<img src="data:image/png;base64,${capturedId.idImageOfType(Scandit.IdImageType.Face)}" />`;
+    result += `<img src="data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face) ?? ""}" />`;
   }
 
   if (capturedId.aamvaBarcodeResult) {
@@ -171,10 +178,50 @@ export function showResult(capturedId: Scandit.CapturedId) {
     result += `<p class="label">Document Copy</p><p>${f(capturedId.argentinaIdBarcodeResult.documentCopy)}</p>`;
   }
 
+  if (capturedId.chinaMainlandTravelPermitMrzResult) {
+    header = "China Mainland Travel Permit MRZ Result";
+    result += `<p class="label">Document Code</p><p>${f(
+      capturedId.chinaMainlandTravelPermitMrzResult.documentCode
+    )}</p>`;
+    result += `<p class="label">Captured MRZ</p><p>${f(capturedId.chinaMainlandTravelPermitMrzResult.capturedMrz)}</p>`;
+    result += `<p class="label">Personal ID Number</p><p>${f(
+      capturedId.chinaMainlandTravelPermitMrzResult.personalIdNumber
+    )}</p>`;
+    result += `<p class="label">Renewal times</p><p>${f(
+      capturedId.chinaMainlandTravelPermitMrzResult.renewalTimes
+    )}</p>`;
+    result += `<p class="label">GBK Name</p><p>${f(capturedId.chinaMainlandTravelPermitMrzResult.gbkName)}</p>`;
+    result += `<p class="label">Omitted Character Count In GBK Name</p><p>${f(
+      capturedId.chinaMainlandTravelPermitMrzResult.omittedCharacterCountInGBKName
+    )}</p>`;
+    result += `<p class="label">Omitted Name Count</p><p>${f(
+      capturedId.chinaMainlandTravelPermitMrzResult.omittedNameCount
+    )}</p>`;
+    result += `<p class="label">Issuing Authority Code</p><p>${f(
+      capturedId.chinaMainlandTravelPermitMrzResult.issuingAuthorityCode
+    )}</p>`;
+  }
+
+  if (capturedId.chinaExitEntryPermitMrzResult) {
+    header = "China Exit-Entry Permit MRZ Result";
+    result += `<p class="label">Document Code</p><p>${f(capturedId.chinaExitEntryPermitMrzResult.documentCode)}</p>`;
+    result += `<p class="label">Captured MRZ</p><p>${f(capturedId.chinaExitEntryPermitMrzResult.capturedMrz)}</p>`;
+  }
+
   if (capturedId.colombiaIdBarcodeResult) {
     header = "Columbian ID Barcode Result";
     commonFields(capturedId.colombiaIdBarcodeResult);
     result += `<p class="label">Blood Type</p><p>${f(capturedId.colombiaIdBarcodeResult.bloodType)}</p>`;
+  }
+
+  if (capturedId.colombiaDlBarcodeResult) {
+    header = "Columbian Driver License Barcode Result";
+    commonFields(capturedId.colombiaDlBarcodeResult);
+    result += `
+      <p class="label">Identification Type</p>
+      <p>${f(capturedId.colombiaDlBarcodeResult.identificationType)}</p>
+    `;
+    result += `<p class="label">Categories</p><p>${f(capturedId.colombiaDlBarcodeResult.categories)}</p>`;
   }
 
   if (capturedId.mrzResult) {
@@ -339,16 +386,18 @@ export function showResult(capturedId: Scandit.CapturedId) {
     )}</p>`;
   }
 
+  /* eslint-disable-next-line no-unsanitized/property */
   elements.resultContent.innerHTML = result;
+  /* eslint-disable-next-line no-unsanitized/property */
   elements.resultHeader.innerHTML = header;
   elements.result.removeAttribute("hidden");
   elements.resultContent.scrollTop = 0;
 }
 
-export function closeDialog() {
+export function closeDialog(): void {
   elements.alert.setAttribute("hidden", "true");
 }
 
-export function closeResults() {
+export function closeResults(): void {
   elements.result.setAttribute("hidden", "true");
 }

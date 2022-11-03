@@ -1,6 +1,6 @@
-# Barcode Capture Simple sample
+# ID Capture Simple Sample
 
-A very simple example of setting up the library to scan barcodes.
+Simple example of how to integrate ID capture into your application.
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm install
 
 ## How to run
 
-Insert your license key into `index.ts`, replacing the placeholder `YOUR_LICENSE_KEY_HERE` with your license key.
+Insert your license key in `index.ts`, replacing the placeholder `YOUR_LICENSE_KEY_HERE` with your license key.
 
 Build and serve the application:
 
@@ -21,7 +21,7 @@ npm run build
 npm run serve
 ```
 
-Open http://localhost:8888 and start scanning.
+Open http://localhost:8888.
 
 ## How to test the sample from any device
 
