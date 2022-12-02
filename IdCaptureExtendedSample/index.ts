@@ -80,6 +80,13 @@ async function applyNewMode(mode: Mode): Promise<void> {
       await idCapture.setEnabled(false);
       UI.showWarning("Document type not supported.");
     },
+    didFailWithError: (_, error: SDCId.IdCaptureError) => {
+      // If an error occured and the SDK recovered from it, we need to inform the user and reset the process.
+      if (error.type === SDCId.IdCaptureErrorCode.RecoveredAfterFailure) {
+        UI.showWarning("Oops, something went wrong. Please start over by scanning the front-side of your document.");
+        void idCapture.reset();
+      }
+    },
   });
 
   // Apply a new overlay for the newly created IdCapture mode

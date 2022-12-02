@@ -32,12 +32,12 @@ var require_purify = __commonJS({
           return obj2 && typeof Symbol == "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
         }, _typeof(obj);
       }
-      function _setPrototypeOf(o, p) {
-        _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
-          o2.__proto__ = p2;
+      function _setPrototypeOf(o, p2) {
+        _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p3) {
+          o2.__proto__ = p3;
           return o2;
         };
-        return _setPrototypeOf(o, p);
+        return _setPrototypeOf(o, p2);
       }
       function _isNativeReflectConstruct() {
         if (typeof Reflect === "undefined" || !Reflect.construct)
@@ -59,9 +59,9 @@ var require_purify = __commonJS({
           _construct = Reflect.construct;
         } else {
           _construct = function _construct2(Parent2, args2, Class2) {
-            var a = [null];
-            a.push.apply(a, args2);
-            var Constructor = Function.bind.apply(Parent2, a);
+            var a2 = [null];
+            a2.push.apply(a2, args2);
+            var Constructor = Function.bind.apply(Parent2, a2);
             var instance = new Constructor();
             if (Class2)
               _setPrototypeOf(instance, Class2.prototype);
@@ -940,10 +940,10 @@ var Q = (l2, e) => {
 };
 var Z = (l2, e) => nr(l2, sr(e));
 var Lt = (l2, e) => () => (e || l2((e = { exports: {} }).exports, e), e.exports);
-var dr = (l2, e, t, a) => {
+var dr = (l2, e, t, a2) => {
   if (e && typeof e == "object" || typeof e == "function")
     for (let o of lr(e))
-      !ri.call(l2, o) && o !== t && Mt(l2, o, { get: () => e[o], enumerable: !(a = or(e, o)) || a.enumerable });
+      !ri.call(l2, o) && o !== t && Mt(l2, o, { get: () => e[o], enumerable: !(a2 = or(e, o)) || a2.enumerable });
   return l2;
 };
 var He = (l2, e, t) => (t = l2 != null ? ar(cr(l2)) : {}, dr(e || !l2 || !l2.__esModule ? Mt(t, "default", { value: l2, enumerable: true }) : t, l2));
@@ -952,67 +952,67 @@ var oi = Lt((ai, ni) => {
   (function(l2) {
     var e;
     if (typeof define == "function" && define.amd && (define(l2), e = true), typeof ai == "object" && (ni.exports = l2(), e = true), !e) {
-      var t = window.Cookies, a = window.Cookies = l2();
-      a.noConflict = function() {
-        return window.Cookies = t, a;
+      var t = window.Cookies, a2 = window.Cookies = l2();
+      a2.noConflict = function() {
+        return window.Cookies = t, a2;
       };
     }
   })(function() {
     function l2() {
-      for (var a = 0, o = {}; a < arguments.length; a++) {
-        var d = arguments[a];
-        for (var f2 in d)
-          o[f2] = d[f2];
+      for (var a2 = 0, o = {}; a2 < arguments.length; a2++) {
+        var d2 = arguments[a2];
+        for (var f2 in d2)
+          o[f2] = d2[f2];
       }
       return o;
     }
-    function e(a) {
-      return a.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+    function e(a2) {
+      return a2.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
     }
-    function t(a) {
+    function t(a2) {
       function o() {
       }
-      function d(p, v2, S2) {
+      function d2(p2, v2, S2) {
         if (!(typeof document > "u")) {
           S2 = l2({ path: "/" }, o.defaults, S2), typeof S2.expires == "number" && (S2.expires = new Date(new Date() * 1 + S2.expires * 864e5)), S2.expires = S2.expires ? S2.expires.toUTCString() : "";
           try {
             var i = JSON.stringify(v2);
             /^[\{\[]/.test(i) && (v2 = i);
-          } catch (s2) {
+          } catch (s) {
           }
-          v2 = a.write ? a.write(v2, p) : encodeURIComponent(String(v2)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent), p = encodeURIComponent(String(p)).replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent).replace(/[\(\)]/g, escape);
+          v2 = a2.write ? a2.write(v2, p2) : encodeURIComponent(String(v2)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent), p2 = encodeURIComponent(String(p2)).replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent).replace(/[\(\)]/g, escape);
           var r = "";
           for (var n2 in S2)
             !S2[n2] || (r += "; " + n2, S2[n2] !== true && (r += "=" + S2[n2].split(";")[0]));
-          return document.cookie = p + "=" + v2 + r;
+          return document.cookie = p2 + "=" + v2 + r;
         }
       }
-      function f2(p, v2) {
+      function f2(p2, v2) {
         if (!(typeof document > "u")) {
           for (var S2 = {}, i = document.cookie ? document.cookie.split("; ") : [], r = 0; r < i.length; r++) {
-            var n2 = i[r].split("="), s2 = n2.slice(1).join("=");
-            !v2 && s2.charAt(0) === '"' && (s2 = s2.slice(1, -1));
+            var n2 = i[r].split("="), s = n2.slice(1).join("=");
+            !v2 && s.charAt(0) === '"' && (s = s.slice(1, -1));
             try {
               var u = e(n2[0]);
-              if (s2 = (a.read || a)(s2, u) || e(s2), v2)
+              if (s = (a2.read || a2)(s, u) || e(s), v2)
                 try {
-                  s2 = JSON.parse(s2);
+                  s = JSON.parse(s);
                 } catch (h2) {
                 }
-              if (S2[u] = s2, p === u)
+              if (S2[u] = s, p2 === u)
                 break;
             } catch (h2) {
             }
           }
-          return p ? S2[p] : S2;
+          return p2 ? S2[p2] : S2;
         }
       }
-      return o.set = d, o.get = function(p) {
-        return f2(p, false);
-      }, o.getJSON = function(p) {
-        return f2(p, true);
-      }, o.remove = function(p, v2) {
-        d(p, "", l2(v2, { expires: -1 }));
+      return o.set = d2, o.get = function(p2) {
+        return f2(p2, false);
+      }, o.getJSON = function(p2) {
+        return f2(p2, true);
+      }, o.remove = function(p2, v2) {
+        d2(p2, "", l2(v2, { expires: -1 }));
       }, o.defaults = {}, o.withConverter = t, o;
     }
     return t(function() {
@@ -1022,7 +1022,7 @@ var oi = Lt((ai, ni) => {
 var xt = Lt((Ie, Ge) => {
   (function(l2, e) {
     "use strict";
-    var t = "0.7.31", a = "", o = "?", d = "function", f2 = "undefined", p = "object", v2 = "string", S2 = "major", i = "model", r = "name", n2 = "type", s2 = "vendor", u = "version", h2 = "architecture", m2 = "console", b2 = "mobile", C2 = "tablet", _2 = "smarttv", j2 = "wearable", B2 = "embedded", D2 = 255, y2 = "Amazon", A = "Apple", M2 = "ASUS", w2 = "BlackBerry", I2 = "Browser", E = "Chrome", L2 = "Edge", z2 = "Firefox", ce = "Google", Le = "Huawei", ve = "LG", vt = "Microsoft", Qt = "Motorola", We = "Opera", St = "Samsung", bt = "Sony", qt = "Xiaomi", Ct = "Zebra", Zt = "Facebook", tr = function(N, P2) {
+    var t = "0.7.31", a2 = "", o = "?", d2 = "function", f2 = "undefined", p2 = "object", v2 = "string", S2 = "major", i = "model", r = "name", n2 = "type", s = "vendor", u = "version", h2 = "architecture", m2 = "console", b2 = "mobile", C2 = "tablet", _2 = "smarttv", j2 = "wearable", B2 = "embedded", D2 = 255, y2 = "Amazon", A = "Apple", M2 = "ASUS", w2 = "BlackBerry", I2 = "Browser", E = "Chrome", L = "Edge", z = "Firefox", ce2 = "Google", Le = "Huawei", ve = "LG", vt = "Microsoft", Qt = "Motorola", We = "Opera", St = "Samsung", bt = "Sony", qt = "Xiaomi", Ct = "Zebra", Zt = "Facebook", tr = function(N, P2) {
       var V2 = {};
       for (var H2 in N)
         P2[H2] && P2[H2].length % 2 === 0 ? V2[H2] = P2[H2].concat(N[H2]) : V2[H2] = N[H2];
@@ -1036,32 +1036,32 @@ var xt = Lt((Ie, Ge) => {
     }, xe = function(N) {
       return N.toLowerCase();
     }, ir = function(N) {
-      return typeof N === v2 ? N.replace(/[^\d\.]/g, a).split(".")[0] : e;
+      return typeof N === v2 ? N.replace(/[^\d\.]/g, a2).split(".")[0] : e;
     }, At = function(N, P2) {
       if (typeof N === v2)
-        return N = N.replace(/^\s\s*/, a).replace(/\s\s*$/, a), typeof P2 === f2 ? N : N.substring(0, D2);
+        return N = N.replace(/^\s\s*/, a2).replace(/\s\s*$/, a2), typeof P2 === f2 ? N : N.substring(0, D2);
     }, _e = function(N, P2) {
-      for (var V2 = 0, H2, T2, Be, F2, De, ie2; V2 < P2.length && !De; ) {
+      for (var V2 = 0, H2, T2, Be, F2, De, ie; V2 < P2.length && !De; ) {
         var ei = P2[V2], ti = P2[V2 + 1];
         for (H2 = T2 = 0; H2 < ei.length && !De; )
           if (De = ei[H2++].exec(N), De)
             for (Be = 0; Be < ti.length; Be++)
-              ie2 = De[++T2], F2 = ti[Be], typeof F2 === p && F2.length > 0 ? F2.length === 2 ? typeof F2[1] == d ? this[F2[0]] = F2[1].call(this, ie2) : this[F2[0]] = F2[1] : F2.length === 3 ? typeof F2[1] === d && !(F2[1].exec && F2[1].test) ? this[F2[0]] = ie2 ? F2[1].call(this, ie2, F2[2]) : e : this[F2[0]] = ie2 ? ie2.replace(F2[1], F2[2]) : e : F2.length === 4 && (this[F2[0]] = ie2 ? F2[3].call(this, ie2.replace(F2[1], F2[2])) : e) : this[F2] = ie2 || e;
+              ie = De[++T2], F2 = ti[Be], typeof F2 === p2 && F2.length > 0 ? F2.length === 2 ? typeof F2[1] == d2 ? this[F2[0]] = F2[1].call(this, ie) : this[F2[0]] = F2[1] : F2.length === 3 ? typeof F2[1] === d2 && !(F2[1].exec && F2[1].test) ? this[F2[0]] = ie ? F2[1].call(this, ie, F2[2]) : e : this[F2[0]] = ie ? ie.replace(F2[1], F2[2]) : e : F2.length === 4 && (this[F2[0]] = ie ? F2[3].call(this, ie.replace(F2[1], F2[2])) : e) : this[F2] = ie || e;
         V2 += 2;
       }
     }, yt = function(N, P2) {
       for (var V2 in P2)
-        if (typeof P2[V2] === p && P2[V2].length > 0) {
+        if (typeof P2[V2] === p2 && P2[V2].length > 0) {
           for (var H2 = 0; H2 < P2[V2].length; H2++)
             if ($t(P2[V2][H2], N))
               return V2 === o ? e : V2;
         } else if ($t(P2[V2], N))
           return V2 === o ? e : V2;
       return N;
-    }, rr = { "1.0": "/8", "1.2": "/1", "1.3": "/3", "2.0": "/412", "2.0.2": "/416", "2.0.3": "/417", "2.0.4": "/419", "?": "/" }, Xt = { ME: "4.90", "NT 3.11": "NT3.51", "NT 4.0": "NT4.0", 2e3: "NT 5.0", XP: ["NT 5.1", "NT 5.2"], Vista: "NT 6.0", 7: "NT 6.1", 8: "NT 6.2", "8.1": "NT 6.3", 10: ["NT 6.4", "NT 10.0"], RT: "ARM" }, Kt = { browser: [[/\b(?:crmo|crios)\/([\w\.]+)/i], [u, [r, "Chrome"]], [/edg(?:e|ios|a)?\/([\w\.]+)/i], [u, [r, "Edge"]], [/(opera mini)\/([-\w\.]+)/i, /(opera [mobiletab]{3,6})\b.+version\/([-\w\.]+)/i, /(opera)(?:.+version\/|[\/ ]+)([\w\.]+)/i], [r, u], [/opios[\/ ]+([\w\.]+)/i], [u, [r, We + " Mini"]], [/\bopr\/([\w\.]+)/i], [u, [r, We]], [/(kindle)\/([\w\.]+)/i, /(lunascape|maxthon|netfront|jasmine|blazer)[\/ ]?([\w\.]*)/i, /(avant |iemobile|slim)(?:browser)?[\/ ]?([\w\.]*)/i, /(ba?idubrowser)[\/ ]?([\w\.]+)/i, /(?:ms|\()(ie) ([\w\.]+)/i, /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale|qqbrowserlite|qq)\/([-\w\.]+)/i, /(weibo)__([\d\.]+)/i], [r, u], [/(?:\buc? ?browser|(?:juc.+)ucweb)[\/ ]?([\w\.]+)/i], [u, [r, "UC" + I2]], [/\bqbcore\/([\w\.]+)/i], [u, [r, "WeChat(Win) Desktop"]], [/micromessenger\/([\w\.]+)/i], [u, [r, "WeChat"]], [/konqueror\/([\w\.]+)/i], [u, [r, "Konqueror"]], [/trident.+rv[: ]([\w\.]{1,9})\b.+like gecko/i], [u, [r, "IE"]], [/yabrowser\/([\w\.]+)/i], [u, [r, "Yandex"]], [/(avast|avg)\/([\w\.]+)/i], [[r, /(.+)/, "$1 Secure " + I2], u], [/\bfocus\/([\w\.]+)/i], [u, [r, z2 + " Focus"]], [/\bopt\/([\w\.]+)/i], [u, [r, We + " Touch"]], [/coc_coc\w+\/([\w\.]+)/i], [u, [r, "Coc Coc"]], [/dolfin\/([\w\.]+)/i], [u, [r, "Dolphin"]], [/coast\/([\w\.]+)/i], [u, [r, We + " Coast"]], [/miuibrowser\/([\w\.]+)/i], [u, [r, "MIUI " + I2]], [/fxios\/([-\w\.]+)/i], [u, [r, z2]], [/\bqihu|(qi?ho?o?|360)browser/i], [[r, "360 " + I2]], [/(oculus|samsung|sailfish)browser\/([\w\.]+)/i], [[r, /(.+)/, "$1 " + I2], u], [/(comodo_dragon)\/([\w\.]+)/i], [[r, /_/g, " "], u], [/(electron)\/([\w\.]+) safari/i, /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w\.]+))/i, /m?(qqbrowser|baiduboxapp|2345Explorer)[\/ ]?([\w\.]+)/i], [r, u], [/(metasr)[\/ ]?([\w\.]+)/i, /(lbbrowser)/i], [r], [/((?:fban\/fbios|fb_iab\/fb4a)(?!.+fbav)|;fbav\/([\w\.]+);)/i], [[r, Zt], u], [/safari (line)\/([\w\.]+)/i, /\b(line)\/([\w\.]+)\/iab/i, /(chromium|instagram)[\/ ]([-\w\.]+)/i], [r, u], [/\bgsa\/([\w\.]+) .*safari\//i], [u, [r, "GSA"]], [/headlesschrome(?:\/([\w\.]+)| )/i], [u, [r, E + " Headless"]], [/ wv\).+(chrome)\/([\w\.]+)/i], [[r, E + " WebView"], u], [/droid.+ version\/([\w\.]+)\b.+(?:mobile safari|safari)/i], [u, [r, "Android " + I2]], [/(chrome|omniweb|arora|[tizenoka]{5} ?browser)\/v?([\w\.]+)/i], [r, u], [/version\/([\w\.]+) .*mobile\/\w+ (safari)/i], [u, [r, "Mobile Safari"]], [/version\/([\w\.]+) .*(mobile ?safari|safari)/i], [u, r], [/webkit.+?(mobile ?safari|safari)(\/[\w\.]+)/i], [r, [u, yt, rr]], [/(webkit|khtml)\/([\w\.]+)/i], [r, u], [/(navigator|netscape\d?)\/([-\w\.]+)/i], [[r, "Netscape"], u], [/mobile vr; rv:([\w\.]+)\).+firefox/i], [u, [r, z2 + " Reality"]], [/ekiohf.+(flow)\/([\w\.]+)/i, /(swiftfox)/i, /(icedragon|iceweasel|camino|chimera|fennec|maemo browser|minimo|conkeror|klar)[\/ ]?([\w\.\+]+)/i, /(seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([-\w\.]+)$/i, /(firefox)\/([\w\.]+)/i, /(mozilla)\/([\w\.]+) .+rv\:.+gecko\/\d+/i, /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir|obigo|mosaic|(?:go|ice|up)[\. ]?browser)[-\/ ]?v?([\w\.]+)/i, /(links) \(([\w\.]+)/i], [r, u]], cpu: [[/(?:(amd|x(?:(?:86|64)[-_])?|wow|win)64)[;\)]/i], [[h2, "amd64"]], [/(ia32(?=;))/i], [[h2, xe]], [/((?:i[346]|x)86)[;\)]/i], [[h2, "ia32"]], [/\b(aarch64|arm(v?8e?l?|_?64))\b/i], [[h2, "arm64"]], [/\b(arm(?:v[67])?ht?n?[fl]p?)\b/i], [[h2, "armhf"]], [/windows (ce|mobile); ppc;/i], [[h2, "arm"]], [/((?:ppc|powerpc)(?:64)?)(?: mac|;|\))/i], [[h2, /ower/, a, xe]], [/(sun4\w)[;\)]/i], [[h2, "sparc"]], [/((?:avr32|ia64(?=;))|68k(?=\))|\barm(?=v(?:[1-7]|[5-7]1)l?|;|eabi)|(?=atmel )avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i], [[h2, xe]]], device: [[/\b(sch-i[89]0\d|shw-m380s|sm-[pt]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i], [i, [s2, St], [n2, C2]], [/\b((?:s[cgp]h|gt|sm)-\w+|galaxy nexus)/i, /samsung[- ]([-\w]+)/i, /sec-(sgh\w+)/i], [i, [s2, St], [n2, b2]], [/\((ip(?:hone|od)[\w ]*);/i], [i, [s2, A], [n2, b2]], [/\((ipad);[-\w\),; ]+apple/i, /applecoremedia\/[\w\.]+ \((ipad)/i, /\b(ipad)\d\d?,\d\d?[;\]].+ios/i], [i, [s2, A], [n2, C2]], [/\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i], [i, [s2, Le], [n2, C2]], [/(?:huawei|honor)([-\w ]+)[;\)]/i, /\b(nexus 6p|\w{2,4}-[atu]?[ln][01259x][012359][an]?)\b(?!.+d\/s)/i], [i, [s2, Le], [n2, b2]], [/\b(poco[\w ]+)(?: bui|\))/i, /\b; (\w+) build\/hm\1/i, /\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i, /\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i, /\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite)?)(?: bui|\))/i], [[i, /_/g, " "], [s2, qt], [n2, b2]], [/\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i], [[i, /_/g, " "], [s2, qt], [n2, C2]], [/; (\w+) bui.+ oppo/i, /\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i], [i, [s2, "OPPO"], [n2, b2]], [/vivo (\w+)(?: bui|\))/i, /\b(v[12]\d{3}\w?[at])(?: bui|;)/i], [i, [s2, "Vivo"], [n2, b2]], [/\b(rmx[12]\d{3})(?: bui|;|\))/i], [i, [s2, "Realme"], [n2, b2]], [/\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i, /\bmot(?:orola)?[- ](\w*)/i, /((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i], [i, [s2, Qt], [n2, b2]], [/\b(mz60\d|xoom[2 ]{0,2}) build\//i], [i, [s2, Qt], [n2, C2]], [/((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i], [i, [s2, ve], [n2, C2]], [/(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i, /\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i, /\blg-?([\d\w]+) bui/i], [i, [s2, ve], [n2, b2]], [/(ideatab[-\w ]+)/i, /lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i], [i, [s2, "Lenovo"], [n2, C2]], [/(?:maemo|nokia).*(n900|lumia \d+)/i, /nokia[-_ ]?([-\w\.]*)/i], [[i, /_/g, " "], [s2, "Nokia"], [n2, b2]], [/(pixel c)\b/i], [i, [s2, ce], [n2, C2]], [/droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i], [i, [s2, ce], [n2, b2]], [/droid.+ ([c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i], [i, [s2, bt], [n2, b2]], [/sony tablet [ps]/i, /\b(?:sony)?sgp\w+(?: bui|\))/i], [[i, "Xperia Tablet"], [s2, bt], [n2, C2]], [/ (kb2005|in20[12]5|be20[12][59])\b/i, /(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i], [i, [s2, "OnePlus"], [n2, b2]], [/(alexa)webm/i, /(kf[a-z]{2}wi)( bui|\))/i, /(kf[a-z]+)( bui|\)).+silk\//i], [i, [s2, y2], [n2, C2]], [/((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i], [[i, /(.+)/g, "Fire Phone $1"], [s2, y2], [n2, b2]], [/(playbook);[-\w\),; ]+(rim)/i], [i, s2, [n2, C2]], [/\b((?:bb[a-f]|st[hv])100-\d)/i, /\(bb10; (\w+)/i], [i, [s2, w2], [n2, b2]], [/(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i], [i, [s2, M2], [n2, C2]], [/ (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i], [i, [s2, M2], [n2, b2]], [/(nexus 9)/i], [i, [s2, "HTC"], [n2, C2]], [/(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i, /(zte)[- ]([\w ]+?)(?: bui|\/|\))/i, /(alcatel|geeksphone|nexian|panasonic|sony)[-_ ]?([-\w]*)/i], [s2, [i, /_/g, " "], [n2, b2]], [/droid.+; ([ab][1-7]-?[0178a]\d\d?)/i], [i, [s2, "Acer"], [n2, C2]], [/droid.+; (m[1-5] note) bui/i, /\bmz-([-\w]{2,})/i], [i, [s2, "Meizu"], [n2, b2]], [/\b(sh-?[altvz]?\d\d[a-ekm]?)/i], [i, [s2, "Sharp"], [n2, b2]], [/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[-_ ]?([-\w]*)/i, /(hp) ([\w ]+\w)/i, /(asus)-?(\w+)/i, /(microsoft); (lumia[\w ]+)/i, /(lenovo)[-_ ]?([-\w]+)/i, /(jolla)/i, /(oppo) ?([\w ]+) bui/i], [s2, i, [n2, b2]], [/(archos) (gamepad2?)/i, /(hp).+(touchpad(?!.+tablet)|tablet)/i, /(kindle)\/([\w\.]+)/i, /(nook)[\w ]+build\/(\w+)/i, /(dell) (strea[kpr\d ]*[\dko])/i, /(le[- ]+pan)[- ]+(\w{1,9}) bui/i, /(trinity)[- ]*(t\d{3}) bui/i, /(gigaset)[- ]+(q\w{1,9}) bui/i, /(vodafone) ([\w ]+)(?:\)| bui)/i], [s2, i, [n2, C2]], [/(surface duo)/i], [i, [s2, vt], [n2, C2]], [/droid [\d\.]+; (fp\du?)(?: b|\))/i], [i, [s2, "Fairphone"], [n2, b2]], [/(u304aa)/i], [i, [s2, "AT&T"], [n2, b2]], [/\bsie-(\w*)/i], [i, [s2, "Siemens"], [n2, b2]], [/\b(rct\w+) b/i], [i, [s2, "RCA"], [n2, C2]], [/\b(venue[\d ]{2,7}) b/i], [i, [s2, "Dell"], [n2, C2]], [/\b(q(?:mv|ta)\w+) b/i], [i, [s2, "Verizon"], [n2, C2]], [/\b(?:barnes[& ]+noble |bn[rt])([\w\+ ]*) b/i], [i, [s2, "Barnes & Noble"], [n2, C2]], [/\b(tm\d{3}\w+) b/i], [i, [s2, "NuVision"], [n2, C2]], [/\b(k88) b/i], [i, [s2, "ZTE"], [n2, C2]], [/\b(nx\d{3}j) b/i], [i, [s2, "ZTE"], [n2, b2]], [/\b(gen\d{3}) b.+49h/i], [i, [s2, "Swiss"], [n2, b2]], [/\b(zur\d{3}) b/i], [i, [s2, "Swiss"], [n2, C2]], [/\b((zeki)?tb.*\b) b/i], [i, [s2, "Zeki"], [n2, C2]], [/\b([yr]\d{2}) b/i, /\b(dragon[- ]+touch |dt)(\w{5}) b/i], [[s2, "Dragon Touch"], i, [n2, C2]], [/\b(ns-?\w{0,9}) b/i], [i, [s2, "Insignia"], [n2, C2]], [/\b((nxa|next)-?\w{0,9}) b/i], [i, [s2, "NextBook"], [n2, C2]], [/\b(xtreme\_)?(v(1[045]|2[015]|[3469]0|7[05])) b/i], [[s2, "Voice"], i, [n2, b2]], [/\b(lvtel\-)?(v1[12]) b/i], [[s2, "LvTel"], i, [n2, b2]], [/\b(ph-1) /i], [i, [s2, "Essential"], [n2, b2]], [/\b(v(100md|700na|7011|917g).*\b) b/i], [i, [s2, "Envizen"], [n2, C2]], [/\b(trio[-\w\. ]+) b/i], [i, [s2, "MachSpeed"], [n2, C2]], [/\btu_(1491) b/i], [i, [s2, "Rotor"], [n2, C2]], [/(shield[\w ]+) b/i], [i, [s2, "Nvidia"], [n2, C2]], [/(sprint) (\w+)/i], [s2, i, [n2, b2]], [/(kin\.[onetw]{3})/i], [[i, /\./g, " "], [s2, vt], [n2, b2]], [/droid.+; (cc6666?|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i], [i, [s2, Ct], [n2, C2]], [/droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i], [i, [s2, Ct], [n2, b2]], [/(ouya)/i, /(nintendo) ([wids3utch]+)/i], [s2, i, [n2, m2]], [/droid.+; (shield) bui/i], [i, [s2, "Nvidia"], [n2, m2]], [/(playstation [345portablevi]+)/i], [i, [s2, bt], [n2, m2]], [/\b(xbox(?: one)?(?!; xbox))[\); ]/i], [i, [s2, vt], [n2, m2]], [/smart-tv.+(samsung)/i], [s2, [n2, _2]], [/hbbtv.+maple;(\d+)/i], [[i, /^/, "SmartTV"], [s2, St], [n2, _2]], [/(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i], [[s2, ve], [n2, _2]], [/(apple) ?tv/i], [s2, [i, A + " TV"], [n2, _2]], [/crkey/i], [[i, E + "cast"], [s2, ce], [n2, _2]], [/droid.+aft(\w)( bui|\))/i], [i, [s2, y2], [n2, _2]], [/\(dtv[\);].+(aquos)/i], [i, [s2, "Sharp"], [n2, _2]], [/\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i, /hbbtv\/\d+\.\d+\.\d+ +\([\w ]*; *(\w[^;]*);([^;]*)/i], [[s2, At], [i, At], [n2, _2]], [/\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i], [[n2, _2]], [/((pebble))app/i], [s2, i, [n2, j2]], [/droid.+; (glass) \d/i], [i, [s2, ce], [n2, j2]], [/droid.+; (wt63?0{2,3})\)/i], [i, [s2, Ct], [n2, j2]], [/(quest( 2)?)/i], [i, [s2, Zt], [n2, j2]], [/(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i], [s2, [n2, B2]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+? mobile safari/i], [i, [n2, b2]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i], [i, [n2, C2]], [/\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i], [[n2, C2]], [/(phone|mobile(?:[;\/]| safari)|pda(?=.+windows ce))/i], [[n2, b2]], [/(android[-\w\. ]{0,9});.+buil/i], [i, [s2, "Generic"]]], engine: [[/windows.+ edge\/([\w\.]+)/i], [u, [r, L2 + "HTML"]], [/webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i], [u, [r, "Blink"]], [/(presto)\/([\w\.]+)/i, /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i, /ekioh(flow)\/([\w\.]+)/i, /(khtml|tasman|links)[\/ ]\(?([\w\.]+)/i, /(icab)[\/ ]([23]\.[\d\.]+)/i], [r, u], [/rv\:([\w\.]{1,9})\b.+(gecko)/i], [u, r]], os: [[/microsoft (windows) (vista|xp)/i], [r, u], [/(windows) nt 6\.2; (arm)/i, /(windows (?:phone(?: os)?|mobile))[\/ ]?([\d\.\w ]*)/i, /(windows)[\/ ]?([ntce\d\. ]+\w)(?!.+xbox)/i], [r, [u, yt, Xt]], [/(win(?=3|9|n)|win 9x )([nt\d\.]+)/i], [[r, "Windows"], [u, yt, Xt]], [/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i, /cfnetwork\/.+darwin/i], [[u, /_/g, "."], [r, "iOS"]], [/(mac os x) ?([\w\. ]*)/i, /(macintosh|mac_powerpc\b)(?!.+haiku)/i], [[r, "Mac OS"], [u, /_/g, "."]], [/droid ([\w\.]+)\b.+(android[- ]x86)/i], [u, r], [/(android|webos|qnx|bada|rim tablet os|maemo|meego|sailfish)[-\/ ]?([\w\.]*)/i, /(blackberry)\w*\/([\w\.]*)/i, /(tizen|kaios)[\/ ]([\w\.]+)/i, /\((series40);/i], [r, u], [/\(bb(10);/i], [u, [r, w2]], [/(?:symbian ?os|symbos|s60(?=;)|series60)[-\/ ]?([\w\.]*)/i], [u, [r, "Symbian"]], [/mozilla\/[\d\.]+ \((?:mobile|tablet|tv|mobile; [\w ]+); rv:.+ gecko\/([\w\.]+)/i], [u, [r, z2 + " OS"]], [/web0s;.+rt(tv)/i, /\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i], [u, [r, "webOS"]], [/crkey\/([\d\.]+)/i], [u, [r, E + "cast"]], [/(cros) [\w]+ ([\w\.]+\w)/i], [[r, "Chromium OS"], u], [/(nintendo|playstation) ([wids345portablevuch]+)/i, /(xbox); +xbox ([^\);]+)/i, /\b(joli|palm)\b ?(?:os)?\/?([\w\.]*)/i, /(mint)[\/\(\) ]?(\w*)/i, /(mageia|vectorlinux)[; ]/i, /([kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?= linux)|slackware|fedora|mandriva|centos|pclinuxos|red ?hat|zenwalk|linpus|raspbian|plan 9|minix|risc os|contiki|deepin|manjaro|elementary os|sabayon|linspire)(?: gnu\/linux)?(?: enterprise)?(?:[- ]linux)?(?:-gnu)?[-\/ ]?(?!chrom|package)([-\w\.]*)/i, /(hurd|linux) ?([\w\.]*)/i, /(gnu) ?([\w\.]*)/i, /\b([-frentopcghs]{0,5}bsd|dragonfly)[\/ ]?(?!amd|[ix346]{1,2}86)([\w\.]*)/i, /(haiku) (\w+)/i], [r, u], [/(sunos) ?([\w\.\d]*)/i], [[r, "Solaris"], u], [/((?:open)?solaris)[-\/ ]?([\w\.]*)/i, /(aix) ((\d)(?=\.|\)| )[\w\.])*/i, /\b(beos|os\/2|amigaos|morphos|openvms|fuchsia|hp-ux)/i, /(unix) ?([\w\.]*)/i], [r, u]] }, X2 = function(N, P2) {
-      if (typeof N === p && (P2 = N, N = e), !(this instanceof X2))
+    }, rr = { "1.0": "/8", "1.2": "/1", "1.3": "/3", "2.0": "/412", "2.0.2": "/416", "2.0.3": "/417", "2.0.4": "/419", "?": "/" }, Xt = { ME: "4.90", "NT 3.11": "NT3.51", "NT 4.0": "NT4.0", 2e3: "NT 5.0", XP: ["NT 5.1", "NT 5.2"], Vista: "NT 6.0", 7: "NT 6.1", 8: "NT 6.2", "8.1": "NT 6.3", 10: ["NT 6.4", "NT 10.0"], RT: "ARM" }, Kt = { browser: [[/\b(?:crmo|crios)\/([\w\.]+)/i], [u, [r, "Chrome"]], [/edg(?:e|ios|a)?\/([\w\.]+)/i], [u, [r, "Edge"]], [/(opera mini)\/([-\w\.]+)/i, /(opera [mobiletab]{3,6})\b.+version\/([-\w\.]+)/i, /(opera)(?:.+version\/|[\/ ]+)([\w\.]+)/i], [r, u], [/opios[\/ ]+([\w\.]+)/i], [u, [r, We + " Mini"]], [/\bopr\/([\w\.]+)/i], [u, [r, We]], [/(kindle)\/([\w\.]+)/i, /(lunascape|maxthon|netfront|jasmine|blazer)[\/ ]?([\w\.]*)/i, /(avant |iemobile|slim)(?:browser)?[\/ ]?([\w\.]*)/i, /(ba?idubrowser)[\/ ]?([\w\.]+)/i, /(?:ms|\()(ie) ([\w\.]+)/i, /(flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark|qupzilla|falkon|rekonq|puffin|brave|whale|qqbrowserlite|qq)\/([-\w\.]+)/i, /(weibo)__([\d\.]+)/i], [r, u], [/(?:\buc? ?browser|(?:juc.+)ucweb)[\/ ]?([\w\.]+)/i], [u, [r, "UC" + I2]], [/\bqbcore\/([\w\.]+)/i], [u, [r, "WeChat(Win) Desktop"]], [/micromessenger\/([\w\.]+)/i], [u, [r, "WeChat"]], [/konqueror\/([\w\.]+)/i], [u, [r, "Konqueror"]], [/trident.+rv[: ]([\w\.]{1,9})\b.+like gecko/i], [u, [r, "IE"]], [/yabrowser\/([\w\.]+)/i], [u, [r, "Yandex"]], [/(avast|avg)\/([\w\.]+)/i], [[r, /(.+)/, "$1 Secure " + I2], u], [/\bfocus\/([\w\.]+)/i], [u, [r, z + " Focus"]], [/\bopt\/([\w\.]+)/i], [u, [r, We + " Touch"]], [/coc_coc\w+\/([\w\.]+)/i], [u, [r, "Coc Coc"]], [/dolfin\/([\w\.]+)/i], [u, [r, "Dolphin"]], [/coast\/([\w\.]+)/i], [u, [r, We + " Coast"]], [/miuibrowser\/([\w\.]+)/i], [u, [r, "MIUI " + I2]], [/fxios\/([-\w\.]+)/i], [u, [r, z]], [/\bqihu|(qi?ho?o?|360)browser/i], [[r, "360 " + I2]], [/(oculus|samsung|sailfish)browser\/([\w\.]+)/i], [[r, /(.+)/, "$1 " + I2], u], [/(comodo_dragon)\/([\w\.]+)/i], [[r, /_/g, " "], u], [/(electron)\/([\w\.]+) safari/i, /(tesla)(?: qtcarbrowser|\/(20\d\d\.[-\w\.]+))/i, /m?(qqbrowser|baiduboxapp|2345Explorer)[\/ ]?([\w\.]+)/i], [r, u], [/(metasr)[\/ ]?([\w\.]+)/i, /(lbbrowser)/i], [r], [/((?:fban\/fbios|fb_iab\/fb4a)(?!.+fbav)|;fbav\/([\w\.]+);)/i], [[r, Zt], u], [/safari (line)\/([\w\.]+)/i, /\b(line)\/([\w\.]+)\/iab/i, /(chromium|instagram)[\/ ]([-\w\.]+)/i], [r, u], [/\bgsa\/([\w\.]+) .*safari\//i], [u, [r, "GSA"]], [/headlesschrome(?:\/([\w\.]+)| )/i], [u, [r, E + " Headless"]], [/ wv\).+(chrome)\/([\w\.]+)/i], [[r, E + " WebView"], u], [/droid.+ version\/([\w\.]+)\b.+(?:mobile safari|safari)/i], [u, [r, "Android " + I2]], [/(chrome|omniweb|arora|[tizenoka]{5} ?browser)\/v?([\w\.]+)/i], [r, u], [/version\/([\w\.]+) .*mobile\/\w+ (safari)/i], [u, [r, "Mobile Safari"]], [/version\/([\w\.]+) .*(mobile ?safari|safari)/i], [u, r], [/webkit.+?(mobile ?safari|safari)(\/[\w\.]+)/i], [r, [u, yt, rr]], [/(webkit|khtml)\/([\w\.]+)/i], [r, u], [/(navigator|netscape\d?)\/([-\w\.]+)/i], [[r, "Netscape"], u], [/mobile vr; rv:([\w\.]+)\).+firefox/i], [u, [r, z + " Reality"]], [/ekiohf.+(flow)\/([\w\.]+)/i, /(swiftfox)/i, /(icedragon|iceweasel|camino|chimera|fennec|maemo browser|minimo|conkeror|klar)[\/ ]?([\w\.\+]+)/i, /(seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([-\w\.]+)$/i, /(firefox)\/([\w\.]+)/i, /(mozilla)\/([\w\.]+) .+rv\:.+gecko\/\d+/i, /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir|obigo|mosaic|(?:go|ice|up)[\. ]?browser)[-\/ ]?v?([\w\.]+)/i, /(links) \(([\w\.]+)/i], [r, u]], cpu: [[/(?:(amd|x(?:(?:86|64)[-_])?|wow|win)64)[;\)]/i], [[h2, "amd64"]], [/(ia32(?=;))/i], [[h2, xe]], [/((?:i[346]|x)86)[;\)]/i], [[h2, "ia32"]], [/\b(aarch64|arm(v?8e?l?|_?64))\b/i], [[h2, "arm64"]], [/\b(arm(?:v[67])?ht?n?[fl]p?)\b/i], [[h2, "armhf"]], [/windows (ce|mobile); ppc;/i], [[h2, "arm"]], [/((?:ppc|powerpc)(?:64)?)(?: mac|;|\))/i], [[h2, /ower/, a2, xe]], [/(sun4\w)[;\)]/i], [[h2, "sparc"]], [/((?:avr32|ia64(?=;))|68k(?=\))|\barm(?=v(?:[1-7]|[5-7]1)l?|;|eabi)|(?=atmel )avr|(?:irix|mips|sparc)(?:64)?\b|pa-risc)/i], [[h2, xe]]], device: [[/\b(sch-i[89]0\d|shw-m380s|sm-[pt]\w{2,4}|gt-[pn]\d{2,4}|sgh-t8[56]9|nexus 10)/i], [i, [s, St], [n2, C2]], [/\b((?:s[cgp]h|gt|sm)-\w+|galaxy nexus)/i, /samsung[- ]([-\w]+)/i, /sec-(sgh\w+)/i], [i, [s, St], [n2, b2]], [/\((ip(?:hone|od)[\w ]*);/i], [i, [s, A], [n2, b2]], [/\((ipad);[-\w\),; ]+apple/i, /applecoremedia\/[\w\.]+ \((ipad)/i, /\b(ipad)\d\d?,\d\d?[;\]].+ios/i], [i, [s, A], [n2, C2]], [/\b((?:ag[rs][23]?|bah2?|sht?|btv)-a?[lw]\d{2})\b(?!.+d\/s)/i], [i, [s, Le], [n2, C2]], [/(?:huawei|honor)([-\w ]+)[;\)]/i, /\b(nexus 6p|\w{2,4}-[atu]?[ln][01259x][012359][an]?)\b(?!.+d\/s)/i], [i, [s, Le], [n2, b2]], [/\b(poco[\w ]+)(?: bui|\))/i, /\b; (\w+) build\/hm\1/i, /\b(hm[-_ ]?note?[_ ]?(?:\d\w)?) bui/i, /\b(redmi[\-_ ]?(?:note|k)?[\w_ ]+)(?: bui|\))/i, /\b(mi[-_ ]?(?:a\d|one|one[_ ]plus|note lte|max)?[_ ]?(?:\d?\w?)[_ ]?(?:plus|se|lite)?)(?: bui|\))/i], [[i, /_/g, " "], [s, qt], [n2, b2]], [/\b(mi[-_ ]?(?:pad)(?:[\w_ ]+))(?: bui|\))/i], [[i, /_/g, " "], [s, qt], [n2, C2]], [/; (\w+) bui.+ oppo/i, /\b(cph[12]\d{3}|p(?:af|c[al]|d\w|e[ar])[mt]\d0|x9007|a101op)\b/i], [i, [s, "OPPO"], [n2, b2]], [/vivo (\w+)(?: bui|\))/i, /\b(v[12]\d{3}\w?[at])(?: bui|;)/i], [i, [s, "Vivo"], [n2, b2]], [/\b(rmx[12]\d{3})(?: bui|;|\))/i], [i, [s, "Realme"], [n2, b2]], [/\b(milestone|droid(?:[2-4x]| (?:bionic|x2|pro|razr))?:?( 4g)?)\b[\w ]+build\//i, /\bmot(?:orola)?[- ](\w*)/i, /((?:moto[\w\(\) ]+|xt\d{3,4}|nexus 6)(?= bui|\)))/i], [i, [s, Qt], [n2, b2]], [/\b(mz60\d|xoom[2 ]{0,2}) build\//i], [i, [s, Qt], [n2, C2]], [/((?=lg)?[vl]k\-?\d{3}) bui| 3\.[-\w; ]{10}lg?-([06cv9]{3,4})/i], [i, [s, ve], [n2, C2]], [/(lm(?:-?f100[nv]?|-[\w\.]+)(?= bui|\))|nexus [45])/i, /\blg[-e;\/ ]+((?!browser|netcast|android tv)\w+)/i, /\blg-?([\d\w]+) bui/i], [i, [s, ve], [n2, b2]], [/(ideatab[-\w ]+)/i, /lenovo ?(s[56]000[-\w]+|tab(?:[\w ]+)|yt[-\d\w]{6}|tb[-\d\w]{6})/i], [i, [s, "Lenovo"], [n2, C2]], [/(?:maemo|nokia).*(n900|lumia \d+)/i, /nokia[-_ ]?([-\w\.]*)/i], [[i, /_/g, " "], [s, "Nokia"], [n2, b2]], [/(pixel c)\b/i], [i, [s, ce2], [n2, C2]], [/droid.+; (pixel[\daxl ]{0,6})(?: bui|\))/i], [i, [s, ce2], [n2, b2]], [/droid.+ ([c-g]\d{4}|so[-gl]\w+|xq-a\w[4-7][12])(?= bui|\).+chrome\/(?![1-6]{0,1}\d\.))/i], [i, [s, bt], [n2, b2]], [/sony tablet [ps]/i, /\b(?:sony)?sgp\w+(?: bui|\))/i], [[i, "Xperia Tablet"], [s, bt], [n2, C2]], [/ (kb2005|in20[12]5|be20[12][59])\b/i, /(?:one)?(?:plus)? (a\d0\d\d)(?: b|\))/i], [i, [s, "OnePlus"], [n2, b2]], [/(alexa)webm/i, /(kf[a-z]{2}wi)( bui|\))/i, /(kf[a-z]+)( bui|\)).+silk\//i], [i, [s, y2], [n2, C2]], [/((?:sd|kf)[0349hijorstuw]+)( bui|\)).+silk\//i], [[i, /(.+)/g, "Fire Phone $1"], [s, y2], [n2, b2]], [/(playbook);[-\w\),; ]+(rim)/i], [i, s, [n2, C2]], [/\b((?:bb[a-f]|st[hv])100-\d)/i, /\(bb10; (\w+)/i], [i, [s, w2], [n2, b2]], [/(?:\b|asus_)(transfo[prime ]{4,10} \w+|eeepc|slider \w+|nexus 7|padfone|p00[cj])/i], [i, [s, M2], [n2, C2]], [/ (z[bes]6[027][012][km][ls]|zenfone \d\w?)\b/i], [i, [s, M2], [n2, b2]], [/(nexus 9)/i], [i, [s, "HTC"], [n2, C2]], [/(htc)[-;_ ]{1,2}([\w ]+(?=\)| bui)|\w+)/i, /(zte)[- ]([\w ]+?)(?: bui|\/|\))/i, /(alcatel|geeksphone|nexian|panasonic|sony)[-_ ]?([-\w]*)/i], [s, [i, /_/g, " "], [n2, b2]], [/droid.+; ([ab][1-7]-?[0178a]\d\d?)/i], [i, [s, "Acer"], [n2, C2]], [/droid.+; (m[1-5] note) bui/i, /\bmz-([-\w]{2,})/i], [i, [s, "Meizu"], [n2, b2]], [/\b(sh-?[altvz]?\d\d[a-ekm]?)/i], [i, [s, "Sharp"], [n2, b2]], [/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[-_ ]?([-\w]*)/i, /(hp) ([\w ]+\w)/i, /(asus)-?(\w+)/i, /(microsoft); (lumia[\w ]+)/i, /(lenovo)[-_ ]?([-\w]+)/i, /(jolla)/i, /(oppo) ?([\w ]+) bui/i], [s, i, [n2, b2]], [/(archos) (gamepad2?)/i, /(hp).+(touchpad(?!.+tablet)|tablet)/i, /(kindle)\/([\w\.]+)/i, /(nook)[\w ]+build\/(\w+)/i, /(dell) (strea[kpr\d ]*[\dko])/i, /(le[- ]+pan)[- ]+(\w{1,9}) bui/i, /(trinity)[- ]*(t\d{3}) bui/i, /(gigaset)[- ]+(q\w{1,9}) bui/i, /(vodafone) ([\w ]+)(?:\)| bui)/i], [s, i, [n2, C2]], [/(surface duo)/i], [i, [s, vt], [n2, C2]], [/droid [\d\.]+; (fp\du?)(?: b|\))/i], [i, [s, "Fairphone"], [n2, b2]], [/(u304aa)/i], [i, [s, "AT&T"], [n2, b2]], [/\bsie-(\w*)/i], [i, [s, "Siemens"], [n2, b2]], [/\b(rct\w+) b/i], [i, [s, "RCA"], [n2, C2]], [/\b(venue[\d ]{2,7}) b/i], [i, [s, "Dell"], [n2, C2]], [/\b(q(?:mv|ta)\w+) b/i], [i, [s, "Verizon"], [n2, C2]], [/\b(?:barnes[& ]+noble |bn[rt])([\w\+ ]*) b/i], [i, [s, "Barnes & Noble"], [n2, C2]], [/\b(tm\d{3}\w+) b/i], [i, [s, "NuVision"], [n2, C2]], [/\b(k88) b/i], [i, [s, "ZTE"], [n2, C2]], [/\b(nx\d{3}j) b/i], [i, [s, "ZTE"], [n2, b2]], [/\b(gen\d{3}) b.+49h/i], [i, [s, "Swiss"], [n2, b2]], [/\b(zur\d{3}) b/i], [i, [s, "Swiss"], [n2, C2]], [/\b((zeki)?tb.*\b) b/i], [i, [s, "Zeki"], [n2, C2]], [/\b([yr]\d{2}) b/i, /\b(dragon[- ]+touch |dt)(\w{5}) b/i], [[s, "Dragon Touch"], i, [n2, C2]], [/\b(ns-?\w{0,9}) b/i], [i, [s, "Insignia"], [n2, C2]], [/\b((nxa|next)-?\w{0,9}) b/i], [i, [s, "NextBook"], [n2, C2]], [/\b(xtreme\_)?(v(1[045]|2[015]|[3469]0|7[05])) b/i], [[s, "Voice"], i, [n2, b2]], [/\b(lvtel\-)?(v1[12]) b/i], [[s, "LvTel"], i, [n2, b2]], [/\b(ph-1) /i], [i, [s, "Essential"], [n2, b2]], [/\b(v(100md|700na|7011|917g).*\b) b/i], [i, [s, "Envizen"], [n2, C2]], [/\b(trio[-\w\. ]+) b/i], [i, [s, "MachSpeed"], [n2, C2]], [/\btu_(1491) b/i], [i, [s, "Rotor"], [n2, C2]], [/(shield[\w ]+) b/i], [i, [s, "Nvidia"], [n2, C2]], [/(sprint) (\w+)/i], [s, i, [n2, b2]], [/(kin\.[onetw]{3})/i], [[i, /\./g, " "], [s, vt], [n2, b2]], [/droid.+; (cc6666?|et5[16]|mc[239][23]x?|vc8[03]x?)\)/i], [i, [s, Ct], [n2, C2]], [/droid.+; (ec30|ps20|tc[2-8]\d[kx])\)/i], [i, [s, Ct], [n2, b2]], [/(ouya)/i, /(nintendo) ([wids3utch]+)/i], [s, i, [n2, m2]], [/droid.+; (shield) bui/i], [i, [s, "Nvidia"], [n2, m2]], [/(playstation [345portablevi]+)/i], [i, [s, bt], [n2, m2]], [/\b(xbox(?: one)?(?!; xbox))[\); ]/i], [i, [s, vt], [n2, m2]], [/smart-tv.+(samsung)/i], [s, [n2, _2]], [/hbbtv.+maple;(\d+)/i], [[i, /^/, "SmartTV"], [s, St], [n2, _2]], [/(nux; netcast.+smarttv|lg (netcast\.tv-201\d|android tv))/i], [[s, ve], [n2, _2]], [/(apple) ?tv/i], [s, [i, A + " TV"], [n2, _2]], [/crkey/i], [[i, E + "cast"], [s, ce2], [n2, _2]], [/droid.+aft(\w)( bui|\))/i], [i, [s, y2], [n2, _2]], [/\(dtv[\);].+(aquos)/i], [i, [s, "Sharp"], [n2, _2]], [/\b(roku)[\dx]*[\)\/]((?:dvp-)?[\d\.]*)/i, /hbbtv\/\d+\.\d+\.\d+ +\([\w ]*; *(\w[^;]*);([^;]*)/i], [[s, At], [i, At], [n2, _2]], [/\b(android tv|smart[- ]?tv|opera tv|tv; rv:)\b/i], [[n2, _2]], [/((pebble))app/i], [s, i, [n2, j2]], [/droid.+; (glass) \d/i], [i, [s, ce2], [n2, j2]], [/droid.+; (wt63?0{2,3})\)/i], [i, [s, Ct], [n2, j2]], [/(quest( 2)?)/i], [i, [s, Zt], [n2, j2]], [/(tesla)(?: qtcarbrowser|\/[-\w\.]+)/i], [s, [n2, B2]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+? mobile safari/i], [i, [n2, b2]], [/droid .+?; ([^;]+?)(?: bui|\) applew).+?(?! mobile) safari/i], [i, [n2, C2]], [/\b((tablet|tab)[;\/]|focus\/\d(?!.+mobile))/i], [[n2, C2]], [/(phone|mobile(?:[;\/]| safari)|pda(?=.+windows ce))/i], [[n2, b2]], [/(android[-\w\. ]{0,9});.+buil/i], [i, [s, "Generic"]]], engine: [[/windows.+ edge\/([\w\.]+)/i], [u, [r, L + "HTML"]], [/webkit\/537\.36.+chrome\/(?!27)([\w\.]+)/i], [u, [r, "Blink"]], [/(presto)\/([\w\.]+)/i, /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i, /ekioh(flow)\/([\w\.]+)/i, /(khtml|tasman|links)[\/ ]\(?([\w\.]+)/i, /(icab)[\/ ]([23]\.[\d\.]+)/i], [r, u], [/rv\:([\w\.]{1,9})\b.+(gecko)/i], [u, r]], os: [[/microsoft (windows) (vista|xp)/i], [r, u], [/(windows) nt 6\.2; (arm)/i, /(windows (?:phone(?: os)?|mobile))[\/ ]?([\d\.\w ]*)/i, /(windows)[\/ ]?([ntce\d\. ]+\w)(?!.+xbox)/i], [r, [u, yt, Xt]], [/(win(?=3|9|n)|win 9x )([nt\d\.]+)/i], [[r, "Windows"], [u, yt, Xt]], [/ip[honead]{2,4}\b(?:.*os ([\w]+) like mac|; opera)/i, /cfnetwork\/.+darwin/i], [[u, /_/g, "."], [r, "iOS"]], [/(mac os x) ?([\w\. ]*)/i, /(macintosh|mac_powerpc\b)(?!.+haiku)/i], [[r, "Mac OS"], [u, /_/g, "."]], [/droid ([\w\.]+)\b.+(android[- ]x86)/i], [u, r], [/(android|webos|qnx|bada|rim tablet os|maemo|meego|sailfish)[-\/ ]?([\w\.]*)/i, /(blackberry)\w*\/([\w\.]*)/i, /(tizen|kaios)[\/ ]([\w\.]+)/i, /\((series40);/i], [r, u], [/\(bb(10);/i], [u, [r, w2]], [/(?:symbian ?os|symbos|s60(?=;)|series60)[-\/ ]?([\w\.]*)/i], [u, [r, "Symbian"]], [/mozilla\/[\d\.]+ \((?:mobile|tablet|tv|mobile; [\w ]+); rv:.+ gecko\/([\w\.]+)/i], [u, [r, z + " OS"]], [/web0s;.+rt(tv)/i, /\b(?:hp)?wos(?:browser)?\/([\w\.]+)/i], [u, [r, "webOS"]], [/crkey\/([\d\.]+)/i], [u, [r, E + "cast"]], [/(cros) [\w]+ ([\w\.]+\w)/i], [[r, "Chromium OS"], u], [/(nintendo|playstation) ([wids345portablevuch]+)/i, /(xbox); +xbox ([^\);]+)/i, /\b(joli|palm)\b ?(?:os)?\/?([\w\.]*)/i, /(mint)[\/\(\) ]?(\w*)/i, /(mageia|vectorlinux)[; ]/i, /([kxln]?ubuntu|debian|suse|opensuse|gentoo|arch(?= linux)|slackware|fedora|mandriva|centos|pclinuxos|red ?hat|zenwalk|linpus|raspbian|plan 9|minix|risc os|contiki|deepin|manjaro|elementary os|sabayon|linspire)(?: gnu\/linux)?(?: enterprise)?(?:[- ]linux)?(?:-gnu)?[-\/ ]?(?!chrom|package)([-\w\.]*)/i, /(hurd|linux) ?([\w\.]*)/i, /(gnu) ?([\w\.]*)/i, /\b([-frentopcghs]{0,5}bsd|dragonfly)[\/ ]?(?!amd|[ix346]{1,2}86)([\w\.]*)/i, /(haiku) (\w+)/i], [r, u], [/(sunos) ?([\w\.\d]*)/i], [[r, "Solaris"], u], [/((?:open)?solaris)[-\/ ]?([\w\.]*)/i, /(aix) ((\d)(?=\.|\)| )[\w\.])*/i, /\b(beos|os\/2|amigaos|morphos|openvms|fuchsia|hp-ux)/i, /(unix) ?([\w\.]*)/i], [r, u]] }, X2 = function(N, P2) {
+      if (typeof N === p2 && (P2 = N, N = e), !(this instanceof X2))
         return new X2(N, P2).getResult();
-      var V2 = N || (typeof l2 !== f2 && l2.navigator && l2.navigator.userAgent ? l2.navigator.userAgent : a), H2 = P2 ? tr(Kt, P2) : Kt;
+      var V2 = N || (typeof l2 !== f2 && l2.navigator && l2.navigator.userAgent ? l2.navigator.userAgent : a2), H2 = P2 ? tr(Kt, P2) : Kt;
       return this.getBrowser = function() {
         var T2 = {};
         return T2[r] = e, T2[u] = e, _e.call(T2, V2, H2.browser), T2.major = ir(T2.version), T2;
@@ -1070,7 +1070,7 @@ var xt = Lt((Ie, Ge) => {
         return T2[h2] = e, _e.call(T2, V2, H2.cpu), T2;
       }, this.getDevice = function() {
         var T2 = {};
-        return T2[s2] = e, T2[i] = e, T2[n2] = e, _e.call(T2, V2, H2.device), T2;
+        return T2[s] = e, T2[i] = e, T2[n2] = e, _e.call(T2, V2, H2.device), T2;
       }, this.getEngine = function() {
         var T2 = {};
         return T2[r] = e, T2[u] = e, _e.call(T2, V2, H2.engine), T2;
@@ -1085,7 +1085,7 @@ var xt = Lt((Ie, Ge) => {
         return V2 = typeof T2 === v2 && T2.length > D2 ? At(T2, D2) : T2, this;
       }, this.setUA(V2), this;
     };
-    X2.VERSION = t, X2.BROWSER = Ue([r, u, S2]), X2.CPU = Ue([h2]), X2.DEVICE = Ue([i, s2, n2, m2, b2, _2, C2, j2, B2]), X2.ENGINE = X2.OS = Ue([r, u]), typeof Ie !== f2 ? (typeof Ge !== f2 && Ge.exports && (Ie = Ge.exports = X2), Ie.UAParser = X2) : typeof define === d && define.amd ? define(function() {
+    X2.VERSION = t, X2.BROWSER = Ue([r, u, S2]), X2.CPU = Ue([h2]), X2.DEVICE = Ue([i, s, n2, m2, b2, _2, C2, j2, B2]), X2.ENGINE = X2.OS = Ue([r, u]), typeof Ie !== f2 ? (typeof Ge !== f2 && Ge.exports && (Ie = Ge.exports = X2), Ie.UAParser = X2) : typeof define === d2 && define.amd ? define(function() {
       return X2;
     }) : typeof l2 !== f2 && (l2.UAParser = X2);
     var Se = typeof l2 !== f2 && (l2.jQuery || l2.Zepto);
@@ -1119,8 +1119,8 @@ var ji = Lt((ct) => {
         r.usingWebAudio && r.masterGain.gain.setValueAtTime(i, e.ctx.currentTime);
         for (var n2 = 0; n2 < r._howls.length; n2++)
           if (!r._howls[n2]._webAudio)
-            for (var s2 = r._howls[n2]._getSoundIds(), u = 0; u < s2.length; u++) {
-              var h2 = r._howls[n2]._soundById(s2[u]);
+            for (var s = r._howls[n2]._getSoundIds(), u = 0; u < s.length; u++) {
+              var h2 = r._howls[n2]._soundById(s[u]);
               h2 && h2._node && (h2._node.volume = h2._volume * i);
             }
         return r;
@@ -1131,8 +1131,8 @@ var ji = Lt((ct) => {
       r.ctx || S2(), r._muted = i, r.usingWebAudio && r.masterGain.gain.setValueAtTime(i ? 0 : r._volume, e.ctx.currentTime);
       for (var n2 = 0; n2 < r._howls.length; n2++)
         if (!r._howls[n2]._webAudio)
-          for (var s2 = r._howls[n2]._getSoundIds(), u = 0; u < s2.length; u++) {
-            var h2 = r._howls[n2]._soundById(s2[u]);
+          for (var s = r._howls[n2]._getSoundIds(), u = 0; u < s.length; u++) {
+            var h2 = r._howls[n2]._soundById(s[u]);
             h2 && h2._node && (h2._node.muted = i ? true : h2._muted);
           }
       return r;
@@ -1173,7 +1173,7 @@ var ji = Lt((ct) => {
       }
       if (!r || typeof r.canPlayType != "function")
         return i;
-      var n2 = r.canPlayType("audio/mpeg;").replace(/^no$/, ""), s2 = i._navigator ? i._navigator.userAgent : "", u = s2.match(/OPR\/([0-6].)/g), h2 = u && parseInt(u[0].split("/")[1], 10) < 33, m2 = s2.indexOf("Safari") !== -1 && s2.indexOf("Chrome") === -1, b2 = s2.match(/Version\/(.*?) /), C2 = m2 && b2 && parseInt(b2[1], 10) < 15;
+      var n2 = r.canPlayType("audio/mpeg;").replace(/^no$/, ""), s = i._navigator ? i._navigator.userAgent : "", u = s.match(/OPR\/([0-6].)/g), h2 = u && parseInt(u[0].split("/")[1], 10) < 33, m2 = s.indexOf("Safari") !== -1 && s.indexOf("Chrome") === -1, b2 = s.match(/Version\/(.*?) /), C2 = m2 && b2 && parseInt(b2[1], 10) < 15;
       return i._codecs = { mp3: !!(!h2 && (n2 || r.canPlayType("audio/mp3;").replace(/^no$/, ""))), mpeg: !!n2, opus: !!r.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/, ""), ogg: !!r.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""), oga: !!r.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""), wav: !!(r.canPlayType('audio/wav; codecs="1"') || r.canPlayType("audio/wav")).replace(/^no$/, ""), aac: !!r.canPlayType("audio/aac;").replace(/^no$/, ""), caf: !!r.canPlayType("audio/x-caf;").replace(/^no$/, ""), m4a: !!(r.canPlayType("audio/x-m4a;") || r.canPlayType("audio/m4a;") || r.canPlayType("audio/aac;")).replace(/^no$/, ""), m4b: !!(r.canPlayType("audio/x-m4b;") || r.canPlayType("audio/m4b;") || r.canPlayType("audio/aac;")).replace(/^no$/, ""), mp4: !!(r.canPlayType("audio/x-mp4;") || r.canPlayType("audio/mp4;") || r.canPlayType("audio/aac;")).replace(/^no$/, ""), weba: !!(!C2 && r.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, "")), webm: !!(!C2 && r.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, "")), dolby: !!r.canPlayType('audio/mp4; codecs="ec-3"').replace(/^no$/, ""), flac: !!(r.canPlayType("audio/x-flac;") || r.canPlayType("audio/flac;")).replace(/^no$/, "") }, i;
     }, _unlockAudio: function() {
       var i = this || e;
@@ -1182,8 +1182,8 @@ var ji = Lt((ct) => {
         var r = function(n2) {
           for (; i._html5AudioPool.length < i.html5PoolSize; )
             try {
-              var s2 = new Audio();
-              s2._unlocked = true, i._releaseHtml5Audio(s2);
+              var s = new Audio();
+              s._unlocked = true, i._releaseHtml5Audio(s);
             } catch (_2) {
               i.noAudio = true;
               break;
@@ -1227,10 +1227,10 @@ var ji = Lt((ct) => {
         return i._suspendTimer && clearTimeout(i._suspendTimer), i._suspendTimer = setTimeout(function() {
           if (!!i.autoSuspend) {
             i._suspendTimer = null, i.state = "suspending";
-            var s2 = function() {
+            var s = function() {
               i.state = "suspended", i._resumeAfterSuspend && (delete i._resumeAfterSuspend, i._autoResume());
             };
-            i.ctx.suspend().then(s2, s2);
+            i.ctx.suspend().then(s, s);
           }
         }, 3e4), i;
       }
@@ -1264,17 +1264,17 @@ var ji = Lt((ct) => {
       }
       typeof i._src == "string" && (i._src = [i._src]);
       for (var n2 = 0; n2 < i._src.length; n2++) {
-        var s2, u;
+        var s, u;
         if (i._format && i._format[n2])
-          s2 = i._format[n2];
+          s = i._format[n2];
         else {
           if (u = i._src[n2], typeof u != "string") {
             i._emit("loaderror", null, "Non-string found in selected audio sources - ignoring.");
             continue;
           }
-          s2 = /^data:audio\/([^;,]+);/i.exec(u), s2 || (s2 = /\.([^.]+)$/.exec(u.split("?", 1)[0])), s2 && (s2 = s2[1].toLowerCase());
+          s = /^data:audio\/([^;,]+);/i.exec(u), s || (s = /\.([^.]+)$/.exec(u.split("?", 1)[0])), s && (s = s[1].toLowerCase());
         }
-        if (s2 || console.warn('No file extension was found. Consider using the "format" property or specify an extension.'), s2 && e.codecs(s2)) {
+        if (s || console.warn('No file extension was found. Consider using the "format" property or specify an extension.'), s && e.codecs(s)) {
           r = i._src[n2];
           break;
         }
@@ -1283,31 +1283,31 @@ var ji = Lt((ct) => {
         i._emit("loaderror", null, "No codec support for selected audio sources.");
         return;
       }
-      return i._src = r, i._state = "loading", window.location.protocol === "https:" && r.slice(0, 5) === "http:" && (i._html5 = true, i._webAudio = false), new a(i), i._webAudio && d(i), i;
+      return i._src = r, i._state = "loading", window.location.protocol === "https:" && r.slice(0, 5) === "http:" && (i._html5 = true, i._webAudio = false), new a2(i), i._webAudio && d2(i), i;
     }, play: function(i, r) {
-      var n2 = this, s2 = null;
+      var n2 = this, s = null;
       if (typeof i == "number")
-        s2 = i, i = null;
+        s = i, i = null;
       else {
         if (typeof i == "string" && n2._state === "loaded" && !n2._sprite[i])
           return null;
         if (typeof i > "u" && (i = "__default", !n2._playLock)) {
           for (var u = 0, h2 = 0; h2 < n2._sounds.length; h2++)
-            n2._sounds[h2]._paused && !n2._sounds[h2]._ended && (u++, s2 = n2._sounds[h2]._id);
-          u === 1 ? i = null : s2 = null;
+            n2._sounds[h2]._paused && !n2._sounds[h2]._ended && (u++, s = n2._sounds[h2]._id);
+          u === 1 ? i = null : s = null;
         }
       }
-      var m2 = s2 ? n2._soundById(s2) : n2._inactiveSound();
+      var m2 = s ? n2._soundById(s) : n2._inactiveSound();
       if (!m2)
         return null;
-      if (s2 && !i && (i = m2._sprite || "__default"), n2._state !== "loaded") {
+      if (s && !i && (i = m2._sprite || "__default"), n2._state !== "loaded") {
         m2._sprite = i, m2._ended = false;
         var b2 = m2._id;
         return n2._queue.push({ event: "play", action: function() {
           n2.play(b2);
         } }), b2;
       }
-      if (s2 && !m2._paused)
+      if (s && !m2._paused)
         return r || n2._loadQueue("play"), m2._id;
       n2._webAudio && e._autoResume();
       var C2 = Math.max(0, m2._seek > 0 ? m2._seek : n2._sprite[i][0] / 1e3), _2 = Math.max(0, (n2._sprite[i][0] + n2._sprite[i][1]) / 1e3 - C2), j2 = _2 * 1e3 / Math.abs(m2._rate), B2 = n2._sprite[i][0] / 1e3, D2 = (n2._sprite[i][0] + n2._sprite[i][1]) / 1e3;
@@ -1323,8 +1323,8 @@ var ji = Lt((ct) => {
       if (n2._webAudio) {
         var M2 = function() {
           n2._playLock = false, y2(), n2._refreshBuffer(m2);
-          var L2 = m2._muted || n2._muted ? 0 : m2._volume;
-          A.gain.setValueAtTime(L2, e.ctx.currentTime), m2._playStart = e.ctx.currentTime, typeof A.bufferSource.start > "u" ? m2._loop ? A.bufferSource.noteGrainOn(0, C2, 86400) : A.bufferSource.noteGrainOn(0, C2, _2) : m2._loop ? A.bufferSource.start(0, C2, 86400) : A.bufferSource.start(0, C2, _2), j2 !== 1 / 0 && (n2._endTimers[m2._id] = setTimeout(n2._ended.bind(n2, m2), j2)), r || setTimeout(function() {
+          var L = m2._muted || n2._muted ? 0 : m2._volume;
+          A.gain.setValueAtTime(L, e.ctx.currentTime), m2._playStart = e.ctx.currentTime, typeof A.bufferSource.start > "u" ? m2._loop ? A.bufferSource.noteGrainOn(0, C2, 86400) : A.bufferSource.noteGrainOn(0, C2, _2) : m2._loop ? A.bufferSource.start(0, C2, 86400) : A.bufferSource.start(0, C2, _2), j2 !== 1 / 0 && (n2._endTimers[m2._id] = setTimeout(n2._ended.bind(n2, m2), j2)), r || setTimeout(function() {
             n2._emit("play", m2._id), n2._loadQueue();
           }, 0);
         };
@@ -1333,8 +1333,8 @@ var ji = Lt((ct) => {
         var w2 = function() {
           A.currentTime = C2, A.muted = m2._muted || n2._muted || e._muted || A.muted, A.volume = m2._volume * e.volume(), A.playbackRate = m2._rate;
           try {
-            var L2 = A.play();
-            if (L2 && typeof Promise < "u" && (L2 instanceof Promise || typeof L2.then == "function") ? (n2._playLock = true, y2(), L2.then(function() {
+            var L = A.play();
+            if (L && typeof Promise < "u" && (L instanceof Promise || typeof L.then == "function") ? (n2._playLock = true, y2(), L.then(function() {
               n2._playLock = false, A._unlocked = true, r ? n2._loadQueue() : n2._emit("play", m2._id);
             }).catch(function() {
               n2._playLock = false, n2._emit("playerror", m2._id, "Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction."), m2._ended = true, m2._paused = true;
@@ -1345,8 +1345,8 @@ var ji = Lt((ct) => {
             i !== "__default" || m2._loop ? n2._endTimers[m2._id] = setTimeout(n2._ended.bind(n2, m2), j2) : (n2._endTimers[m2._id] = function() {
               n2._ended(m2), A.removeEventListener("ended", n2._endTimers[m2._id], false);
             }, A.addEventListener("ended", n2._endTimers[m2._id], false));
-          } catch (z2) {
-            n2._emit("playerror", m2._id, z2);
+          } catch (z) {
+            n2._emit("playerror", m2._id, z);
           }
         };
         A.src === "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA" && (A.src = n2._src, A.load());
@@ -1368,10 +1368,10 @@ var ji = Lt((ct) => {
         return r._queue.push({ event: "pause", action: function() {
           r.pause(i);
         } }), r;
-      for (var n2 = r._getSoundIds(i), s2 = 0; s2 < n2.length; s2++) {
-        r._clearTimer(n2[s2]);
-        var u = r._soundById(n2[s2]);
-        if (u && !u._paused && (u._seek = r.seek(n2[s2]), u._rateSeek = 0, u._paused = true, r._stopFade(n2[s2]), u._node))
+      for (var n2 = r._getSoundIds(i), s = 0; s < n2.length; s++) {
+        r._clearTimer(n2[s]);
+        var u = r._soundById(n2[s]);
+        if (u && !u._paused && (u._seek = r.seek(n2[s]), u._rateSeek = 0, u._paused = true, r._stopFade(n2[s]), u._node))
           if (r._webAudio) {
             if (!u._node.bufferSource)
               continue;
@@ -1387,10 +1387,10 @@ var ji = Lt((ct) => {
         return n2._queue.push({ event: "stop", action: function() {
           n2.stop(i);
         } }), n2;
-      for (var s2 = n2._getSoundIds(i), u = 0; u < s2.length; u++) {
-        n2._clearTimer(s2[u]);
-        var h2 = n2._soundById(s2[u]);
-        h2 && (h2._seek = h2._start || 0, h2._rateSeek = 0, h2._paused = true, h2._ended = true, n2._stopFade(s2[u]), h2._node && (n2._webAudio ? h2._node.bufferSource && (typeof h2._node.bufferSource.stop > "u" ? h2._node.bufferSource.noteOff(0) : h2._node.bufferSource.stop(0), n2._cleanBuffer(h2._node)) : (!isNaN(h2._node.duration) || h2._node.duration === 1 / 0) && (h2._node.currentTime = h2._start || 0, h2._node.pause(), h2._node.duration === 1 / 0 && n2._clearSound(h2._node))), r || n2._emit("stop", h2._id));
+      for (var s = n2._getSoundIds(i), u = 0; u < s.length; u++) {
+        n2._clearTimer(s[u]);
+        var h2 = n2._soundById(s[u]);
+        h2 && (h2._seek = h2._start || 0, h2._rateSeek = 0, h2._paused = true, h2._ended = true, n2._stopFade(s[u]), h2._node && (n2._webAudio ? h2._node.bufferSource && (typeof h2._node.bufferSource.stop > "u" ? h2._node.bufferSource.noteOff(0) : h2._node.bufferSource.stop(0), n2._cleanBuffer(h2._node)) : (!isNaN(h2._node.duration) || h2._node.duration === 1 / 0) && (h2._node.currentTime = h2._start || 0, h2._node.pause(), h2._node.duration === 1 / 0 && n2._clearSound(h2._node))), r || n2._emit("stop", h2._id));
       }
       return n2;
     }, mute: function(i, r) {
@@ -1404,61 +1404,61 @@ var ji = Lt((ct) => {
           n2._muted = i;
         else
           return n2._muted;
-      for (var s2 = n2._getSoundIds(r), u = 0; u < s2.length; u++) {
-        var h2 = n2._soundById(s2[u]);
+      for (var s = n2._getSoundIds(r), u = 0; u < s.length; u++) {
+        var h2 = n2._soundById(s[u]);
         h2 && (h2._muted = i, h2._interval && n2._stopFade(h2._id), n2._webAudio && h2._node ? h2._node.gain.setValueAtTime(i ? 0 : h2._volume, e.ctx.currentTime) : h2._node && (h2._node.muted = e._muted ? true : i), n2._emit("mute", h2._id));
       }
       return n2;
     }, volume: function() {
-      var i = this, r = arguments, n2, s2;
+      var i = this, r = arguments, n2, s;
       if (r.length === 0)
         return i._volume;
       if (r.length === 1 || r.length === 2 && typeof r[1] > "u") {
         var u = i._getSoundIds(), h2 = u.indexOf(r[0]);
-        h2 >= 0 ? s2 = parseInt(r[0], 10) : n2 = parseFloat(r[0]);
+        h2 >= 0 ? s = parseInt(r[0], 10) : n2 = parseFloat(r[0]);
       } else
-        r.length >= 2 && (n2 = parseFloat(r[0]), s2 = parseInt(r[1], 10));
+        r.length >= 2 && (n2 = parseFloat(r[0]), s = parseInt(r[1], 10));
       var m2;
       if (typeof n2 < "u" && n2 >= 0 && n2 <= 1) {
         if (i._state !== "loaded" || i._playLock)
           return i._queue.push({ event: "volume", action: function() {
             i.volume.apply(i, r);
           } }), i;
-        typeof s2 > "u" && (i._volume = n2), s2 = i._getSoundIds(s2);
-        for (var b2 = 0; b2 < s2.length; b2++)
-          m2 = i._soundById(s2[b2]), m2 && (m2._volume = n2, r[2] || i._stopFade(s2[b2]), i._webAudio && m2._node && !m2._muted ? m2._node.gain.setValueAtTime(n2, e.ctx.currentTime) : m2._node && !m2._muted && (m2._node.volume = n2 * e.volume()), i._emit("volume", m2._id));
+        typeof s > "u" && (i._volume = n2), s = i._getSoundIds(s);
+        for (var b2 = 0; b2 < s.length; b2++)
+          m2 = i._soundById(s[b2]), m2 && (m2._volume = n2, r[2] || i._stopFade(s[b2]), i._webAudio && m2._node && !m2._muted ? m2._node.gain.setValueAtTime(n2, e.ctx.currentTime) : m2._node && !m2._muted && (m2._node.volume = n2 * e.volume()), i._emit("volume", m2._id));
       } else
-        return m2 = s2 ? i._soundById(s2) : i._sounds[0], m2 ? m2._volume : 0;
+        return m2 = s ? i._soundById(s) : i._sounds[0], m2 ? m2._volume : 0;
       return i;
-    }, fade: function(i, r, n2, s2) {
+    }, fade: function(i, r, n2, s) {
       var u = this;
       if (u._state !== "loaded" || u._playLock)
         return u._queue.push({ event: "fade", action: function() {
-          u.fade(i, r, n2, s2);
+          u.fade(i, r, n2, s);
         } }), u;
-      i = Math.min(Math.max(0, parseFloat(i)), 1), r = Math.min(Math.max(0, parseFloat(r)), 1), n2 = parseFloat(n2), u.volume(i, s2);
-      for (var h2 = u._getSoundIds(s2), m2 = 0; m2 < h2.length; m2++) {
+      i = Math.min(Math.max(0, parseFloat(i)), 1), r = Math.min(Math.max(0, parseFloat(r)), 1), n2 = parseFloat(n2), u.volume(i, s);
+      for (var h2 = u._getSoundIds(s), m2 = 0; m2 < h2.length; m2++) {
         var b2 = u._soundById(h2[m2]);
         if (b2) {
-          if (s2 || u._stopFade(h2[m2]), u._webAudio && !b2._muted) {
+          if (s || u._stopFade(h2[m2]), u._webAudio && !b2._muted) {
             var C2 = e.ctx.currentTime, _2 = C2 + n2 / 1e3;
             b2._volume = i, b2._node.gain.setValueAtTime(i, C2), b2._node.gain.linearRampToValueAtTime(r, _2);
           }
-          u._startFadeInterval(b2, i, r, n2, h2[m2], typeof s2 > "u");
+          u._startFadeInterval(b2, i, r, n2, h2[m2], typeof s > "u");
         }
       }
       return u;
-    }, _startFadeInterval: function(i, r, n2, s2, u, h2) {
-      var m2 = this, b2 = r, C2 = n2 - r, _2 = Math.abs(C2 / 0.01), j2 = Math.max(4, _2 > 0 ? s2 / _2 : s2), B2 = Date.now();
+    }, _startFadeInterval: function(i, r, n2, s, u, h2) {
+      var m2 = this, b2 = r, C2 = n2 - r, _2 = Math.abs(C2 / 0.01), j2 = Math.max(4, _2 > 0 ? s / _2 : s), B2 = Date.now();
       i._fadeTo = n2, i._interval = setInterval(function() {
-        var D2 = (Date.now() - B2) / s2;
+        var D2 = (Date.now() - B2) / s;
         B2 = Date.now(), b2 += C2 * D2, b2 = Math.round(b2 * 100) / 100, C2 < 0 ? b2 = Math.max(n2, b2) : b2 = Math.min(n2, b2), m2._webAudio ? i._volume = b2 : m2.volume(b2, i._id, true), h2 && (m2._volume = b2), (n2 < r && b2 <= n2 || n2 > r && b2 >= n2) && (clearInterval(i._interval), i._interval = null, i._fadeTo = null, m2.volume(n2, i._id), m2._emit("fade", i._id));
       }, j2);
     }, _stopFade: function(i) {
       var r = this, n2 = r._soundById(i);
       return n2 && n2._interval && (r._webAudio && n2._node.gain.cancelScheduledValues(e.ctx.currentTime), clearInterval(n2._interval), n2._interval = null, r.volume(n2._fadeTo, i), n2._fadeTo = null, r._emit("fade", i)), r;
     }, loop: function() {
-      var i = this, r = arguments, n2, s2, u;
+      var i = this, r = arguments, n2, s, u;
       if (r.length === 0)
         return i._loop;
       if (r.length === 1)
@@ -1467,57 +1467,57 @@ var ji = Lt((ct) => {
         else
           return u = i._soundById(parseInt(r[0], 10)), u ? u._loop : false;
       else
-        r.length === 2 && (n2 = r[0], s2 = parseInt(r[1], 10));
-      for (var h2 = i._getSoundIds(s2), m2 = 0; m2 < h2.length; m2++)
+        r.length === 2 && (n2 = r[0], s = parseInt(r[1], 10));
+      for (var h2 = i._getSoundIds(s), m2 = 0; m2 < h2.length; m2++)
         u = i._soundById(h2[m2]), u && (u._loop = n2, i._webAudio && u._node && u._node.bufferSource && (u._node.bufferSource.loop = n2, n2 && (u._node.bufferSource.loopStart = u._start || 0, u._node.bufferSource.loopEnd = u._stop, i.playing(h2[m2]) && (i.pause(h2[m2], true), i.play(h2[m2], true)))));
       return i;
     }, rate: function() {
-      var i = this, r = arguments, n2, s2;
+      var i = this, r = arguments, n2, s;
       if (r.length === 0)
-        s2 = i._sounds[0]._id;
+        s = i._sounds[0]._id;
       else if (r.length === 1) {
         var u = i._getSoundIds(), h2 = u.indexOf(r[0]);
-        h2 >= 0 ? s2 = parseInt(r[0], 10) : n2 = parseFloat(r[0]);
+        h2 >= 0 ? s = parseInt(r[0], 10) : n2 = parseFloat(r[0]);
       } else
-        r.length === 2 && (n2 = parseFloat(r[0]), s2 = parseInt(r[1], 10));
+        r.length === 2 && (n2 = parseFloat(r[0]), s = parseInt(r[1], 10));
       var m2;
       if (typeof n2 == "number") {
         if (i._state !== "loaded" || i._playLock)
           return i._queue.push({ event: "rate", action: function() {
             i.rate.apply(i, r);
           } }), i;
-        typeof s2 > "u" && (i._rate = n2), s2 = i._getSoundIds(s2);
-        for (var b2 = 0; b2 < s2.length; b2++)
-          if (m2 = i._soundById(s2[b2]), m2) {
-            i.playing(s2[b2]) && (m2._rateSeek = i.seek(s2[b2]), m2._playStart = i._webAudio ? e.ctx.currentTime : m2._playStart), m2._rate = n2, i._webAudio && m2._node && m2._node.bufferSource ? m2._node.bufferSource.playbackRate.setValueAtTime(n2, e.ctx.currentTime) : m2._node && (m2._node.playbackRate = n2);
-            var C2 = i.seek(s2[b2]), _2 = (i._sprite[m2._sprite][0] + i._sprite[m2._sprite][1]) / 1e3 - C2, j2 = _2 * 1e3 / Math.abs(m2._rate);
-            (i._endTimers[s2[b2]] || !m2._paused) && (i._clearTimer(s2[b2]), i._endTimers[s2[b2]] = setTimeout(i._ended.bind(i, m2), j2)), i._emit("rate", m2._id);
+        typeof s > "u" && (i._rate = n2), s = i._getSoundIds(s);
+        for (var b2 = 0; b2 < s.length; b2++)
+          if (m2 = i._soundById(s[b2]), m2) {
+            i.playing(s[b2]) && (m2._rateSeek = i.seek(s[b2]), m2._playStart = i._webAudio ? e.ctx.currentTime : m2._playStart), m2._rate = n2, i._webAudio && m2._node && m2._node.bufferSource ? m2._node.bufferSource.playbackRate.setValueAtTime(n2, e.ctx.currentTime) : m2._node && (m2._node.playbackRate = n2);
+            var C2 = i.seek(s[b2]), _2 = (i._sprite[m2._sprite][0] + i._sprite[m2._sprite][1]) / 1e3 - C2, j2 = _2 * 1e3 / Math.abs(m2._rate);
+            (i._endTimers[s[b2]] || !m2._paused) && (i._clearTimer(s[b2]), i._endTimers[s[b2]] = setTimeout(i._ended.bind(i, m2), j2)), i._emit("rate", m2._id);
           }
       } else
-        return m2 = i._soundById(s2), m2 ? m2._rate : i._rate;
+        return m2 = i._soundById(s), m2 ? m2._rate : i._rate;
       return i;
     }, seek: function() {
-      var i = this, r = arguments, n2, s2;
+      var i = this, r = arguments, n2, s;
       if (r.length === 0)
-        i._sounds.length && (s2 = i._sounds[0]._id);
+        i._sounds.length && (s = i._sounds[0]._id);
       else if (r.length === 1) {
         var u = i._getSoundIds(), h2 = u.indexOf(r[0]);
-        h2 >= 0 ? s2 = parseInt(r[0], 10) : i._sounds.length && (s2 = i._sounds[0]._id, n2 = parseFloat(r[0]));
+        h2 >= 0 ? s = parseInt(r[0], 10) : i._sounds.length && (s = i._sounds[0]._id, n2 = parseFloat(r[0]));
       } else
-        r.length === 2 && (n2 = parseFloat(r[0]), s2 = parseInt(r[1], 10));
-      if (typeof s2 > "u")
+        r.length === 2 && (n2 = parseFloat(r[0]), s = parseInt(r[1], 10));
+      if (typeof s > "u")
         return 0;
       if (typeof n2 == "number" && (i._state !== "loaded" || i._playLock))
         return i._queue.push({ event: "seek", action: function() {
           i.seek.apply(i, r);
         } }), i;
-      var m2 = i._soundById(s2);
+      var m2 = i._soundById(s);
       if (m2)
         if (typeof n2 == "number" && n2 >= 0) {
-          var b2 = i.playing(s2);
-          b2 && i.pause(s2, true), m2._seek = n2, m2._ended = false, i._clearTimer(s2), !i._webAudio && m2._node && !isNaN(m2._node.duration) && (m2._node.currentTime = n2);
+          var b2 = i.playing(s);
+          b2 && i.pause(s, true), m2._seek = n2, m2._ended = false, i._clearTimer(s), !i._webAudio && m2._node && !isNaN(m2._node.duration) && (m2._node.currentTime = n2);
           var C2 = function() {
-            b2 && i.play(s2, true), i._emit("seek", s2);
+            b2 && i.play(s, true), i._emit("seek", s);
           };
           if (b2 && !i._webAudio) {
             var _2 = function() {
@@ -1527,7 +1527,7 @@ var ji = Lt((ct) => {
           } else
             C2();
         } else if (i._webAudio) {
-          var j2 = i.playing(s2) ? e.ctx.currentTime - m2._playStart : 0, B2 = m2._rateSeek ? m2._rateSeek - m2._seek : 0;
+          var j2 = i.playing(s) ? e.ctx.currentTime - m2._playStart : 0, B2 = m2._rateSeek ? m2._rateSeek - m2._seek : 0;
           return m2._seek + (B2 + j2 * Math.abs(m2._rate));
         } else
           return m2._node.currentTime;
@@ -1538,20 +1538,20 @@ var ji = Lt((ct) => {
         var n2 = r._soundById(i);
         return n2 ? !n2._paused : false;
       }
-      for (var s2 = 0; s2 < r._sounds.length; s2++)
-        if (!r._sounds[s2]._paused)
+      for (var s = 0; s < r._sounds.length; s++)
+        if (!r._sounds[s]._paused)
           return true;
       return false;
     }, duration: function(i) {
-      var r = this, n2 = r._duration, s2 = r._soundById(i);
-      return s2 && (n2 = r._sprite[s2._sprite][1] / 1e3), n2;
+      var r = this, n2 = r._duration, s = r._soundById(i);
+      return s && (n2 = r._sprite[s._sprite][1] / 1e3), n2;
     }, state: function() {
       return this._state;
     }, unload: function() {
       for (var i = this, r = i._sounds, n2 = 0; n2 < r.length; n2++)
         r[n2]._paused || i.stop(r[n2]._id), i._webAudio || (i._clearSound(r[n2]._node), r[n2]._node.removeEventListener("error", r[n2]._errorFn, false), r[n2]._node.removeEventListener(e._canPlayEvent, r[n2]._loadFn, false), r[n2]._node.removeEventListener("ended", r[n2]._endFn, false), e._releaseHtml5Audio(r[n2]._node)), delete r[n2]._node, i._clearTimer(r[n2]._id);
-      var s2 = e._howls.indexOf(i);
-      s2 >= 0 && e._howls.splice(s2, 1);
+      var s = e._howls.indexOf(i);
+      s >= 0 && e._howls.splice(s, 1);
       var u = true;
       for (n2 = 0; n2 < e._howls.length; n2++)
         if (e._howls[n2]._src === i._src || i._src.indexOf(e._howls[n2]._src) >= 0) {
@@ -1559,11 +1559,11 @@ var ji = Lt((ct) => {
           break;
         }
       return o && u && delete o[i._src], e.noAudio = false, i._state = "unloaded", i._sounds = [], i = null, null;
-    }, on: function(i, r, n2, s2) {
+    }, on: function(i, r, n2, s) {
       var u = this, h2 = u["_on" + i];
-      return typeof r == "function" && h2.push(s2 ? { id: n2, fn: r, once: s2 } : { id: n2, fn: r }), u;
+      return typeof r == "function" && h2.push(s ? { id: n2, fn: r, once: s } : { id: n2, fn: r }), u;
     }, off: function(i, r, n2) {
-      var s2 = this, u = s2["_on" + i], h2 = 0;
+      var s = this, u = s["_on" + i], h2 = 0;
       if (typeof r == "number" && (n2 = r, r = null), r || n2)
         for (h2 = 0; h2 < u.length; h2++) {
           var m2 = n2 === u[h2].id;
@@ -1573,22 +1573,22 @@ var ji = Lt((ct) => {
           }
         }
       else if (i)
-        s2["_on" + i] = [];
+        s["_on" + i] = [];
       else {
-        var b2 = Object.keys(s2);
+        var b2 = Object.keys(s);
         for (h2 = 0; h2 < b2.length; h2++)
-          b2[h2].indexOf("_on") === 0 && Array.isArray(s2[b2[h2]]) && (s2[b2[h2]] = []);
+          b2[h2].indexOf("_on") === 0 && Array.isArray(s[b2[h2]]) && (s[b2[h2]] = []);
       }
-      return s2;
+      return s;
     }, once: function(i, r, n2) {
-      var s2 = this;
-      return s2.on(i, r, n2, 1), s2;
+      var s = this;
+      return s.on(i, r, n2, 1), s;
     }, _emit: function(i, r, n2) {
-      for (var s2 = this, u = s2["_on" + i], h2 = u.length - 1; h2 >= 0; h2--)
+      for (var s = this, u = s["_on" + i], h2 = u.length - 1; h2 >= 0; h2--)
         (!u[h2].id || u[h2].id === r || i === "load") && (setTimeout(function(m2) {
           m2.call(this, r, n2);
-        }.bind(s2, u[h2].fn), 0), u[h2].once && s2.off(i, u[h2].fn, u[h2].id));
-      return s2._loadQueue(i), s2;
+        }.bind(s, u[h2].fn), 0), u[h2].once && s.off(i, u[h2].fn, u[h2].id));
+      return s._loadQueue(i), s;
     }, _loadQueue: function(i) {
       var r = this;
       if (r._queue.length > 0) {
@@ -1600,13 +1600,13 @@ var ji = Lt((ct) => {
       var r = this, n2 = i._sprite;
       if (!r._webAudio && i._node && !i._node.paused && !i._node.ended && i._node.currentTime < i._stop)
         return setTimeout(r._ended.bind(r, i), 100), r;
-      var s2 = !!(i._loop || r._sprite[n2][2]);
-      if (r._emit("end", i._id), !r._webAudio && s2 && r.stop(i._id, true).play(i._id), r._webAudio && s2) {
+      var s = !!(i._loop || r._sprite[n2][2]);
+      if (r._emit("end", i._id), !r._webAudio && s && r.stop(i._id, true).play(i._id), r._webAudio && s) {
         r._emit("play", i._id), i._seek = i._start || 0, i._rateSeek = 0, i._playStart = e.ctx.currentTime;
         var u = (i._stop - i._start) * 1e3 / Math.abs(i._rate);
         r._endTimers[i._id] = setTimeout(r._ended.bind(r, i), u);
       }
-      return r._webAudio && !s2 && (i._paused = true, i._ended = true, i._seek = i._start || 0, i._rateSeek = 0, r._clearTimer(i._id), r._cleanBuffer(i._node), e._autoSuspend()), !r._webAudio && !s2 && r.stop(i._id, true), r;
+      return r._webAudio && !s && (i._paused = true, i._ended = true, i._seek = i._start || 0, i._rateSeek = 0, r._clearTimer(i._id), r._cleanBuffer(i._node), e._autoSuspend()), !r._webAudio && !s && r.stop(i._id, true), r;
     }, _clearTimer: function(i) {
       var r = this;
       if (r._endTimers[i]) {
@@ -1630,23 +1630,23 @@ var ji = Lt((ct) => {
       for (var r = 0; r < i._sounds.length; r++)
         if (i._sounds[r]._ended)
           return i._sounds[r].reset();
-      return new a(i);
+      return new a2(i);
     }, _drain: function() {
-      var i = this, r = i._pool, n2 = 0, s2 = 0;
+      var i = this, r = i._pool, n2 = 0, s = 0;
       if (!(i._sounds.length < r)) {
-        for (s2 = 0; s2 < i._sounds.length; s2++)
-          i._sounds[s2]._ended && n2++;
-        for (s2 = i._sounds.length - 1; s2 >= 0; s2--) {
+        for (s = 0; s < i._sounds.length; s++)
+          i._sounds[s]._ended && n2++;
+        for (s = i._sounds.length - 1; s >= 0; s--) {
           if (n2 <= r)
             return;
-          i._sounds[s2]._ended && (i._webAudio && i._sounds[s2]._node && i._sounds[s2]._node.disconnect(0), i._sounds.splice(s2, 1), n2--);
+          i._sounds[s]._ended && (i._webAudio && i._sounds[s]._node && i._sounds[s]._node.disconnect(0), i._sounds.splice(s, 1), n2--);
         }
       }
     }, _getSoundIds: function(i) {
       var r = this;
       if (typeof i > "u") {
-        for (var n2 = [], s2 = 0; s2 < r._sounds.length; s2++)
-          n2.push(r._sounds[s2]._id);
+        for (var n2 = [], s = 0; s < r._sounds.length; s++)
+          n2.push(r._sounds[s]._id);
         return n2;
       } else
         return [i];
@@ -1658,17 +1658,17 @@ var ji = Lt((ct) => {
       if (e._scratchBuffer && i.bufferSource && (i.bufferSource.onended = null, i.bufferSource.disconnect(0), n2))
         try {
           i.bufferSource.buffer = e._scratchBuffer;
-        } catch (s2) {
+        } catch (s) {
         }
       return i.bufferSource = null, r;
     }, _clearSound: function(i) {
       var r = /MSIE |Trident\//.test(e._navigator && e._navigator.userAgent);
       r || (i.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA");
     } };
-    var a = function(i) {
+    var a2 = function(i) {
       this._parent = i, this.init();
     };
-    a.prototype = { init: function() {
+    a2.prototype = { init: function() {
       var i = this, r = i._parent;
       return i._muted = r._muted, i._loop = r._loop, i._volume = r._volume, i._rate = r._rate, i._seek = 0, i._paused = true, i._ended = true, i._sprite = "__default", i._id = ++e._counter, r._sounds.push(i), i.create(), i;
     }, create: function() {
@@ -1687,16 +1687,16 @@ var ji = Lt((ct) => {
       var i = this, r = i._parent;
       r._duration === 1 / 0 && (r._duration = Math.ceil(i._node.duration * 10) / 10, r._sprite.__default[1] === 1 / 0 && (r._sprite.__default[1] = r._duration * 1e3), r._ended(i)), i._node.removeEventListener("ended", i._endFn, false);
     } };
-    var o = {}, d = function(i) {
+    var o = {}, d2 = function(i) {
       var r = i._src;
       if (o[r]) {
         i._duration = o[r].duration, v2(i);
         return;
       }
       if (/^data:[^;]+;base64,/.test(r)) {
-        for (var n2 = atob(r.split(",")[1]), s2 = new Uint8Array(n2.length), u = 0; u < n2.length; ++u)
-          s2[u] = n2.charCodeAt(u);
-        p(s2.buffer, i);
+        for (var n2 = atob(r.split(",")[1]), s = new Uint8Array(n2.length), u = 0; u < n2.length; ++u)
+          s[u] = n2.charCodeAt(u);
+        p2(s.buffer, i);
       } else {
         var h2 = new XMLHttpRequest();
         h2.open(i._xhr.method, r, true), h2.withCredentials = i._xhr.withCredentials, h2.responseType = "arraybuffer", i._xhr.headers && Object.keys(i._xhr.headers).forEach(function(m2) {
@@ -1707,7 +1707,7 @@ var ji = Lt((ct) => {
             i._emit("loaderror", null, "Failed loading audio file with status: " + h2.status + ".");
             return;
           }
-          p(h2.response, i);
+          p2(h2.response, i);
         }, h2.onerror = function() {
           i._webAudio && (i._html5 = true, i._webAudio = false, i._sounds = [], delete o[r], i.load());
         }, f2(h2);
@@ -1718,13 +1718,13 @@ var ji = Lt((ct) => {
       } catch (r) {
         i.onerror();
       }
-    }, p = function(i, r) {
+    }, p2 = function(i, r) {
       var n2 = function() {
         r._emit("loaderror", null, "Decoding audio data failed.");
-      }, s2 = function(u) {
+      }, s = function(u) {
         u && r._sounds.length > 0 ? (o[r._src] = u, v2(r, u)) : n2();
       };
-      typeof Promise < "u" && e.ctx.decodeAudioData.length === 1 ? e.ctx.decodeAudioData(i).then(s2).catch(n2) : e.ctx.decodeAudioData(i, s2, n2);
+      typeof Promise < "u" && e.ctx.decodeAudioData.length === 1 ? e.ctx.decodeAudioData(i).then(s).catch(n2) : e.ctx.decodeAudioData(i, s, n2);
     }, v2 = function(i, r) {
       r && !i._duration && (i._duration = r.duration), Object.keys(i._sprite).length === 0 && (i._sprite = { __default: [0, i._duration * 1e3] }), i._state !== "loaded" && (i._state = "loaded", i._emit("load"), i._loadQueue());
     }, S2 = function() {
@@ -1737,15 +1737,15 @@ var ji = Lt((ct) => {
         e.ctx || (e.usingWebAudio = false);
         var i = /iP(hone|od|ad)/.test(e._navigator && e._navigator.platform), r = e._navigator && e._navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/), n2 = r ? parseInt(r[1], 10) : null;
         if (i && n2 && n2 < 9) {
-          var s2 = /safari/.test(e._navigator && e._navigator.userAgent.toLowerCase());
-          e._navigator && !s2 && (e.usingWebAudio = false);
+          var s = /safari/.test(e._navigator && e._navigator.userAgent.toLowerCase());
+          e._navigator && !s && (e.usingWebAudio = false);
         }
         e.usingWebAudio && (e.masterGain = typeof e.ctx.createGain > "u" ? e.ctx.createGainNode() : e.ctx.createGain(), e.masterGain.gain.setValueAtTime(e._muted ? 0 : e._volume, e.ctx.currentTime), e.masterGain.connect(e.ctx.destination)), e._setup();
       }
     };
     typeof define == "function" && define.amd && define([], function() {
       return { Howler: e, Howl: t };
-    }), typeof ct < "u" && (ct.Howler = e, ct.Howl = t), typeof global < "u" ? (global.HowlerGlobal = l2, global.Howler = e, global.Howl = t, global.Sound = a) : typeof window < "u" && (window.HowlerGlobal = l2, window.Howler = e, window.Howl = t, window.Sound = a);
+    }), typeof ct < "u" && (ct.Howler = e, ct.Howl = t), typeof global < "u" ? (global.HowlerGlobal = l2, global.Howler = e, global.Howl = t, global.Sound = a2) : typeof window < "u" && (window.HowlerGlobal = l2, window.Howler = e, window.Howl = t, window.Sound = a2);
   })();
   (function() {
     "use strict";
@@ -1753,130 +1753,130 @@ var ji = Lt((ct) => {
       var t = this;
       if (!t.ctx || !t.ctx.listener)
         return t;
-      for (var a = t._howls.length - 1; a >= 0; a--)
-        t._howls[a].stereo(e);
+      for (var a2 = t._howls.length - 1; a2 >= 0; a2--)
+        t._howls[a2].stereo(e);
       return t;
-    }, HowlerGlobal.prototype.pos = function(e, t, a) {
+    }, HowlerGlobal.prototype.pos = function(e, t, a2) {
       var o = this;
       if (!o.ctx || !o.ctx.listener)
         return o;
-      if (t = typeof t != "number" ? o._pos[1] : t, a = typeof a != "number" ? o._pos[2] : a, typeof e == "number")
-        o._pos = [e, t, a], typeof o.ctx.listener.positionX < "u" ? (o.ctx.listener.positionX.setTargetAtTime(o._pos[0], Howler.ctx.currentTime, 0.1), o.ctx.listener.positionY.setTargetAtTime(o._pos[1], Howler.ctx.currentTime, 0.1), o.ctx.listener.positionZ.setTargetAtTime(o._pos[2], Howler.ctx.currentTime, 0.1)) : o.ctx.listener.setPosition(o._pos[0], o._pos[1], o._pos[2]);
+      if (t = typeof t != "number" ? o._pos[1] : t, a2 = typeof a2 != "number" ? o._pos[2] : a2, typeof e == "number")
+        o._pos = [e, t, a2], typeof o.ctx.listener.positionX < "u" ? (o.ctx.listener.positionX.setTargetAtTime(o._pos[0], Howler.ctx.currentTime, 0.1), o.ctx.listener.positionY.setTargetAtTime(o._pos[1], Howler.ctx.currentTime, 0.1), o.ctx.listener.positionZ.setTargetAtTime(o._pos[2], Howler.ctx.currentTime, 0.1)) : o.ctx.listener.setPosition(o._pos[0], o._pos[1], o._pos[2]);
       else
         return o._pos;
       return o;
-    }, HowlerGlobal.prototype.orientation = function(e, t, a, o, d, f2) {
-      var p = this;
-      if (!p.ctx || !p.ctx.listener)
-        return p;
-      var v2 = p._orientation;
-      if (t = typeof t != "number" ? v2[1] : t, a = typeof a != "number" ? v2[2] : a, o = typeof o != "number" ? v2[3] : o, d = typeof d != "number" ? v2[4] : d, f2 = typeof f2 != "number" ? v2[5] : f2, typeof e == "number")
-        p._orientation = [e, t, a, o, d, f2], typeof p.ctx.listener.forwardX < "u" ? (p.ctx.listener.forwardX.setTargetAtTime(e, Howler.ctx.currentTime, 0.1), p.ctx.listener.forwardY.setTargetAtTime(t, Howler.ctx.currentTime, 0.1), p.ctx.listener.forwardZ.setTargetAtTime(a, Howler.ctx.currentTime, 0.1), p.ctx.listener.upX.setTargetAtTime(o, Howler.ctx.currentTime, 0.1), p.ctx.listener.upY.setTargetAtTime(d, Howler.ctx.currentTime, 0.1), p.ctx.listener.upZ.setTargetAtTime(f2, Howler.ctx.currentTime, 0.1)) : p.ctx.listener.setOrientation(e, t, a, o, d, f2);
+    }, HowlerGlobal.prototype.orientation = function(e, t, a2, o, d2, f2) {
+      var p2 = this;
+      if (!p2.ctx || !p2.ctx.listener)
+        return p2;
+      var v2 = p2._orientation;
+      if (t = typeof t != "number" ? v2[1] : t, a2 = typeof a2 != "number" ? v2[2] : a2, o = typeof o != "number" ? v2[3] : o, d2 = typeof d2 != "number" ? v2[4] : d2, f2 = typeof f2 != "number" ? v2[5] : f2, typeof e == "number")
+        p2._orientation = [e, t, a2, o, d2, f2], typeof p2.ctx.listener.forwardX < "u" ? (p2.ctx.listener.forwardX.setTargetAtTime(e, Howler.ctx.currentTime, 0.1), p2.ctx.listener.forwardY.setTargetAtTime(t, Howler.ctx.currentTime, 0.1), p2.ctx.listener.forwardZ.setTargetAtTime(a2, Howler.ctx.currentTime, 0.1), p2.ctx.listener.upX.setTargetAtTime(o, Howler.ctx.currentTime, 0.1), p2.ctx.listener.upY.setTargetAtTime(d2, Howler.ctx.currentTime, 0.1), p2.ctx.listener.upZ.setTargetAtTime(f2, Howler.ctx.currentTime, 0.1)) : p2.ctx.listener.setOrientation(e, t, a2, o, d2, f2);
       else
         return v2;
-      return p;
+      return p2;
     }, Howl.prototype.init = function(e) {
       return function(t) {
-        var a = this;
-        return a._orientation = t.orientation || [1, 0, 0], a._stereo = t.stereo || null, a._pos = t.pos || null, a._pannerAttr = { coneInnerAngle: typeof t.coneInnerAngle < "u" ? t.coneInnerAngle : 360, coneOuterAngle: typeof t.coneOuterAngle < "u" ? t.coneOuterAngle : 360, coneOuterGain: typeof t.coneOuterGain < "u" ? t.coneOuterGain : 0, distanceModel: typeof t.distanceModel < "u" ? t.distanceModel : "inverse", maxDistance: typeof t.maxDistance < "u" ? t.maxDistance : 1e4, panningModel: typeof t.panningModel < "u" ? t.panningModel : "HRTF", refDistance: typeof t.refDistance < "u" ? t.refDistance : 1, rolloffFactor: typeof t.rolloffFactor < "u" ? t.rolloffFactor : 1 }, a._onstereo = t.onstereo ? [{ fn: t.onstereo }] : [], a._onpos = t.onpos ? [{ fn: t.onpos }] : [], a._onorientation = t.onorientation ? [{ fn: t.onorientation }] : [], e.call(this, t);
+        var a2 = this;
+        return a2._orientation = t.orientation || [1, 0, 0], a2._stereo = t.stereo || null, a2._pos = t.pos || null, a2._pannerAttr = { coneInnerAngle: typeof t.coneInnerAngle < "u" ? t.coneInnerAngle : 360, coneOuterAngle: typeof t.coneOuterAngle < "u" ? t.coneOuterAngle : 360, coneOuterGain: typeof t.coneOuterGain < "u" ? t.coneOuterGain : 0, distanceModel: typeof t.distanceModel < "u" ? t.distanceModel : "inverse", maxDistance: typeof t.maxDistance < "u" ? t.maxDistance : 1e4, panningModel: typeof t.panningModel < "u" ? t.panningModel : "HRTF", refDistance: typeof t.refDistance < "u" ? t.refDistance : 1, rolloffFactor: typeof t.rolloffFactor < "u" ? t.rolloffFactor : 1 }, a2._onstereo = t.onstereo ? [{ fn: t.onstereo }] : [], a2._onpos = t.onpos ? [{ fn: t.onpos }] : [], a2._onorientation = t.onorientation ? [{ fn: t.onorientation }] : [], e.call(this, t);
       };
     }(Howl.prototype.init), Howl.prototype.stereo = function(e, t) {
-      var a = this;
-      if (!a._webAudio)
-        return a;
-      if (a._state !== "loaded")
-        return a._queue.push({ event: "stereo", action: function() {
-          a.stereo(e, t);
-        } }), a;
+      var a2 = this;
+      if (!a2._webAudio)
+        return a2;
+      if (a2._state !== "loaded")
+        return a2._queue.push({ event: "stereo", action: function() {
+          a2.stereo(e, t);
+        } }), a2;
       var o = typeof Howler.ctx.createStereoPanner > "u" ? "spatial" : "stereo";
       if (typeof t > "u")
         if (typeof e == "number")
-          a._stereo = e, a._pos = [e, 0, 0];
+          a2._stereo = e, a2._pos = [e, 0, 0];
         else
-          return a._stereo;
-      for (var d = a._getSoundIds(t), f2 = 0; f2 < d.length; f2++) {
-        var p = a._soundById(d[f2]);
-        if (p)
+          return a2._stereo;
+      for (var d2 = a2._getSoundIds(t), f2 = 0; f2 < d2.length; f2++) {
+        var p2 = a2._soundById(d2[f2]);
+        if (p2)
           if (typeof e == "number")
-            p._stereo = e, p._pos = [e, 0, 0], p._node && (p._pannerAttr.panningModel = "equalpower", (!p._panner || !p._panner.pan) && l2(p, o), o === "spatial" ? typeof p._panner.positionX < "u" ? (p._panner.positionX.setValueAtTime(e, Howler.ctx.currentTime), p._panner.positionY.setValueAtTime(0, Howler.ctx.currentTime), p._panner.positionZ.setValueAtTime(0, Howler.ctx.currentTime)) : p._panner.setPosition(e, 0, 0) : p._panner.pan.setValueAtTime(e, Howler.ctx.currentTime)), a._emit("stereo", p._id);
+            p2._stereo = e, p2._pos = [e, 0, 0], p2._node && (p2._pannerAttr.panningModel = "equalpower", (!p2._panner || !p2._panner.pan) && l2(p2, o), o === "spatial" ? typeof p2._panner.positionX < "u" ? (p2._panner.positionX.setValueAtTime(e, Howler.ctx.currentTime), p2._panner.positionY.setValueAtTime(0, Howler.ctx.currentTime), p2._panner.positionZ.setValueAtTime(0, Howler.ctx.currentTime)) : p2._panner.setPosition(e, 0, 0) : p2._panner.pan.setValueAtTime(e, Howler.ctx.currentTime)), a2._emit("stereo", p2._id);
           else
-            return p._stereo;
+            return p2._stereo;
       }
-      return a;
-    }, Howl.prototype.pos = function(e, t, a, o) {
-      var d = this;
-      if (!d._webAudio)
-        return d;
-      if (d._state !== "loaded")
-        return d._queue.push({ event: "pos", action: function() {
-          d.pos(e, t, a, o);
-        } }), d;
-      if (t = typeof t != "number" ? 0 : t, a = typeof a != "number" ? -0.5 : a, typeof o > "u")
+      return a2;
+    }, Howl.prototype.pos = function(e, t, a2, o) {
+      var d2 = this;
+      if (!d2._webAudio)
+        return d2;
+      if (d2._state !== "loaded")
+        return d2._queue.push({ event: "pos", action: function() {
+          d2.pos(e, t, a2, o);
+        } }), d2;
+      if (t = typeof t != "number" ? 0 : t, a2 = typeof a2 != "number" ? -0.5 : a2, typeof o > "u")
         if (typeof e == "number")
-          d._pos = [e, t, a];
+          d2._pos = [e, t, a2];
         else
-          return d._pos;
-      for (var f2 = d._getSoundIds(o), p = 0; p < f2.length; p++) {
-        var v2 = d._soundById(f2[p]);
+          return d2._pos;
+      for (var f2 = d2._getSoundIds(o), p2 = 0; p2 < f2.length; p2++) {
+        var v2 = d2._soundById(f2[p2]);
         if (v2)
           if (typeof e == "number")
-            v2._pos = [e, t, a], v2._node && ((!v2._panner || v2._panner.pan) && l2(v2, "spatial"), typeof v2._panner.positionX < "u" ? (v2._panner.positionX.setValueAtTime(e, Howler.ctx.currentTime), v2._panner.positionY.setValueAtTime(t, Howler.ctx.currentTime), v2._panner.positionZ.setValueAtTime(a, Howler.ctx.currentTime)) : v2._panner.setPosition(e, t, a)), d._emit("pos", v2._id);
+            v2._pos = [e, t, a2], v2._node && ((!v2._panner || v2._panner.pan) && l2(v2, "spatial"), typeof v2._panner.positionX < "u" ? (v2._panner.positionX.setValueAtTime(e, Howler.ctx.currentTime), v2._panner.positionY.setValueAtTime(t, Howler.ctx.currentTime), v2._panner.positionZ.setValueAtTime(a2, Howler.ctx.currentTime)) : v2._panner.setPosition(e, t, a2)), d2._emit("pos", v2._id);
           else
             return v2._pos;
       }
-      return d;
-    }, Howl.prototype.orientation = function(e, t, a, o) {
-      var d = this;
-      if (!d._webAudio)
-        return d;
-      if (d._state !== "loaded")
-        return d._queue.push({ event: "orientation", action: function() {
-          d.orientation(e, t, a, o);
-        } }), d;
-      if (t = typeof t != "number" ? d._orientation[1] : t, a = typeof a != "number" ? d._orientation[2] : a, typeof o > "u")
+      return d2;
+    }, Howl.prototype.orientation = function(e, t, a2, o) {
+      var d2 = this;
+      if (!d2._webAudio)
+        return d2;
+      if (d2._state !== "loaded")
+        return d2._queue.push({ event: "orientation", action: function() {
+          d2.orientation(e, t, a2, o);
+        } }), d2;
+      if (t = typeof t != "number" ? d2._orientation[1] : t, a2 = typeof a2 != "number" ? d2._orientation[2] : a2, typeof o > "u")
         if (typeof e == "number")
-          d._orientation = [e, t, a];
+          d2._orientation = [e, t, a2];
         else
-          return d._orientation;
-      for (var f2 = d._getSoundIds(o), p = 0; p < f2.length; p++) {
-        var v2 = d._soundById(f2[p]);
+          return d2._orientation;
+      for (var f2 = d2._getSoundIds(o), p2 = 0; p2 < f2.length; p2++) {
+        var v2 = d2._soundById(f2[p2]);
         if (v2)
           if (typeof e == "number")
-            v2._orientation = [e, t, a], v2._node && (v2._panner || (v2._pos || (v2._pos = d._pos || [0, 0, -0.5]), l2(v2, "spatial")), typeof v2._panner.orientationX < "u" ? (v2._panner.orientationX.setValueAtTime(e, Howler.ctx.currentTime), v2._panner.orientationY.setValueAtTime(t, Howler.ctx.currentTime), v2._panner.orientationZ.setValueAtTime(a, Howler.ctx.currentTime)) : v2._panner.setOrientation(e, t, a)), d._emit("orientation", v2._id);
+            v2._orientation = [e, t, a2], v2._node && (v2._panner || (v2._pos || (v2._pos = d2._pos || [0, 0, -0.5]), l2(v2, "spatial")), typeof v2._panner.orientationX < "u" ? (v2._panner.orientationX.setValueAtTime(e, Howler.ctx.currentTime), v2._panner.orientationY.setValueAtTime(t, Howler.ctx.currentTime), v2._panner.orientationZ.setValueAtTime(a2, Howler.ctx.currentTime)) : v2._panner.setOrientation(e, t, a2)), d2._emit("orientation", v2._id);
           else
             return v2._orientation;
       }
-      return d;
+      return d2;
     }, Howl.prototype.pannerAttr = function() {
-      var e = this, t = arguments, a, o, d;
+      var e = this, t = arguments, a2, o, d2;
       if (!e._webAudio)
         return e;
       if (t.length === 0)
         return e._pannerAttr;
       if (t.length === 1)
         if (typeof t[0] == "object")
-          a = t[0], typeof o > "u" && (a.pannerAttr || (a.pannerAttr = { coneInnerAngle: a.coneInnerAngle, coneOuterAngle: a.coneOuterAngle, coneOuterGain: a.coneOuterGain, distanceModel: a.distanceModel, maxDistance: a.maxDistance, refDistance: a.refDistance, rolloffFactor: a.rolloffFactor, panningModel: a.panningModel }), e._pannerAttr = { coneInnerAngle: typeof a.pannerAttr.coneInnerAngle < "u" ? a.pannerAttr.coneInnerAngle : e._coneInnerAngle, coneOuterAngle: typeof a.pannerAttr.coneOuterAngle < "u" ? a.pannerAttr.coneOuterAngle : e._coneOuterAngle, coneOuterGain: typeof a.pannerAttr.coneOuterGain < "u" ? a.pannerAttr.coneOuterGain : e._coneOuterGain, distanceModel: typeof a.pannerAttr.distanceModel < "u" ? a.pannerAttr.distanceModel : e._distanceModel, maxDistance: typeof a.pannerAttr.maxDistance < "u" ? a.pannerAttr.maxDistance : e._maxDistance, refDistance: typeof a.pannerAttr.refDistance < "u" ? a.pannerAttr.refDistance : e._refDistance, rolloffFactor: typeof a.pannerAttr.rolloffFactor < "u" ? a.pannerAttr.rolloffFactor : e._rolloffFactor, panningModel: typeof a.pannerAttr.panningModel < "u" ? a.pannerAttr.panningModel : e._panningModel });
+          a2 = t[0], typeof o > "u" && (a2.pannerAttr || (a2.pannerAttr = { coneInnerAngle: a2.coneInnerAngle, coneOuterAngle: a2.coneOuterAngle, coneOuterGain: a2.coneOuterGain, distanceModel: a2.distanceModel, maxDistance: a2.maxDistance, refDistance: a2.refDistance, rolloffFactor: a2.rolloffFactor, panningModel: a2.panningModel }), e._pannerAttr = { coneInnerAngle: typeof a2.pannerAttr.coneInnerAngle < "u" ? a2.pannerAttr.coneInnerAngle : e._coneInnerAngle, coneOuterAngle: typeof a2.pannerAttr.coneOuterAngle < "u" ? a2.pannerAttr.coneOuterAngle : e._coneOuterAngle, coneOuterGain: typeof a2.pannerAttr.coneOuterGain < "u" ? a2.pannerAttr.coneOuterGain : e._coneOuterGain, distanceModel: typeof a2.pannerAttr.distanceModel < "u" ? a2.pannerAttr.distanceModel : e._distanceModel, maxDistance: typeof a2.pannerAttr.maxDistance < "u" ? a2.pannerAttr.maxDistance : e._maxDistance, refDistance: typeof a2.pannerAttr.refDistance < "u" ? a2.pannerAttr.refDistance : e._refDistance, rolloffFactor: typeof a2.pannerAttr.rolloffFactor < "u" ? a2.pannerAttr.rolloffFactor : e._rolloffFactor, panningModel: typeof a2.pannerAttr.panningModel < "u" ? a2.pannerAttr.panningModel : e._panningModel });
         else
-          return d = e._soundById(parseInt(t[0], 10)), d ? d._pannerAttr : e._pannerAttr;
+          return d2 = e._soundById(parseInt(t[0], 10)), d2 ? d2._pannerAttr : e._pannerAttr;
       else
-        t.length === 2 && (a = t[0], o = parseInt(t[1], 10));
-      for (var f2 = e._getSoundIds(o), p = 0; p < f2.length; p++)
-        if (d = e._soundById(f2[p]), d) {
-          var v2 = d._pannerAttr;
-          v2 = { coneInnerAngle: typeof a.coneInnerAngle < "u" ? a.coneInnerAngle : v2.coneInnerAngle, coneOuterAngle: typeof a.coneOuterAngle < "u" ? a.coneOuterAngle : v2.coneOuterAngle, coneOuterGain: typeof a.coneOuterGain < "u" ? a.coneOuterGain : v2.coneOuterGain, distanceModel: typeof a.distanceModel < "u" ? a.distanceModel : v2.distanceModel, maxDistance: typeof a.maxDistance < "u" ? a.maxDistance : v2.maxDistance, refDistance: typeof a.refDistance < "u" ? a.refDistance : v2.refDistance, rolloffFactor: typeof a.rolloffFactor < "u" ? a.rolloffFactor : v2.rolloffFactor, panningModel: typeof a.panningModel < "u" ? a.panningModel : v2.panningModel };
-          var S2 = d._panner;
-          S2 ? (S2.coneInnerAngle = v2.coneInnerAngle, S2.coneOuterAngle = v2.coneOuterAngle, S2.coneOuterGain = v2.coneOuterGain, S2.distanceModel = v2.distanceModel, S2.maxDistance = v2.maxDistance, S2.refDistance = v2.refDistance, S2.rolloffFactor = v2.rolloffFactor, S2.panningModel = v2.panningModel) : (d._pos || (d._pos = e._pos || [0, 0, -0.5]), l2(d, "spatial"));
+        t.length === 2 && (a2 = t[0], o = parseInt(t[1], 10));
+      for (var f2 = e._getSoundIds(o), p2 = 0; p2 < f2.length; p2++)
+        if (d2 = e._soundById(f2[p2]), d2) {
+          var v2 = d2._pannerAttr;
+          v2 = { coneInnerAngle: typeof a2.coneInnerAngle < "u" ? a2.coneInnerAngle : v2.coneInnerAngle, coneOuterAngle: typeof a2.coneOuterAngle < "u" ? a2.coneOuterAngle : v2.coneOuterAngle, coneOuterGain: typeof a2.coneOuterGain < "u" ? a2.coneOuterGain : v2.coneOuterGain, distanceModel: typeof a2.distanceModel < "u" ? a2.distanceModel : v2.distanceModel, maxDistance: typeof a2.maxDistance < "u" ? a2.maxDistance : v2.maxDistance, refDistance: typeof a2.refDistance < "u" ? a2.refDistance : v2.refDistance, rolloffFactor: typeof a2.rolloffFactor < "u" ? a2.rolloffFactor : v2.rolloffFactor, panningModel: typeof a2.panningModel < "u" ? a2.panningModel : v2.panningModel };
+          var S2 = d2._panner;
+          S2 ? (S2.coneInnerAngle = v2.coneInnerAngle, S2.coneOuterAngle = v2.coneOuterAngle, S2.coneOuterGain = v2.coneOuterGain, S2.distanceModel = v2.distanceModel, S2.maxDistance = v2.maxDistance, S2.refDistance = v2.refDistance, S2.rolloffFactor = v2.rolloffFactor, S2.panningModel = v2.panningModel) : (d2._pos || (d2._pos = e._pos || [0, 0, -0.5]), l2(d2, "spatial"));
         }
       return e;
     }, Sound.prototype.init = function(e) {
       return function() {
-        var t = this, a = t._parent;
-        t._orientation = a._orientation, t._stereo = a._stereo, t._pos = a._pos, t._pannerAttr = a._pannerAttr, e.call(this), t._stereo ? a.stereo(t._stereo) : t._pos && a.pos(t._pos[0], t._pos[1], t._pos[2], t._id);
+        var t = this, a2 = t._parent;
+        t._orientation = a2._orientation, t._stereo = a2._stereo, t._pos = a2._pos, t._pannerAttr = a2._pannerAttr, e.call(this), t._stereo ? a2.stereo(t._stereo) : t._pos && a2.pos(t._pos[0], t._pos[1], t._pos[2], t._id);
       };
     }(Sound.prototype.init), Sound.prototype.reset = function(e) {
       return function() {
-        var t = this, a = t._parent;
-        return t._orientation = a._orientation, t._stereo = a._stereo, t._pos = a._pos, t._pannerAttr = a._pannerAttr, t._stereo ? a.stereo(t._stereo) : t._pos ? a.pos(t._pos[0], t._pos[1], t._pos[2], t._id) : t._panner && (t._panner.disconnect(0), t._panner = void 0, a._refreshBuffer(t)), e.call(this);
+        var t = this, a2 = t._parent;
+        return t._orientation = a2._orientation, t._stereo = a2._stereo, t._pos = a2._pos, t._pannerAttr = a2._pannerAttr, t._stereo ? a2.stereo(t._stereo) : t._pos ? a2.pos(t._pos[0], t._pos[1], t._pos[2], t._id) : t._panner && (t._panner.disconnect(0), t._panner = void 0, a2._refreshBuffer(t)), e.call(this);
       };
     }(Sound.prototype.reset);
     var l2 = function(e, t) {
@@ -1903,94 +1903,102 @@ var G;
     var S2;
     if ("orientation" in window)
       return false;
-    let p = "(any-pointer: coarse)", v2 = (S2 = window.matchMedia) == null ? void 0 : S2.call(window, p);
-    return navigator.maxTouchPoints === 0 || (v2 == null ? void 0 : v2.media) === p && !(v2 != null && v2.matches);
+    let p2 = "(any-pointer: coarse)", v2 = (S2 = window.matchMedia) == null ? void 0 : S2.call(window, p2);
+    return navigator.maxTouchPoints === 0 || (v2 == null ? void 0 : v2.media) === p2 && !(v2 != null && v2.matches);
   }
   f2.isDesktopDevice = t;
-  function a() {
-    function p(s2, u, h2) {
-      let m2 = s2[u[0]];
-      return m2 == null ? false : u.length === 1 ? typeof m2 === h2 : (typeof m2 == "function" || typeof m2 == "object") && p(m2, u.slice(1), h2);
+  function a2() {
+    function p2(s, u, h2) {
+      let m2 = s[u[0]];
+      return m2 == null ? false : u.length === 1 ? typeof m2 === h2 : (typeof m2 == "function" || typeof m2 == "object") && p2(m2, u.slice(1), h2);
     }
-    function v2(s2) {
-      return s2.name === "iOS" && s2.version != null && ["11.2.2", "11.2.5", "11.2.6"].includes(s2.version);
+    function v2(s) {
+      return s.name === "iOS" && s.version != null && ["11.2.2", "11.2.5", "11.2.6"].includes(s.version);
     }
     let S2 = true, i = true, r = [];
-    location.protocol.startsWith("http") || (r.push("httpProtocol"), S2 = i = false), p(window, ["isSecureContext"], "boolean") && !window.isSecureContext && r.push("secureContext"), !p(navigator, ["mediaDevices", "getUserMedia"], "function") && !p(navigator, ["enumerateDevices"], "function") && !p(window, ["MediaStreamTrack", "getSources"], "function") && (r.push("mediaDevices"), S2 = false), p(window, ["Worker"], "function") || (r.push("webWorkers"), S2 = i = false), p(window, ["WebAssembly"], "object") || (r.push("webAssembly"), S2 = i = false), p(window, ["Blob"], "function") || (r.push("blob"), S2 = i = false), p(window, ["URL", "createObjectURL"], "function") || (r.push("urlObject"), S2 = i = false), p(window, ["OffscreenCanvas"], "function") || r.push("offscreenCanvas");
+    location.protocol.startsWith("http") || (r.push("httpProtocol"), S2 = i = false), p2(window, ["isSecureContext"], "boolean") && !window.isSecureContext && r.push("secureContext"), !p2(navigator, ["mediaDevices", "getUserMedia"], "function") && !p2(navigator, ["enumerateDevices"], "function") && !p2(window, ["MediaStreamTrack", "getSources"], "function") && (r.push("mediaDevices"), S2 = false), p2(window, ["Worker"], "function") || (r.push("webWorkers"), S2 = i = false), p2(window, ["WebAssembly"], "object") || (r.push("webAssembly"), S2 = i = false), p2(window, ["Blob"], "function") || (r.push("blob"), S2 = i = false), p2(window, ["URL", "createObjectURL"], "function") || (r.push("urlObject"), S2 = i = false), p2(window, ["OffscreenCanvas"], "function") || r.push("offscreenCanvas");
     try {
-      if (!p(window, ["WebGLRenderingContext"], "function") || f2.canvas.getContext("webgl") == null && f2.canvas.getContext("experimental-webgl") == null)
+      if (!p2(window, ["WebGLRenderingContext"], "function") || f2.canvas.getContext("webgl") == null && f2.canvas.getContext("experimental-webgl") == null)
         throw new Error();
-    } catch (s2) {
+    } catch (s) {
       r.push("webGL");
     }
     let n2 = f2.userAgentInfo.getOS();
     return v2(n2) && (r.push("webAssemblyErrorFree"), S2 = i = false), { fullSupport: S2, scannerSupport: i, missingFeatures: r };
   }
-  f2.checkBrowserCompatibility = a;
+  f2.checkBrowserCompatibility = a2;
   function o() {
-    let p = "scandit-device-id", v2 = localStorage.getItem(p);
+    let p2 = "scandit-device-id", v2 = localStorage.getItem(p2);
     if (v2 != null && v2 !== "")
       return v2;
-    if (v2 = si.default.get(p), v2 != null && v2 !== "")
-      return localStorage.setItem(p, v2), v2;
+    if (v2 = si.default.get(p2), v2 != null && v2 !== "")
+      return localStorage.setItem(p2, v2), v2;
     let S2 = new Uint8Array(20);
     return crypto.getRandomValues(S2), v2 = [...S2].map((i) => {
       let r = i.toString(16);
       return r.length === 1 ? `0${r}` : r;
-    }).join(""), localStorage.setItem(p, v2), v2;
+    }).join(""), localStorage.setItem(p2, v2), v2;
   }
   f2.getDeviceId = o;
-  function d(p) {
-    return p instanceof HTMLElement || p != null && typeof p == "object" && typeof p.tagName == "string";
+  function d2(p2) {
+    return p2 instanceof HTMLElement || p2 != null && typeof p2 == "object" && typeof p2.tagName == "string";
   }
-  f2.isValidHTMLElement = d;
+  f2.isValidHTMLElement = d2;
 })(G || (G = {}));
 var g;
-((d) => {
+((d2) => {
   let l2;
-  ((r) => (r.Debug = "debug", r.Info = "info", r.Warn = "warn", r.Error = "error", r.Quiet = "quiet"))(l2 = d.Level || (d.Level = {}));
+  ((r) => (r.Debug = "debug", r.Info = "info", r.Warn = "warn", r.Error = "error", r.Quiet = "quiet"))(l2 = d2.Level || (d2.Level = {}));
   let e = /* @__PURE__ */ new Map([["debug", 1], ["info", 2], ["warn", 3], ["error", 4], ["quiet", 5]]), t = "debug";
-  function a(f2) {
+  function a2(f2) {
     t = f2;
   }
-  d.setLevel = a;
-  function o(f2, ...p) {
+  d2.setLevel = a2;
+  function o(f2, ...p2) {
     if (!(e.get(t) > e.get(f2)))
       switch (f2) {
         case "debug":
-          console.debug(...p);
+          console.debug(...p2);
           break;
         case "info":
-          console.log(...p);
+          console.log(...p2);
           break;
         case "warn":
-          console.warn(...p);
+          console.warn(...p2);
           break;
         case "error":
-          console.error(...p);
+          console.error(...p2);
           break;
         default:
           break;
       }
   }
-  d.log = o;
+  d2.log = o;
 })(g || (g = {}));
 function ci(l2, e = location) {
   if (l2 += l2.endsWith("/") ? "" : "/", /^https?:\/\//.test(l2))
     return l2;
-  l2 = l2.split("/").filter((a) => a.length > 0).join("/"), l2 = l2 === "" ? "/" : `/${l2}/`;
+  l2 = l2.split("/").filter((a2) => a2.length > 0).join("/"), l2 = l2 === "" ? "/" : `/${l2}/`;
   let t;
   return t = e.protocol === "file:" || e.origin === "null" ? `${e.href.split("/").slice(0, -1).join("/")}${l2}` : `${e.origin}${l2}`, t;
 }
-function ui(l2, e, t, a) {
-  let o = false, d = "scandit-web-datacapture-core";
-  if (!d)
-    throw new Error("No package name, cannot generate library location");
-  /^https?:\/\/([^./]*\.)*cdn.jsdelivr.net\//.test(e) ? (e = `https://cdn.jsdelivr.net/npm/${d}@${l2}/build/engine/`, o = true) : /^https?:\/\/([^./]*\.)*unpkg.com\//.test(e) && (e = `https://unpkg.com/${d}@${l2}/build/engine/`, o = true);
+function pr(l2) {
+  return /^https?:\/\/(?:[^./]*\.)*cdn.jsdelivr.net\//.test(l2) ? { result: true, cdnBaseURL: "https://cdn.jsdelivr.net/npm/" } : /^https?:\/\/(?:[^./]*\.)*unpkg.com\//.test(l2) ? { result: true, cdnBaseURL: "https://unpkg.com/" } : { result: false, cdnBaseURL: "" };
+}
+function hr(l2) {
+  let t = /scandit-web-datacapture-[a-z]+/i.exec(l2);
+  return t ? t[0] : null;
+}
+function ui(l2, e, t, a2) {
+  let o = e, d2 = pr(o);
+  if (d2.result) {
+    let v2 = hr(o);
+    v2 != null && (o = `${d2.cdnBaseURL}${v2}@${l2}/build/engine/`);
+  }
   let f2 = "";
-  a && (f2 += "-simd");
-  let p = t.replace(".wasm", "");
-  return o ? { jsURI: `${e}${p}${f2}.js`, wasmURI: `${e}${p}${f2}.wasm` } : { jsURI: `${e}${p}${f2}.js?v=${l2}`, wasmURI: `${e}${p}${f2}.wasm?v=${l2}` };
+  a2 && (f2 += "-simd");
+  let p2 = t.replace(".wasm", "");
+  return d2.result ? { jsURI: `${o}${p2}${f2}.js`, wasmURI: `${o}${p2}${f2}.wasm` } : { jsURI: `${o}${p2}${f2}.js?v=${l2}`, wasmURI: `${o}${p2}${f2}.wasm?v=${l2}` };
 }
 var ue = class extends J {
   constructor(t) {
@@ -2001,10 +2009,10 @@ var ue = class extends J {
 };
 var Y;
 ((D2) => {
-  let l2 = /* @__PURE__ */ new Map([["DeviceCaptureError", "AbortError"], ["NotSupportedError", "AbortError"], ["ScreenCaptureError", "AbortError"], ["TabCaptureError", "AbortError"], ["TypeError", "AbortError"], ["InvalidStateError", "NotAllowedError"], ["MediaDeviceFailedDueToShutdown", "NotAllowedError"], ["MediaDeviceKillSwitchOn", "NotAllowedError"], ["PermissionDeniedError", "NotAllowedError"], ["PermissionDismissedError", "NotAllowedError"], ["DevicesNotFoundError", "NotFoundError"], ["SourceUnavailableError", "NotReadableError"], ["TrackStartError", "NotReadableError"], ["ConstraintNotSatisfiedError", "OverconstrainedError"]]), e = ["rear", "back", "r\xFCck", "arri\xE8re", "trasera", "tr\xE1s", "traseira", "posteriore", "\u540E\u9762", "\u5F8C\u9762", "\u80CC\u9762", "\u540E\u7F6E", "\u5F8C\u7F6E", "\u80CC\u7F6E", "\u0437\u0430\u0434\u043D\u0435\u0439", "\u0627\u0644\u062E\u0644\u0641\u064A\u0629", "\uD6C4", "arka", "achterzijde", "\u0E2B\u0E25\u0E31\u0E07", "baksidan", "bagside", "sau", "bak", "tylny", "takakamera", "belakang", "\u05D0\u05D7\u05D5\u05E8\u05D9\u05EA", "\u03C0\u03AF\u03C3\u03C9", "spate", "h\xE1ts\xF3", "zadn\xED", "darrere", "zadn\xE1", "\u0437\u0430\u0434\u043D\u044F", "stra\u017Enja", "belakang", "\u092C\u0948\u0915"], t, a = false;
+  let l2 = /* @__PURE__ */ new Map([["DeviceCaptureError", "AbortError"], ["NotSupportedError", "AbortError"], ["ScreenCaptureError", "AbortError"], ["TabCaptureError", "AbortError"], ["TypeError", "AbortError"], ["InvalidStateError", "NotAllowedError"], ["MediaDeviceFailedDueToShutdown", "NotAllowedError"], ["MediaDeviceKillSwitchOn", "NotAllowedError"], ["PermissionDeniedError", "NotAllowedError"], ["PermissionDismissedError", "NotAllowedError"], ["DevicesNotFoundError", "NotFoundError"], ["SourceUnavailableError", "NotReadableError"], ["TrackStartError", "NotReadableError"], ["ConstraintNotSatisfiedError", "OverconstrainedError"]]), e = ["rear", "back", "r\xFCck", "arri\xE8re", "trasera", "tr\xE1s", "traseira", "posteriore", "\u540E\u9762", "\u5F8C\u9762", "\u80CC\u9762", "\u540E\u7F6E", "\u5F8C\u7F6E", "\u80CC\u7F6E", "\u0437\u0430\u0434\u043D\u0435\u0439", "\u0627\u0644\u062E\u0644\u0641\u064A\u0629", "\uD6C4", "arka", "achterzijde", "\u0E2B\u0E25\u0E31\u0E07", "baksidan", "bagside", "sau", "bak", "tylny", "takakamera", "belakang", "\u05D0\u05D7\u05D5\u05E8\u05D9\u05EA", "\u03C0\u03AF\u03C3\u03C9", "spate", "h\xE1ts\xF3", "zadn\xED", "darrere", "zadn\xE1", "\u0437\u0430\u0434\u043D\u044F", "stra\u017Enja", "belakang", "\u092C\u0948\u0915"], t, a2 = false;
   D2.mainCameraForPositionOverridesOnDesktop = /* @__PURE__ */ new Map(), D2.deviceIdToCameraObjects = /* @__PURE__ */ new Map(), D2.inaccessibleDeviceIds = /* @__PURE__ */ new Set();
-  function p() {
-    a = true;
+  function p2() {
+    a2 = true;
   }
   function v2(y2) {
     let A = y2.toLowerCase();
@@ -2020,25 +2028,25 @@ var Y;
     if (G.isDesktopDevice())
       M2 = D2.mainCameraForPositionOverridesOnDesktop.has(A) ? D2.mainCameraForPositionOverridesOnDesktop.get(A) : y2.find((w2) => w2.position === A);
     else {
-      let w2 = y2.every((L2) => L2.label === ""), I2 = y2.every((L2) => L2.label !== ""), E = y2.length > 1 && !w2 && !I2;
+      let w2 = y2.every((L) => L.label === ""), I2 = y2.every((L) => L.label !== ""), E = y2.length > 1 && !w2 && !I2;
       if (w2)
         M2 = y2[A === "userFacing" ? 0 : y2.length - 1];
       else if (E) {
-        let L2 = y2.filter((z2) => z2.position === A);
-        L2.length === 1 ? M2 = L2[0] : L2.length > 1 && (M2 = L2[A === "userFacing" ? 0 : L2.length - 1]);
+        let L = y2.filter((z) => z.position === A);
+        L.length === 1 ? M2 = L[0] : L.length > 1 && (M2 = L[A === "userFacing" ? 0 : L.length - 1]);
       } else
-        M2 = y2.filter((L2) => L2.position === A).sort((L2, z2) => L2.label.localeCompare(z2.label))[0];
+        M2 = y2.filter((L) => L.position === A).sort((L, z) => L.label.localeCompare(z.label))[0];
     }
     return M2;
   }
   D2.getMainCameraForPosition = i;
   function r(y2, A) {
-    function M2(E, L2) {
-      let z2 = D2.mainCameraForPositionOverridesOnDesktop.get(L2);
-      return z2 != null && E.includes(z2) && (E = E.filter((ce) => ce !== z2), E.unshift(z2)), E;
+    function M2(E, L) {
+      let z = D2.mainCameraForPositionOverridesOnDesktop.get(L);
+      return z != null && E.includes(z) && (E = E.filter((ce2) => ce2 !== z), E.unshift(z)), E;
     }
     let w2 = y2.filter((E) => E.position === "userFacing"), I2 = y2.filter((E) => E.position === "worldFacing");
-    return G.isDesktopDevice() ? (w2 = M2(w2, "userFacing"), I2 = M2(I2, "worldFacing")) : y2.every((E) => E.label === "") ? I2.reverse() : (w2.sort((E, L2) => E.label.localeCompare(L2.label)), I2.sort((E, L2) => E.label.localeCompare(L2.label))), A === "userFacing" ? [...w2, ...I2] : [...I2, ...w2];
+    return G.isDesktopDevice() ? (w2 = M2(w2, "userFacing"), I2 = M2(I2, "worldFacing")) : y2.every((E) => E.label === "") ? I2.reverse() : (w2.sort((E, L) => E.label.localeCompare(L.label)), I2.sort((E, L) => E.label.localeCompare(L.label))), A === "userFacing" ? [...w2, ...I2] : [...I2, ...w2];
   }
   D2.sortCamerasForCameraPosition = r;
   function n2(y2, A) {
@@ -2049,19 +2057,19 @@ var Y;
     }
   }
   D2.adjustCameraFromMediaStream = n2;
-  function s2(y2) {
+  function s(y2) {
     function A(w2, I2, E) {
       var Le;
       if (D2.deviceIdToCameraObjects.has(w2.deviceId))
         return D2.deviceIdToCameraObjects.get(w2.deviceId);
-      let L2 = (Le = w2.label) != null ? Le : "", z2;
-      return !G.isDesktopDevice() && E.every((ve) => ve.label === "" && !D2.deviceIdToCameraObjects.has(ve.deviceId)) ? z2 = E.length === 1 || I2 + 1 <= Math.floor(E.length / 2) ? "userFacing" : "worldFacing" : z2 = v2(L2) ? "worldFacing" : "userFacing", { position: z2, label: L2, deviceId: w2.deviceId };
+      let L = (Le = w2.label) != null ? Le : "", z;
+      return !G.isDesktopDevice() && E.every((ve) => ve.label === "" && !D2.deviceIdToCameraObjects.has(ve.deviceId)) ? z = E.length === 1 || I2 + 1 <= Math.floor(E.length / 2) ? "userFacing" : "worldFacing" : z = v2(L) ? "worldFacing" : "userFacing", { position: z, label: L, deviceId: w2.deviceId };
     }
     let M2 = y2.map(A).map((w2) => (w2.deviceId !== "" && D2.deviceIdToCameraObjects.set(w2.deviceId, w2), w2)).filter((w2) => !/\b(?:ir|infrared)\b/i.test(w2.label)).filter((w2) => !D2.inaccessibleDeviceIds.has(w2.deviceId));
     if (!G.isDesktopDevice() && M2.length > 1 && !M2.some((w2) => w2.position === "worldFacing")) {
       let w2 = M2.length - 1, I2 = M2.map((E) => {
-        let L2 = /\b(\d+)mp?\b/i.exec(E.label);
-        return L2 != null ? Number.parseInt(L2[1], 10) : Number.NaN;
+        let L = /\b(\d+)mp?\b/i.exec(E.label);
+        return L != null ? Number.parseInt(L[1], 10) : Number.NaN;
       });
       I2.some((E) => isNaN(E)) || (w2 = I2.lastIndexOf(Math.max(...I2))), M2[w2].position = "worldFacing";
     }
@@ -2079,11 +2087,11 @@ var Y;
     if (A.length > 0 && y2.length === A.length && !A.every((w2, I2) => y2[I2].deviceId === w2.deviceId)) {
       let w2 = {};
       for (let [I2, E] of y2.entries()) {
-        let L2 = D2.deviceIdToCameraObjects.get(E.deviceId);
-        if (L2 == null || L2.label !== ((M2 = A[I2].label) != null ? M2 : ""))
+        let L = D2.deviceIdToCameraObjects.get(E.deviceId);
+        if (L == null || L.label !== ((M2 = A[I2].label) != null ? M2 : ""))
           continue;
-        let z2 = A[I2].deviceId;
-        w2[L2.deviceId] = z2, D2.inaccessibleDeviceIds.has(L2.deviceId) && D2.inaccessibleDeviceIds.add(z2), L2.deviceId = z2, D2.deviceIdToCameraObjects.set(z2, L2);
+        let z = A[I2].deviceId;
+        w2[L.deviceId] = z, D2.inaccessibleDeviceIds.has(L.deviceId) && D2.inaccessibleDeviceIds.add(z), L.deviceId = z, D2.deviceIdToCameraObjects.set(z, L);
       }
       g.log(g.Level.Debug, "Detected updated camera deviceId information and updated it accordingly", w2);
     }
@@ -2092,21 +2100,21 @@ var Y;
     let M2 = G.checkBrowserCompatibility();
     if (!M2.fullSupport)
       throw new ue(M2);
-    if (typeof navigator.mediaDevices.addEventListener == "function" ? navigator.mediaDevices.addEventListener("devicechange", p) : navigator.mediaDevices.ondevicechange = p, t == null || y2 || a) {
-      a = false;
+    if (typeof navigator.mediaDevices.addEventListener == "function" ? navigator.mediaDevices.addEventListener("devicechange", p2) : navigator.mediaDevices.ondevicechange = p2, t == null || y2 || a2) {
+      a2 = false;
       let I2, E = t != null ? t : [];
       t = [];
       try {
         t = await B2(), A || (I2 = await u(), I2 != null && (t = await B2())), g.log(g.Level.Debug, "Camera list (devices):", ...t), h2(E, t);
-      } catch (L2) {
-        throw S2(L2), L2;
+      } catch (L) {
+        throw S2(L), L;
       } finally {
         if (I2 != null)
-          for (let L2 of I2.getVideoTracks())
-            L2.stop();
+          for (let L of I2.getVideoTracks())
+            L.stop();
       }
     }
-    let w2 = s2(t);
+    let w2 = s(t);
     return g.log(g.Level.Debug, "Camera list (cameras): ", ...w2), [...w2];
   }
   D2.getCameras = m2;
@@ -2163,8 +2171,8 @@ var Y;
 })(Y || (Y = {}));
 var Ye;
 ((e) => {
-  async function l2(t, a) {
-    return Y.getCameras(t != null ? t : false, a != null ? a : false);
+  async function l2(t, a2) {
+    return Y.getCameras(t != null ? t : false, a2 != null ? a2 : false);
   }
   e.getCameras = l2;
 })(Ye || (Ye = {}));
@@ -2190,12 +2198,12 @@ var re = class {
   }
 };
 var be = class {
-  constructor(e, t, a, o) {
+  constructor(e, t, a2, o) {
     c(this, "_topLeft");
     c(this, "_topRight");
     c(this, "_bottomRight");
     c(this, "_bottomLeft");
-    this._topLeft = e, this._topRight = t, this._bottomRight = a, this._bottomLeft = o;
+    this._topLeft = e, this._topRight = t, this._bottomRight = a2, this._bottomLeft = o;
   }
   get topLeft() {
     return this._topLeft;
@@ -2312,7 +2320,7 @@ var Ee = class {
     return this._aspect;
   }
 };
-var pr = ((o) => (o.WidthAndHeight = "widthAndHeight", o.WidthAndAspectRatio = "widthAndAspectRatio", o.HeightAndAspectRatio = "heightAndAspectRatio", o.ShorterDimensionAndAspectRatio = "shorterDimensionAndAspectRatio", o))(pr || {});
+var gr = ((o) => (o.WidthAndHeight = "widthAndHeight", o.WidthAndAspectRatio = "widthAndAspectRatio", o.HeightAndAspectRatio = "heightAndAspectRatio", o.ShorterDimensionAndAspectRatio = "shorterDimensionAndAspectRatio", o))(gr || {});
 var q = class {
   constructor() {
     c(this, "_widthAndHeight");
@@ -2340,16 +2348,16 @@ var q = class {
     return t._widthAndHeight = e, t;
   }
   static sizeWithWidthAndAspectRatio(e, t) {
-    let a = new q();
-    return a._widthAndAspectRatio = new Ee(e, t), a;
+    let a2 = new q();
+    return a2._widthAndAspectRatio = new Ee(e, t), a2;
   }
   static sizeWithHeightAndAspectRatio(e, t) {
-    let a = new q();
-    return a._heightAndAspectRatio = new Ee(e, t), a;
+    let a2 = new q();
+    return a2._heightAndAspectRatio = new Ee(e, t), a2;
   }
   static sizeWithShorterDimensionAndAspectRatio(e, t) {
-    let a = new q();
-    return a._shorterDimensionAndAspectRatio = new Ee(e, t), a;
+    let a2 = new q();
+    return a2._shorterDimensionAndAspectRatio = new Ee(e, t), a2;
   }
   static fromJSON(e) {
     if (e.width && e.height)
@@ -2376,12 +2384,12 @@ var q = class {
   }
 };
 var me = class {
-  constructor(e, t, a, o) {
+  constructor(e, t, a2, o) {
     c(this, "_left");
     c(this, "_right");
     c(this, "_top");
     c(this, "_bottom");
-    this._left = e, this._top = t, this._right = a, this._bottom = o;
+    this._left = e, this._top = t, this._right = a2, this._bottom = o;
   }
   get left() {
     return this._left;
@@ -2437,9 +2445,9 @@ var W = class {
   static fromHex(e) {
     return new W(W.normalizeHex(e));
   }
-  static fromRGBA(e, t, a, o = 1) {
-    let d = [e, t, a, this.normalizeAlpha(o)].reduce((f2, p) => f2 + this.numberToHex(p), "");
-    return new W(d);
+  static fromRGBA(e, t, a2, o = 1) {
+    let d2 = [e, t, a2, this.normalizeAlpha(o)].reduce((f2, p2) => f2 + this.numberToHex(p2), "");
+    return new W(d2);
   }
   static hexToNumber(e) {
     return Number.parseInt(e, 16);
@@ -2466,9 +2474,9 @@ var W = class {
     return this.hexadecimalString;
   }
 };
-var fi = ((d) => (d.Unknown = "unknown", d.Portrait = "portrait", d.PortraitUpsideDown = "portraitUpsideDown", d.LandscapeRight = "landscapeRight", d.LandscapeLeft = "landscapeLeft", d))(fi || {});
-var hr = ((p) => (p.None = "none", p.Horizontal = "horizontal", p.LeftToRight = "leftToRight", p.RightToLeft = "rightToLeft", p.Vertical = "vertical", p.TopToBottom = "topToBottom", p.BottomToTop = "bottomToTop", p))(hr || {});
-var gr = ((t) => (t.Minimal = "minimal", t.Extended = "extended", t))(gr || {});
+var fi = ((d2) => (d2.Unknown = "unknown", d2.Portrait = "portrait", d2.PortraitUpsideDown = "portraitUpsideDown", d2.LandscapeRight = "landscapeRight", d2.LandscapeLeft = "landscapeLeft", d2))(fi || {});
+var fr = ((p2) => (p2.None = "none", p2.Horizontal = "horizontal", p2.LeftToRight = "leftToRight", p2.RightToLeft = "rightToLeft", p2.Vertical = "vertical", p2.TopToBottom = "topToBottom", p2.BottomToTop = "bottomToTop", p2))(fr || {});
+var vr = ((t) => (t.Minimal = "minimal", t.Extended = "extended", t))(vr || {});
 var Qe = class {
   constructor() {
     c(this, "type", "tapToFocus");
@@ -2485,9 +2493,9 @@ var qe = class {
     return { type: this.type };
   }
 };
-var fr = ((t) => (t.Rounded = "rounded", t.Square = "square", t))(fr || {});
-var vr = ((t) => (t.Light = "light", t.Bold = "bold", t))(vr || {});
-var Sr = ((e) => (e.Animated = "animated", e))(Sr || {});
+var Sr = ((t) => (t.Rounded = "rounded", t.Square = "square", t))(Sr || {});
+var br = ((t) => (t.Light = "light", t.Bold = "bold", t))(br || {});
+var Cr = ((e) => (e.Animated = "animated", e))(Cr || {});
 var Ae = class {
   constructor(e) {
     c(this, "_isLooping", false);
@@ -2513,23 +2521,23 @@ var Et = class {
     return (e == null ? void 0 : e.type) === "swipeToZoom" ? new qe() : null;
   }
 };
-function br(l2) {
+function Ar(l2) {
   var e;
-  return { Camera: { Settings: { preferredResolution: l2.Camera.Settings.preferredResolution, zoomFactor: l2.Camera.Settings.zoomFactor, zoomGestureZoomFactor: l2.Camera.Settings.zoomGestureZoomFactor, focusGestureStrategy: l2.Camera.Settings.focusGestureStrategy }, defaultPosition: (e = l2.Camera.defaultPosition) != null ? e : null, availablePositions: l2.Camera.availablePositions }, SingleImageUploader: { Settings: { iconElement: document.createRange().createContextualFragment(l2.SingleImageUploader.Settings.iconElement).firstElementChild, informationElement: document.createRange().createContextualFragment(l2.SingleImageUploader.Settings.informationElement).firstElementChild, buttonElement: document.createRange().createContextualFragment(l2.SingleImageUploader.Settings.buttonElement).firstElementChild, containerStyle: l2.SingleImageUploader.Settings.containerStyle, iconStyle: l2.SingleImageUploader.Settings.iconStyle, informationStyle: l2.SingleImageUploader.Settings.informationStyle, buttonStyle: l2.SingleImageUploader.Settings.buttonStyle } }, DataCaptureView: { scanAreaMargins: me.fromJSON(JSON.parse(l2.DataCaptureView.scanAreaMargins)), pointOfInterest: se.fromJSON(JSON.parse(l2.DataCaptureView.pointOfInterest)), logoStyle: l2.DataCaptureView.logoStyle, logoAnchor: l2.DataCaptureView.logoAnchor, logoOffset: se.fromJSON(JSON.parse(l2.DataCaptureView.logoOffset)), focusGesture: It.fromJSON(JSON.parse(l2.DataCaptureView.focusGesture)), zoomGesture: Et.fromJSON(JSON.parse(l2.DataCaptureView.zoomGesture)), cameraRecoveryText: l2.DataCaptureView.cameraRecoveryText }, LaserlineViewfinder: Object.keys(l2.LaserlineViewfinder.styles).reduce((t, a) => {
-    let o = l2.LaserlineViewfinder.styles[a];
-    return t.styles[a] = { width: R.fromJSON(JSON.parse(o.width)), enabledColor: W.fromJSON(o.enabledColor), disabledColor: W.fromJSON(o.disabledColor), style: o.style }, t;
-  }, { defaultStyle: l2.LaserlineViewfinder.defaultStyle, styles: {} }), RectangularViewfinder: Object.keys(l2.RectangularViewfinder.styles).reduce((t, a) => {
-    let o = l2.RectangularViewfinder.styles[a];
-    return t.styles[a] = { size: q.fromJSON(JSON.parse(o.size)), color: W.fromJSON(o.color), style: o.style, lineStyle: o.lineStyle, dimming: Number.parseFloat(o.dimming.toString()), animation: Ae.fromJSON(JSON.parse(o.animation)) }, t;
+  return { Camera: { Settings: { preferredResolution: l2.Camera.Settings.preferredResolution, zoomFactor: l2.Camera.Settings.zoomFactor, zoomGestureZoomFactor: l2.Camera.Settings.zoomGestureZoomFactor, focusGestureStrategy: l2.Camera.Settings.focusGestureStrategy }, defaultPosition: (e = l2.Camera.defaultPosition) != null ? e : null, availablePositions: l2.Camera.availablePositions }, SingleImageUploader: { Settings: { iconElement: document.createRange().createContextualFragment(l2.SingleImageUploader.Settings.iconElement).firstElementChild, informationElement: document.createRange().createContextualFragment(l2.SingleImageUploader.Settings.informationElement).firstElementChild, buttonElement: document.createRange().createContextualFragment(l2.SingleImageUploader.Settings.buttonElement).firstElementChild, containerStyle: l2.SingleImageUploader.Settings.containerStyle, iconStyle: l2.SingleImageUploader.Settings.iconStyle, informationStyle: l2.SingleImageUploader.Settings.informationStyle, buttonStyle: l2.SingleImageUploader.Settings.buttonStyle } }, DataCaptureView: { scanAreaMargins: me.fromJSON(JSON.parse(l2.DataCaptureView.scanAreaMargins)), pointOfInterest: se.fromJSON(JSON.parse(l2.DataCaptureView.pointOfInterest)), logoStyle: l2.DataCaptureView.logoStyle, logoAnchor: l2.DataCaptureView.logoAnchor, logoOffset: se.fromJSON(JSON.parse(l2.DataCaptureView.logoOffset)), focusGesture: It.fromJSON(JSON.parse(l2.DataCaptureView.focusGesture)), zoomGesture: Et.fromJSON(JSON.parse(l2.DataCaptureView.zoomGesture)), cameraRecoveryText: l2.DataCaptureView.cameraRecoveryText }, LaserlineViewfinder: Object.keys(l2.LaserlineViewfinder.styles).reduce((t, a2) => {
+    let o = l2.LaserlineViewfinder.styles[a2];
+    return t.styles[a2] = { width: R.fromJSON(JSON.parse(o.width)), enabledColor: W.fromJSON(o.enabledColor), disabledColor: W.fromJSON(o.disabledColor), style: o.style }, t;
+  }, { defaultStyle: l2.LaserlineViewfinder.defaultStyle, styles: {} }), RectangularViewfinder: Object.keys(l2.RectangularViewfinder.styles).reduce((t, a2) => {
+    let o = l2.RectangularViewfinder.styles[a2];
+    return t.styles[a2] = { size: q.fromJSON(JSON.parse(o.size)), color: W.fromJSON(o.color), style: o.style, lineStyle: o.lineStyle, dimming: Number.parseFloat(o.dimming.toString()), animation: Ae.fromJSON(JSON.parse(o.animation)) }, t;
   }, { defaultStyle: l2.RectangularViewfinder.defaultStyle, styles: {} }), AimerViewfinder: { frameColor: W.fromJSON(l2.AimerViewfinder.frameColor), dotColor: W.fromJSON(l2.AimerViewfinder.dotColor) }, Brush: { fillColor: W.fromJSON(l2.Brush.fillColor), strokeColor: W.fromJSON(l2.Brush.strokeColor), strokeWidth: l2.Brush.strokeWidth } };
 }
-var x = br({ DataCaptureView: { focusGesture: "null", zoomGesture: "null", logoAnchor: "bottomRight", logoStyle: "extended", logoOffset: JSON.stringify({ x: { value: 0, unit: "fraction" }, y: { value: 0, unit: "fraction" } }), pointOfInterest: JSON.stringify({ x: { value: 0.5, unit: "fraction" }, y: { value: 0.5, unit: "fraction" } }), scanAreaMargins: JSON.stringify({ left: { value: 0, unit: "fraction" }, right: { value: 0, unit: "fraction" }, top: { value: 0, unit: "fraction" }, bottom: { value: 0, unit: "fraction" } }), cameraRecoveryText: "Tap/click to resume scanning" }, Camera: { Settings: { preferredResolution: "auto", zoomFactor: 1, focusGestureStrategy: "manualUntilCapture", zoomGestureZoomFactor: 2 }, defaultPosition: "worldFacing", availablePositions: ["worldFacing", "userFacing"] }, SingleImageUploader: { Settings: { iconElement: atob(mi), informationElement: "<p>Analyze an image from your device.</p>", buttonElement: "<div>Choose an Image</div>", containerStyle: { backgroundColor: "#FFFFFF" }, iconStyle: { fill: "#121619" }, informationStyle: { color: "#121619", marginBottom: "2em" }, buttonStyle: { color: "#FFFFFF", backgroundColor: "#121619", fontWeight: "bold", padding: "1.25em", width: "12em", textAlign: "center", textTransform: "uppercase" } } }, LaserlineViewfinder: { defaultStyle: "animated", styles: { animated: { width: JSON.stringify({ unit: "fraction", value: 0.8 }), enabledColor: "#FFFFFFFF", disabledColor: "#00000000", style: "animated" } } }, AimerViewfinder: { frameColor: "#FFFFFFFF", dotColor: "#FFFFFFCC" }, RectangularViewfinder: { defaultStyle: "rounded", styles: { rounded: { size: JSON.stringify({ aspect: 1, shorterDimension: { unit: "fraction", value: 0.75 } }), color: "#FFFFFFFF", style: "rounded", lineStyle: "light", dimming: 0, animation: JSON.stringify({ looping: true }) }, square: { size: JSON.stringify({ aspect: 1, shorterDimension: { unit: "fraction", value: 0.75 } }), color: "#FFFFFFFF", style: "square", lineStyle: "light", dimming: 0, animation: JSON.stringify({ looping: true }) } } }, Brush: { fillColor: "#00000000", strokeColor: "#00000000", strokeWidth: 0 } });
+var x = Ar({ DataCaptureView: { focusGesture: "null", zoomGesture: "null", logoAnchor: "bottomRight", logoStyle: "extended", logoOffset: JSON.stringify({ x: { value: 0, unit: "fraction" }, y: { value: 0, unit: "fraction" } }), pointOfInterest: JSON.stringify({ x: { value: 0.5, unit: "fraction" }, y: { value: 0.5, unit: "fraction" } }), scanAreaMargins: JSON.stringify({ left: { value: 0, unit: "fraction" }, right: { value: 0, unit: "fraction" }, top: { value: 0, unit: "fraction" }, bottom: { value: 0, unit: "fraction" } }), cameraRecoveryText: "Tap/click to resume scanning" }, Camera: { Settings: { preferredResolution: "auto", zoomFactor: 1, focusGestureStrategy: "manualUntilCapture", zoomGestureZoomFactor: 2 }, defaultPosition: "worldFacing", availablePositions: ["worldFacing", "userFacing"] }, SingleImageUploader: { Settings: { iconElement: atob(mi), informationElement: "<p>Analyze an image from your device.</p>", buttonElement: "<div>Choose an Image</div>", containerStyle: { backgroundColor: "#FFFFFF" }, iconStyle: { fill: "#121619" }, informationStyle: { color: "#121619", marginBottom: "2em" }, buttonStyle: { color: "#FFFFFF", backgroundColor: "#121619", fontWeight: "bold", padding: "1.25em", width: "12em", textAlign: "center", textTransform: "uppercase" } } }, LaserlineViewfinder: { defaultStyle: "animated", styles: { animated: { width: JSON.stringify({ unit: "fraction", value: 0.8 }), enabledColor: "#FFFFFFFF", disabledColor: "#00000000", style: "animated" } } }, AimerViewfinder: { frameColor: "#FFFFFFFF", dotColor: "#FFFFFFCC" }, RectangularViewfinder: { defaultStyle: "rounded", styles: { rounded: { size: JSON.stringify({ aspect: 1, shorterDimension: { unit: "fraction", value: 0.75 } }), color: "#FFFFFFFF", style: "rounded", lineStyle: "light", dimming: 0, animation: JSON.stringify({ looping: true }) }, square: { size: JSON.stringify({ aspect: 1, shorterDimension: { unit: "fraction", value: 0.75 } }), color: "#FFFFFFFF", style: "square", lineStyle: "light", dimming: 0, animation: JSON.stringify({ looping: true }) } } }, Brush: { fillColor: "#00000000", strokeColor: "#00000000", strokeWidth: 0 } });
 var ee = { CONTAINER_CLASS_NAME: "scandit-container", PAINTBOARD_CLASS_NAME: "scandit-paintboard", CONTROLS_CLASS_NAME: "scandit-controls", CONTROL_WIDGET_CLASS_NAME: "scandit-control-widget", MIRRORED_CLASS_NAME: "scandit-mirrored", CAMERA_RECOVERY_CLASS_NAME: "scandit-camera-recovery", ERROR_CLASS_NAME: "scandit-error", SINGLE_IMAGE_UPLOADER_CONTAINER_CLASS_NAME: "scandit-single-image-uploader-container" };
 var Oe = ((o) => (o.On = "on", o.Off = "off", o.Starting = "starting", o.Stopping = "stopping", o))(Oe || {});
 var Ot = ((t) => (t.On = "on", t.Off = "off", t))(Ot || {});
 var Nt = ((t) => (t.WorldFacing = "worldFacing", t.UserFacing = "userFacing", t))(Nt || {});
 var vi = ((o) => (o.Auto = "auto", o.HD = "hd", o.FullHD = "fullHd", o.UHD4K = "uhd4k", o))(vi || {});
-var Cr = ((o) => (o.None = "none", o.Manual = "manual", o.ManualUntilCapture = "manualUntilCapture", o.AutoOnLocation = "autoOnLocation", o))(Cr || {});
+var yr = ((o) => (o.None = "none", o.Manual = "manual", o.ManualUntilCapture = "manualUntilCapture", o.AutoOnLocation = "autoOnLocation", o))(yr || {});
 var ne = class {
   constructor(e) {
     c(this, "preferredResolution", x.Camera.Settings.preferredResolution);
@@ -2558,8 +2566,8 @@ var ne = class {
   }
   toJSONObject() {
     let e = { preferredResolution: this.preferredResolution, zoomFactor: this.zoomFactor, zoomGestureZoomFactor: this.zoomGestureZoomFactor, focus: { focusGestureStrategy: this.focus.focusGestureStrategy } }, t = {};
-    for (let a of Object.keys(this))
-      [...Object.keys(e), "focusGestureStrategy"].includes(a) || (t[a] = this[a]);
+    for (let a2 of Object.keys(this))
+      [...Object.keys(e), "focusGestureStrategy"].includes(a2) || (t[a2] = this[a2]);
     return Q(Q({}, e), t);
   }
 };
@@ -2628,8 +2636,8 @@ var U = class {
   static instance() {
     return U._instance == null && (U._instance = new U()), U._instance;
   }
-  setInteractionOptions(e, t, a) {
-    this.torchToggleEnabled = e, this.tapToFocusEnabled = t, this.pinchToZoomEnabled = a;
+  setInteractionOptions(e, t, a2) {
+    this.torchToggleEnabled = e, this.tapToFocusEnabled = t, this.pinchToZoomEnabled = a2;
   }
   isTapToFocusEnabled() {
     return this.tapToFocusEnabled;
@@ -2647,10 +2655,10 @@ var U = class {
     this.cameraPosition = e;
   }
   async setCameraPosition(e) {
-    var a;
+    var a2;
     this.setInitialCameraPosition(e);
     let t = Y.getMainCameraForPosition(await Y.getCameras(), e);
-    if (t && t.deviceId !== ((a = this.selectedCamera) == null ? void 0 : a.deviceId))
+    if (t && t.deviceId !== ((a2 = this.selectedCamera) == null ? void 0 : a2.deviceId))
       return this.initializeCameraWithSettings(t, this.selectedCameraSettings);
   }
   setSelectedCamera(e) {
@@ -2666,9 +2674,9 @@ var U = class {
     if (this.activeCamera && (this.activeCamera.currentResolution = void 0), this.activeCamera = void 0, this.mediaStream)
       return g.log(g.Level.Debug, `Stop camera video stream access${e ? " (abort access detection)" : ""}:`, this.mediaStream), document.removeEventListener("visibilitychange", this.checkCameraVideoStreamAccessIfVisibleListener), window.clearTimeout(this.cameraAccessTimeout), window.clearInterval(this.videoMetadataCheckInterval), window.clearTimeout(this.getCapabilitiesTimeout), window.clearTimeout(this.manualFocusWaitTimeout), window.clearTimeout(this.manualToAutofocusResumeTimeout), window.clearInterval(this.autofocusInterval), this.videoElement.pause(), new Promise((t) => {
         setTimeout(() => {
-          var a, o;
-          (a = this.mediaStream) == null || a.getVideoTracks().forEach((d) => {
-            d.removeEventListener("ended", this.videoTrackEndedListener), d.stop();
+          var a2, o;
+          (a2 = this.mediaStream) == null || a2.getVideoTracks().forEach((d2) => {
+            d2.removeEventListener("ended", this.videoTrackEndedListener), d2.stop();
           }), this.videoElement.srcObject = null, this.mediaStream = void 0, this.mediaTrackCapabilities = void 0, this.mediaTrackCapabilitiesPromise = void 0, this.mediaTrackCapabilitiesPromiseResolver = void 0, e || (o = this.abortedCameraInitializationResolveCallback) == null || o.call(this), t();
         }, 0);
       });
@@ -2697,8 +2705,8 @@ var U = class {
     var t;
     if (this.mediaStream && ((t = this.mediaTrackCapabilities) == null ? void 0 : t.torch) === true) {
       this.torchEnabled = e;
-      let a = this.mediaStream.getVideoTracks();
-      a.length > 0 && typeof a[0].applyConstraints == "function" && await a[0].applyConstraints({ advanced: [{ torch: e }] });
+      let a2 = this.mediaStream.getVideoTracks();
+      a2.length > 0 && typeof a2[0].applyConstraints == "function" && await a2[0].applyConstraints({ advanced: [{ torch: e }] });
     }
   }
   async toggleTorch() {
@@ -2707,10 +2715,10 @@ var U = class {
   async setZoom(e) {
     var t;
     if (!!this.mediaStream && (await this.waitForCapabilities(), (t = this.mediaTrackCapabilities) != null && t.zoom)) {
-      let a = this.mediaStream.getVideoTracks();
-      if (a.length > 0 && typeof a[0].applyConstraints == "function") {
+      let a2 = this.mediaStream.getVideoTracks();
+      if (a2.length > 0 && typeof a2[0].applyConstraints == "function") {
         let o = Math.max(this.mediaTrackCapabilities.zoom.min, Math.min(e, this.mediaTrackCapabilities.zoom.max));
-        await a[0].applyConstraints({ advanced: [{ zoom: o }] });
+        await a2[0].applyConstraints({ advanced: [{ zoom: o }] });
       }
     }
   }
@@ -2730,12 +2738,12 @@ var U = class {
   }
   addListener(e, t) {
     var o;
-    let a = (o = this.listeners.get(e)) != null ? o : [];
-    a.includes(t) || this.listeners.set(e, [...a, t]);
+    let a2 = (o = this.listeners.get(e)) != null ? o : [];
+    a2.includes(t) || this.listeners.set(e, [...a2, t]);
   }
   removeListener(e, t) {
-    var d;
-    let o = ((d = this.listeners.get(e)) != null ? d : []).filter((f2) => f2 !== t);
+    var d2;
+    let o = ((d2 = this.listeners.get(e)) != null ? d2 : []).filter((f2) => f2 !== t);
     this.listeners.set(e, o);
   }
   async playVideo() {
@@ -2760,40 +2768,40 @@ var U = class {
           if (g.log(g.Level.Warn, "Detected incorrect GPU accelerated WebGL image processing, switching to canvas mode"), this._canvasWebGLContext = void 0, this.canvas2dContext != null)
             return this.captureImage();
         } else {
-          let a = this._imageData;
-          return this._imageData = void 0, { data: a, width: this.canvasWebGLContext.drawingBufferWidth, height: this.canvasWebGLContext.drawingBufferHeight };
+          let a2 = this._imageData;
+          return this._imageData = void 0, { data: a2, width: this.canvasWebGLContext.drawingBufferWidth, height: this.canvasWebGLContext.drawingBufferHeight };
         }
       } else if (this.canvas2dContext != null) {
         if (!this.isVideoAndContextStateValid())
           return null;
         this.canvas2dContext.drawImage(this.videoElement, 0, 0);
-        let { width: t } = this.canvas, { height: a } = this.canvas;
-        return { data: this.canvas2dContext.getImageData(0, 0, t, a).data, width: t, height: a };
+        let { width: t } = this.canvas, { height: a2 } = this.canvas;
+        return { data: this.canvas2dContext.getImageData(0, 0, t, a2).data, width: t, height: a2 };
       }
     }
     return null;
   }
   async recoverStreamIfNeeded() {
-    var t, a;
+    var t, a2;
     let e = (t = this.mediaStream) == null ? void 0 : t.getVideoTracks();
-    ((a = e == null ? void 0 : e[0]) == null ? void 0 : a.readyState) === "ended" && await this.reinitializeCamera();
+    ((a2 = e == null ? void 0 : e[0]) == null ? void 0 : a2.readyState) === "ended" && await this.reinitializeCamera();
   }
   async setupCamerasAndStream() {
     var e, t;
     try {
-      let a;
-      this.selectedCamera == null && (a = await this.accessInitialCamera());
-      let o = await Y.getCameras(false, true), d = (t = (e = this.mediaStream) == null ? void 0 : e.getVideoTracks()[0]) == null ? void 0 : t.getSettings().deviceId;
-      if (this.mediaStream && a) {
-        let f2 = o.length === 1 ? o[0] : o.find((p) => p.deviceId === d || p.label !== "" && p.label === (a == null ? void 0 : a.label));
+      let a2;
+      this.selectedCamera == null && (a2 = await this.accessInitialCamera());
+      let o = await Y.getCameras(false, true), d2 = (t = (e = this.mediaStream) == null ? void 0 : e.getVideoTracks()[0]) == null ? void 0 : t.getSettings().deviceId;
+      if (this.mediaStream && a2) {
+        let f2 = o.length === 1 ? o[0] : o.find((p2) => p2.deviceId === d2 || p2.label !== "" && p2.label === (a2 == null ? void 0 : a2.label));
         if (f2) {
           if (Y.adjustCameraFromMediaStream(this.mediaStream, f2), G.isDesktopDevice() && (Y.mainCameraForPositionOverridesOnDesktop.set(this.cameraPosition, f2), Y.mainCameraForPositionOverridesOnDesktop.set(f2.position, f2)), o.length === 1 || Y.getMainCameraForPosition(o, this.cameraPosition) === f2) {
             g.log(g.Level.Debug, "Initial camera access was correct (main camera), keep camera:", f2), this.setSelectedCamera(f2), this.updateActiveCameraCurrentResolution(f2), await this.recoverStreamIfNeeded();
             return;
           }
-          g.log(g.Level.Debug, "Initial camera access was incorrect (not main camera), change camera", Z(Q({}, a), { deviceId: d }));
+          g.log(g.Level.Debug, "Initial camera access was incorrect (not main camera), change camera", Z(Q({}, a2), { deviceId: d2 }));
         } else
-          g.log(g.Level.Debug, "Initial camera access was incorrect (unknown camera), change camera", Z(Q({}, a), { deviceId: d }));
+          g.log(g.Level.Debug, "Initial camera access was incorrect (unknown camera), change camera", Z(Q({}, a2), { deviceId: d2 }));
       }
       if (this.selectedCamera == null) {
         await this.accessAutoselectedCamera(o);
@@ -2829,12 +2837,12 @@ var U = class {
       try {
         await this.initializeCameraWithSettings(t, this.selectedCameraSettings);
         return;
-      } catch (a) {
+      } catch (a2) {
         if (this.setSelectedCamera(), e.length > 0) {
-          g.log(g.Level.Warn, "Couldn't access camera:", t, a), t = e.shift();
+          g.log(g.Level.Warn, "Couldn't access camera:", t, a2), t = e.shift();
           continue;
         }
-        throw a;
+        throw a2;
       }
     throw new J(U.noCameraErrorParameters);
   }
@@ -2893,14 +2901,14 @@ var U = class {
     g.log(g.Level.Warn, "WebGL context has been lost, restoring..."), this._canvasWebGLContext = void 0, this.canvasWebGLContext ? (this.handleVideoResize(), g.log(g.Level.Warn, "WebGL context restored")) : g.log(g.Level.Error, "WebGL context restore failed");
   }
   async triggerManualFocusForContinuous() {
-    var a;
+    var a2;
     if (!this.mediaStream)
       return;
     this.manualToAutofocusResumeTimeout = window.setTimeout(async () => {
       await this.triggerFocusMode("continuous");
     }, U.manualToAutofocusResumeTimeoutMs);
     let e = true, t = this.mediaStream.getVideoTracks();
-    t.length > 0 && typeof t[0].getConstraints == "function" && (e = ((a = t[0].getConstraints().advanced) == null ? void 0 : a.some((o) => o.focusMode === "manual")) === true), e ? (await this.triggerFocusMode("continuous"), this.manualFocusWaitTimeout = window.setTimeout(async () => {
+    t.length > 0 && typeof t[0].getConstraints == "function" && (e = ((a2 = t[0].getConstraints().advanced) == null ? void 0 : a2.some((o) => o.focusMode === "manual")) === true), e ? (await this.triggerFocusMode("continuous"), this.manualFocusWaitTimeout = window.setTimeout(async () => {
       await this.triggerFocusMode("manual");
     }, U.manualFocusWaitTimeoutMs)) : await this.triggerFocusMode("manual");
   }
@@ -2930,13 +2938,13 @@ var U = class {
   triggerZoomStart(e) {
     var t;
     if ((e == null ? void 0 : e.touches.length) === 2 && (e.preventDefault(), this.pinchToZoomDistance = Math.hypot((e.touches[1].screenX - e.touches[0].screenX) / screen.width, (e.touches[1].screenY - e.touches[0].screenY) / screen.height), this.mediaStream && ((t = this.mediaTrackCapabilities) == null ? void 0 : t.zoom))) {
-      let a = this.mediaStream.getVideoTracks();
-      if (a.length > 0 && typeof a[0].getConstraints == "function") {
+      let a2 = this.mediaStream.getVideoTracks();
+      if (a2.length > 0 && typeof a2[0].getConstraints == "function") {
         this.pinchToZoomInitialZoom = this.mediaTrackCapabilities.zoom.min;
-        let o = a[0].getConstraints();
+        let o = a2[0].getConstraints();
         if (o.advanced) {
-          let d = o.advanced.find((f2) => "zoom" in f2);
-          (d == null ? void 0 : d.zoom) != null && (this.pinchToZoomInitialZoom = d.zoom);
+          let d2 = o.advanced.find((f2) => "zoom" in f2);
+          (d2 == null ? void 0 : d2.zoom) != null && (this.pinchToZoomInitialZoom = d2.zoom);
         }
       }
     }
@@ -2952,8 +2960,8 @@ var U = class {
     }
     this.activeCamera && this.reportCameraProperties(this.activeCamera.deviceId, this.activeCamera.position, ((e = this.mediaTrackCapabilities) == null ? void 0 : e.focusMode) == null || this.mediaTrackCapabilities.focusMode.includes("continuous"));
   }
-  reportCameraProperties(e, t, a = true) {
-    this.emit("cameraProperties", { deviceId: e, isFrontFacing: t === "userFacing", hasAutofocus: a });
+  reportCameraProperties(e, t, a2 = true) {
+    this.emit("cameraProperties", { deviceId: e, isFrontFacing: t === "userFacing", hasAutofocus: a2 });
   }
   setupAutofocus() {
     if (window.clearTimeout(this.manualFocusWaitTimeout), window.clearTimeout(this.manualToAutofocusResumeTimeout), this.mediaStream && this.mediaTrackCapabilities) {
@@ -2970,7 +2978,7 @@ var U = class {
       if (t.length > 0 && typeof t[0].applyConstraints == "function")
         try {
           await t[0].applyConstraints({ advanced: [{ focusMode: e }] });
-        } catch (a) {
+        } catch (a2) {
         }
     }
   }
@@ -2999,16 +3007,16 @@ var U = class {
       this.cameraInitializationPromise = void 0;
     }
   }
-  async handleCameraInitializationError(e, t, a) {
-    if (!["OverconstrainedError", "NotReadableError"].includes(a.name) || a.name === "NotReadableError" && t === 4)
-      throw g.log(g.Level.Debug, "Camera video stream access failure (unrecoverable error)", e, a), a.name !== "NotAllowedError" && Y.markCameraAsInaccessible(e), a;
-    if (a.name === "OverconstrainedError" && t === 4) {
+  async handleCameraInitializationError(e, t, a2) {
+    if (!["OverconstrainedError", "NotReadableError"].includes(a2.name) || a2.name === "NotReadableError" && t === 4)
+      throw g.log(g.Level.Debug, "Camera video stream access failure (unrecoverable error)", e, a2), a2.name !== "NotAllowedError" && Y.markCameraAsInaccessible(e), a2;
+    if (a2.name === "OverconstrainedError" && t === 4) {
       if (e.deviceId === "")
-        throw g.log(g.Level.Warn, "Camera video stream access failure (no camera with such type error)", e, a), a;
-      g.log(g.Level.Warn, "Detected non-existent deviceId error, attempt to find and reaccess updated camera", e, a);
+        throw g.log(g.Level.Warn, "Camera video stream access failure (no camera with such type error)", e, a2), a2;
+      g.log(g.Level.Warn, "Detected non-existent deviceId error, attempt to find and reaccess updated camera", e, a2);
       let o = e.deviceId;
       if (await Y.getCameras(true), o === e.deviceId)
-        throw g.log(g.Level.Warn, "Camera video stream access failure (updated camera not found after non-existent deviceId error)", e, a), Y.markCameraAsInaccessible(e), a;
+        throw g.log(g.Level.Warn, "Camera video stream access failure (updated camera not found after non-existent deviceId error)", e, a2), Y.markCameraAsInaccessible(e), a2;
       return g.log(g.Level.Warn, "Updated camera found (recovered from non-existent deviceId error), attempt to access it", e), this.initializeCamera(e);
     }
     return this.initializeCamera(e, t + 1);
@@ -3018,27 +3026,27 @@ var U = class {
       throw new J(U.noCameraErrorParameters);
     await this.stopStream(), this.torchEnabled = false, t = t != null ? t : this.getInitialCameraResolutionConstraint();
     try {
-      let a = await Y.accessCameraStream(t, e);
-      if (g.log(g.Level.Debug, "Camera accessed, waiting for camera video stream start..."), typeof a.getTracks()[0].getSettings == "function") {
-        let o = a.getTracks()[0].getSettings();
+      let a2 = await Y.accessCameraStream(t, e);
+      if (g.log(g.Level.Debug, "Camera accessed, waiting for camera video stream start..."), typeof a2.getTracks()[0].getSettings == "function") {
+        let o = a2.getTracks()[0].getSettings();
         if (o.width != null && o.height != null && (o.width === 2 || o.height === 2)) {
           if (g.log(g.Level.Debug, "Camera video stream access failure (invalid video metadata):", e), t === 4)
             throw new J(U.notReadableErrorParameters);
           return this.initializeCamera(e, t + 1);
         }
       }
-      this.mediaStream = a;
+      this.mediaStream = a2;
       for (let o of this.mediaStream.getVideoTracks())
         o.addEventListener("ended", this.videoTrackEndedListener), o.addEventListener("mute", this.videoTrackMuteListener), o.addEventListener("unmute", this.videoTrackMuteListener);
       try {
-        await this.setupCameraStreamVideo(e, a);
+        await this.setupCameraStreamVideo(e, a2);
       } catch (o) {
         if (t === 4)
           throw o;
         return this.initializeCamera(e, t + 1);
       }
-    } catch (a) {
-      return this.handleCameraInitializationError(e, t, a);
+    } catch (a2) {
+      return this.handleCameraInitializationError(e, t, a2);
     }
   }
   setCameraAccessTimeout() {
@@ -3048,14 +3056,14 @@ var U = class {
     }, U.cameraAccessTimeoutMs);
   }
   async checkCameraAccess(e) {
-    return new Promise((t, a) => {
+    return new Promise((t, a2) => {
       this.cameraAccessRejectCallback = (o) => {
-        g.log(g.Level.Debug, "Camera video stream access failure (video data load timeout):", e), this.gui.setCameraRecoveryVisible(true), a(o);
+        g.log(g.Level.Debug, "Camera video stream access failure (video data load timeout):", e), this.gui.setCameraRecoveryVisible(true), a2(o);
       }, this.setCameraAccessTimeout();
     });
   }
   async checkVideoMetadata(e) {
-    return new Promise((t, a) => {
+    return new Promise((t, a2) => {
       this.videoElement.onloadeddata = () => {
         if (this.videoElement.onloadeddata = null, window.clearTimeout(this.cameraAccessTimeout), this.videoElement.videoWidth > 2 && this.videoElement.videoHeight > 2 && this.videoElement.currentTime > 0) {
           this.updateActiveCameraCurrentResolution(e), g.log(g.Level.Debug, "Camera video stream access success:", e), t();
@@ -3065,7 +3073,7 @@ var U = class {
         window.clearInterval(this.videoMetadataCheckInterval), this.videoMetadataCheckInterval = window.setInterval(async () => {
           if (this.videoElement.videoWidth <= 2 || this.videoElement.videoHeight <= 2 || this.videoElement.currentTime === 0) {
             if (performance.now() - o > U.videoMetadataCheckTimeoutMs) {
-              g.log(g.Level.Warn, "Camera video stream access failure (valid video metadata timeout):", e), window.clearInterval(this.videoMetadataCheckInterval), await this.stopStream(true), a(new J(U.notReadableErrorParameters));
+              g.log(g.Level.Warn, "Camera video stream access failure (valid video metadata timeout):", e), window.clearInterval(this.videoMetadataCheckInterval), await this.stopStream(true), a2(new J(U.notReadableErrorParameters));
               return;
             }
             return;
@@ -3077,10 +3085,10 @@ var U = class {
   }
   async setupCameraStreamVideo(e, t) {
     this.videoElement.addEventListener("loadedmetadata", this.postStreamInitializationListener), this.videoElement.addEventListener("resize", this.videoResizeListener), this.tapToFocusEnabled && this.enableTapToFocusListeners(), this.pinchToZoomEnabled && this.enablePinchToZoomListeners();
-    let a = Promise.race([this.checkCameraAccess(e), this.checkVideoMetadata(e), new Promise((o) => {
+    let a2 = Promise.race([this.checkCameraAccess(e), this.checkVideoMetadata(e), new Promise((o) => {
       this.abortedCameraInitializationResolveCallback = o;
     })]);
-    return this.videoElement.srcObject = t, this.videoElement.load(), await this.playVideo(), this.handleVideoResize(), this.reportCameraProperties(e.deviceId, e.position), a;
+    return this.videoElement.srcObject = t, this.videoElement.load(), await this.playVideo(), this.handleVideoResize(), this.reportCameraProperties(e.deviceId, e.position), a2;
   }
   get canvas2dContext() {
     return this._canvas2dContext || (this._canvas2dContext = this.canvas.getContext("2d"), this.handleVideoResize()), this._canvas2dContext;
@@ -3090,18 +3098,18 @@ var U = class {
     if (!this._canvas2dContext && !this._canvasWebGLContext) {
       let t = (e = this.canvas.getContext("webgl", { alpha: false, antialias: false })) != null ? e : this.canvas.getContext("experimental-webgl", { alpha: false, antialias: false });
       if (t != null) {
-        let a = t.createTexture();
-        t.bindTexture(t.TEXTURE_2D, a);
+        let a2 = t.createTexture();
+        t.bindTexture(t.TEXTURE_2D, a2);
         let o = t.createFramebuffer();
-        t.bindFramebuffer(t.FRAMEBUFFER, o), t.framebufferTexture2D(t.FRAMEBUFFER, t.COLOR_ATTACHMENT0, t.TEXTURE_2D, a, 0), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_WRAP_S, t.CLAMP_TO_EDGE), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_WRAP_T, t.CLAMP_TO_EDGE), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_MIN_FILTER, t.NEAREST), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_MAG_FILTER, t.NEAREST), this._canvasWebGLContext = t, this.handleVideoResize();
+        t.bindFramebuffer(t.FRAMEBUFFER, o), t.framebufferTexture2D(t.FRAMEBUFFER, t.COLOR_ATTACHMENT0, t.TEXTURE_2D, a2, 0), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_WRAP_S, t.CLAMP_TO_EDGE), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_WRAP_T, t.CLAMP_TO_EDGE), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_MIN_FILTER, t.NEAREST), t.texParameteri(t.TEXTURE_2D, t.TEXTURE_MAG_FILTER, t.NEAREST), this._canvasWebGLContext = t, this.handleVideoResize();
       }
     }
     return this._canvasWebGLContext;
   }
   emit(e, t) {
     if (this.listeners.has(e))
-      for (let a of this.listeners.get(e))
-        a(t);
+      for (let a2 of this.listeners.get(e))
+        a2(t);
   }
 };
 var k = U;
@@ -3195,7 +3203,7 @@ var pe = class {
   }
   async setupCamera() {
     if (this.deviceId) {
-      let t = (await Ye.getCameras()).find((a) => a.deviceId === this.deviceId);
+      let t = (await Ye.getCameras()).find((a2) => a2.deviceId === this.deviceId);
       t && (this.cameraManager.selectedCamera = t);
     } else
       this.cameraManager.setInitialCameraPosition(this.position);
@@ -3227,13 +3235,13 @@ var pe = class {
     let e = t.bind(this);
     function t() {
       if (this.currentState === "on") {
-        let a;
+        let a2;
         try {
-          a = this.cameraManager.captureImage();
+          a2 = this.cameraManager.captureImage();
         } catch (o) {
           g.log(g.Level.Warn, o == null ? void 0 : o.message);
         }
-        this.context && (a ? this.context.sendFrameToProcessor(a).then((o) => {
+        this.context && (a2 ? this.context.sendFrameToProcessor(a2).then((o) => {
           o && (this.cameraManager.imageData = o.data), this._lastCaptureRequestAnimationFrame = requestAnimationFrame(e);
         }) : this._lastCaptureRequestAnimationFrame = requestAnimationFrame(e));
       }
@@ -3261,7 +3269,7 @@ var oe = class {
     return this._isValid;
   }
 };
-var Vt = ((a) => (a.None = "None", a.X = "X", a.Y = "Y", a))(Vt || {});
+var Vt = ((a2) => (a2.None = "None", a2.X = "X", a2.Y = "Y", a2))(Vt || {});
 var Ze = class {
   constructor() {
   }
@@ -3296,8 +3304,8 @@ var Ne = class {
     c(this, "dataCaptureInstance");
     c(this, "delayedRegistration");
     c(this, "highEndBlurryRecognition");
-    var a, o, d, f2;
-    this.licenseKey = e, this.deviceName = (a = t.deviceName) != null ? a : "", this.dataCaptureInstance = (o = t.dataCaptureInstance) != null ? o : $e, this.delayedRegistration = (d = t.delayedRegistration) != null ? d : false, this.highEndBlurryRecognition = (f2 = t.highEndBlurryRecognition) != null ? f2 : false;
+    var a2, o, d2, f2;
+    this.licenseKey = e, this.deviceName = (a2 = t.deviceName) != null ? a2 : "", this.dataCaptureInstance = (o = t.dataCaptureInstance) != null ? o : $e, this.delayedRegistration = (d2 = t.delayedRegistration) != null ? d2 : false, this.highEndBlurryRecognition = (f2 = t.highEndBlurryRecognition) != null ? f2 : false;
   }
   getView() {
     return this._view;
@@ -3312,8 +3320,8 @@ var Ne = class {
     return Ne.createWithOptions({});
   }
   static async createWithOptions(e) {
-    var a;
-    let t = new Ne((a = e.licenseKey) != null ? a : kt, { deviceName: e.deviceName });
+    var a2;
+    let t = new Ne((a2 = e.licenseKey) != null ? a2 : kt, { deviceName: e.deviceName });
     return e.settings != null && await t.applySettings(e.settings), await t.initialize(), t;
   }
   async setFrameSource(e) {
@@ -3374,10 +3382,10 @@ var Ne = class {
       t.didChangeStatus && t.didChangeStatus(this, oe.fromJSON({ code: 33794, isValid: true, message: e.toString() }));
   }
   async update(e = []) {
-    var t, a;
+    var t, a2;
     await this.updateContext();
     for (let o of e)
-      o.type === "frameSourceState" ? await ((t = this._view) == null ? void 0 : t.onFrameSourceChange(this.frameSource)) : o.type === "singleImageModeUploaderSettings" && ((a = this._view) == null || a.onSingleImageUploaderSettingsChange(o.newValue));
+      o.type === "frameSourceState" ? await ((t = this._view) == null ? void 0 : t.onFrameSourceChange(this.frameSource)) : o.type === "singleImageModeUploaderSettings" && ((a2 = this._view) == null || a2.onSingleImageUploaderSettingsChange(o.newValue));
   }
   async updateContext() {
     await this.workerCommand("updateContext", Q({ context: this.toJSONObject() }, this.getViewWidthAndHeight())).catch((e) => {
@@ -3403,7 +3411,7 @@ var Ne = class {
   }
   toJSONObject() {
     var e, t;
-    return Z(Q({ licenseKey: this.licenseKey, framework: this.framework, deviceName: this.deviceName }, this.runtimeEnvironment), { modes: this.modes.map((a) => a.toJSONObject()), components: this.components.map((a) => a.toJSONObject()), frameSource: this.frameSource ? this.frameSource.toJSONObject() : null, settings: this.settings.toJSONObject(), view: (t = (e = this._view) == null ? void 0 : e.toJSONObject()) != null ? t : null });
+    return Z(Q({ licenseKey: this.licenseKey, framework: this.framework, deviceName: this.deviceName }, this.runtimeEnvironment), { modes: this.modes.map((a2) => a2.toJSONObject()), components: this.components.map((a2) => a2.toJSONObject()), frameSource: this.frameSource ? this.frameSource.toJSONObject() : null, settings: this.settings.toJSONObject(), view: (t = (e = this._view) == null ? void 0 : e.toJSONObject()) != null ? t : null });
   }
 };
 var Tt = Ne;
@@ -3411,7 +3419,7 @@ c(Tt, "deviceID", G.getDeviceId());
 var Xe;
 ((e) => {
   function l2() {
-    let t = "6.15.0";
+    let t = "6.15.1";
     if (t == null)
       throw new J({ name: "Invalid library version", message: "Library version is not defined or empty." });
     return t;
@@ -3448,12 +3456,12 @@ var Rt = function() {
   return l2;
 }();
 var Pt = function() {
-  function l2(e, t, a, o) {
-    return this.x = e, this.y = t, this.width = a, this.height = o, this.top = this.y, this.left = this.x, this.bottom = this.top + this.height, this.right = this.left + this.width, te(this);
+  function l2(e, t, a2, o) {
+    return this.x = e, this.y = t, this.width = a2, this.height = o, this.top = this.y, this.left = this.x, this.bottom = this.top + this.height, this.right = this.left + this.width, te(this);
   }
   return l2.prototype.toJSON = function() {
-    var e = this, t = e.x, a = e.y, o = e.top, d = e.right, f2 = e.bottom, p = e.left, v2 = e.width, S2 = e.height;
-    return { x: t, y: a, top: o, right: d, bottom: f2, left: p, width: v2, height: S2 };
+    var e = this, t = e.x, a2 = e.y, o = e.top, d2 = e.right, f2 = e.bottom, p2 = e.left, v2 = e.width, S2 = e.height;
+    return { x: t, y: a2, top: o, right: d2, bottom: f2, left: p2, width: v2, height: S2 };
   }, l2.fromRect = function(e) {
     return new l2(e.x, e.y, e.width, e.height);
   }, l2;
@@ -3463,18 +3471,18 @@ var Ve = function(l2) {
 };
 var Ke = function(l2) {
   if (Ve(l2)) {
-    var e = l2.getBBox(), t = e.width, a = e.height;
-    return !t && !a;
+    var e = l2.getBBox(), t = e.width, a2 = e.height;
+    return !t && !a2;
   }
-  var o = l2, d = o.offsetWidth, f2 = o.offsetHeight;
-  return !(d || f2 || l2.getClientRects().length);
+  var o = l2, d2 = o.offsetWidth, f2 = o.offsetHeight;
+  return !(d2 || f2 || l2.getClientRects().length);
 };
 var zt = function(l2) {
   var e, t;
   if (l2 instanceof Element)
     return true;
-  var a = (t = (e = l2) === null || e === void 0 ? void 0 : e.ownerDocument) === null || t === void 0 ? void 0 : t.defaultView;
-  return !!(a && l2 instanceof a.Element);
+  var a2 = (t = (e = l2) === null || e === void 0 ? void 0 : e.ownerDocument) === null || t === void 0 ? void 0 : t.defaultView;
+  return !!(a2 && l2 instanceof a2.Element);
 };
 var Li = function(l2) {
   switch (l2.tagName) {
@@ -3495,8 +3503,8 @@ var Li = function(l2) {
 var ge = typeof window < "u" ? window : {};
 var et = /* @__PURE__ */ new WeakMap();
 var xi = /auto|scroll/;
-var Ar = /^tb|vertical/;
-var yr = /msie|trident/i.test(ge.navigator && ge.navigator.userAgent);
+var wr = /^tb|vertical/;
+var Mr = /msie|trident/i.test(ge.navigator && ge.navigator.userAgent);
 var ae = function(l2) {
   return parseFloat(l2 || "0");
 };
@@ -3509,18 +3517,18 @@ var jt = function(l2, e) {
     return et.get(l2);
   if (Ke(l2))
     return et.set(l2, _i), _i;
-  var t = getComputedStyle(l2), a = Ve(l2) && l2.ownerSVGElement && l2.getBBox(), o = !yr && t.boxSizing === "border-box", d = Ar.test(t.writingMode || ""), f2 = !a && xi.test(t.overflowY || ""), p = !a && xi.test(t.overflowX || ""), v2 = a ? 0 : ae(t.paddingTop), S2 = a ? 0 : ae(t.paddingRight), i = a ? 0 : ae(t.paddingBottom), r = a ? 0 : ae(t.paddingLeft), n2 = a ? 0 : ae(t.borderTopWidth), s2 = a ? 0 : ae(t.borderRightWidth), u = a ? 0 : ae(t.borderBottomWidth), h2 = a ? 0 : ae(t.borderLeftWidth), m2 = r + S2, b2 = v2 + i, C2 = h2 + s2, _2 = n2 + u, j2 = p ? l2.offsetHeight - _2 - l2.clientHeight : 0, B2 = f2 ? l2.offsetWidth - C2 - l2.clientWidth : 0, D2 = o ? m2 + C2 : 0, y2 = o ? b2 + _2 : 0, A = a ? a.width : ae(t.width) - D2 - B2, M2 = a ? a.height : ae(t.height) - y2 - j2, w2 = A + m2 + B2 + C2, I2 = M2 + b2 + j2 + _2, E = te({ devicePixelContentBoxSize: ye(Math.round(A * devicePixelRatio), Math.round(M2 * devicePixelRatio), d), borderBoxSize: ye(w2, I2, d), contentBoxSize: ye(A, M2, d), contentRect: new Pt(r, v2, A, M2) });
+  var t = getComputedStyle(l2), a2 = Ve(l2) && l2.ownerSVGElement && l2.getBBox(), o = !Mr && t.boxSizing === "border-box", d2 = wr.test(t.writingMode || ""), f2 = !a2 && xi.test(t.overflowY || ""), p2 = !a2 && xi.test(t.overflowX || ""), v2 = a2 ? 0 : ae(t.paddingTop), S2 = a2 ? 0 : ae(t.paddingRight), i = a2 ? 0 : ae(t.paddingBottom), r = a2 ? 0 : ae(t.paddingLeft), n2 = a2 ? 0 : ae(t.borderTopWidth), s = a2 ? 0 : ae(t.borderRightWidth), u = a2 ? 0 : ae(t.borderBottomWidth), h2 = a2 ? 0 : ae(t.borderLeftWidth), m2 = r + S2, b2 = v2 + i, C2 = h2 + s, _2 = n2 + u, j2 = p2 ? l2.offsetHeight - _2 - l2.clientHeight : 0, B2 = f2 ? l2.offsetWidth - C2 - l2.clientWidth : 0, D2 = o ? m2 + C2 : 0, y2 = o ? b2 + _2 : 0, A = a2 ? a2.width : ae(t.width) - D2 - B2, M2 = a2 ? a2.height : ae(t.height) - y2 - j2, w2 = A + m2 + B2 + C2, I2 = M2 + b2 + j2 + _2, E = te({ devicePixelContentBoxSize: ye(Math.round(A * devicePixelRatio), Math.round(M2 * devicePixelRatio), d2), borderBoxSize: ye(w2, I2, d2), contentBoxSize: ye(A, M2, d2), contentRect: new Pt(r, v2, A, M2) });
   return et.set(l2, E), E;
 };
 var tt = function(l2, e, t) {
-  var a = jt(l2, t), o = a.borderBoxSize, d = a.contentBoxSize, f2 = a.devicePixelContentBoxSize;
+  var a2 = jt(l2, t), o = a2.borderBoxSize, d2 = a2.contentBoxSize, f2 = a2.devicePixelContentBoxSize;
   switch (e) {
     case he.DEVICE_PIXEL_CONTENT_BOX:
       return f2;
     case he.BORDER_BOX:
       return o;
     default:
-      return d;
+      return d2;
   }
 };
 var Ft = function() {
@@ -3541,17 +3549,17 @@ var Di = function() {
   var l2 = 1 / 0, e = [];
   K.forEach(function(f2) {
     if (f2.activeTargets.length !== 0) {
-      var p = [];
+      var p2 = [];
       f2.activeTargets.forEach(function(S2) {
         var i = new Ft(S2.target), r = it(S2.target);
-        p.push(i), S2.lastReportedSize = tt(S2.target, S2.observedBox), r < l2 && (l2 = r);
+        p2.push(i), S2.lastReportedSize = tt(S2.target, S2.observedBox), r < l2 && (l2 = r);
       }), e.push(function() {
-        f2.callback.call(f2.observer, p, f2.observer);
+        f2.callback.call(f2.observer, p2, f2.observer);
       }), f2.activeTargets.splice(0, f2.activeTargets.length);
     }
   });
-  for (var t = 0, a = e; t < a.length; t++) {
-    var o = a[t];
+  for (var t = 0, a2 = e; t < a2.length; t++) {
+    var o = a2[t];
     o();
   }
   return l2;
@@ -3571,17 +3579,17 @@ var Ii = function() {
 };
 var Ut;
 var Ei = [];
-var wr = function() {
+var Lr = function() {
   return Ei.splice(0).forEach(function(l2) {
     return l2();
   });
 };
 var Oi = function(l2) {
   if (!Ut) {
-    var e = 0, t = document.createTextNode(""), a = { characterData: true };
+    var e = 0, t = document.createTextNode(""), a2 = { characterData: true };
     new MutationObserver(function() {
-      return wr();
-    }).observe(t, a), Ut = function() {
+      return Lr();
+    }).observe(t, a2), Ut = function() {
       t.textContent = "" + (e ? e-- : e++);
     };
   }
@@ -3593,17 +3601,17 @@ var Ni = function(l2) {
   });
 };
 var rt = 0;
-var Mr = function() {
+var xr = function() {
   return !!rt;
 };
-var Lr = 250;
-var xr = { attributes: true, characterData: true, childList: true, subtree: true };
+var _r = 250;
+var Dr = { attributes: true, characterData: true, childList: true, subtree: true };
 var Vi = ["resize", "load", "transitionend", "animationend", "animationstart", "animationiteration", "keyup", "keydown", "mouseup", "mousedown", "mouseover", "mouseout", "blur", "focus"];
 var Ti = function(l2) {
   return l2 === void 0 && (l2 = 0), Date.now() + l2;
 };
 var Jt = false;
-var _r = function() {
+var Ir = function() {
   function l2() {
     var e = this;
     this.stopped = true, this.listener = function() {
@@ -3612,15 +3620,15 @@ var _r = function() {
   }
   return l2.prototype.run = function(e) {
     var t = this;
-    if (e === void 0 && (e = Lr), !Jt) {
+    if (e === void 0 && (e = _r), !Jt) {
       Jt = true;
-      var a = Ti(e);
+      var a2 = Ti(e);
       Ni(function() {
         var o = false;
         try {
           o = Ii();
         } finally {
-          if (Jt = false, e = a - Ti(), !Mr())
+          if (Jt = false, e = a2 - Ti(), !xr())
             return;
           o ? t.run(1e3) : e > 0 ? t.run(e) : t.start();
         }
@@ -3630,7 +3638,7 @@ var _r = function() {
     this.stop(), this.run();
   }, l2.prototype.observe = function() {
     var e = this, t = function() {
-      return e.observer && e.observer.observe(document.body, xr);
+      return e.observer && e.observer.observe(document.body, Dr);
     };
     document.body ? t() : ge.addEventListener("DOMContentLoaded", t);
   }, l2.prototype.start = function() {
@@ -3645,11 +3653,11 @@ var _r = function() {
     }), this.stopped = true);
   }, l2;
 }();
-var at = new _r();
+var at = new Ir();
 var Bt = function(l2) {
   !rt && l2 > 0 && at.start(), rt += l2, !rt && at.stop();
 };
-var Dr = function(l2) {
+var Er = function(l2) {
   return !Ve(l2) && !Li(l2) && getComputedStyle(l2).display === "inline";
 };
 var ki = function() {
@@ -3658,7 +3666,7 @@ var ki = function() {
   }
   return l2.prototype.isActive = function() {
     var e = tt(this.target, this.observedBox, true);
-    return Dr(this.target) && (this.lastReportedSize = e), this.lastReportedSize.inlineSize !== e.inlineSize || this.lastReportedSize.blockSize !== e.blockSize;
+    return Er(this.target) && (this.lastReportedSize = e), this.lastReportedSize.inlineSize !== e.inlineSize || this.lastReportedSize.blockSize !== e.blockSize;
   }, l2;
 }();
 var Ri = function() {
@@ -3678,19 +3686,19 @@ var Te = function() {
   function l2() {
   }
   return l2.connect = function(e, t) {
-    var a = new Ri(e, t);
-    nt.set(e, a);
-  }, l2.observe = function(e, t, a) {
-    var o = nt.get(e), d = o.observationTargets.length === 0;
-    Pi(o.observationTargets, t) < 0 && (d && K.push(o), o.observationTargets.push(new ki(t, a && a.box)), Bt(1), at.schedule());
+    var a2 = new Ri(e, t);
+    nt.set(e, a2);
+  }, l2.observe = function(e, t, a2) {
+    var o = nt.get(e), d2 = o.observationTargets.length === 0;
+    Pi(o.observationTargets, t) < 0 && (d2 && K.push(o), o.observationTargets.push(new ki(t, a2 && a2.box)), Bt(1), at.schedule());
   }, l2.unobserve = function(e, t) {
-    var a = nt.get(e), o = Pi(a.observationTargets, t), d = a.observationTargets.length === 1;
-    o >= 0 && (d && K.splice(K.indexOf(a), 1), a.observationTargets.splice(o, 1), Bt(-1));
+    var a2 = nt.get(e), o = Pi(a2.observationTargets, t), d2 = a2.observationTargets.length === 1;
+    o >= 0 && (d2 && K.splice(K.indexOf(a2), 1), a2.observationTargets.splice(o, 1), Bt(-1));
   }, l2.disconnect = function(e) {
-    var t = this, a = nt.get(e);
-    a.observationTargets.slice().forEach(function(o) {
+    var t = this, a2 = nt.get(e);
+    a2.observationTargets.slice().forEach(function(o) {
       return t.unobserve(e, o.target);
-    }), a.activeTargets.splice(0, a.activeTargets.length);
+    }), a2.activeTargets.splice(0, a2.activeTargets.length);
   }, l2;
 }();
 var Ht = function() {
@@ -3847,8 +3855,8 @@ var Gt = class {
     this.context.rect(e.origin.x, e.origin.y, e.size.width, e.size.height);
   }
   addRoundedRectangle(e) {
-    let { origin: t } = e, { radius: a } = e, { size: o } = e;
-    this.context.moveTo(t.x + a, t.y), this.context.lineTo(t.x + o.width - a, t.y), this.context.quadraticCurveTo(t.x + o.width, t.y, t.x + o.width, t.y + a), this.context.lineTo(t.x + o.width, t.y + o.height - a), this.context.quadraticCurveTo(t.x + o.width, t.y + o.height, t.x + o.width - a, t.y + o.height), this.context.lineTo(t.x + a, t.y + o.height), this.context.quadraticCurveTo(t.x, t.y + o.height, t.x, t.y + o.height - a), this.context.lineTo(t.x, t.y + a), this.context.quadraticCurveTo(t.x, t.y, t.x + a, t.y), this.context.closePath();
+    let { origin: t } = e, { radius: a2 } = e, { size: o } = e;
+    this.context.moveTo(t.x + a2, t.y), this.context.lineTo(t.x + o.width - a2, t.y), this.context.quadraticCurveTo(t.x + o.width, t.y, t.x + o.width, t.y + a2), this.context.lineTo(t.x + o.width, t.y + o.height - a2), this.context.quadraticCurveTo(t.x + o.width, t.y + o.height, t.x + o.width - a2, t.y + o.height), this.context.lineTo(t.x + a2, t.y + o.height), this.context.quadraticCurveTo(t.x, t.y + o.height, t.x, t.y + o.height - a2), this.context.lineTo(t.x, t.y + a2), this.context.quadraticCurveTo(t.x, t.y, t.x + a2, t.y), this.context.closePath();
   }
   setStrokeWidth(e) {
     this.context.lineWidth = e.width;
@@ -4004,8 +4012,8 @@ var lt = class extends st {
 };
 var Re = ((t) => (t.Idle = "idle", t.Pressed = "pressed", t))(Re || {});
 var le = class extends st {
-  constructor(t, a) {
-    super(t, a);
+  constructor(t, a2) {
+    super(t, a2);
     c(this, "isTransitioning");
     this.setup();
   }
@@ -4035,17 +4043,17 @@ var le = class extends st {
     t && await this.switchCameras(t);
   }
   async getNextDeviceCamera() {
-    var f2, p;
-    let t = await le.CameraAccess.getCameras(), a = this.frameSource, o = (f2 = a == null ? void 0 : a.cameraManager.activeCamera) == null ? void 0 : f2.deviceId, d = t.findIndex((v2) => v2.deviceId === o);
-    return d > -1 ? (p = t[d + 1]) != null ? p : t[0] : t.length > 0 ? t[0] : null;
+    var f2, p2;
+    let t = await le.CameraAccess.getCameras(), a2 = this.frameSource, o = (f2 = a2 == null ? void 0 : a2.cameraManager.activeCamera) == null ? void 0 : f2.deviceId, d2 = t.findIndex((v2) => v2.deviceId === o);
+    return d2 > -1 ? (p2 = t[d2 + 1]) != null ? p2 : t[0] : t.length > 0 ? t[0] : null;
   }
   async switchCameras(t) {
-    var d;
+    var d2;
     this.isTransitioning = true;
-    let a = this.frameSource;
-    a && await a.switchToDesiredState("off");
+    let a2 = this.frameSource;
+    a2 && await a2.switchToDesiredState("off");
     let o = new le.Camera();
-    o.deviceId = t.deviceId, await o.applySettings(new ne(a.settings)), await o.switchToDesiredState("on"), await ((d = this.context) == null ? void 0 : d.setFrameSource(o)), this.isTransitioning = false;
+    o.deviceId = t.deviceId, await o.applySettings(new ne(a2.settings)), await o.switchToDesiredState("on"), await ((d2 = this.context) == null ? void 0 : d2.setFrameSource(o)), this.isTransitioning = false;
   }
 };
 function zi() {
@@ -4188,7 +4196,7 @@ function zi() {
   `;
 }
 typeof window.ResizeObserver != "function" && (window.ResizeObserver = Ht);
-var Ir = ((S2) => (S2.TopLeft = "topLeft", S2.TopCenter = "topCenter", S2.TopRight = "topRight", S2.CenterLeft = "centerLeft", S2.Center = "center", S2.CenterRight = "centerRight", S2.BottomLeft = "bottomLeft", S2.BottomCenter = "bottomCenter", S2.BottomRight = "bottomRight", S2))(Ir || {});
+var Or = ((S2) => (S2.TopLeft = "topLeft", S2.TopCenter = "topCenter", S2.TopRight = "topRight", S2.CenterLeft = "centerLeft", S2.Center = "center", S2.CenterRight = "centerRight", S2.BottomLeft = "bottomLeft", S2.BottomCenter = "bottomCenter", S2.BottomRight = "bottomRight", S2))(Or || {});
 var $ = class {
   constructor() {
     c(this, "_scanAreaMargins", x.DataCaptureView.scanAreaMargins);
@@ -4288,14 +4296,14 @@ var $ = class {
     this.listeners.includes(e) && this.listeners.splice(this.listeners.indexOf(e), 1);
   }
   viewPointForFramePoint(e) {
-    let t = { width: this.htmlElementState.width, height: this.htmlElementState.height }, a = { width: this.videoElement.videoWidth, height: this.videoElement.videoHeight }, o = t.width / t.height, d = a.width / a.height, f2;
-    f2 = o > d ? t.width / a.width : t.height / a.height;
-    let p = { x: e.x * f2, y: e.y * f2 }, v2 = (a.width * f2 - t.width) / 2, S2 = (a.height * f2 - t.height) / 2;
-    return new re(p.x - v2, p.y - S2);
+    let t = { width: this.htmlElementState.width, height: this.htmlElementState.height }, a2 = { width: this.videoElement.videoWidth, height: this.videoElement.videoHeight }, o = t.width / t.height, d2 = a2.width / a2.height, f2;
+    f2 = o > d2 ? t.width / a2.width : t.height / a2.height;
+    let p2 = { x: e.x * f2, y: e.y * f2 }, v2 = (a2.width * f2 - t.width) / 2, S2 = (a2.height * f2 - t.height) / 2;
+    return new re(p2.x - v2, p2.y - S2);
   }
   viewQuadrilateralForFrameQuadrilateral(e) {
-    let t = this.viewPointForFramePoint(e.topLeft), a = this.viewPointForFramePoint(e.topRight), o = this.viewPointForFramePoint(e.bottomLeft), d = this.viewPointForFramePoint(e.bottomRight);
-    return new be(t, a, d, o);
+    let t = this.viewPointForFramePoint(e.topLeft), a2 = this.viewPointForFramePoint(e.topRight), o = this.viewPointForFramePoint(e.bottomLeft), d2 = this.viewPointForFramePoint(e.bottomRight);
+    return new be(t, a2, d2, o);
   }
   addControl(e) {
     this.controls.includes(e) || (e.view = this, this.controls.push(e), this.controlsUpdated(), this.privateContext.update([{ type: "addControl", newValue: e }]));
@@ -4332,30 +4340,30 @@ var $ = class {
       </div>
     `;
     this.htmlElement.innerHTML = t, this.containerElement = this.htmlElement.querySelector(`.${$.CONTAINER_CLASS_NAME}`), this.cameraPaintboardElement = this.containerElement.querySelector('[data-js-id="camera-paintboard"]'), this.videoElement = this.cameraPaintboardElement.querySelector("video"), this.canvasElement = this.cameraPaintboardElement.querySelector("canvas"), this.controlsElement = this.cameraPaintboardElement.querySelector(`.${$.CONTROLS_CLASS_NAME}`), this.cameraRecoveryElement = this.cameraPaintboardElement.querySelector(`.${$.CAMERA_RECOVERY_CLASS_NAME}`), this.errorElement = this.cameraPaintboardElement.querySelector(`.${$.ERROR_CLASS_NAME}`), this.singleImageUploaderPaintboardElement = this.containerElement.querySelector('[data-js-id="singleimage-paintboard"]'), this.videoPauseListener = this.handleVideoPause.bind(this), this.videoElement.addEventListener("pause", this.videoPauseListener), this.visibilityListener = this.checkAndRecoverPlayback.bind(this), document.addEventListener("visibilitychange", this.visibilityListener), this.cameraRecoveryListener = this.cameraRecovery.bind(this);
-    for (let a of ["touchend", "mousedown"])
-      this.cameraRecoveryElement.addEventListener(a, this.cameraRecoveryListener);
+    for (let a2 of ["touchend", "mousedown"])
+      this.cameraRecoveryElement.addEventListener(a2, this.cameraRecoveryListener);
     this.htmlElementState = new fe(this.htmlElement), this.htmlElementState.onStateChanged(this.htmlElementDidChange.bind(this));
   }
   setupHtmlElementSingleImageUploaderChildren(e) {
-    var i, r, n2, s2, u, h2, m2;
+    var i, r, n2, s, u, h2, m2;
     if (this.singleImageUploaderPaintboardElement == null)
       return;
     this.singleImageUploaderPaintboardElement.textContent = "";
     let t = document.createElement("div");
     t.className = $.SINGLE_IMAGE_UPLOADER_CONTAINER_CLASS_NAME, Object.assign(t.style, x.SingleImageUploader.Settings.containerStyle, e.containerStyle), this.singleImageUploaderPaintboardElement.append(t);
-    let a = (i = e.iconElement) != null ? i : x.SingleImageUploader.Settings.iconElement;
-    Object.assign(a.style, x.SingleImageUploader.Settings.iconStyle, e.iconStyle), a.style.maxWidth = "100px", a.style.maxHeight = "100px", t.append(a);
+    let a2 = (i = e.iconElement) != null ? i : x.SingleImageUploader.Settings.iconElement;
+    Object.assign(a2.style, x.SingleImageUploader.Settings.iconStyle, e.iconStyle), a2.style.maxWidth = "100px", a2.style.maxHeight = "100px", t.append(a2);
     let o = (r = e.informationElement) != null ? r : x.SingleImageUploader.Settings.informationElement;
     Object.assign(o.style, x.SingleImageUploader.Settings.informationStyle, e.informationStyle), t.append(o);
-    let d = document.createElement("label"), f2 = document.createElement("input");
-    f2.type = "file", f2.accept = "image/*", f2.addEventListener("change", ((n2 = this._context) == null ? void 0 : n2.frameSource).onUploadedFile.bind((s2 = this._context) == null ? void 0 : s2.frameSource));
-    let p = (b2) => {
+    let d2 = document.createElement("label"), f2 = document.createElement("input");
+    f2.type = "file", f2.accept = "image/*", f2.addEventListener("change", ((n2 = this._context) == null ? void 0 : n2.frameSource).onUploadedFile.bind((s = this._context) == null ? void 0 : s.frameSource));
+    let p2 = (b2) => {
       var C2, _2;
       ((_2 = (C2 = this._context) == null ? void 0 : C2.frameSource) == null ? void 0 : _2.getCurrentState()) !== "starting" && b2.preventDefault();
     };
-    f2.addEventListener("click", p), f2.addEventListener("keydown", p), d.append(f2);
+    f2.addEventListener("click", p2), f2.addEventListener("keydown", p2), d2.append(f2);
     let v2 = (u = e.buttonElement) != null ? u : x.SingleImageUploader.Settings.buttonElement;
-    Object.assign(v2.style, x.SingleImageUploader.Settings.buttonStyle, e.buttonStyle), v2.style.opacity = ((m2 = (h2 = this._context) == null ? void 0 : h2.frameSource) == null ? void 0 : m2.getCurrentState()) === "starting" ? "1" : "0.3", d.append(v2), t.append(d);
+    Object.assign(v2.style, x.SingleImageUploader.Settings.buttonStyle, e.buttonStyle), v2.style.opacity = ((m2 = (h2 = this._context) == null ? void 0 : h2.frameSource) == null ? void 0 : m2.getCurrentState()) === "starting" ? "1" : "0.3", d2.append(v2), t.append(d2);
     let S2 = document.createRange().createContextualFragment(atob(pi)).firstElementChild;
     S2.style.position = "absolute", S2.style.bottom = "1em", S2.style.right = "1em", S2.style.width = "10em", t.append(S2);
   }
@@ -4414,16 +4422,16 @@ var $ = class {
   redrawControls() {
     var e;
     for (let t of this.controls) {
-      let a = this.getControlWidget(t), o = (e = this._context) == null ? void 0 : e.frameSource;
-      o == null || o.desiredState === "off" || o.desiredState === "stopping" ? a.remove() : a.install();
+      let a2 = this.getControlWidget(t), o = (e = this._context) == null ? void 0 : e.frameSource;
+      o == null || o.desiredState === "off" || o.desiredState === "stopping" ? a2.remove() : a2.install();
     }
   }
   getControlWidget(e) {
     let t = this.controlWidgets.get(e);
     if (t)
       return t;
-    let { type: a } = e;
-    switch (a) {
+    let { type: a2 } = e;
+    switch (a2) {
       case "torch": {
         let o = new lt(e, this.controlsElement);
         return this.controlWidgets.set(e, o), o;
@@ -4469,7 +4477,7 @@ var $ = class {
       if (!e.active || ((t = e.getVideoTracks()[0]) == null ? void 0 : t.muted))
         try {
           g.log(g.Level.Debug, 'Detected visibility change ("visible") event with inactive video source, try to reinitialize camera'), await k.instance().reinitializeCamera();
-        } catch (a) {
+        } catch (a2) {
         }
       else
         g.log(g.Level.Debug, 'Detected visibility change ("visible") event with active video source, replay video'), k.instance().playVideo();
@@ -4484,26 +4492,26 @@ var $ = class {
 var O = $;
 c(O, "CONTAINER_CLASS_NAME", ee.CONTAINER_CLASS_NAME), c(O, "PAINTBOARD_CLASS_NAME", ee.PAINTBOARD_CLASS_NAME), c(O, "CONTROLS_CLASS_NAME", ee.CONTROLS_CLASS_NAME), c(O, "CONTROL_WIDGET_CLASS_NAME", ee.CONTROL_WIDGET_CLASS_NAME), c(O, "MIRRORED_CLASS_NAME", ee.MIRRORED_CLASS_NAME), c(O, "CAMERA_RECOVERY_CLASS_NAME", ee.CAMERA_RECOVERY_CLASS_NAME), c(O, "ERROR_CLASS_NAME", ee.ERROR_CLASS_NAME), c(O, "SINGLE_IMAGE_UPLOADER_CONTAINER_CLASS_NAME", ee.SINGLE_IMAGE_UPLOADER_CONTAINER_CLASS_NAME);
 var Fi = He(ji(), 1);
-async function Er(l2, e) {
+async function Nr(l2, e) {
   let t = document.createElement("canvas");
   t.width = this.width, t.height = this.height;
-  let a = t.getContext("2d");
-  if (!a)
+  let a2 = t.getContext("2d");
+  if (!a2)
     throw new Error("Could not get 2d context from an HTMLCanvasElement");
   let o = await this.getData();
-  return o == null ? null : (a.putImageData(new ImageData(o, this.width, this.height), 0, 0), new Promise((d, f2) => {
-    t.toBlob((p) => {
-      if (p === null) {
+  return o == null ? null : (a2.putImageData(new ImageData(o, this.width, this.height), 0, 0), new Promise((d2, f2) => {
+    t.toBlob((p2) => {
+      if (p2 === null) {
         f2(new Error("Could not create Blob object from canvas"));
         return;
       }
-      d(p);
+      d2(p2);
     }, l2, e);
   }));
 }
-function xo(l2, e) {
+function Do(l2, e) {
   let t = { width: l2.width, height: l2.height, isFrameSourceMirrored: l2.isFrameSourceMirrored, getData: async () => (await e.requestFrameData(l2.frameId)).data };
-  return t.toBlob = Er.bind(t), t;
+  return t.toBlob = Nr.bind(t), t;
 }
 var Ui = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbnMgLyBXaXRoIFNoYWRvdyAvIENsaWNrZWQgLyBDYW1lcmEgUm90YXRlIEJhY2s8L3RpdGxlPgogICAgPGRlZnM+CiAgICAgICAgPGZpbHRlciB4PSItMTA2LjMlIiB5PSItMTA2LjIlIiB3aWR0aD0iMzEyLjUlIiBoZWlnaHQ9IjMxMi41JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBpZD0iZmlsdGVyLTEiPgogICAgICAgICAgICA8ZmVPZmZzZXQgZHg9IjAiIGR5PSIwIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIj48L2ZlT2Zmc2V0PgogICAgICAgICAgICA8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSI0IiBpbj0ic2hhZG93T2Zmc2V0T3V0ZXIxIiByZXN1bHQ9InNoYWRvd0JsdXJPdXRlcjEiPjwvZmVHYXVzc2lhbkJsdXI+CiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IHZhbHVlcz0iMCAwIDAgMCAwLjEwNTg4MjM1MyAgIDAgMCAwIDAgMC4xMjU0OTAxOTYgICAwIDAgMCAwIDAuMTQ5MDE5NjA4ICAwIDAgMCAwLjMyIDAiIHR5cGU9Im1hdHJpeCIgaW49InNoYWRvd0JsdXJPdXRlcjEiIHJlc3VsdD0ic2hhZG93TWF0cml4T3V0ZXIxIj48L2ZlQ29sb3JNYXRyaXg+CiAgICAgICAgICAgIDxmZU1lcmdlPgogICAgICAgICAgICAgICAgPGZlTWVyZ2VOb2RlIGluPSJzaGFkb3dNYXRyaXhPdXRlcjEiPjwvZmVNZXJnZU5vZGU+CiAgICAgICAgICAgICAgICA8ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiPjwvZmVNZXJnZU5vZGU+CiAgICAgICAgICAgIDwvZmVNZXJnZT4KICAgICAgICA8L2ZpbHRlcj4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSJJY29ucy0vLVdpdGgtU2hhZG93LS8tQ2xpY2tlZC0vLUNhbWVyYS1Sb3RhdGUtQmFjayIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHJlY3QgaWQ9IkJnIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwIiB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiPjwvcmVjdD4KICAgICAgICA8ZyBpZD0iY2FtZXJhLXJvdGF0ZSIgZmlsdGVyPSJ1cmwoI2ZpbHRlci0xKSIgb3BhY2l0eT0iMC42Mzk5OTk5ODYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjAwMDAwMCwgMTIuMDAwMDAwKSBzY2FsZSgtMSwgMSkgdHJhbnNsYXRlKC0xMi4wMDAwMDAsIC0xMi4wMDAwMDApIHRyYW5zbGF0ZSg0LjAwMDAwMCwgNC4wMDAwMDApIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiI+CiAgICAgICAgICAgIDxwb2x5bGluZSBpZD0iUGF0aCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0LjAwMDAwMCwgMTQuMDAwMDAwKSBzY2FsZSgxLCAtMSkgcm90YXRlKC0zNjAuMDAwMDAwKSB0cmFuc2xhdGUoLTQuMDAwMDAwLCAtMTQuMDAwMDAwKSAiIHBvaW50cz0iMyAxMiA1IDE0IDMgMTYiPjwvcG9seWxpbmU+CiAgICAgICAgICAgIDxjaXJjbGUgaWQ9Ik92YWwiIGN4PSI4IiBjeT0iOCIgcj0iMiI+PC9jaXJjbGU+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik04LDMgTDE0LDMgQzE1LjEwNDU2OTUsMyAxNiwzLjg5NTQzMDUgMTYsNSBMMTYsMTIgQzE2LDEzLjEwNDU2OTUgMTUuMTA0NTY5NSwxNCAxNCwxNCBMMTIsMTQgTDEyLDE0IiBpZD0iUGF0aC0yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjAwMDAwMCwgOC41MDAwMDApIHNjYWxlKDEsIC0xKSB0cmFuc2xhdGUoLTEyLjAwMDAwMCwgLTguNTAwMDAwKSAiPjwvcGF0aD4KICAgICAgICAgICAgPHBvbHlsaW5lIGlkPSJQYXRoIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjAwMDAwMCwgMy4wMDAwMDApIHJvdGF0ZSgtMTgwLjAwMDAwMCkgdHJhbnNsYXRlKC0xMi4wMDAwMDAsIC0zLjAwMDAwMCkgIiBwb2ludHM9IjExIDEgMTMgMyAxMSA1Ij48L3BvbHlsaW5lPgogICAgICAgICAgICA8cGF0aCBkPSJNNCwxNCBMMiwxNCBDMC44OTU0MzA1LDE0IDEuMzUyNzA3NWUtMTYsMTMuMTA0NTY5NSAwLDEyIEwwLDUgQy0xLjM1MjcwNzVlLTE2LDMuODk1NDMwNSAwLjg5NTQzMDUsMyAyLDMgTDIuNSwzIEMzLjMyODQyNzEyLDMgNCwyLjMyODQyNzEyIDQsMS41IEM0LDAuNjcxNTcyODc1IDQuNjcxNTcyODgsMS41MjE3OTU5NGUtMTYgNS41LDAgTDEwLDAgTDEwLDAiIGlkPSJQYXRoLTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+";
 var Ji = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbnMgLyBXaXRoIFNoYWRvdyAvIE5vcm1hbCAvIENhbWVyYSBSb3RhdGUgQmFjazwvdGl0bGU+CiAgICA8ZGVmcz4KICAgICAgICA8ZmlsdGVyIHg9Ii0xMDYuMyUiIHk9Ii0xMDYuMiUiIHdpZHRoPSIzMTIuNSUiIGhlaWdodD0iMzEyLjUlIiBmaWx0ZXJVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIGlkPSJmaWx0ZXItMSI+CiAgICAgICAgICAgIDxmZU9mZnNldCBkeD0iMCIgZHk9IjAiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiPjwvZmVPZmZzZXQ+CiAgICAgICAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjQiIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSI+PC9mZUdhdXNzaWFuQmx1cj4KICAgICAgICAgICAgPGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAuMTA1ODgyMzUzICAgMCAwIDAgMCAwLjEyNTQ5MDE5NiAgIDAgMCAwIDAgMC4xNDkwMTk2MDggIDAgMCAwIDAuMzIgMCIgdHlwZT0ibWF0cml4IiBpbj0ic2hhZG93Qmx1ck91dGVyMSIgcmVzdWx0PSJzaGFkb3dNYXRyaXhPdXRlcjEiPjwvZmVDb2xvck1hdHJpeD4KICAgICAgICAgICAgPGZlTWVyZ2U+CiAgICAgICAgICAgICAgICA8ZmVNZXJnZU5vZGUgaW49InNoYWRvd01hdHJpeE91dGVyMSI+PC9mZU1lcmdlTm9kZT4KICAgICAgICAgICAgICAgIDxmZU1lcmdlTm9kZSBpbj0iU291cmNlR3JhcGhpYyI+PC9mZU1lcmdlTm9kZT4KICAgICAgICAgICAgPC9mZU1lcmdlPgogICAgICAgIDwvZmlsdGVyPgogICAgPC9kZWZzPgogICAgPGcgaWQ9Ikljb25zLS8tV2l0aC1TaGFkb3ctLy1Ob3JtYWwtLy1DYW1lcmEtUm90YXRlLUJhY2siIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxyZWN0IGlkPSJCZyIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMCIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48L3JlY3Q+CiAgICAgICAgPGcgaWQ9ImNhbWVyYS1yb3RhdGUiIGZpbHRlcj0idXJsKCNmaWx0ZXItMSkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjAwMDAwMCwgMTIuMDAwMDAwKSBzY2FsZSgtMSwgMSkgdHJhbnNsYXRlKC0xMi4wMDAwMDAsIC0xMi4wMDAwMDApIHRyYW5zbGF0ZSg0LjAwMDAwMCwgNC4wMDAwMDApIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiI+CiAgICAgICAgICAgIDxwb2x5bGluZSBpZD0iUGF0aCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0LjAwMDAwMCwgMTQuMDAwMDAwKSBzY2FsZSgxLCAtMSkgcm90YXRlKC0zNjAuMDAwMDAwKSB0cmFuc2xhdGUoLTQuMDAwMDAwLCAtMTQuMDAwMDAwKSAiIHBvaW50cz0iMyAxMiA1IDE0IDMgMTYiPjwvcG9seWxpbmU+CiAgICAgICAgICAgIDxjaXJjbGUgaWQ9Ik92YWwiIGN4PSI4IiBjeT0iOCIgcj0iMiI+PC9jaXJjbGU+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik04LDMgTDE0LDMgQzE1LjEwNDU2OTUsMyAxNiwzLjg5NTQzMDUgMTYsNSBMMTYsMTIgQzE2LDEzLjEwNDU2OTUgMTUuMTA0NTY5NSwxNCAxNCwxNCBMMTIsMTQgTDEyLDE0IiBpZD0iUGF0aC0yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjAwMDAwMCwgOC41MDAwMDApIHNjYWxlKDEsIC0xKSB0cmFuc2xhdGUoLTEyLjAwMDAwMCwgLTguNTAwMDAwKSAiPjwvcGF0aD4KICAgICAgICAgICAgPHBvbHlsaW5lIGlkPSJQYXRoIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyLjAwMDAwMCwgMy4wMDAwMDApIHJvdGF0ZSgtMTgwLjAwMDAwMCkgdHJhbnNsYXRlKC0xMi4wMDAwMDAsIC0zLjAwMDAwMCkgIiBwb2ludHM9IjExIDEgMTMgMyAxMSA1Ij48L3BvbHlsaW5lPgogICAgICAgICAgICA8cGF0aCBkPSJNNCwxNCBMMiwxNCBDMC44OTU0MzA1LDE0IDEuMzUyNzA3NWUtMTYsMTMuMTA0NTY5NSAwLDEyIEwwLDUgQy0xLjM1MjcwNzVlLTE2LDMuODk1NDMwNSAwLjg5NTQzMDUsMyAyLDMgTDIuNSwzIEMzLjMyODQyNzEyLDMgNCwyLjMyODQyNzEyIDQsMS41IEM0LDAuNjcxNTcyODc1IDQuNjcxNTcyODgsMS41MjE3OTU5NGUtMTYgNS41LDAgTDEwLDAgTDEwLDAiIGlkPSJQYXRoLTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+";
@@ -4576,10 +4584,10 @@ var ze = class {
 };
 c(ze, "CLASS_NAME", "camera");
 var mt = class {
-  constructor(e = x.Brush.fillColor, t = x.Brush.strokeColor, a = x.Brush.strokeWidth) {
+  constructor(e = x.Brush.fillColor, t = x.Brush.strokeColor, a2 = x.Brush.strokeWidth) {
     c(this, "fill");
     c(this, "stroke");
-    this.fill = { color: e }, this.stroke = { color: t, width: a };
+    this.fill = { color: e }, this.stroke = { color: t, width: a2 };
   }
   static get transparent() {
     let e = W.fromRGBA(255, 255, 255, 0);
@@ -4598,20 +4606,20 @@ var mt = class {
     return { fill: { color: this.fillColor.toJSON() }, stroke: { width: this.strokeWidth, color: this.strokeColor.toJSON() } };
   }
 };
-function $i(l2, e, t, a) {
+function $i(l2, e, t, a2) {
   async function o(S2) {
     try {
       let r = await (S2 != null ? S2 : await v2(true)).arrayBuffer(), n2 = await self.WebAssembly.instantiate(r, l2);
-      a(n2.instance, n2.module);
+      a2(n2.instance, n2.module);
     } catch (i) {
       g.log(g.Level.Error, i), g.log(g.Level.Error, `Couldn't instantiate Scandit SDK DataCapture library at ${e}, did you configure the path for it correctly?`);
     }
   }
-  async function d() {
+  async function d2() {
     let S2 = await v2(false);
     try {
       let i = await self.WebAssembly.instantiateStreaming(S2, l2);
-      a(i.instance, i.module);
+      a2(i.instance, i.module);
     } catch (i) {
       return g.log(g.Level.Warn, i), g.log(g.Level.Warn, "WebAssembly streaming compile failed. Falling back to ArrayBuffer instantiation (this will make things slower)"), o(S2.bodyUsed ? void 0 : S2);
     }
@@ -4622,7 +4630,7 @@ function $i(l2, e, t, a) {
       return r.length === 1 ? `0${r}` : r;
     }).join("");
   }
-  function p(S2) {
+  function p2(S2) {
     typeof crypto.subtle.digest == "function" ? crypto.subtle.digest("SHA-256", S2).then((i) => {
       let r = f2(i);
       t || g.log(g.Level.Warn, "The library hash is not defined or empty, cannot correctly verify integrity."), r !== t && g.log(g.Level.Warn, `The Scandit Data Capture library WASM file found at ${e} seems invalid: expected file hash doesn't match (received: ${r}, expected: ${t}). Please ensure the correct Scandit Data Capture file (with correct version) is retrieved.`);
@@ -4632,36 +4640,36 @@ function $i(l2, e, t, a) {
   async function v2(S2) {
     return new Promise((i, r) => {
       fetch(e).then((n2) => {
-        n2.ok ? (n2.clone().arrayBuffer().then((s2) => {
-          S2 && i(n2), p(s2);
-        }).catch((s2) => {
-          S2 && r(s2);
+        n2.ok ? (n2.clone().arrayBuffer().then((s) => {
+          S2 && i(n2), p2(s);
+        }).catch((s) => {
+          S2 && r(s);
         }), S2 || i(n2)) : r(new Error("HTTP status code is not ok"));
       }).catch((n2) => {
         r(n2);
       });
     });
   }
-  typeof self.WebAssembly.instantiateStreaming == "function" ? d() : o();
+  typeof self.WebAssembly.instantiateStreaming == "function" ? d2() : o();
 }
 async function Xi(l2) {
-  let e, { preloading: t } = l2, a = Promise.resolve(), o = false, d = false;
+  let e, { preloading: t } = l2, a2 = Promise.resolve(), o = false, d2 = false;
   async function f2() {
     let S2 = "FILE_DATA", i, r, n2;
-    function s2() {
+    function s() {
       r.result.close(), n2.result.close(), i(0);
     }
     function u() {
       try {
         let h2 = [], m2 = r.result.transaction(S2, "readonly");
-        m2.onerror = s2;
+        m2.onerror = s;
         let b2 = m2.objectStore(S2).openCursor();
         b2.onsuccess = () => {
           let C2 = b2.result;
           if (C2 == null)
             try {
               let _2 = 0, j2 = n2.result.transaction(S2, "readwrite"), B2 = j2.objectStore(S2);
-              j2.onerror = s2, j2.oncomplete = () => {
+              j2.onerror = s, j2.oncomplete = () => {
                 r.result.close(), n2.result.close(), i(_2);
               };
               for (let D2 of h2) {
@@ -4671,13 +4679,13 @@ async function Xi(l2) {
                 };
               }
             } catch (_2) {
-              s2.call({ error: _2 });
+              s.call({ error: _2 });
             }
           else
             h2.push({ value: C2.value, primaryKey: C2.primaryKey.toString().replace(`${l2.writableDataPathPreload}/`, `${l2.writableDataPathStandard}/`) }), C2.continue();
-        }, b2.onerror = s2;
+        }, b2.onerror = s;
       } catch (h2) {
-        s2.call({ error: h2 });
+        s.call({ error: h2 });
       }
     }
     return new Promise((h2) => {
@@ -4698,15 +4706,15 @@ async function Xi(l2) {
           }
         }, n2.onsuccess = () => {
           u();
-        }, n2.onblocked = n2.onerror = s2;
-      }, r.onblocked = r.onerror = s2;
+        }, n2.onblocked = n2.onerror = s;
+      }, r.onblocked = r.onerror = s;
     });
   }
-  async function p(S2, i) {
+  async function p2(S2, i) {
     if (e != null)
       return o = true, new Promise((r, n2) => {
-        (!t && S2 ? f2() : Promise.resolve(0)).then((s2) => {
-          if (!t && S2 && !i && s2 === 0) {
+        (!t && S2 ? f2() : Promise.resolve(0)).then((s) => {
+          if (!t && S2 && !i && s === 0) {
             o = false, r();
             return;
           }
@@ -4721,7 +4729,7 @@ async function Xi(l2) {
       });
   }
   async function v2(S2, i = false, r = false) {
-    return (!d || r) && (o ? (d = true, a = a.then(async () => (d = false, p(S2, i)))) : a = p(S2, i)), a;
+    return (!d2 || r) && (o ? (d2 = true, a2 = a2.then(async () => (d2 = false, p2(S2, i)))) : a2 = p2(S2, i)), a2;
   }
   e = FS.syncfs, FS.syncfs = (S2, i) => {
     let r = i;
@@ -4737,16 +4745,16 @@ async function Xi(l2) {
   }
   return FS.mount(IDBFS, {}, l2.writableDataPath), v2(true, true);
 }
-async function Yt(l2, e, t, a) {
-  return new Promise((o, d) => {
+async function Yt(l2, e, t, a2) {
+  return new Promise((o, d2) => {
     l2().then(o).catch((f2) => {
-      let p = e * 2;
-      if (p > t) {
-        d(f2);
+      let p2 = e * 2;
+      if (p2 > t) {
+        d2(f2);
         return;
       }
-      a(f2), setTimeout(() => {
-        Yt(l2, p, t, a).then(o).catch(d);
+      a2(f2), setTimeout(() => {
+        Yt(l2, p2, t, a2).then(o).catch(d2);
       }, e);
     });
   });
@@ -4780,13 +4788,13 @@ var pt = class {
   createContext(e) {
     let t = this.getModeDeserializers();
     this.contextDeserializer = new this.Module.DataCaptureContextDeserializer(this.writableDataPath, e.deviceId, e.context.deviceName, e.domain, t, e.delayedRegistration, e.highEndBlurryRecognition, this.resourcePath);
-    let a = this.contextDeserializer.contextFromJson(JSON.stringify(e.context)), o = a.getView();
-    this.context = a.getContext();
-    let d = this.Module.DataCaptureContextListener.extend("DataCaptureContextListener", { didChangeStatus: (p, v2) => {
+    let a2 = this.contextDeserializer.contextFromJson(JSON.stringify(e.context)), o = a2.getView();
+    this.context = a2.getContext();
+    let d2 = this.Module.DataCaptureContextListener.extend("DataCaptureContextListener", { didChangeStatus: (p2, v2) => {
       this.contextDidChangeStatus(JSON.parse(v2.toJson()));
     }, didStartObservingContext: () => {
       this.didStartObservingContext();
-    } }), f2 = new d();
+    } }), f2 = new d2();
     this.context.addListener(f2), f2.delete(), this.setView(o);
   }
   getModeDeserializers() {
@@ -4800,15 +4808,15 @@ var pt = class {
     var o;
     if (this.context == null)
       return { payload: e, transferables: [e.data.buffer] };
-    let t = e.data, a = this.Module.allocateUint8Array(t.byteLength);
-    return this.Module.HEAPU8.set(t, a), (o = this.imageFrameSource) == null || o.outputFrame(a, e.width, e.height, this.Module.ImageBufferFormat.Rgba8888), { payload: e, transferables: [e.data.buffer] };
+    let t = e.data, a2 = this.Module.allocateUint8Array(t.byteLength);
+    return this.Module.HEAPU8.set(t, a2), (o = this.imageFrameSource) == null || o.outputFrame(a2, e.width, e.height, this.Module.ImageBufferFormat.Rgba8888), { payload: e, transferables: [e.data.buffer] };
   }
   updateContext(e) {
     if (this.context != null && this.contextDeserializer != null) {
       let t = this.contextDeserializer.updateContextFromJson(this.context, this.view, JSON.stringify(e.context));
       this.context = t.getContext();
-      let a = t.getView();
-      a != null && e.view != null && a.setViewSize(e.view.width, e.view.height), this.setView(a), g.log(g.Level.Debug, "context updated", e);
+      let a2 = t.getView();
+      a2 != null && e.view != null && a2.setViewSize(e.view.width, e.view.height), this.setView(a2), g.log(g.Level.Debug, "context updated", e);
     }
   }
   reportCameraProperties(e) {
@@ -4823,8 +4831,8 @@ var pt = class {
   convertToLoadableFrameData(e) {
     let t = this.getNextFrameId();
     this.frameDataPool.set(t, new Uint8ClampedArray(e.getFrameData()));
-    let a = this.lastUsedModuleMirrorAxis != null ? this.lastUsedModuleMirrorAxis !== this.Module.Axis.None : false;
-    return { frameId: t, width: e.getWidth(), height: e.getHeight(), isFrameSourceMirrored: a };
+    let a2 = this.lastUsedModuleMirrorAxis != null ? this.lastUsedModuleMirrorAxis !== this.Module.Axis.None : false;
+    return { frameId: t, width: e.getWidth(), height: e.getHeight(), isFrameSourceMirrored: a2 };
   }
   requestFrameData(e) {
     let t = this.frameDataPool.get(e);
@@ -4848,8 +4856,8 @@ var pt = class {
   setViewRefreshHandler(e) {
     if (e == null || e.isViewRefreshHandlerSet)
       return;
-    let t = this.Module.NeedsRedrawDelegate.extend("NeedsRedrawDelegate", { setNeedsRedrawIn: this.scheduleRedraw.bind(this, e) }), a = new t();
-    e.setNeedsRedrawDelegate(a), e.isViewRefreshHandlerSet = true;
+    let t = this.Module.NeedsRedrawDelegate.extend("NeedsRedrawDelegate", { setNeedsRedrawIn: this.scheduleRedraw.bind(this, e) }), a2 = new t();
+    e.setNeedsRedrawDelegate(a2), e.isViewRefreshHandlerSet = true;
   }
   scheduleRedraw(e, t) {
     this.addRedrawRequest(t), this.isDrawLoopRunning || this.startDrawLoop(e);
@@ -4861,19 +4869,19 @@ var pt = class {
     this._isDrawLoopRunning = e, !e && typeof this.loopTimeoutId == "number" && (clearTimeout(this.loopTimeoutId), this.loopTimeoutId = void 0);
   }
   addRedrawRequest(e) {
-    this.redrawRequests.push(Math.round(performance.now()) + e), this.redrawRequests.sort((t, a) => t - a);
+    this.redrawRequests.push(Math.round(performance.now()) + e), this.redrawRequests.sort((t, a2) => t - a2);
   }
   startDrawLoop(e) {
     this.isDrawLoopRunning = true;
-    let t = (d) => this.redrawRequests.length > 0 && this.redrawRequests[0] <= d, a = (d) => {
-      for (; this.redrawRequests.length > 0 && this.redrawRequests[0] <= d; )
+    let t = (d2) => this.redrawRequests.length > 0 && this.redrawRequests[0] <= d2, a2 = (d2) => {
+      for (; this.redrawRequests.length > 0 && this.redrawRequests[0] <= d2; )
         this.redrawRequests.shift();
     }, o = () => {
       this.loopTimeoutId = setTimeout(() => {
         if (!this.isDrawLoopRunning)
           return;
-        let d = performance.now();
-        t(d) && (a(d), e.draw(), this.sendViewRefreshCommands(JSON.parse(e.getDrawCommands()))), o();
+        let d2 = performance.now();
+        t(d2) && (a2(d2), e.draw(), this.sendViewRefreshCommands(JSON.parse(e.getDrawCommands()))), o();
       }, this.redrawInterval);
     };
     o();
@@ -4893,22 +4901,22 @@ var pt = class {
   getWasmSideModuleFileName() {
     return "";
   }
-  async setup(e, t, a) {
+  async setup(e, t, a2) {
     var B2;
-    let o = false, d = false, f2 = "/scandit_sync_folder_preload", p = "/scandit_sync_folder", v2 = "resources";
-    this.writableDataPath = a ? f2 : p, this.resourcePath = `${e}${v2}/`, self.path = t;
+    let o = false, d2 = false, f2 = "/scandit_sync_folder_preload", p2 = "/scandit_sync_folder", v2 = "resources";
+    this.writableDataPath = a2 ? f2 : p2, this.resourcePath = `${e}${v2}/`, self.path = t;
     let S2, i, r = new Promise((D2, y2) => {
       S2 = D2, i = y2;
     }), n2 = () => {
-      d && o && (s2.apply(this), this.moduleHandler.get().callMain(), S2());
+      d2 && o && (s.apply(this), this.moduleHandler.get().callMain(), S2());
     };
-    function s2() {
+    function s() {
       let D2 = this.moduleHandler.get(), y2 = D2.DataDecoding.extend("DataDecoding", { decode(M2, w2) {
         try {
           let I2 = JSON.parse(w2), E = [];
-          for (let L2 of I2) {
-            let z2 = new TextDecoder(L2.ianaName, { fatal: true });
-            E.push(z2.decode(M2.slice(L2.startIndex, L2.endIndex)));
+          for (let L of I2) {
+            let z = new TextDecoder(L.ianaName, { fatal: true });
+            E.push(z.decode(M2.slice(L.startIndex, L.endIndex)));
           }
           return E.join("");
         } catch (I2) {
@@ -4923,11 +4931,11 @@ var pt = class {
     let h2 = false, m2 = ui(u, e, this.getWasmCoreFileName(), h2), { jsURI: b2 } = m2, { wasmURI: C2 } = m2;
     this.moduleHandler.set({ canvas: (B2 = this.workerFunctions.getOffscreenCanvas()) != null ? B2 : { getContext: () => null }, instantiateWasm: (D2, y2) => ($i(D2, C2, this.getWasmCoreExpectedHash(), y2), {}), dynamicLibraries: this.getWasmDynamicLibraries(C2), noInitialRun: true, preRun: [async () => {
       try {
-        await Xi({ writableDataPathPreload: f2, writableDataPathStandard: p, writableDataPath: this.writableDataPath, preloading: a });
+        await Xi({ writableDataPathPreload: f2, writableDataPathStandard: p2, writableDataPath: this.writableDataPath, preloading: a2 });
       } catch (D2) {
         g.log(g.Level.Debug, "No IndexedDB support, some data will not be persisted:", D2);
       }
-      d = true, n2();
+      d2 = true, n2();
     }], onRuntimeInitialized: () => {
       o = true, n2();
     } });
@@ -4961,8 +4969,8 @@ var pt = class {
     }
   }
 };
-var zr = "js/worker.js";
-var Ki = zr;
+var Fr = "js/worker.js";
+var Ki = Fr;
 var ht = class {
   constructor(e, t) {
     c(this, "dataCaptureInstance");
@@ -4985,15 +4993,15 @@ var ht = class {
   hasTransferables(e) {
     return e !== null && typeof e == "object" && "transferables" in e && Array.isArray(e.transferables);
   }
-  async respondWith(e, t, a) {
-    let o = null, d;
+  async respondWith(e, t, a2) {
+    let o = null, d2;
     try {
-      d = a(), d instanceof Promise && (d = await d);
-    } catch (p) {
-      d = void 0, o = typeof p.toString == "function" ? p.toString() : "unknow error";
+      d2 = a2(), d2 instanceof Promise && (d2 = await d2);
+    } catch (p2) {
+      d2 = void 0, o = typeof p2.toString == "function" ? p2.toString() : "unknow error";
     }
-    let f2 = { type: "workerTaskId", command: e, id: t, payload: this.hasPayload(d) ? d.payload : void 0 };
-    o != null && (f2.error = o), this.postMessage(f2, this.hasTransferables(d) ? d.transferables : []);
+    let f2 = { type: "workerTaskId", command: e, id: t, payload: this.hasPayload(d2) ? d2.payload : void 0 };
+    o != null && (f2.error = o), this.postMessage(f2, this.hasTransferables(d2) ? d2.transferables : []);
   }
   onMessage(e) {
     switch (e.data.command) {
@@ -5059,7 +5067,7 @@ var ht = class {
     return true;
   }
 };
-var us = new ht(self, { get: () => self.Module, set: (l2) => {
+var ms = new ht(self, { get: () => self.Module, set: (l2) => {
   self.Module = l2;
 } });
 var er = class {
@@ -5074,19 +5082,19 @@ var er = class {
     this.libraryLocation = e, this.isPreloadEngine = t, this.workerMessageListener = this.onWorkerMessage.bind(this), this.dataCaptureWorker.addEventListener("message", this.workerMessageListener);
   }
   static async create(e) {
-    var a, o;
-    let t = new this(e.libraryLocation, (a = e.preloadEngine) != null ? a : false);
+    var a2, o;
+    let t = new this(e.libraryLocation, (a2 = e.preloadEngine) != null ? a2 : false);
     return await t.workerCommand("setLogLevel", { level: (o = e.logLevel) != null ? o : g.Level.Debug }), await t.load(), t;
   }
   async load() {
     return this.workerCommand("loadLibrary", { libraryLocation: this.libraryLocation, locationPath: window.location.pathname, preloadEngine: this.isPreloadEngine });
   }
-  async workerCommand(e, t, a) {
-    return new Promise((o, d) => {
+  async workerCommand(e, t, a2) {
+    return new Promise((o, d2) => {
       let f2 = this.workerCommandId++;
-      this.workerTasks.set(f2, { resolve: o, reject: d });
-      let p = Z(Q({}, t), { command: e, id: f2 });
-      this.dataCaptureWorker.postMessage(p, a);
+      this.workerTasks.set(f2, { resolve: o, reject: d2 });
+      let p2 = Z(Q({}, t), { command: e, id: f2 });
+      this.dataCaptureWorker.postMessage(p2, a2);
     });
   }
   get dataCaptureWorker() {
@@ -5106,246 +5114,268 @@ var er = class {
   onWorkerMessage(e) {
     let t = e.data;
     if (t.type === "workerTaskId" && typeof t.id == "number") {
-      let { id: a } = t, o = this.workerTasks.get(a);
-      t.error != null ? o == null || o.reject(t) : o == null || o.resolve(t.payload), this.workerTasks.delete(a);
+      let { id: a2 } = t, o = this.workerTasks.get(a2);
+      t.error != null ? o == null || o.reject(t) : o == null || o.resolve(t.payload), this.workerTasks.delete(a2);
     } else
-      for (let a of this.workerListeners)
-        a(t);
+      for (let a2 of this.workerListeners)
+        a2(t);
   }
 };
 var ft = "unconfigured";
 var gt;
 var kt;
 var $e;
-async function Cs(l2) {
-  var a, o;
+async function ys(l2) {
+  var a2, o;
   if (ft !== "unconfigured" && gt != null)
     return gt;
-  let e = Z(Q({}, l2), { libraryLocation: ci((a = l2.libraryLocation) != null ? a : "/"), logLevel: (o = l2.logLevel) != null ? o : g.Level.Debug });
+  let e = Z(Q({}, l2), { libraryLocation: ci((a2 = l2.libraryLocation) != null ? a2 : "/"), logLevel: (o = l2.logLevel) != null ? o : g.Level.Debug });
   kt = e.licenseKey, g.setLevel(e.logLevel);
   async function t() {
     if (ft = "started", e.licenseKey == null || e.licenseKey.trim().length < 64)
       throw new J({ name: "NoLicenseKeyError", message: "No license key provided" });
-    let d = G.checkBrowserCompatibility();
-    if (!d.fullSupport && !d.scannerSupport)
-      throw new ue(d);
+    let d2 = G.checkBrowserCompatibility();
+    if (!d2.fullSupport && !d2.scannerSupport)
+      throw new ue(d2);
     if (e.moduleLoaders.length !== 1)
       throw new J({ name: "InvalidModuleLoader", message: `Exactly one module loader must be passed to configure(). ${e.moduleLoaders.length} received.` });
     let [f2] = e.moduleLoaders;
     $e = await f2.load(e), ft = "done";
   }
-  return gt = t().catch((d) => {
-    throw jr(), d;
+  return gt = t().catch((d2) => {
+    throw Wr(), d2;
   }), gt;
 }
-function jr() {
+function Wr() {
   ft = "unconfigured";
 }
 var export_UAParser = mr.default;
 
 // ../../scandit-web-datacapture-id/build/js/index.js
 var U0 = Object.defineProperty;
-var v0 = Object.defineProperties;
-var P0 = Object.getOwnPropertyDescriptors;
-var q1 = Object.getOwnPropertySymbols;
-var F0 = Object.prototype.hasOwnProperty;
-var w0 = Object.prototype.propertyIsEnumerable;
-var J1 = (e, t, i) => t in e ? U0(e, t, { enumerable: true, configurable: true, writable: true, value: i }) : e[t] = i;
-var h = (e, t) => {
-  for (var i in t || (t = {}))
-    F0.call(t, i) && J1(e, i, t[i]);
-  if (q1)
-    for (var i of q1(t))
-      w0.call(t, i) && J1(e, i, t[i]);
+var P0 = Object.defineProperties;
+var F0 = Object.getOwnPropertyDescriptors;
+var $1 = Object.getOwnPropertySymbols;
+var w0 = Object.prototype.hasOwnProperty;
+var k0 = Object.prototype.propertyIsEnumerable;
+var W1 = (e, t, r) => t in e ? U0(e, t, { enumerable: true, configurable: true, writable: true, value: r }) : e[t] = r;
+var S = (e, t) => {
+  for (var r in t || (t = {}))
+    w0.call(t, r) && W1(e, r, t[r]);
+  if ($1)
+    for (var r of $1(t))
+      k0.call(t, r) && W1(e, r, t[r]);
   return e;
 };
-var O2 = (e, t) => v0(e, P0(t));
-var n = (e, t, i) => (J1(e, typeof t != "symbol" ? t + "" : t, i), i);
-function l1(e, t, i, r) {
-  function a(o) {
-    return o instanceof i ? o : new i(function(d) {
-      d(o);
+var h = (e, t) => P0(e, F0(t));
+var n = (e, t, r) => (W1(e, typeof t != "symbol" ? t + "" : t, r), r);
+var G0 = URL.createObjectURL(new Blob([new Uint8Array([40, 40, 41, 61, 62, 123, 118, 97, 114, 32, 36, 61, 79, 98, 106, 101, 99, 116, 46, 100, 101, 102, 105, 110, 101, 80, 114, 111, 112, 101, 114, 116, 121, 59, 118, 97, 114, 32, 86, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 116, 32, 105, 110, 32, 101, 63, 36, 40, 101, 44, 116, 44, 123, 101, 110, 117, 109, 101, 114, 97, 98, 108, 101, 58, 33, 48, 44, 99, 111, 110, 102, 105, 103, 117, 114, 97, 98, 108, 101, 58, 33, 48, 44, 119, 114, 105, 116, 97, 98, 108, 101, 58, 33, 48, 44, 118, 97, 108, 117, 101, 58, 114, 125, 41, 58, 101, 91, 116, 93, 61, 114, 59, 118, 97, 114, 32, 109, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 40, 86, 40, 101, 44, 116, 121, 112, 101, 111, 102, 32, 116, 33, 61, 34, 115, 121, 109, 98, 111, 108, 34, 63, 116, 43, 34, 34, 58, 116, 44, 114, 41, 44, 114, 41, 59, 118, 97, 114, 32, 66, 61, 79, 98, 106, 101, 99, 116, 46, 100, 101, 102, 105, 110, 101, 80, 114, 111, 112, 101, 114, 116, 121, 59, 118, 97, 114, 32, 85, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 116, 32, 105, 110, 32, 101, 63, 66, 40, 101, 44, 116, 44, 123, 101, 110, 117, 109, 101, 114, 97, 98, 108, 101, 58, 33, 48, 44, 99, 111, 110, 102, 105, 103, 117, 114, 97, 98, 108, 101, 58, 33, 48, 44, 119, 114, 105, 116, 97, 98, 108, 101, 58, 33, 48, 44, 118, 97, 108, 117, 101, 58, 114, 125, 41, 58, 101, 91, 116, 93, 61, 114, 59, 118, 97, 114, 32, 102, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 40, 85, 40, 101, 44, 116, 121, 112, 101, 111, 102, 32, 116, 33, 61, 34, 115, 121, 109, 98, 111, 108, 34, 63, 116, 43, 34, 34, 58, 116, 44, 114, 41, 44, 114, 41, 44, 99, 59, 40, 101, 61, 62, 123, 108, 101, 116, 32, 116, 59, 40, 100, 61, 62, 40, 100, 46, 68, 101, 98, 117, 103, 61, 34, 100, 101, 98, 117, 103, 34, 44, 100, 46, 73, 110, 102, 111, 61, 34, 105, 110, 102, 111, 34, 44, 100, 46, 87, 97, 114, 110, 61, 34, 119, 97, 114, 110, 34, 44, 100, 46, 69, 114, 114, 111, 114, 61, 34, 101, 114, 114, 111, 114, 34, 44, 100, 46, 81, 117, 105, 101, 116, 61, 34, 113, 117, 105, 101, 116, 34, 41, 41, 40, 116, 61, 101, 46, 76, 101, 118, 101, 108, 124, 124, 40, 101, 46, 76, 101, 118, 101, 108, 61, 123, 125, 41, 41, 59, 108, 101, 116, 32, 114, 61, 110, 101, 119, 32, 77, 97, 112, 40, 91, 91, 34, 100, 101, 98, 117, 103, 34, 44, 49, 93, 44, 91, 34, 105, 110, 102, 111, 34, 44, 50, 93, 44, 91, 34, 119, 97, 114, 110, 34, 44, 51, 93, 44, 91, 34, 101, 114, 114, 111, 114, 34, 44, 52, 93, 44, 91, 34, 113, 117, 105, 101, 116, 34, 44, 53, 93, 93, 41, 44, 105, 61, 34, 100, 101, 98, 117, 103, 34, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 97, 40, 100, 41, 123, 105, 61, 100, 125, 101, 46, 115, 101, 116, 76, 101, 118, 101, 108, 61, 97, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 111, 40, 100, 44, 46, 46, 46, 110, 41, 123, 105, 102, 40, 33, 40, 114, 46, 103, 101, 116, 40, 105, 41, 62, 114, 46, 103, 101, 116, 40, 100, 41, 41, 41, 115, 119, 105, 116, 99, 104, 40, 100, 41, 123, 99, 97, 115, 101, 34, 100, 101, 98, 117, 103, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 100, 101, 98, 117, 103, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 105, 110, 102, 111, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 108, 111, 103, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 119, 97, 114, 110, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 119, 97, 114, 110, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 101, 114, 114, 111, 114, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 101, 114, 114, 111, 114, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 100, 101, 102, 97, 117, 108, 116, 58, 98, 114, 101, 97, 107, 125, 125, 101, 46, 108, 111, 103, 61, 111, 125, 41, 40, 99, 124, 124, 40, 99, 61, 123, 125, 41, 41, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 74, 40, 101, 44, 116, 44, 114, 44, 105, 41, 123, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 97, 40, 115, 41, 123, 116, 114, 121, 123, 108, 101, 116, 32, 108, 61, 97, 119, 97, 105, 116, 40, 115, 33, 61, 110, 117, 108, 108, 63, 115, 58, 97, 119, 97, 105, 116, 32, 104, 40, 33, 48, 41, 41, 46, 97, 114, 114, 97, 121, 66, 117, 102, 102, 101, 114, 40, 41, 44, 117, 61, 97, 119, 97, 105, 116, 32, 115, 101, 108, 102, 46, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 46, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 40, 108, 44, 101, 41, 59, 105, 40, 117, 46, 105, 110, 115, 116, 97, 110, 99, 101, 44, 117, 46, 109, 111, 100, 117, 108, 101, 41, 125, 99, 97, 116, 99, 104, 40, 108, 41, 123, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 69, 114, 114, 111, 114, 44, 108, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 69, 114, 114, 111, 114, 44, 96, 67, 111, 117, 108, 100, 110, 39, 116, 32, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 83, 68, 75, 32, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 97, 116, 32, 36, 123, 116, 125, 44, 32, 100, 105, 100, 32, 121, 111, 117, 32, 99, 111, 110, 102, 105, 103, 117, 114, 101, 32, 116, 104, 101, 32, 112, 97, 116, 104, 32, 102, 111, 114, 32, 105, 116, 32, 99, 111, 114, 114, 101, 99, 116, 108, 121, 63, 96, 41, 125, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 111, 40, 41, 123, 108, 101, 116, 32, 115, 61, 97, 119, 97, 105, 116, 32, 104, 40, 33, 49, 41, 59, 116, 114, 121, 123, 108, 101, 116, 32, 108, 61, 97, 119, 97, 105, 116, 32, 115, 101, 108, 102, 46, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 46, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 83, 116, 114, 101, 97, 109, 105, 110, 103, 40, 115, 44, 101, 41, 59, 105, 40, 108, 46, 105, 110, 115, 116, 97, 110, 99, 101, 44, 108, 46, 109, 111, 100, 117, 108, 101, 41, 125, 99, 97, 116, 99, 104, 40, 108, 41, 123, 114, 101, 116, 117, 114, 110, 32, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 108, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 34, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 32, 115, 116, 114, 101, 97, 109, 105, 110, 103, 32, 99, 111, 109, 112, 105, 108, 101, 32, 102, 97, 105, 108, 101, 100, 46, 32, 70, 97, 108, 108, 105, 110, 103, 32, 98, 97, 99, 107, 32, 116, 111, 32, 65, 114, 114, 97, 121, 66, 117, 102, 102, 101, 114, 32, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 105, 111, 110, 32, 40, 116, 104, 105, 115, 32, 119, 105, 108, 108, 32, 109, 97, 107, 101, 32, 116, 104, 105, 110, 103, 115, 32, 115, 108, 111, 119, 101, 114, 41, 34, 41, 44, 97, 40, 115, 46, 98, 111, 100, 121, 85, 115, 101, 100, 63, 118, 111, 105, 100, 32, 48, 58, 115, 41, 125, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 100, 40, 115, 41, 123, 114, 101, 116, 117, 114, 110, 91, 46, 46, 46, 110, 101, 119, 32, 85, 105, 110, 116, 56, 65, 114, 114, 97, 121, 40, 115, 41, 93, 46, 109, 97, 112, 40, 108, 61, 62, 123, 108, 101, 116, 32, 117, 61, 108, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 49, 54, 41, 59, 114, 101, 116, 117, 114, 110, 32, 117, 46, 108, 101, 110, 103, 116, 104, 61, 61, 61, 49, 63, 96, 48, 36, 123, 117, 125, 96, 58, 117, 125, 41, 46, 106, 111, 105, 110, 40, 34, 34, 41, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 110, 40, 115, 41, 123, 116, 121, 112, 101, 111, 102, 32, 99, 114, 121, 112, 116, 111, 46, 115, 117, 98, 116, 108, 101, 46, 100, 105, 103, 101, 115, 116, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 99, 114, 121, 112, 116, 111, 46, 115, 117, 98, 116, 108, 101, 46, 100, 105, 103, 101, 115, 116, 40, 34, 83, 72, 65, 45, 50, 53, 54, 34, 44, 115, 41, 46, 116, 104, 101, 110, 40, 108, 61, 62, 123, 108, 101, 116, 32, 117, 61, 100, 40, 108, 41, 59, 114, 124, 124, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 34, 84, 104, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 104, 97, 115, 104, 32, 105, 115, 32, 110, 111, 116, 32, 100, 101, 102, 105, 110, 101, 100, 32, 111, 114, 32, 101, 109, 112, 116, 121, 44, 32, 99, 97, 110, 110, 111, 116, 32, 99, 111, 114, 114, 101, 99, 116, 108, 121, 32, 118, 101, 114, 105, 102, 121, 32, 105, 110, 116, 101, 103, 114, 105, 116, 121, 46, 34, 41, 44, 117, 33, 61, 61, 114, 38, 38, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 84, 104, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 87, 65, 83, 77, 32, 102, 105, 108, 101, 32, 102, 111, 117, 110, 100, 32, 97, 116, 32, 36, 123, 116, 125, 32, 115, 101, 101, 109, 115, 32, 105, 110, 118, 97, 108, 105, 100, 58, 32, 101, 120, 112, 101, 99, 116, 101, 100, 32, 102, 105, 108, 101, 32, 104, 97, 115, 104, 32, 100, 111, 101, 115, 110, 39, 116, 32, 109, 97, 116, 99, 104, 32, 40, 114, 101, 99, 101, 105, 118, 101, 100, 58, 32, 36, 123, 117, 125, 44, 32, 101, 120, 112, 101, 99, 116, 101, 100, 58, 32, 36, 123, 114, 125, 41, 46, 32, 80, 108, 101, 97, 115, 101, 32, 101, 110, 115, 117, 114, 101, 32, 116, 104, 101, 32, 99, 111, 114, 114, 101, 99, 116, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 102, 105, 108, 101, 32, 40, 119, 105, 116, 104, 32, 99, 111, 114, 114, 101, 99, 116, 32, 118, 101, 114, 115, 105, 111, 110, 41, 32, 105, 115, 32, 114, 101, 116, 114, 105, 101, 118, 101, 100, 46, 96, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 40, 41, 61, 62, 123, 125, 41, 58, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 73, 110, 115, 101, 99, 117, 114, 101, 32, 99, 111, 110, 116, 101, 120, 116, 32, 40, 115, 101, 101, 32, 104, 116, 116, 112, 115, 58, 47, 47, 100, 101, 118, 101, 108, 111, 112, 101, 114, 46, 109, 111, 122, 105, 108, 108, 97, 46, 111, 114, 103, 47, 101, 110, 45, 85, 83, 47, 100, 111, 99, 115, 47, 87, 101, 98, 47, 83, 101, 99, 117, 114, 105, 116, 121, 47, 83, 101, 99, 117, 114, 101, 95, 67, 111, 110, 116, 101, 120, 116, 115, 41, 58, 32, 84, 104, 101, 32, 104, 97, 115, 104, 32, 111, 102, 32, 116, 104, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 87, 65, 83, 77, 32, 102, 105, 108, 101, 32, 102, 111, 117, 110, 100, 32, 97, 116, 32, 36, 123, 116, 125, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 98, 101, 32, 118, 101, 114, 105, 102, 105, 101, 100, 96, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 104, 40, 115, 41, 123, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 108, 44, 117, 41, 61, 62, 123, 102, 101, 116, 99, 104, 40, 116, 41, 46, 116, 104, 101, 110, 40, 112, 61, 62, 123, 112, 46, 111, 107, 63, 40, 112, 46, 99, 108, 111, 110, 101, 40, 41, 46, 97, 114, 114, 97, 121, 66, 117, 102, 102, 101, 114, 40, 41, 46, 116, 104, 101, 110, 40, 67, 61, 62, 123, 115, 38, 38, 108, 40, 112, 41, 44, 110, 40, 67, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 67, 61, 62, 123, 115, 38, 38, 117, 40, 67, 41, 125, 41, 44, 115, 124, 124, 108, 40, 112, 41, 41, 58, 117, 40, 110, 101, 119, 32, 69, 114, 114, 111, 114, 40, 34, 72, 84, 84, 80, 32, 115, 116, 97, 116, 117, 115, 32, 99, 111, 100, 101, 32, 105, 115, 32, 110, 111, 116, 32, 111, 107, 34, 41, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 112, 61, 62, 123, 117, 40, 112, 41, 125, 41, 125, 41, 125, 116, 121, 112, 101, 111, 102, 32, 115, 101, 108, 102, 46, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 46, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 83, 116, 114, 101, 97, 109, 105, 110, 103, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 111, 40, 41, 58, 97, 40, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 72, 40, 101, 41, 123, 108, 101, 116, 32, 116, 44, 123, 112, 114, 101, 108, 111, 97, 100, 105, 110, 103, 58, 114, 125, 61, 101, 44, 105, 61, 80, 114, 111, 109, 105, 115, 101, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 97, 61, 33, 49, 44, 111, 61, 33, 49, 59, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 100, 40, 41, 123, 108, 101, 116, 32, 115, 61, 34, 70, 73, 76, 69, 95, 68, 65, 84, 65, 34, 44, 108, 44, 117, 44, 112, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 67, 40, 41, 123, 117, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 112, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 108, 40, 48, 41, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 119, 40, 41, 123, 116, 114, 121, 123, 108, 101, 116, 32, 98, 61, 91, 93, 44, 68, 61, 117, 46, 114, 101, 115, 117, 108, 116, 46, 116, 114, 97, 110, 115, 97, 99, 116, 105, 111, 110, 40, 115, 44, 34, 114, 101, 97, 100, 111, 110, 108, 121, 34, 41, 59, 68, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 59, 108, 101, 116, 32, 83, 61, 68, 46, 111, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 46, 111, 112, 101, 110, 67, 117, 114, 115, 111, 114, 40, 41, 59, 83, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 108, 101, 116, 32, 77, 61, 83, 46, 114, 101, 115, 117, 108, 116, 59, 105, 102, 40, 77, 61, 61, 110, 117, 108, 108, 41, 116, 114, 121, 123, 108, 101, 116, 32, 76, 61, 48, 44, 103, 61, 112, 46, 114, 101, 115, 117, 108, 116, 46, 116, 114, 97, 110, 115, 97, 99, 116, 105, 111, 110, 40, 115, 44, 34, 114, 101, 97, 100, 119, 114, 105, 116, 101, 34, 41, 44, 121, 61, 103, 46, 111, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 59, 103, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 44, 103, 46, 111, 110, 99, 111, 109, 112, 108, 101, 116, 101, 61, 40, 41, 61, 62, 123, 117, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 112, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 108, 40, 76, 41, 125, 59, 102, 111, 114, 40, 108, 101, 116, 32, 107, 32, 111, 102, 32, 98, 41, 123, 108, 101, 116, 32, 118, 61, 121, 46, 99, 111, 117, 110, 116, 40, 107, 46, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 41, 59, 118, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 118, 46, 114, 101, 115, 117, 108, 116, 61, 61, 61, 48, 38, 38, 40, 43, 43, 76, 44, 121, 46, 97, 100, 100, 40, 107, 46, 118, 97, 108, 117, 101, 44, 107, 46, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 41, 41, 125, 125, 125, 99, 97, 116, 99, 104, 40, 76, 41, 123, 67, 46, 99, 97, 108, 108, 40, 123, 101, 114, 114, 111, 114, 58, 76, 125, 41, 125, 101, 108, 115, 101, 32, 98, 46, 112, 117, 115, 104, 40, 123, 118, 97, 108, 117, 101, 58, 77, 46, 118, 97, 108, 117, 101, 44, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 58, 77, 46, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 41, 46, 114, 101, 112, 108, 97, 99, 101, 40, 96, 36, 123, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 80, 114, 101, 108, 111, 97, 100, 125, 47, 96, 44, 96, 36, 123, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 83, 116, 97, 110, 100, 97, 114, 100, 125, 47, 96, 41, 125, 41, 44, 77, 46, 99, 111, 110, 116, 105, 110, 117, 101, 40, 41, 125, 44, 83, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 125, 99, 97, 116, 99, 104, 40, 98, 41, 123, 67, 46, 99, 97, 108, 108, 40, 123, 101, 114, 114, 111, 114, 58, 98, 125, 41, 125, 125, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 98, 61, 62, 123, 108, 61, 98, 44, 117, 61, 105, 110, 100, 101, 120, 101, 100, 68, 66, 46, 111, 112, 101, 110, 40, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 80, 114, 101, 108, 111, 97, 100, 41, 44, 117, 46, 111, 110, 117, 112, 103, 114, 97, 100, 101, 110, 101, 101, 100, 101, 100, 61, 40, 41, 61, 62, 123, 116, 114, 121, 123, 117, 46, 114, 101, 115, 117, 108, 116, 46, 99, 114, 101, 97, 116, 101, 79, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 125, 99, 97, 116, 99, 104, 40, 68, 41, 123, 125, 125, 44, 117, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 105, 102, 40, 33, 65, 114, 114, 97, 121, 46, 102, 114, 111, 109, 40, 117, 46, 114, 101, 115, 117, 108, 116, 46, 111, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 78, 97, 109, 101, 115, 41, 46, 105, 110, 99, 108, 117, 100, 101, 115, 40, 115, 41, 41, 123, 98, 40, 48, 41, 59, 114, 101, 116, 117, 114, 110, 125, 112, 61, 105, 110, 100, 101, 120, 101, 100, 68, 66, 46, 111, 112, 101, 110, 40, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 83, 116, 97, 110, 100, 97, 114, 100, 41, 44, 112, 46, 111, 110, 117, 112, 103, 114, 97, 100, 101, 110, 101, 101, 100, 101, 100, 61, 40, 41, 61, 62, 123, 116, 114, 121, 123, 112, 46, 114, 101, 115, 117, 108, 116, 46, 99, 114, 101, 97, 116, 101, 79, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 125, 99, 97, 116, 99, 104, 40, 68, 41, 123, 125, 125, 44, 112, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 119, 40, 41, 125, 44, 112, 46, 111, 110, 98, 108, 111, 99, 107, 101, 100, 61, 112, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 125, 44, 117, 46, 111, 110, 98, 108, 111, 99, 107, 101, 100, 61, 117, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 125, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 110, 40, 115, 44, 108, 41, 123, 105, 102, 40, 116, 33, 61, 110, 117, 108, 108, 41, 114, 101, 116, 117, 114, 110, 32, 97, 61, 33, 48, 44, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 117, 44, 112, 41, 61, 62, 123, 40, 33, 114, 38, 38, 115, 63, 100, 40, 41, 58, 80, 114, 111, 109, 105, 115, 101, 46, 114, 101, 115, 111, 108, 118, 101, 40, 48, 41, 41, 46, 116, 104, 101, 110, 40, 67, 61, 62, 123, 105, 102, 40, 33, 114, 38, 38, 115, 38, 38, 33, 108, 38, 38, 67, 61, 61, 61, 48, 41, 123, 97, 61, 33, 49, 44, 117, 40, 41, 59, 114, 101, 116, 117, 114, 110, 125, 116, 40, 115, 44, 119, 61, 62, 123, 105, 102, 40, 97, 61, 33, 49, 44, 119, 33, 61, 110, 117, 108, 108, 41, 123, 112, 40, 119, 41, 59, 114, 101, 116, 117, 114, 110, 125, 117, 40, 41, 125, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 112, 41, 125, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 104, 40, 115, 44, 108, 61, 33, 49, 44, 117, 61, 33, 49, 41, 123, 114, 101, 116, 117, 114, 110, 40, 33, 111, 124, 124, 117, 41, 38, 38, 40, 97, 63, 40, 111, 61, 33, 48, 44, 105, 61, 105, 46, 116, 104, 101, 110, 40, 97, 115, 121, 110, 99, 40, 41, 61, 62, 40, 111, 61, 33, 49, 44, 110, 40, 115, 44, 108, 41, 41, 41, 41, 58, 105, 61, 110, 40, 115, 44, 108, 41, 41, 44, 105, 125, 116, 61, 70, 83, 46, 115, 121, 110, 99, 102, 115, 44, 70, 83, 46, 115, 121, 110, 99, 102, 115, 61, 40, 115, 44, 108, 41, 61, 62, 123, 108, 101, 116, 32, 117, 61, 108, 59, 108, 61, 112, 61, 62, 123, 117, 40, 112, 41, 125, 44, 104, 40, 115, 41, 46, 116, 104, 101, 110, 40, 108, 41, 46, 99, 97, 116, 99, 104, 40, 108, 41, 125, 59, 116, 114, 121, 123, 70, 83, 46, 109, 107, 100, 105, 114, 40, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 41, 125, 99, 97, 116, 99, 104, 40, 115, 41, 123, 105, 102, 40, 115, 46, 99, 111, 100, 101, 33, 61, 61, 34, 69, 69, 88, 73, 83, 84, 34, 41, 114, 101, 116, 117, 114, 110, 32, 116, 61, 118, 111, 105, 100, 32, 48, 44, 80, 114, 111, 109, 105, 115, 101, 46, 114, 101, 106, 101, 99, 116, 40, 115, 41, 125, 114, 101, 116, 117, 114, 110, 32, 70, 83, 46, 109, 111, 117, 110, 116, 40, 73, 68, 66, 70, 83, 44, 123, 125, 44, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 41, 44, 104, 40, 33, 48, 44, 33, 48, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 84, 40, 101, 44, 116, 44, 114, 44, 105, 41, 123, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 97, 44, 111, 41, 61, 62, 123, 101, 40, 41, 46, 116, 104, 101, 110, 40, 97, 41, 46, 99, 97, 116, 99, 104, 40, 100, 61, 62, 123, 108, 101, 116, 32, 110, 61, 116, 42, 50, 59, 105, 102, 40, 110, 62, 114, 41, 123, 111, 40, 100, 41, 59, 114, 101, 116, 117, 114, 110, 125, 105, 40, 100, 41, 44, 115, 101, 116, 84, 105, 109, 101, 111, 117, 116, 40, 40, 41, 61, 62, 123, 84, 40, 101, 44, 110, 44, 114, 44, 105, 41, 46, 116, 104, 101, 110, 40, 97, 41, 46, 99, 97, 116, 99, 104, 40, 111, 41, 125, 44, 116, 41, 125, 41, 125, 41, 125, 118, 97, 114, 32, 87, 61, 99, 108, 97, 115, 115, 32, 101, 120, 116, 101, 110, 100, 115, 32, 69, 114, 114, 111, 114, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 101, 61, 123, 125, 41, 123, 115, 117, 112, 101, 114, 40, 101, 46, 109, 101, 115, 115, 97, 103, 101, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 110, 97, 109, 101, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 109, 101, 115, 115, 97, 103, 101, 34, 41, 44, 79, 98, 106, 101, 99, 116, 46, 115, 101, 116, 80, 114, 111, 116, 111, 116, 121, 112, 101, 79, 102, 40, 116, 104, 105, 115, 44, 87, 46, 112, 114, 111, 116, 111, 116, 121, 112, 101, 41, 44, 116, 121, 112, 101, 111, 102, 32, 101, 46, 110, 97, 109, 101, 61, 61, 34, 115, 116, 114, 105, 110, 103, 34, 38, 38, 40, 116, 104, 105, 115, 46, 110, 97, 109, 101, 61, 101, 46, 110, 97, 109, 101, 41, 125, 125, 44, 80, 59, 40, 101, 61, 62, 123, 102, 117, 110, 99, 116, 105, 111, 110, 32, 116, 40, 41, 123, 108, 101, 116, 32, 114, 61, 34, 54, 46, 49, 53, 46, 49, 34, 59, 105, 102, 40, 114, 61, 61, 110, 117, 108, 108, 41, 116, 104, 114, 111, 119, 32, 110, 101, 119, 32, 87, 40, 123, 110, 97, 109, 101, 58, 34, 73, 110, 118, 97, 108, 105, 100, 32, 108, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 34, 44, 109, 101, 115, 115, 97, 103, 101, 58, 34, 76, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 32, 105, 115, 32, 110, 111, 116, 32, 100, 101, 102, 105, 110, 101, 100, 32, 111, 114, 32, 101, 109, 112, 116, 121, 46, 34, 125, 41, 59, 114, 101, 116, 117, 114, 110, 32, 114, 125, 101, 46, 115, 100, 107, 86, 101, 114, 115, 105, 111, 110, 61, 116, 125, 41, 40, 80, 124, 124, 40, 80, 61, 123, 125, 41, 41, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 113, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 47, 94, 104, 116, 116, 112, 115, 63, 58, 92, 47, 92, 47, 40, 63, 58, 91, 94, 46, 47, 93, 42, 92, 46, 41, 42, 99, 100, 110, 46, 106, 115, 100, 101, 108, 105, 118, 114, 46, 110, 101, 116, 92, 47, 47, 46, 116, 101, 115, 116, 40, 101, 41, 63, 123, 114, 101, 115, 117, 108, 116, 58, 33, 48, 44, 99, 100, 110, 66, 97, 115, 101, 85, 82, 76, 58, 34, 104, 116, 116, 112, 115, 58, 47, 47, 99, 100, 110, 46, 106, 115, 100, 101, 108, 105, 118, 114, 46, 110, 101, 116, 47, 110, 112, 109, 47, 34, 125, 58, 47, 94, 104, 116, 116, 112, 115, 63, 58, 92, 47, 92, 47, 40, 63, 58, 91, 94, 46, 47, 93, 42, 92, 46, 41, 42, 117, 110, 112, 107, 103, 46, 99, 111, 109, 92, 47, 47, 46, 116, 101, 115, 116, 40, 101, 41, 63, 123, 114, 101, 115, 117, 108, 116, 58, 33, 48, 44, 99, 100, 110, 66, 97, 115, 101, 85, 82, 76, 58, 34, 104, 116, 116, 112, 115, 58, 47, 47, 117, 110, 112, 107, 103, 46, 99, 111, 109, 47, 34, 125, 58, 123, 114, 101, 115, 117, 108, 116, 58, 33, 49, 44, 99, 100, 110, 66, 97, 115, 101, 85, 82, 76, 58, 34, 34, 125, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 75, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 47, 115, 99, 97, 110, 100, 105, 116, 45, 119, 101, 98, 45, 100, 97, 116, 97, 99, 97, 112, 116, 117, 114, 101, 45, 91, 97, 45, 122, 93, 43, 47, 105, 46, 101, 120, 101, 99, 40, 101, 41, 59, 114, 101, 116, 117, 114, 110, 32, 116, 63, 116, 91, 48, 93, 58, 110, 117, 108, 108, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 88, 40, 101, 44, 116, 44, 114, 44, 105, 41, 123, 108, 101, 116, 32, 97, 61, 116, 44, 111, 61, 113, 40, 97, 41, 59, 105, 102, 40, 111, 46, 114, 101, 115, 117, 108, 116, 41, 123, 108, 101, 116, 32, 104, 61, 75, 40, 97, 41, 59, 104, 33, 61, 110, 117, 108, 108, 38, 38, 40, 97, 61, 96, 36, 123, 111, 46, 99, 100, 110, 66, 97, 115, 101, 85, 82, 76, 125, 36, 123, 104, 125, 64, 36, 123, 101, 125, 47, 98, 117, 105, 108, 100, 47, 101, 110, 103, 105, 110, 101, 47, 96, 41, 125, 108, 101, 116, 32, 100, 61, 34, 34, 59, 105, 38, 38, 40, 100, 43, 61, 34, 45, 115, 105, 109, 100, 34, 41, 59, 108, 101, 116, 32, 110, 61, 114, 46, 114, 101, 112, 108, 97, 99, 101, 40, 34, 46, 119, 97, 115, 109, 34, 44, 34, 34, 41, 59, 114, 101, 116, 117, 114, 110, 32, 111, 46, 114, 101, 115, 117, 108, 116, 63, 123, 106, 115, 85, 82, 73, 58, 96, 36, 123, 97, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 106, 115, 96, 44, 119, 97, 115, 109, 85, 82, 73, 58, 96, 36, 123, 97, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 119, 97, 115, 109, 96, 125, 58, 123, 106, 115, 85, 82, 73, 58, 96, 36, 123, 97, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 106, 115, 63, 118, 61, 36, 123, 101, 125, 96, 44, 119, 97, 115, 109, 85, 82, 73, 58, 96, 36, 123, 97, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 119, 97, 115, 109, 63, 118, 61, 36, 123, 101, 125, 96, 125, 125, 118, 97, 114, 32, 65, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 101, 44, 116, 41, 123, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 61, 101, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 61, 116, 44, 102, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 77, 65, 88, 95, 78, 85, 77, 66, 69, 82, 95, 79, 70, 95, 73, 77, 65, 71, 69, 83, 95, 73, 78, 95, 70, 82, 65, 77, 69, 95, 68, 65, 84, 65, 95, 80, 79, 79, 76, 34, 44, 49, 48, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 114, 101, 115, 111, 117, 114, 99, 101, 80, 97, 116, 104, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 95, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 34, 44, 33, 49, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 114, 101, 100, 114, 97, 119, 73, 110, 116, 101, 114, 118, 97, 108, 34, 44, 49, 101, 51, 47, 51, 48, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 34, 44, 91, 93, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 99, 111, 110, 116, 101, 120, 116, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 118, 105, 101, 119, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 34, 44, 45, 49, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 34, 44, 110, 101, 119, 32, 77, 97, 112, 41, 125, 103, 101, 116, 32, 77, 111, 100, 117, 108, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 103, 101, 116, 40, 41, 125, 108, 111, 97, 100, 76, 105, 98, 114, 97, 114, 121, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 33, 61, 110, 117, 108, 108, 63, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 58, 40, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 61, 116, 104, 105, 115, 46, 115, 101, 116, 117, 112, 40, 101, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 99, 97, 116, 105, 111, 110, 44, 101, 46, 108, 111, 99, 97, 116, 105, 111, 110, 80, 97, 116, 104, 44, 101, 46, 112, 114, 101, 108, 111, 97, 100, 69, 110, 103, 105, 110, 101, 41, 44, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 41, 125, 99, 114, 101, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 67, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 116, 104, 105, 115, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 44, 101, 46, 100, 101, 118, 105, 99, 101, 73, 100, 44, 101, 46, 99, 111, 110, 116, 101, 120, 116, 46, 100, 101, 118, 105, 99, 101, 78, 97, 109, 101, 44, 101, 46, 100, 111, 109, 97, 105, 110, 44, 116, 44, 101, 46, 100, 101, 108, 97, 121, 101, 100, 82, 101, 103, 105, 115, 116, 114, 97, 116, 105, 111, 110, 44, 101, 46, 104, 105, 103, 104, 69, 110, 100, 66, 108, 117, 114, 114, 121, 82, 101, 99, 111, 103, 110, 105, 116, 105, 111, 110, 44, 116, 104, 105, 115, 46, 114, 101, 115, 111, 117, 114, 99, 101, 80, 97, 116, 104, 41, 59, 108, 101, 116, 32, 114, 61, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 99, 111, 110, 116, 101, 120, 116, 70, 114, 111, 109, 74, 115, 111, 110, 40, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 101, 46, 99, 111, 110, 116, 101, 120, 116, 41, 41, 44, 105, 61, 114, 46, 103, 101, 116, 86, 105, 101, 119, 40, 41, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 61, 114, 46, 103, 101, 116, 67, 111, 110, 116, 101, 120, 116, 40, 41, 59, 108, 101, 116, 32, 97, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 67, 111, 110, 116, 101, 120, 116, 76, 105, 115, 116, 101, 110, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 67, 111, 110, 116, 101, 120, 116, 76, 105, 115, 116, 101, 110, 101, 114, 34, 44, 123, 100, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 58, 40, 100, 44, 110, 41, 61, 62, 123, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 40, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 110, 46, 116, 111, 74, 115, 111, 110, 40, 41, 41, 41, 125, 44, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 58, 40, 41, 61, 62, 123, 116, 104, 105, 115, 46, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 40, 41, 125, 125, 41, 44, 111, 61, 110, 101, 119, 32, 97, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 97, 100, 100, 76, 105, 115, 116, 101, 110, 101, 114, 40, 111, 41, 44, 111, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 115, 101, 116, 86, 105, 101, 119, 40, 105, 41, 125, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 86, 101, 99, 116, 111, 114, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 125, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 101, 41, 123, 118, 97, 114, 32, 116, 59, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 61, 116, 104, 105, 115, 46, 109, 97, 112, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 79, 110, 77, 111, 100, 117, 108, 101, 40, 101, 41, 44, 40, 116, 61, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 109, 97, 103, 101, 66, 117, 102, 102, 101, 114, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 41, 44, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 41, 125, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 101, 41, 123, 118, 97, 114, 32, 116, 59, 105, 102, 40, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 61, 61, 110, 117, 108, 108, 41, 114, 101, 116, 117, 114, 110, 123, 112, 97, 121, 108, 111, 97, 100, 58, 101, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 101, 46, 100, 97, 116, 97, 46, 98, 117, 102, 102, 101, 114, 93, 125, 59, 108, 101, 116, 32, 114, 61, 101, 46, 100, 97, 116, 97, 44, 105, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 97, 108, 108, 111, 99, 97, 116, 101, 85, 105, 110, 116, 56, 65, 114, 114, 97, 121, 40, 114, 46, 98, 121, 116, 101, 76, 101, 110, 103, 116, 104, 41, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 72, 69, 65, 80, 85, 56, 46, 115, 101, 116, 40, 114, 44, 105, 41, 44, 40, 116, 61, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 111, 117, 116, 112, 117, 116, 70, 114, 97, 109, 101, 40, 105, 44, 101, 46, 119, 105, 100, 116, 104, 44, 101, 46, 104, 101, 105, 103, 104, 116, 44, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 109, 97, 103, 101, 66, 117, 102, 102, 101, 114, 70, 111, 114, 109, 97, 116, 46, 82, 103, 98, 97, 56, 56, 56, 56, 41, 44, 123, 112, 97, 121, 108, 111, 97, 100, 58, 101, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 101, 46, 100, 97, 116, 97, 46, 98, 117, 102, 102, 101, 114, 93, 125, 125, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 101, 41, 123, 105, 102, 40, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 33, 61, 110, 117, 108, 108, 38, 38, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 33, 61, 110, 117, 108, 108, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 70, 114, 111, 109, 74, 115, 111, 110, 40, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 44, 116, 104, 105, 115, 46, 118, 105, 101, 119, 44, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 101, 46, 99, 111, 110, 116, 101, 120, 116, 41, 41, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 61, 116, 46, 103, 101, 116, 67, 111, 110, 116, 101, 120, 116, 40, 41, 59, 108, 101, 116, 32, 114, 61, 116, 46, 103, 101, 116, 86, 105, 101, 119, 40, 41, 59, 114, 33, 61, 110, 117, 108, 108, 38, 38, 101, 46, 118, 105, 101, 119, 33, 61, 110, 117, 108, 108, 38, 38, 114, 46, 115, 101, 116, 86, 105, 101, 119, 83, 105, 122, 101, 40, 101, 46, 118, 105, 101, 119, 46, 119, 105, 100, 116, 104, 44, 101, 46, 118, 105, 101, 119, 46, 104, 101, 105, 103, 104, 116, 41, 44, 116, 104, 105, 115, 46, 115, 101, 116, 86, 105, 101, 119, 40, 114, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 68, 101, 98, 117, 103, 44, 34, 99, 111, 110, 116, 101, 120, 116, 32, 117, 112, 100, 97, 116, 101, 100, 34, 44, 101, 41, 125, 125, 114, 101, 112, 111, 114, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 40, 101, 41, 123, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 115, 101, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 40, 101, 46, 100, 101, 118, 105, 99, 101, 73, 100, 44, 101, 46, 105, 115, 70, 114, 111, 110, 116, 70, 97, 99, 105, 110, 103, 44, 101, 46, 104, 97, 115, 65, 117, 116, 111, 102, 111, 99, 117, 115, 41, 125, 100, 105, 115, 112, 111, 115, 101, 40, 41, 123, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 100, 105, 115, 112, 111, 115, 101, 40, 41, 125, 101, 120, 116, 114, 97, 99, 116, 67, 101, 110, 116, 97, 117, 114, 117, 115, 76, 105, 99, 101, 110, 115, 101, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 99, 101, 110, 116, 97, 117, 114, 117, 115, 58, 123, 108, 105, 99, 101, 110, 115, 101, 75, 101, 121, 58, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 76, 105, 99, 101, 110, 115, 101, 85, 116, 105, 108, 115, 46, 103, 101, 116, 66, 108, 105, 110, 107, 73, 100, 76, 105, 99, 101, 110, 115, 101, 75, 101, 121, 40, 101, 41, 125, 125, 125, 125, 99, 111, 110, 118, 101, 114, 116, 84, 111, 76, 111, 97, 100, 97, 98, 108, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 103, 101, 116, 78, 101, 120, 116, 70, 114, 97, 109, 101, 73, 100, 40, 41, 59, 116, 104, 105, 115, 46, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 46, 115, 101, 116, 40, 116, 44, 110, 101, 119, 32, 85, 105, 110, 116, 56, 67, 108, 97, 109, 112, 101, 100, 65, 114, 114, 97, 121, 40, 101, 46, 103, 101, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 41, 41, 41, 59, 108, 101, 116, 32, 114, 61, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 33, 61, 110, 117, 108, 108, 63, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 33, 61, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 78, 111, 110, 101, 58, 33, 49, 59, 114, 101, 116, 117, 114, 110, 123, 102, 114, 97, 109, 101, 73, 100, 58, 116, 44, 119, 105, 100, 116, 104, 58, 101, 46, 103, 101, 116, 87, 105, 100, 116, 104, 40, 41, 44, 104, 101, 105, 103, 104, 116, 58, 101, 46, 103, 101, 116, 72, 101, 105, 103, 104, 116, 40, 41, 44, 105, 115, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 77, 105, 114, 114, 111, 114, 101, 100, 58, 114, 125, 125, 114, 101, 113, 117, 101, 115, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 46, 103, 101, 116, 40, 101, 41, 59, 114, 101, 116, 117, 114, 110, 32, 116, 61, 61, 110, 117, 108, 108, 63, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 100, 97, 116, 97, 58, 110, 117, 108, 108, 125, 125, 58, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 100, 97, 116, 97, 58, 116, 125, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 116, 46, 98, 117, 102, 102, 101, 114, 93, 125, 125, 100, 101, 108, 101, 116, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 101, 41, 123, 116, 104, 105, 115, 46, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 46, 100, 101, 108, 101, 116, 101, 40, 101, 41, 125, 103, 101, 116, 78, 101, 120, 116, 70, 114, 97, 109, 101, 73, 100, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 43, 43, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 62, 61, 116, 104, 105, 115, 46, 77, 65, 88, 95, 78, 85, 77, 66, 69, 82, 95, 79, 70, 95, 73, 77, 65, 71, 69, 83, 95, 73, 78, 95, 70, 82, 65, 77, 69, 95, 68, 65, 84, 65, 95, 80, 79, 79, 76, 38, 38, 40, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 61, 48, 41, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 125, 115, 101, 116, 86, 105, 101, 119, 40, 101, 41, 123, 116, 104, 105, 115, 46, 118, 105, 101, 119, 61, 101, 44, 116, 104, 105, 115, 46, 115, 101, 116, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 40, 101, 41, 44, 101, 61, 61, 110, 117, 108, 108, 38, 38, 40, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 61, 33, 49, 44, 116, 104, 105, 115, 46, 115, 101, 110, 100, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 67, 111, 109, 109, 97, 110, 100, 115, 40, 91, 93, 41, 41, 125, 99, 111, 110, 116, 101, 120, 116, 68, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 40, 101, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 99, 111, 110, 116, 101, 120, 116, 68, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 34, 44, 112, 97, 121, 108, 111, 97, 100, 58, 101, 125, 41, 125, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 40, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 34, 125, 41, 125, 115, 101, 116, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 40, 101, 41, 123, 105, 102, 40, 101, 61, 61, 110, 117, 108, 108, 124, 124, 101, 46, 105, 115, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 83, 101, 116, 41, 114, 101, 116, 117, 114, 110, 59, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 68, 101, 108, 101, 103, 97, 116, 101, 46, 101, 120, 116, 101, 110, 100, 40, 34, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 68, 101, 108, 101, 103, 97, 116, 101, 34, 44, 123, 115, 101, 116, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 73, 110, 58, 116, 104, 105, 115, 46, 115, 99, 104, 101, 100, 117, 108, 101, 82, 101, 100, 114, 97, 119, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 44, 101, 41, 125, 41, 44, 114, 61, 110, 101, 119, 32, 116, 59, 101, 46, 115, 101, 116, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 68, 101, 108, 101, 103, 97, 116, 101, 40, 114, 41, 44, 101, 46, 105, 115, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 83, 101, 116, 61, 33, 48, 125, 115, 99, 104, 101, 100, 117, 108, 101, 82, 101, 100, 114, 97, 119, 40, 101, 44, 116, 41, 123, 116, 104, 105, 115, 46, 97, 100, 100, 82, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 40, 116, 41, 44, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 124, 124, 116, 104, 105, 115, 46, 115, 116, 97, 114, 116, 68, 114, 97, 119, 76, 111, 111, 112, 40, 101, 41, 125, 103, 101, 116, 32, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 95, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 125, 115, 101, 116, 32, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 40, 101, 41, 123, 116, 104, 105, 115, 46, 95, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 61, 101, 44, 33, 101, 38, 38, 116, 121, 112, 101, 111, 102, 32, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 61, 61, 34, 110, 117, 109, 98, 101, 114, 34, 38, 38, 40, 99, 108, 101, 97, 114, 84, 105, 109, 101, 111, 117, 116, 40, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 41, 44, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 61, 118, 111, 105, 100, 32, 48, 41, 125, 97, 100, 100, 82, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 40, 101, 41, 123, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 112, 117, 115, 104, 40, 77, 97, 116, 104, 46, 114, 111, 117, 110, 100, 40, 112, 101, 114, 102, 111, 114, 109, 97, 110, 99, 101, 46, 110, 111, 119, 40, 41, 41, 43, 101, 41, 44, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 115, 111, 114, 116, 40, 40, 116, 44, 114, 41, 61, 62, 116, 45, 114, 41, 125, 115, 116, 97, 114, 116, 68, 114, 97, 119, 76, 111, 111, 112, 40, 101, 41, 123, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 61, 33, 48, 59, 108, 101, 116, 32, 116, 61, 97, 61, 62, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 108, 101, 110, 103, 116, 104, 62, 48, 38, 38, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 91, 48, 93, 60, 61, 97, 44, 114, 61, 97, 61, 62, 123, 102, 111, 114, 40, 59, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 108, 101, 110, 103, 116, 104, 62, 48, 38, 38, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 91, 48, 93, 60, 61, 97, 59, 41, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 115, 104, 105, 102, 116, 40, 41, 125, 44, 105, 61, 40, 41, 61, 62, 123, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 61, 115, 101, 116, 84, 105, 109, 101, 111, 117, 116, 40, 40, 41, 61, 62, 123, 105, 102, 40, 33, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 41, 114, 101, 116, 117, 114, 110, 59, 108, 101, 116, 32, 97, 61, 112, 101, 114, 102, 111, 114, 109, 97, 110, 99, 101, 46, 110, 111, 119, 40, 41, 59, 116, 40, 97, 41, 38, 38, 40, 114, 40, 97, 41, 44, 101, 46, 100, 114, 97, 119, 40, 41, 44, 116, 104, 105, 115, 46, 115, 101, 110, 100, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 67, 111, 109, 109, 97, 110, 100, 115, 40, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 101, 46, 103, 101, 116, 68, 114, 97, 119, 67, 111, 109, 109, 97, 110, 100, 115, 40, 41, 41, 41, 41, 44, 105, 40, 41, 125, 44, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 73, 110, 116, 101, 114, 118, 97, 108, 41, 125, 59, 105, 40, 41, 125, 115, 101, 110, 100, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 67, 111, 109, 109, 97, 110, 100, 115, 40, 101, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 100, 114, 97, 119, 34, 44, 112, 97, 121, 108, 111, 97, 100, 58, 101, 125, 41, 125, 103, 101, 116, 87, 97, 115, 109, 68, 121, 110, 97, 109, 105, 99, 76, 105, 98, 114, 97, 114, 105, 101, 115, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 61, 61, 110, 117, 108, 108, 63, 91, 93, 58, 91, 96, 36, 123, 101, 46, 114, 101, 112, 108, 97, 99, 101, 40, 47, 91, 94, 47, 93, 43, 92, 46, 119, 97, 115, 109, 40, 92, 63, 46, 43, 41, 63, 47, 44, 34, 34, 41, 125, 36, 123, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 125, 96, 93, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 69, 120, 112, 101, 99, 116, 101, 100, 72, 97, 115, 104, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 97, 115, 121, 110, 99, 32, 115, 101, 116, 117, 112, 40, 101, 44, 116, 44, 114, 41, 123, 118, 97, 114, 32, 105, 59, 108, 101, 116, 32, 97, 61, 33, 49, 44, 111, 61, 33, 49, 44, 100, 61, 34, 47, 115, 99, 97, 110, 100, 105, 116, 95, 115, 121, 110, 99, 95, 102, 111, 108, 100, 101, 114, 95, 112, 114, 101, 108, 111, 97, 100, 34, 44, 110, 61, 34, 47, 115, 99, 97, 110, 100, 105, 116, 95, 115, 121, 110, 99, 95, 102, 111, 108, 100, 101, 114, 34, 44, 104, 61, 34, 114, 101, 115, 111, 117, 114, 99, 101, 115, 34, 59, 116, 104, 105, 115, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 61, 114, 63, 100, 58, 110, 44, 116, 104, 105, 115, 46, 114, 101, 115, 111, 117, 114, 99, 101, 80, 97, 116, 104, 61, 96, 36, 123, 101, 125, 36, 123, 104, 125, 47, 96, 44, 115, 101, 108, 102, 46, 112, 97, 116, 104, 61, 116, 59, 108, 101, 116, 32, 115, 44, 108, 44, 117, 61, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 103, 44, 121, 41, 61, 62, 123, 115, 61, 103, 44, 108, 61, 121, 125, 41, 44, 112, 61, 40, 41, 61, 62, 123, 111, 38, 38, 97, 38, 38, 40, 67, 46, 97, 112, 112, 108, 121, 40, 116, 104, 105, 115, 41, 44, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 103, 101, 116, 40, 41, 46, 99, 97, 108, 108, 77, 97, 105, 110, 40, 41, 44, 115, 40, 41, 41, 125, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 67, 40, 41, 123, 108, 101, 116, 32, 103, 61, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 103, 101, 116, 40, 41, 44, 121, 61, 103, 46, 68, 97, 116, 97, 68, 101, 99, 111, 100, 105, 110, 103, 46, 101, 120, 116, 101, 110, 100, 40, 34, 68, 97, 116, 97, 68, 101, 99, 111, 100, 105, 110, 103, 34, 44, 123, 100, 101, 99, 111, 100, 101, 40, 118, 44, 120, 41, 123, 116, 114, 121, 123, 108, 101, 116, 32, 95, 61, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 120, 41, 44, 78, 61, 91, 93, 59, 102, 111, 114, 40, 108, 101, 116, 32, 82, 32, 111, 102, 32, 95, 41, 123, 108, 101, 116, 32, 106, 61, 110, 101, 119, 32, 84, 101, 120, 116, 68, 101, 99, 111, 100, 101, 114, 40, 82, 46, 105, 97, 110, 97, 78, 97, 109, 101, 44, 123, 102, 97, 116, 97, 108, 58, 33, 48, 125, 41, 59, 78, 46, 112, 117, 115, 104, 40, 106, 46, 100, 101, 99, 111, 100, 101, 40, 118, 46, 115, 108, 105, 99, 101, 40, 82, 46, 115, 116, 97, 114, 116, 73, 110, 100, 101, 120, 44, 82, 46, 101, 110, 100, 73, 110, 100, 101, 120, 41, 41, 41, 125, 114, 101, 116, 117, 114, 110, 32, 78, 46, 106, 111, 105, 110, 40, 34, 34, 41, 125, 99, 97, 116, 99, 104, 40, 95, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 125, 125, 41, 44, 107, 61, 110, 101, 119, 32, 121, 59, 103, 46, 115, 101, 116, 68, 97, 116, 97, 68, 101, 99, 111, 100, 105, 110, 103, 40, 107, 41, 125, 108, 101, 116, 32, 119, 61, 80, 46, 115, 100, 107, 86, 101, 114, 115, 105, 111, 110, 40, 41, 59, 105, 102, 40, 119, 61, 61, 61, 34, 34, 41, 116, 104, 114, 111, 119, 32, 110, 101, 119, 32, 87, 40, 123, 110, 97, 109, 101, 58, 34, 73, 110, 118, 97, 108, 105, 100, 32, 108, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 34, 44, 109, 101, 115, 115, 97, 103, 101, 58, 34, 76, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 32, 105, 115, 32, 110, 111, 116, 32, 100, 101, 102, 105, 110, 101, 100, 32, 111, 114, 32, 101, 109, 112, 116, 121, 44, 32, 99, 97, 110, 110, 111, 116, 32, 103, 101, 110, 101, 114, 97, 116, 101, 32, 112, 114, 111, 112, 101, 114, 32, 112, 97, 116, 104, 32, 116, 111, 32, 108, 105, 98, 114, 97, 114, 121, 32, 102, 105, 108, 101, 115, 46, 34, 125, 41, 59, 108, 101, 116, 32, 98, 61, 33, 49, 44, 68, 61, 88, 40, 119, 44, 101, 44, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 44, 98, 41, 44, 123, 106, 115, 85, 82, 73, 58, 83, 125, 61, 68, 44, 123, 119, 97, 115, 109, 85, 82, 73, 58, 77, 125, 61, 68, 59, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 115, 101, 116, 40, 123, 99, 97, 110, 118, 97, 115, 58, 40, 105, 61, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 40, 41, 41, 33, 61, 110, 117, 108, 108, 63, 105, 58, 123, 103, 101, 116, 67, 111, 110, 116, 101, 120, 116, 58, 40, 41, 61, 62, 110, 117, 108, 108, 125, 44, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 87, 97, 115, 109, 58, 40, 103, 44, 121, 41, 61, 62, 40, 74, 40, 103, 44, 77, 44, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 69, 120, 112, 101, 99, 116, 101, 100, 72, 97, 115, 104, 40, 41, 44, 121, 41, 44, 123, 125, 41, 44, 100, 121, 110, 97, 109, 105, 99, 76, 105, 98, 114, 97, 114, 105, 101, 115, 58, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 68, 121, 110, 97, 109, 105, 99, 76, 105, 98, 114, 97, 114, 105, 101, 115, 40, 77, 41, 44, 110, 111, 73, 110, 105, 116, 105, 97, 108, 82, 117, 110, 58, 33, 48, 44, 112, 114, 101, 82, 117, 110, 58, 91, 97, 115, 121, 110, 99, 40, 41, 61, 62, 123, 116, 114, 121, 123, 97, 119, 97, 105, 116, 32, 72, 40, 123, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 80, 114, 101, 108, 111, 97, 100, 58, 100, 44, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 83, 116, 97, 110, 100, 97, 114, 100, 58, 110, 44, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 58, 116, 104, 105, 115, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 44, 112, 114, 101, 108, 111, 97, 100, 105, 110, 103, 58, 114, 125, 41, 125, 99, 97, 116, 99, 104, 40, 103, 41, 123, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 68, 101, 98, 117, 103, 44, 34, 78, 111, 32, 73, 110, 100, 101, 120, 101, 100, 68, 66, 32, 115, 117, 112, 112, 111, 114, 116, 44, 32, 115, 111, 109, 101, 32, 100, 97, 116, 97, 32, 119, 105, 108, 108, 32, 110, 111, 116, 32, 98, 101, 32, 112, 101, 114, 115, 105, 115, 116, 101, 100, 58, 34, 44, 103, 41, 125, 111, 61, 33, 48, 44, 112, 40, 41, 125, 93, 44, 111, 110, 82, 117, 110, 116, 105, 109, 101, 73, 110, 105, 116, 105, 97, 108, 105, 122, 101, 100, 58, 40, 41, 61, 62, 123, 97, 61, 33, 48, 44, 112, 40, 41, 125, 125, 41, 59, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 76, 40, 103, 41, 123, 118, 97, 114, 32, 121, 59, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 107, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 105, 109, 112, 111, 114, 116, 83, 99, 114, 105, 112, 116, 115, 40, 103, 41, 125, 116, 114, 121, 123, 97, 119, 97, 105, 116, 32, 84, 40, 107, 44, 50, 53, 48, 44, 52, 101, 51, 44, 120, 61, 62, 123, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 120, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 67, 111, 117, 108, 100, 110, 39, 116, 32, 114, 101, 116, 114, 105, 101, 118, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 97, 116, 32, 36, 123, 103, 125, 44, 32, 114, 101, 116, 114, 121, 105, 110, 103, 46, 46, 46, 96, 41, 125, 41, 59, 108, 101, 116, 32, 118, 61, 40, 121, 61, 115, 101, 108, 102, 46, 83, 68, 67, 95, 87, 65, 83, 77, 95, 74, 83, 95, 86, 69, 82, 83, 73, 79, 78, 41, 33, 61, 110, 117, 108, 108, 63, 121, 58, 34, 117, 110, 100, 101, 102, 105, 110, 101, 100, 34, 59, 114, 101, 116, 117, 114, 110, 32, 118, 33, 61, 61, 119, 38, 38, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 84, 104, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 74, 83, 32, 102, 105, 108, 101, 32, 102, 111, 117, 110, 100, 32, 97, 116, 32, 36, 123, 103, 125, 32, 115, 101, 101, 109, 115, 32, 105, 110, 118, 97, 108, 105, 100, 58, 32, 101, 120, 112, 101, 99, 116, 101, 100, 32, 118, 101, 114, 115, 105, 111, 110, 32, 100, 111, 101, 115, 110, 39, 116, 32, 109, 97, 116, 99, 104, 32, 40, 114, 101, 99, 101, 105, 118, 101, 100, 58, 32, 36, 123, 118, 125, 44, 32, 101, 120, 112, 101, 99, 116, 101, 100, 58, 32, 36, 123, 119, 125, 41, 46, 32, 80, 108, 101, 97, 115, 101, 32, 101, 110, 115, 117, 114, 101, 32, 116, 104, 101, 32, 99, 111, 114, 114, 101, 99, 116, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 102, 105, 108, 101, 32, 40, 119, 105, 116, 104, 32, 99, 111, 114, 114, 101, 99, 116, 32, 118, 101, 114, 115, 105, 111, 110, 41, 32, 105, 115, 32, 114, 101, 116, 114, 105, 101, 118, 101, 100, 46, 96, 41, 44, 33, 48, 125, 99, 97, 116, 99, 104, 40, 118, 41, 123, 114, 101, 116, 117, 114, 110, 32, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 69, 114, 114, 111, 114, 44, 118, 41, 44, 33, 49, 125, 125, 114, 101, 116, 117, 114, 110, 32, 97, 119, 97, 105, 116, 32, 76, 40, 83, 41, 124, 124, 108, 40, 96, 67, 111, 117, 108, 100, 110, 39, 116, 32, 114, 101, 116, 114, 105, 101, 118, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 97, 116, 32, 36, 123, 83, 125, 44, 32, 100, 105, 100, 32, 121, 111, 117, 32, 99, 111, 110, 102, 105, 103, 117, 114, 101, 32, 116, 104, 101, 32, 112, 97, 116, 104, 32, 102, 111, 114, 32, 105, 116, 32, 99, 111, 114, 114, 101, 99, 116, 108, 121, 63, 96, 41, 44, 117, 125, 109, 97, 112, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 79, 110, 77, 111, 100, 117, 108, 101, 40, 101, 41, 123, 115, 119, 105, 116, 99, 104, 40, 101, 41, 123, 99, 97, 115, 101, 34, 78, 111, 110, 101, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 78, 111, 110, 101, 59, 99, 97, 115, 101, 34, 88, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 88, 59, 99, 97, 115, 101, 34, 89, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 89, 59, 100, 101, 102, 97, 117, 108, 116, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 78, 111, 110, 101, 125, 125, 125, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 71, 40, 101, 41, 123, 99, 111, 110, 115, 111, 108, 101, 46, 119, 97, 114, 110, 40, 34, 82, 101, 97, 99, 104, 101, 100, 32, 117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 99, 97, 115, 101, 34, 41, 125, 118, 97, 114, 32, 69, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 101, 44, 116, 41, 123, 102, 40, 116, 104, 105, 115, 44, 34, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 34, 41, 44, 102, 40, 116, 104, 105, 115, 44, 34, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 34, 41, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 61, 101, 44, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 61, 110, 101, 119, 32, 65, 40, 116, 44, 123, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 58, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 44, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 58, 116, 104, 105, 115, 46, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 125, 41, 44, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 84, 111, 77, 101, 115, 115, 97, 103, 101, 115, 40, 41, 125, 108, 105, 115, 116, 101, 110, 84, 111, 77, 101, 115, 115, 97, 103, 101, 115, 40, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 111, 110, 109, 101, 115, 115, 97, 103, 101, 61, 116, 104, 105, 115, 46, 111, 110, 77, 101, 115, 115, 97, 103, 101, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 125, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 101, 44, 116, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 101, 44, 116, 33, 61, 110, 117, 108, 108, 63, 116, 58, 91, 93, 41, 125, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 40, 41, 123, 105, 102, 40, 116, 121, 112, 101, 111, 102, 32, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 41, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 40, 51, 50, 44, 51, 50, 41, 125, 104, 97, 115, 80, 97, 121, 108, 111, 97, 100, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 101, 33, 61, 61, 110, 117, 108, 108, 38, 38, 116, 121, 112, 101, 111, 102, 32, 101, 61, 61, 34, 111, 98, 106, 101, 99, 116, 34, 38, 38, 34, 112, 97, 121, 108, 111, 97, 100, 34, 105, 110, 32, 101, 125, 104, 97, 115, 84, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 101, 33, 61, 61, 110, 117, 108, 108, 38, 38, 116, 121, 112, 101, 111, 102, 32, 101, 61, 61, 34, 111, 98, 106, 101, 99, 116, 34, 38, 38, 34, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 34, 105, 110, 32, 101, 38, 38, 65, 114, 114, 97, 121, 46, 105, 115, 65, 114, 114, 97, 121, 40, 101, 46, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 41, 125, 97, 115, 121, 110, 99, 32, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 44, 116, 44, 114, 41, 123, 108, 101, 116, 32, 105, 61, 110, 117, 108, 108, 44, 97, 59, 116, 114, 121, 123, 97, 61, 114, 40, 41, 44, 97, 32, 105, 110, 115, 116, 97, 110, 99, 101, 111, 102, 32, 80, 114, 111, 109, 105, 115, 101, 38, 38, 40, 97, 61, 97, 119, 97, 105, 116, 32, 97, 41, 125, 99, 97, 116, 99, 104, 40, 100, 41, 123, 97, 61, 118, 111, 105, 100, 32, 48, 44, 105, 61, 116, 121, 112, 101, 111, 102, 32, 100, 46, 116, 111, 83, 116, 114, 105, 110, 103, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 100, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 41, 58, 34, 117, 110, 107, 110, 111, 119, 32, 101, 114, 114, 111, 114, 34, 125, 108, 101, 116, 32, 111, 61, 123, 116, 121, 112, 101, 58, 34, 119, 111, 114, 107, 101, 114, 84, 97, 115, 107, 73, 100, 34, 44, 99, 111, 109, 109, 97, 110, 100, 58, 101, 44, 105, 100, 58, 116, 44, 112, 97, 121, 108, 111, 97, 100, 58, 116, 104, 105, 115, 46, 104, 97, 115, 80, 97, 121, 108, 111, 97, 100, 40, 97, 41, 63, 97, 46, 112, 97, 121, 108, 111, 97, 100, 58, 118, 111, 105, 100, 32, 48, 125, 59, 105, 33, 61, 110, 117, 108, 108, 38, 38, 40, 111, 46, 101, 114, 114, 111, 114, 61, 105, 41, 44, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 111, 44, 116, 104, 105, 115, 46, 104, 97, 115, 84, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 40, 97, 41, 63, 97, 46, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 93, 41, 125, 111, 110, 77, 101, 115, 115, 97, 103, 101, 40, 101, 41, 123, 115, 119, 105, 116, 99, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 41, 123, 99, 97, 115, 101, 34, 108, 111, 97, 100, 76, 105, 98, 114, 97, 114, 121, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 108, 111, 97, 100, 76, 105, 98, 114, 97, 114, 121, 40, 123, 108, 105, 98, 114, 97, 114, 121, 76, 111, 99, 97, 116, 105, 111, 110, 58, 116, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 99, 97, 116, 105, 111, 110, 44, 108, 111, 99, 97, 116, 105, 111, 110, 80, 97, 116, 104, 58, 116, 46, 108, 111, 99, 97, 116, 105, 111, 110, 80, 97, 116, 104, 44, 112, 114, 101, 108, 111, 97, 100, 69, 110, 103, 105, 110, 101, 58, 116, 46, 112, 114, 101, 108, 111, 97, 100, 69, 110, 103, 105, 110, 101, 125, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 99, 114, 101, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 99, 114, 101, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 123, 99, 111, 110, 116, 101, 120, 116, 58, 116, 46, 99, 111, 110, 116, 101, 120, 116, 44, 100, 101, 118, 105, 99, 101, 73, 100, 58, 116, 46, 100, 101, 118, 105, 99, 101, 73, 100, 44, 100, 111, 109, 97, 105, 110, 58, 116, 46, 100, 111, 109, 97, 105, 110, 44, 100, 101, 108, 97, 121, 101, 100, 82, 101, 103, 105, 115, 116, 114, 97, 116, 105, 111, 110, 58, 116, 46, 100, 101, 108, 97, 121, 101, 100, 82, 101, 103, 105, 115, 116, 114, 97, 116, 105, 111, 110, 44, 104, 105, 103, 104, 69, 110, 100, 66, 108, 117, 114, 114, 121, 82, 101, 99, 111, 103, 110, 105, 116, 105, 111, 110, 58, 116, 46, 104, 105, 103, 104, 69, 110, 100, 66, 108, 117, 114, 114, 121, 82, 101, 99, 111, 103, 110, 105, 116, 105, 111, 110, 125, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 116, 46, 109, 105, 114, 114, 111, 114, 65, 120, 105, 115, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 123, 100, 97, 116, 97, 58, 116, 46, 100, 97, 116, 97, 44, 119, 105, 100, 116, 104, 58, 116, 46, 119, 105, 100, 116, 104, 44, 104, 101, 105, 103, 104, 116, 58, 116, 46, 104, 101, 105, 103, 104, 116, 125, 41, 41, 59, 98, 114, 101, 97, 107, 125, 99, 97, 115, 101, 34, 114, 101, 113, 117, 101, 115, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 114, 101, 113, 117, 101, 115, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 116, 46, 102, 114, 97, 109, 101, 73, 100, 41, 41, 59, 98, 114, 101, 97, 107, 125, 99, 97, 115, 101, 34, 100, 101, 108, 101, 116, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 123, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 100, 101, 108, 101, 116, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 116, 46, 102, 114, 97, 109, 101, 73, 100, 41, 125, 41, 59, 98, 114, 101, 97, 107, 125, 99, 97, 115, 101, 34, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 116, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 100, 105, 115, 112, 111, 115, 101, 34, 58, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 100, 105, 115, 112, 111, 115, 101, 40, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 114, 101, 112, 111, 114, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 34, 58, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 114, 101, 112, 111, 114, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 40, 101, 46, 100, 97, 116, 97, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 115, 101, 116, 76, 111, 103, 76, 101, 118, 101, 108, 34, 58, 99, 46, 115, 101, 116, 76, 101, 118, 101, 108, 40, 101, 46, 100, 97, 116, 97, 46, 108, 101, 118, 101, 108, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 101, 120, 116, 114, 97, 99, 116, 67, 101, 110, 116, 97, 117, 114, 117, 115, 76, 105, 99, 101, 110, 115, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 101, 120, 116, 114, 97, 99, 116, 67, 101, 110, 116, 97, 117, 114, 117, 115, 76, 105, 99, 101, 110, 115, 101, 40, 116, 46, 108, 105, 99, 101, 110, 115, 101, 75, 101, 121, 41, 41, 125, 98, 114, 101, 97, 107, 59, 100, 101, 102, 97, 117, 108, 116, 58, 114, 101, 116, 117, 114, 110, 32, 71, 40, 101, 46, 100, 97, 116, 97, 41, 44, 33, 49, 125, 114, 101, 116, 117, 114, 110, 33, 48, 125, 125, 44, 90, 61, 110, 101, 119, 32, 69, 40, 115, 101, 108, 102, 44, 123, 103, 101, 116, 58, 40, 41, 61, 62, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 44, 115, 101, 116, 58, 101, 61, 62, 123, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 61, 101, 125, 125, 41, 59, 118, 97, 114, 32, 73, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 41, 123, 109, 40, 116, 104, 105, 115, 44, 34, 112, 114, 111, 109, 105, 115, 101, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 114, 101, 115, 111, 108, 118, 101, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 114, 101, 106, 101, 99, 116, 34, 41, 59, 116, 104, 105, 115, 46, 112, 114, 111, 109, 105, 115, 101, 61, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 116, 44, 114, 41, 61, 62, 123, 116, 104, 105, 115, 46, 114, 101, 106, 101, 99, 116, 61, 114, 44, 116, 104, 105, 115, 46, 114, 101, 115, 111, 108, 118, 101, 61, 116, 125, 41, 125, 125, 59, 118, 97, 114, 32, 70, 61, 99, 108, 97, 115, 115, 32, 101, 120, 116, 101, 110, 100, 115, 32, 65, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 114, 44, 105, 41, 123, 115, 117, 112, 101, 114, 40, 114, 44, 105, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 34, 41, 125, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 114, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 105, 115, 82, 101, 97, 100, 121, 84, 111, 80, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 41, 63, 115, 117, 112, 101, 114, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 114, 41, 58, 123, 112, 97, 121, 108, 111, 97, 100, 58, 114, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 114, 46, 100, 97, 116, 97, 46, 98, 117, 102, 102, 101, 114, 93, 125, 125, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 114, 41, 123, 105, 102, 40, 115, 117, 112, 101, 114, 46, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 114, 41, 44, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 33, 61, 110, 117, 108, 108, 38, 38, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 33, 61, 110, 117, 108, 108, 41, 123, 108, 101, 116, 32, 105, 61, 114, 46, 99, 111, 110, 116, 101, 120, 116, 46, 109, 111, 100, 101, 115, 46, 102, 105, 110, 100, 40, 97, 61, 62, 97, 46, 116, 121, 112, 101, 61, 61, 61, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 34, 41, 59, 105, 102, 40, 105, 41, 123, 108, 101, 116, 32, 97, 61, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 105, 46, 115, 101, 116, 116, 105, 110, 103, 115, 41, 59, 116, 104, 105, 115, 46, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 33, 61, 61, 34, 34, 38, 38, 97, 33, 61, 61, 116, 104, 105, 115, 46, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 63, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 116, 97, 114, 116, 40, 41, 58, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 116, 97, 114, 116, 40, 41, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 61, 97, 125, 101, 108, 115, 101, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 100, 105, 115, 112, 111, 115, 101, 40, 41, 125, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 114, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 114, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 114, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 114, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 114, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 114, 41, 125, 97, 115, 121, 110, 99, 32, 105, 100, 67, 97, 112, 116, 117, 114, 101, 82, 101, 115, 101, 116, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 101, 116, 40, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 101, 100, 40, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 111, 108, 118, 101, 76, 97, 115, 116, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 68, 101, 102, 101, 114, 114, 101, 100, 40, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 114, 41, 123, 114, 101, 116, 117, 114, 110, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 114, 101, 115, 117, 108, 116, 58, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 114, 41, 125, 125, 125, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 61, 110, 101, 119, 32, 122, 40, 116, 104, 105, 115, 44, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 41, 44, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 116, 97, 114, 116, 40, 41, 59, 108, 101, 116, 32, 114, 61, 115, 117, 112, 101, 114, 46, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 59, 114, 101, 116, 117, 114, 110, 32, 114, 46, 112, 117, 115, 104, 95, 98, 97, 99, 107, 40, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 103, 101, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 41, 41, 44, 114, 125, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 115, 99, 97, 110, 100, 105, 116, 45, 100, 97, 116, 97, 99, 97, 112, 116, 117, 114, 101, 45, 115, 100, 107, 45, 105, 100, 46, 119, 97, 115, 109, 34, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 69, 120, 112, 101, 99, 116, 101, 100, 72, 97, 115, 104, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 101, 101, 53, 49, 99, 57, 54, 52, 99, 54, 53, 52, 56, 51, 49, 56, 50, 56, 98, 97, 100, 97, 55, 100, 99, 55, 49, 98, 49, 52, 99, 98, 57, 100, 97, 102, 99, 99, 99, 54, 101, 98, 49, 52, 101, 50, 50, 57, 51, 99, 101, 51, 54, 52, 102, 56, 57, 51, 98, 57, 57, 56, 100, 97, 34, 125, 125, 44, 122, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 116, 44, 114, 44, 105, 41, 123, 109, 40, 116, 104, 105, 115, 44, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 34, 44, 33, 49, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 34, 44, 34, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 69, 114, 114, 111, 114, 34, 44, 34, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 34, 44, 34, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 99, 111, 114, 101, 69, 110, 103, 105, 110, 101, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 77, 111, 100, 117, 108, 101, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 34, 41, 59, 109, 40, 116, 104, 105, 115, 44, 34, 95, 115, 116, 97, 116, 101, 34, 44, 34, 105, 110, 105, 116, 105, 97, 108, 34, 41, 59, 116, 104, 105, 115, 46, 99, 111, 114, 101, 69, 110, 103, 105, 110, 101, 61, 116, 44, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 61, 114, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 61, 105, 44, 116, 104, 105, 115, 46, 115, 116, 97, 116, 101, 61, 34, 99, 114, 101, 97, 116, 101, 100, 34, 125, 103, 101, 116, 32, 115, 116, 97, 116, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 95, 115, 116, 97, 116, 101, 125, 115, 101, 116, 32, 115, 116, 97, 116, 101, 40, 116, 41, 123, 116, 104, 105, 115, 46, 95, 115, 116, 97, 116, 101, 61, 116, 125, 105, 115, 82, 101, 97, 100, 121, 84, 111, 80, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 115, 116, 97, 116, 101, 61, 61, 61, 34, 115, 116, 97, 114, 116, 101, 100, 34, 38, 38, 33, 116, 104, 105, 115, 46, 105, 115, 67, 101, 110, 116, 97, 117, 114, 117, 115, 80, 114, 111, 99, 101, 115, 115, 105, 110, 103, 70, 114, 97, 109, 101, 40, 41, 125, 115, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 116, 41, 123, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 61, 116, 125, 115, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 116, 41, 123, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 61, 116, 125, 115, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 116, 41, 123, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 61, 116, 125, 97, 115, 121, 110, 99, 32, 114, 101, 115, 101, 116, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 61, 110, 101, 119, 32, 73, 44, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 101, 116, 40, 41, 44, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 46, 112, 114, 111, 109, 105, 115, 101, 125, 114, 101, 115, 111, 108, 118, 101, 76, 97, 115, 116, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 68, 101, 102, 101, 114, 114, 101, 100, 40, 41, 123, 118, 97, 114, 32, 116, 59, 40, 116, 61, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 125, 105, 115, 67, 101, 110, 116, 97, 117, 114, 117, 115, 80, 114, 111, 99, 101, 115, 115, 105, 110, 103, 70, 114, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 33, 61, 110, 117, 108, 108, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 116, 41, 123, 108, 101, 116, 32, 105, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 97, 109, 118, 97, 86, 105, 122, 66, 97, 114, 99, 111, 100, 101, 67, 111, 109, 112, 97, 114, 105, 115, 111, 110, 86, 101, 114, 105, 102, 105, 101, 114, 40, 41, 46, 118, 101, 114, 105, 102, 121, 40, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 116, 41, 41, 59, 114, 101, 116, 117, 114, 110, 32, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 105, 46, 116, 111, 74, 115, 111, 110, 40, 41, 41, 125, 115, 116, 97, 114, 116, 40, 41, 123, 105, 102, 40, 116, 104, 105, 115, 46, 115, 116, 97, 116, 101, 61, 61, 61, 34, 115, 116, 97, 114, 116, 101, 100, 34, 41, 114, 101, 116, 117, 114, 110, 59, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 76, 105, 115, 116, 101, 110, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 76, 105, 115, 116, 101, 110, 101, 114, 34, 44, 123, 111, 110, 73, 100, 67, 97, 112, 116, 117, 114, 101, 100, 58, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 116, 104, 105, 115, 46, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 105, 100, 67, 97, 112, 116, 117, 114, 101, 73, 100, 34, 44, 104, 44, 115, 41, 125, 44, 111, 110, 73, 100, 76, 111, 99, 97, 108, 105, 122, 101, 100, 58, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 116, 104, 105, 115, 46, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 105, 100, 76, 111, 99, 97, 108, 105, 122, 101, 73, 100, 34, 44, 104, 44, 115, 41, 125, 44, 111, 110, 73, 100, 82, 101, 106, 101, 99, 116, 101, 100, 58, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 116, 104, 105, 115, 46, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 105, 100, 82, 101, 106, 101, 99, 116, 73, 100, 34, 44, 104, 44, 115, 41, 125, 125, 41, 44, 114, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 76, 105, 115, 116, 101, 110, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 76, 105, 115, 116, 101, 110, 101, 114, 34, 44, 123, 111, 110, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 70, 105, 110, 105, 115, 104, 101, 100, 58, 40, 110, 44, 104, 41, 61, 62, 123, 105, 102, 40, 33, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 41, 123, 108, 101, 116, 32, 115, 61, 110, 101, 119, 32, 116, 59, 104, 46, 97, 100, 100, 76, 105, 115, 116, 101, 110, 101, 114, 40, 115, 41, 44, 115, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 61, 33, 48, 125, 125, 44, 111, 110, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 83, 116, 97, 114, 116, 101, 100, 40, 41, 123, 125, 44, 111, 110, 83, 101, 116, 116, 105, 110, 103, 115, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 83, 116, 97, 114, 116, 101, 100, 40, 41, 123, 125, 44, 111, 110, 83, 101, 116, 116, 105, 110, 103, 115, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 70, 105, 110, 105, 115, 104, 101, 100, 40, 41, 123, 125, 125, 41, 44, 105, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 66, 97, 99, 107, 101, 110, 100, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 66, 97, 99, 107, 101, 110, 100, 34, 44, 123, 103, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 58, 40, 41, 61, 62, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 44, 103, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 58, 40, 41, 61, 62, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 44, 103, 101, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 79, 110, 108, 121, 73, 100, 58, 40, 41, 61, 62, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 44, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 58, 97, 115, 121, 110, 99, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 108, 101, 116, 32, 108, 61, 110, 101, 119, 32, 85, 105, 110, 116, 56, 67, 108, 97, 109, 112, 101, 100, 65, 114, 114, 97, 121, 40, 110, 46, 108, 101, 110, 103, 116, 104, 41, 59, 114, 101, 116, 117, 114, 110, 32, 108, 46, 115, 101, 116, 40, 110, 41, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 111, 114, 119, 97, 114, 100, 70, 114, 97, 109, 101, 34, 44, 112, 97, 121, 108, 111, 97, 100, 58, 123, 100, 97, 116, 97, 58, 108, 44, 119, 105, 100, 116, 104, 58, 104, 44, 104, 101, 105, 103, 104, 116, 58, 115, 125, 125, 44, 91, 108, 46, 98, 117, 102, 102, 101, 114, 93, 41, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 61, 110, 101, 119, 32, 73, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 46, 112, 114, 111, 109, 105, 115, 101, 125, 44, 114, 101, 115, 101, 116, 58, 40, 41, 61, 62, 123, 118, 97, 114, 32, 110, 59, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 61, 34, 34, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 61, 34, 34, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 61, 34, 34, 44, 40, 110, 61, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 110, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 125, 44, 117, 112, 100, 97, 116, 101, 83, 101, 116, 116, 105, 110, 103, 115, 40, 41, 123, 125, 125, 41, 44, 97, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 72, 101, 108, 112, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 72, 101, 108, 112, 101, 114, 34, 44, 123, 99, 114, 101, 97, 116, 101, 77, 111, 100, 101, 58, 40, 110, 44, 104, 41, 61, 62, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 33, 61, 110, 117, 108, 108, 38, 38, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 100, 101, 108, 101, 116, 101, 40, 41, 59, 108, 101, 116, 32, 115, 61, 110, 101, 119, 32, 105, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 40, 110, 44, 115, 44, 104, 41, 44, 115, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 125, 125, 41, 44, 111, 61, 110, 101, 119, 32, 97, 59, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 111, 41, 44, 111, 46, 100, 101, 108, 101, 116, 101, 40, 41, 59, 108, 101, 116, 32, 100, 61, 110, 101, 119, 32, 114, 59, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 115, 101, 116, 76, 105, 115, 116, 101, 110, 101, 114, 40, 100, 41, 44, 100, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 115, 116, 97, 116, 101, 61, 34, 115, 116, 97, 114, 116, 101, 100, 34, 125, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 116, 44, 114, 44, 105, 41, 123, 108, 101, 116, 32, 97, 61, 116, 104, 105, 115, 46, 99, 111, 114, 101, 69, 110, 103, 105, 110, 101, 46, 99, 111, 110, 118, 101, 114, 116, 84, 111, 76, 111, 97, 100, 97, 98, 108, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 105, 41, 59, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 116, 44, 112, 97, 121, 108, 111, 97, 100, 58, 123, 115, 101, 115, 115, 105, 111, 110, 58, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 114, 46, 116, 111, 74, 115, 111, 110, 40, 41, 41, 44, 102, 114, 97, 109, 101, 68, 97, 116, 97, 58, 97, 125, 125, 41, 125, 103, 101, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 125, 100, 105, 115, 112, 111, 115, 101, 40, 41, 123, 118, 97, 114, 32, 116, 44, 114, 59, 116, 104, 105, 115, 46, 115, 116, 97, 116, 101, 61, 61, 61, 34, 115, 116, 97, 114, 116, 101, 100, 34, 38, 38, 40, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 61, 34, 34, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 61, 34, 34, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 61, 34, 34, 44, 40, 116, 61, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 40, 114, 61, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 114, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 44, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 61, 33, 49, 44, 116, 104, 105, 115, 46, 115, 116, 97, 116, 101, 61, 34, 100, 105, 115, 112, 111, 115, 101, 100, 34, 41, 125, 114, 101, 115, 116, 97, 114, 116, 40, 41, 123, 116, 104, 105, 115, 46, 100, 105, 115, 112, 111, 115, 101, 40, 41, 44, 116, 104, 105, 115, 46, 115, 116, 97, 114, 116, 40, 41, 125, 125, 59, 118, 97, 114, 32, 79, 61, 99, 108, 97, 115, 115, 32, 101, 120, 116, 101, 110, 100, 115, 32, 69, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 116, 44, 114, 41, 123, 115, 117, 112, 101, 114, 40, 116, 44, 114, 41, 44, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 61, 110, 101, 119, 32, 70, 40, 114, 44, 123, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 58, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 44, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 58, 116, 104, 105, 115, 46, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 125, 41, 125, 97, 115, 121, 110, 99, 32, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 44, 114, 44, 105, 41, 123, 108, 101, 116, 32, 97, 61, 110, 117, 108, 108, 44, 111, 59, 116, 114, 121, 123, 111, 61, 105, 40, 41, 44, 111, 32, 105, 110, 115, 116, 97, 110, 99, 101, 111, 102, 32, 80, 114, 111, 109, 105, 115, 101, 38, 38, 40, 111, 61, 97, 119, 97, 105, 116, 32, 111, 41, 125, 99, 97, 116, 99, 104, 40, 110, 41, 123, 111, 61, 118, 111, 105, 100, 32, 48, 44, 97, 61, 116, 121, 112, 101, 111, 102, 32, 110, 46, 116, 111, 83, 116, 114, 105, 110, 103, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 110, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 41, 58, 34, 117, 110, 107, 110, 111, 119, 32, 101, 114, 114, 111, 114, 34, 125, 108, 101, 116, 32, 100, 61, 123, 116, 121, 112, 101, 58, 34, 119, 111, 114, 107, 101, 114, 84, 97, 115, 107, 73, 100, 34, 44, 99, 111, 109, 109, 97, 110, 100, 58, 116, 44, 105, 100, 58, 114, 44, 112, 97, 121, 108, 111, 97, 100, 58, 116, 104, 105, 115, 46, 104, 97, 115, 80, 97, 121, 108, 111, 97, 100, 40, 111, 41, 63, 111, 46, 112, 97, 121, 108, 111, 97, 100, 58, 118, 111, 105, 100, 32, 48, 125, 59, 97, 33, 61, 110, 117, 108, 108, 38, 38, 40, 100, 46, 101, 114, 114, 111, 114, 61, 97, 41, 44, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 100, 44, 116, 104, 105, 115, 46, 104, 97, 115, 84, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 40, 111, 41, 63, 111, 46, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 93, 41, 125, 111, 110, 77, 101, 115, 115, 97, 103, 101, 40, 116, 41, 123, 115, 119, 105, 116, 99, 104, 40, 116, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 41, 123, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 114, 46, 114, 101, 115, 117, 108, 116, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 114, 46, 101, 114, 114, 111, 114, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 114, 46, 108, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 82, 101, 115, 101, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 114, 46, 99, 111, 109, 109, 97, 110, 100, 44, 114, 46, 105, 100, 44, 97, 115, 121, 110, 99, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 82, 101, 115, 101, 116, 40, 41, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 101, 100, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 101, 100, 40, 41, 44, 33, 48, 59, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 114, 46, 99, 111, 109, 109, 97, 110, 100, 44, 114, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 114, 46, 99, 97, 112, 116, 117, 114, 101, 100, 73, 100, 41, 41, 44, 33, 48, 125, 100, 101, 102, 97, 117, 108, 116, 58, 114, 101, 116, 117, 114, 110, 32, 115, 117, 112, 101, 114, 46, 111, 110, 77, 101, 115, 115, 97, 103, 101, 40, 116, 41, 125, 125, 125, 44, 100, 101, 61, 110, 101, 119, 32, 79, 40, 115, 101, 108, 102, 44, 123, 103, 101, 116, 58, 40, 41, 61, 62, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 44, 115, 101, 116, 58, 101, 61, 62, 123, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 61, 101, 125, 125, 41, 59, 125, 41, 40, 41, 59, 10])], { type: "text/javascript" }));
+var e0 = G0;
+var V = class extends er {
+  get dataCaptureWorker() {
+    var r;
+    return this._dataCaptureWorker = (r = this._dataCaptureWorker) != null ? r : new Worker(e0, { name: `SDCLoader ${this.isPreloadEngine ? " (preload)" : ""}` }), this._dataCaptureWorker;
+  }
+  static async create(r) {
+    var s, o;
+    let i = new V(r.libraryLocation, (s = r.preloadEngine) != null ? s : false);
+    return i.workerCommand("setLogLevel", { level: (o = r.logLevel) != null ? o : g.Level.Debug }), await i.load(), i;
+  }
+  async workerCommand(...r) {
+    let [i, s, o] = r;
+    return new Promise((c2, R2) => {
+      let A = this.workerCommandId++;
+      this.workerTasks.set(A, { resolve: c2, reject: R2 });
+      let L = h(S({}, s), { command: i, id: A });
+      this.dataCaptureWorker.postMessage(L, o);
     });
   }
-  return new (i || (i = Promise))(function(o, d) {
+};
+function l1(e, t, r, i) {
+  function s(o) {
+    return o instanceof r ? o : new r(function(c2) {
+      c2(o);
+    });
+  }
+  return new (r || (r = Promise))(function(o, c2) {
     function R2(N) {
       try {
-        U2(r.next(N));
-      } catch (E) {
-        d(E);
+        L(i.next(N));
+      } catch (O2) {
+        c2(O2);
       }
     }
     function A(N) {
       try {
-        U2(r.throw(N));
-      } catch (E) {
-        d(E);
+        L(i.throw(N));
+      } catch (O2) {
+        c2(O2);
       }
     }
-    function U2(N) {
-      N.done ? o(N.value) : a(N.value).then(R2, A);
+    function L(N) {
+      N.done ? o(N.value) : s(N.value).then(R2, A);
     }
-    U2((r = r.apply(e, t || [])).next());
+    L((i = i.apply(e, t || [])).next());
   });
 }
 var B1 = 0;
-function k0() {
+function B0() {
   let e = B1;
   return B1 = B1 + 1, e;
 }
 var m = class {
   constructor(t) {
-    this.action = t, this.messageID = k0();
+    this.action = t, this.messageID = B0();
   }
 };
-var V = class extends m {
-  constructor(t, i) {
-    super(V.action), this.wasmModuleName = t.wasmModuleName, this.licenseKey = t.licenseKey, this.userId = i, this.registerLoadCallback = t.loadProgressCallback !== null, this.allowHelloMessage = t.allowHelloMessage, this.engineLocation = t.engineLocation, this.wasmType = t.wasmType, this.numberOfWorkers = t.numberOfWorkers;
+var j = class extends m {
+  constructor(t, r) {
+    super(j.action), this.wasmModuleName = t.wasmModuleName, this.licenseKey = t.licenseKey, this.userId = r, this.registerLoadCallback = t.loadProgressCallback !== null, this.allowHelloMessage = t.allowHelloMessage, this.engineLocation = t.engineLocation, this.wasmType = t.wasmType, this.numberOfWorkers = t.numberOfWorkers;
   }
 };
-V.action = "init";
-var j;
+j.action = "init";
+var K2;
 (function(e) {
   e[e.Any = 0] = "Any", e[e.Recognizer = 1] = "Recognizer", e[e.RecognizerSettings = 2] = "RecognizerSettings", e[e.Callback = 3] = "Callback";
-})(j || (j = {}));
-var z = class extends m {
-  constructor(t, i) {
-    super(z.action), this.className = t, this.params = i;
-  }
-};
-z.action = "createNewNativeObject";
-var K2 = class extends m {
-  constructor(t, i, r) {
-    super(K2.action), this.recognizerHandles = t, this.allowMultipleResults = i, this.registeredMetadataCallbacks = r;
-  }
-};
-K2.action = "createRecognizerRunner";
+})(K2 || (K2 = {}));
 var x2 = class extends m {
-  constructor(t, i) {
-    super(x2.action), this.recognizerHandles = t, this.allowMultipleResults = i;
+  constructor(t, r) {
+    super(x2.action), this.className = t, this.params = r;
   }
 };
-x2.action = "reconfigureRecognizerRunner";
+x2.action = "createNewNativeObject";
 var H = class extends m {
-  constructor() {
-    super(H.action);
+  constructor(t, r, i) {
+    super(H.action), this.recognizerHandles = t, this.allowMultipleResults = r, this.registeredMetadataCallbacks = i;
   }
 };
-H.action = "deleteRecognizerRunner";
-var M = class extends m {
-  constructor(t, i, r) {
-    super(M.action), this.objectHandle = t, this.methodName = i, this.params = r;
-  }
-};
-M.action = "invokeObject";
+H.action = "createRecognizerRunner";
 var Z2 = class extends m {
+  constructor(t, r) {
+    super(Z2.action), this.recognizerHandles = t, this.allowMultipleResults = r;
+  }
+};
+Z2.action = "reconfigureRecognizerRunner";
+var Y2 = class extends m {
+  constructor() {
+    super(Y2.action);
+  }
+};
+Y2.action = "deleteRecognizerRunner";
+var U2 = class extends m {
+  constructor(t, r, i) {
+    super(U2.action), this.objectHandle = t, this.methodName = r, this.params = i;
+  }
+};
+U2.action = "invokeObject";
+var Q2 = class extends m {
   constructor(t) {
-    super(Z2.action), this.frame = t;
+    super(Q2.action), this.frame = t;
   }
   getTransferrables() {
     return [this.frame.imageData.data.buffer];
   }
 };
-Z2.action = "processImage";
-var Y2 = class extends m {
+Q2.action = "processImage";
+var y = class extends m {
   constructor(t) {
-    super(Y2.action), this.hardReset = t;
+    super(y.action), this.hardReset = t;
   }
 };
-Y2.action = "resetRecognizers";
-var W1 = class {
+y.action = "resetRecognizers";
+var z1 = class {
   constructor() {
     this.onDebugText = false, this.onDetectionFailed = false, this.onQuadDetection = false, this.onPointsDetection = false, this.onFirstSideResult = false, this.onGlare = false;
   }
 };
-var Q2 = class extends m {
-  constructor(t) {
-    super(Q2.action), this.registeredMetadataCallbacks = t;
-  }
-};
-Q2.action = "registerMetadataCallbacks";
 var X = class extends m {
   constructor(t) {
-    super(X.action), this.detectionOnlyMode = t;
+    super(X.action), this.registeredMetadataCallbacks = t;
   }
 };
-X.action = "setDetectionOnly";
+X.action = "registerMetadataCallbacks";
 var q2 = class extends m {
   constructor(t) {
-    super(q2.action), this.callbackNonEmpty = t;
+    super(q2.action), this.detectionOnlyMode = t;
   }
 };
-q2.action = "setClearTimeoutCallback";
+q2.action = "setDetectionOnly";
 var $2 = class extends m {
   constructor(t) {
-    super($2.action), this.cameraPreviewMirrored = t;
+    super($2.action), this.callbackNonEmpty = t;
   }
 };
-$2.action = "setCameraPreviewMirrored";
-var y = class extends m {
+$2.action = "setClearTimeoutCallback";
+var e1 = class extends m {
   constructor(t) {
-    super(y.action), this.userId = t;
+    super(e1.action), this.cameraPreviewMirrored = t;
   }
 };
-y.action = "getProductIntegrationInfo";
-var g2;
+e1.action = "setCameraPreviewMirrored";
+var t1 = class extends m {
+  constructor(t) {
+    super(t1.action), this.userId = t;
+  }
+};
+t1.action = "getProductIntegrationInfo";
+var T;
 (function(e) {
   e[e.onDebugText = 0] = "onDebugText", e[e.onDetectionFailed = 1] = "onDetectionFailed", e[e.onQuadDetection = 2] = "onQuadDetection", e[e.onPointsDetection = 3] = "onPointsDetection", e[e.onFirstSideResult = 4] = "onFirstSideResult", e[e.clearTimeoutCallback = 5] = "clearTimeoutCallback", e[e.onGlare = 6] = "onGlare", e[e.recognizerCallback = 7] = "recognizerCallback";
-})(g2 || (g2 = {}));
+})(T || (T = {}));
 var V1;
 (function(e) {
   e.Basic = "BASIC", e.Advanced = "ADVANCED", e.AdvancedWithThreads = "ADVANCED_WITH_THREADS";
 })(V1 || (V1 = {}));
-var G0 = "BlinkIDWasmSDK";
-function T(e, t) {
-  return (i) => {
-    let r = i;
-    r.success ? e() : t(r.error);
+var z0 = atob("Q2VudGF1cnVz");
+function v(e, t) {
+  return (r) => {
+    let i = r;
+    i.success ? e() : t(i.error);
   };
 }
-function J2(e, t) {
-  return (i) => {
-    let r = i;
-    r.success ? e(i) : t(r.error);
+function W2(e, t) {
+  return (r) => {
+    let i = r;
+    i.success ? e(r) : t(i.error);
   };
 }
-function J0(e) {
+function V0(e) {
   let t = [];
-  for (let i of e) {
-    let r = j.Any;
-    i instanceof C1 && (r = j.Recognizer, i = i.getRemoteObjectHandle()), t.push({ parameter: i, type: r });
+  for (let r of e) {
+    let i = K2.Any;
+    r instanceof g1 && (i = K2.Recognizer, r = r.getRemoteObjectHandle()), t.push({ parameter: r, type: i });
   }
   return t;
 }
-var C1 = class {
-  constructor(t, i, r) {
-    this.wasmSDKWorker = t, this.objectHandle = r, this.recognizerName = i, this.callbacks = /* @__PURE__ */ new Map();
+var g1 = class {
+  constructor(t, r, i) {
+    this.wasmSDKWorker = t, this.objectHandle = i, this.recognizerName = r, this.callbacks = /* @__PURE__ */ new Map();
   }
   getRemoteObjectHandle() {
     return this.objectHandle;
   }
   currentSettings() {
-    return new Promise((t, i) => {
+    return new Promise((t, r) => {
       if (this.objectHandle < 0) {
-        i("Invalid object handle: " + this.objectHandle.toString());
+        r("Invalid object handle: " + this.objectHandle.toString());
         return;
       }
-      let r = new M(this.objectHandle, "currentSettings", []), a = J2((o) => {
+      let i = new U2(this.objectHandle, "currentSettings", []), s = W2((o) => {
         t(o.result);
-      }, i);
-      this.wasmSDKWorker.postMessage(r, a);
+      }, r);
+      this.wasmSDKWorker.postMessage(i, s);
     });
   }
   toSignedJSON() {
-    return new Promise((t, i) => {
+    return new Promise((t, r) => {
       if (this.objectHandle < 0) {
-        i("Invalid object handle: " + this.objectHandle.toString());
+        r("Invalid object handle: " + this.objectHandle.toString());
         return;
       }
-      let r = new M(this.objectHandle, "toSignedJSON", []), a = J2((o) => {
+      let i = new U2(this.objectHandle, "toSignedJSON", []), s = W2((o) => {
         t(o.result);
-      }, i);
-      this.wasmSDKWorker.postMessage(r, a);
+      }, r);
+      this.wasmSDKWorker.postMessage(i, s);
     });
   }
   clearAllCallbacks() {
@@ -5353,59 +5383,59 @@ var C1 = class {
   }
   removeFunctions(t) {
     this.clearAllCallbacks();
-    let i = Object.keys(t), r = false;
-    for (let a of i) {
-      let o = t[a];
+    let r = Object.keys(t), i = false;
+    for (let s of r) {
+      let o = t[s];
       if (typeof o == "function") {
-        this.callbacks.set(a, o);
-        let d = { parameter: { recognizerHandle: this.objectHandle, callbackName: a }, type: j.Callback };
-        t[a] = d, r = true;
+        this.callbacks.set(s, o);
+        let c2 = { parameter: { recognizerHandle: this.objectHandle, callbackName: s }, type: K2.Callback };
+        t[s] = c2, i = true;
       }
     }
-    return r && this.wasmSDKWorker.registerRecognizerCallbacks(this.objectHandle, this), t;
+    return i && this.wasmSDKWorker.registerRecognizerCallbacks(this.objectHandle, this), t;
   }
   updateSettings(t) {
-    return new Promise((i, r) => {
+    return new Promise((r, i) => {
+      if (this.objectHandle < 0) {
+        i("Invalid object handle: " + this.objectHandle.toString());
+        return;
+      }
+      let s = new U2(this.objectHandle, "updateSettings", [{ parameter: this.removeFunctions(t), type: K2.RecognizerSettings }]), o = v(r, i);
+      this.wasmSDKWorker.postMessage(s, o);
+    });
+  }
+  invokeCallback(t, r) {
+    let i = this.callbacks.get(t);
+    i !== void 0 ? i(...r) : console.warn("Cannot find callback", t);
+  }
+  getResult() {
+    return new Promise((t, r) => {
       if (this.objectHandle < 0) {
         r("Invalid object handle: " + this.objectHandle.toString());
         return;
       }
-      let a = new M(this.objectHandle, "updateSettings", [{ parameter: this.removeFunctions(t), type: j.RecognizerSettings }]), o = T(i, r);
-      this.wasmSDKWorker.postMessage(a, o);
-    });
-  }
-  invokeCallback(t, i) {
-    let r = this.callbacks.get(t);
-    r !== void 0 ? r(...i) : console.warn("Cannot find callback", t);
-  }
-  getResult() {
-    return new Promise((t, i) => {
-      if (this.objectHandle < 0) {
-        i("Invalid object handle: " + this.objectHandle.toString());
-        return;
-      }
-      let r = new M(this.objectHandle, "getResult", []), a = J2((o) => {
+      let i = new U2(this.objectHandle, "getResult", []), s = W2((o) => {
         t(o.result);
-      }, i);
-      this.wasmSDKWorker.postMessage(r, a);
+      }, r);
+      this.wasmSDKWorker.postMessage(i, s);
     });
   }
   delete() {
-    return new Promise((t, i) => {
+    return new Promise((t, r) => {
       if (this.objectHandle < 0) {
-        i("Invalid object handle: " + this.objectHandle.toString());
+        r("Invalid object handle: " + this.objectHandle.toString());
         return;
       }
       this.clearAllCallbacks();
-      let r = new M(this.objectHandle, "delete", []), a = T(() => {
+      let i = new U2(this.objectHandle, "delete", []), s = v(() => {
         this.objectHandle = -1, t();
-      }, i);
-      this.wasmSDKWorker.postMessage(r, a);
+      }, r);
+      this.wasmSDKWorker.postMessage(i, s);
     });
   }
 };
-function N0(e) {
-  let t = new W1();
+function S0(e) {
+  let t = new z1();
   return t.onDebugText = !!e.onDebugText, t.onDetectionFailed = !!e.onDetectionFailed, t.onPointsDetection = !!e.onPointsDetection, t.onQuadDetection = !!e.onQuadDetection, t.onFirstSideResult = !!e.onFirstSideResult, t.onGlare = !!e.onGlare, t;
 }
 var j1 = class {
@@ -5413,117 +5443,117 @@ var j1 = class {
     this.deleted = false, this.wasmSDKWorker = t;
   }
   processImage(t) {
-    return new Promise((i, r) => {
+    return new Promise((r, i) => {
       if (this.deleted) {
-        r("Recognizer runner is deleted. It cannot be used anymore!");
+        i("Recognizer runner is deleted. It cannot be used anymore!");
         return;
       }
-      let a = new Z2(t), o = J2((d) => {
-        let R2 = d.recognitionState;
-        i(R2);
-      }, r);
-      this.wasmSDKWorker.postTransferrableMessage(a, o);
+      let s = new Q2(t), o = W2((c2) => {
+        let R2 = c2.recognitionState;
+        r(R2);
+      }, i);
+      this.wasmSDKWorker.postTransferrableMessage(s, o);
     });
   }
-  reconfigureRecognizers(t, i) {
-    return new Promise((r, a) => {
+  reconfigureRecognizers(t, r) {
+    return new Promise((i, s) => {
       if (this.deleted) {
-        a("Recognizer runner is deleted. It cannot be used anymore!");
+        s("Recognizer runner is deleted. It cannot be used anymore!");
         return;
       }
-      let o = R0(t), d = new x2(o, i), R2 = T(r, a);
-      this.wasmSDKWorker.postMessage(d, R2);
+      let o = h0(t), c2 = new Z2(o, r), R2 = v(i, s);
+      this.wasmSDKWorker.postMessage(c2, R2);
     });
   }
   setMetadataCallbacks(t) {
-    return new Promise((i, r) => {
-      let a = new Q2(N0(t)), o = T(i, r);
-      this.wasmSDKWorker.postMessageAndRegisterCallbacks(a, t, o);
+    return new Promise((r, i) => {
+      let s = new X(S0(t)), o = v(r, i);
+      this.wasmSDKWorker.postMessageAndRegisterCallbacks(s, t, o);
     });
   }
   resetRecognizers(t) {
-    return new Promise((i, r) => {
-      let a = new Y2(t), o = T(i, r);
-      this.wasmSDKWorker.postMessage(a, o);
+    return new Promise((r, i) => {
+      let s = new y(t), o = v(r, i);
+      this.wasmSDKWorker.postMessage(s, o);
     });
   }
   setDetectionOnlyMode(t) {
-    return new Promise((i, r) => {
-      let a = new X(t), o = T(i, r);
-      this.wasmSDKWorker.postMessage(a, o);
+    return new Promise((r, i) => {
+      let s = new q2(t), o = v(r, i);
+      this.wasmSDKWorker.postMessage(s, o);
     });
   }
   setClearTimeoutCallback(t) {
-    return new Promise((i, r) => {
-      let a = new q2(t !== null), o = T(i, r);
-      this.wasmSDKWorker.registerClearTimeoutCallback(t), this.wasmSDKWorker.postMessage(a, o);
+    return new Promise((r, i) => {
+      let s = new $2(t !== null), o = v(r, i);
+      this.wasmSDKWorker.registerClearTimeoutCallback(t), this.wasmSDKWorker.postMessage(s, o);
     });
   }
   setCameraPreviewMirrored(t) {
-    return new Promise((i, r) => {
-      let a = new $2(t), o = T(i, r);
-      this.wasmSDKWorker.postMessage(a, o);
+    return new Promise((r, i) => {
+      let s = new e1(t), o = v(r, i);
+      this.wasmSDKWorker.postMessage(s, o);
     });
   }
   delete() {
-    return this.deleted ? Promise.reject("Recognizer runner is already deleted.") : new Promise((t, i) => {
-      let r = new H(), a = T(() => {
+    return this.deleted ? Promise.reject("Recognizer runner is already deleted.") : new Promise((t, r) => {
+      let i = new Y2(), s = v(() => {
         this.deleted = true, t();
-      }, i);
-      this.wasmSDKWorker.postMessage(r, a);
+      }, r);
+      this.wasmSDKWorker.postMessage(i, s);
     });
   }
 };
-function R0(e) {
+function h0(e) {
   let t = [];
-  for (let i of e)
-    t.push(i.getRemoteObjectHandle());
+  for (let r of e)
+    t.push(r.getRemoteObjectHandle());
   return t;
 }
-var z1 = class {
+var K1 = class {
   constructor(t) {
     this.wasmSDKWorker = t;
   }
-  createRecognizerRunner(t, i = false, r = {}) {
-    return new Promise((a, o) => {
-      let d = R0(t), R2 = new K2(d, i, N0(r)), A = T(() => {
-        a(new j1(this.wasmSDKWorker));
+  createRecognizerRunner(t, r = false, i = {}) {
+    return new Promise((s, o) => {
+      let c2 = h0(t), R2 = new H(c2, r, S0(i)), A = v(() => {
+        s(new j1(this.wasmSDKWorker));
       }, o);
-      this.wasmSDKWorker.postMessageAndRegisterCallbacks(R2, r, A);
+      this.wasmSDKWorker.postMessageAndRegisterCallbacks(R2, i, A);
     });
   }
-  newRecognizer(t, ...i) {
-    return new Promise((r, a) => {
-      let o = new z(t, J0(i)), d = J2((R2) => {
-        let A = new C1(this.wasmSDKWorker, t, R2.objectHandle);
-        r(A);
-      }, a);
-      this.wasmSDKWorker.postMessage(o, d);
+  newRecognizer(t, ...r) {
+    return new Promise((i, s) => {
+      let o = new x2(t, V0(r)), c2 = W2((R2) => {
+        let A = new g1(this.wasmSDKWorker, t, R2.objectHandle);
+        i(A);
+      }, s);
+      this.wasmSDKWorker.postMessage(o, c2);
     });
   }
 };
 var o1 = class {
-  constructor(t, i, r, a) {
+  constructor(t, r, i, s) {
     this.eventHandlers = {}, this.metadataCallbacks = {}, this.clearTimeoutCallback = null, this.loadedWasmType = V1.Basic, this.mbWasmWorker = t, this.mbWasmWorker.onmessage = (o) => {
       this.handleWorkerEvent(o);
     }, this.mbWasmWorker.onerror = () => {
-      a("Problem during initialization of worker file!");
-    }, this.mbWasmModule = new z1(this), this.loadCallback = i, this.recognizersWithCallbacks = /* @__PURE__ */ new Map(), this.userId = r, this.showOverlay = false;
+      s("Problem during initialization of worker file!");
+    }, this.mbWasmModule = new K1(this), this.loadCallback = r, this.recognizersWithCallbacks = /* @__PURE__ */ new Map(), this.userId = i, this.showOverlay = false;
   }
-  postMessage(t, i) {
-    this.eventHandlers[t.messageID] = i, this.mbWasmWorker.postMessage(t);
+  postMessage(t, r) {
+    this.eventHandlers[t.messageID] = r, this.mbWasmWorker.postMessage(t);
   }
-  postTransferrableMessage(t, i) {
-    this.eventHandlers[t.messageID] = i, this.mbWasmWorker.postMessage(t, t.getTransferrables());
+  postTransferrableMessage(t, r) {
+    this.eventHandlers[t.messageID] = r, this.mbWasmWorker.postMessage(t, t.getTransferrables());
   }
-  postMessageAndRegisterCallbacks(t, i, r) {
-    this.eventHandlers[t.messageID] = r, this.metadataCallbacks = i, this.mbWasmWorker.postMessage(t);
+  postMessageAndRegisterCallbacks(t, r, i) {
+    this.eventHandlers[t.messageID] = i, this.metadataCallbacks = r, this.mbWasmWorker.postMessage(t);
   }
   registerClearTimeoutCallback(t) {
     this.clearTimeoutCallback = t;
   }
-  registerRecognizerCallbacks(t, i) {
-    this.recognizersWithCallbacks.set(t, i);
+  registerRecognizerCallbacks(t, r) {
+    this.recognizersWithCallbacks.set(t, r);
   }
   unregisterRecognizerCallbacks(t) {
     this.recognizersWithCallbacks.delete(t);
@@ -5532,327 +5562,306 @@ var o1 = class {
     this.mbWasmWorker.terminate();
   }
   getProductIntegrationInfo() {
-    return new Promise((t, i) => {
-      let r = new y(this.userId), a = J2((o) => {
+    return new Promise((t, r) => {
+      let i = new t1(this.userId), s = W2((o) => {
         t(o.result);
-      }, i);
-      this.postMessage(r, a);
+      }, r);
+      this.postMessage(i, s);
     });
   }
   handleWorkerEvent(t) {
     if ("isCallbackMessage" in t.data) {
-      let i = t.data;
-      switch (i.callbackType) {
-        case g2.onDebugText:
-          typeof this.metadataCallbacks.onDebugText == "function" && this.metadataCallbacks.onDebugText(i.callbackParameters[0]);
+      let r = t.data;
+      switch (r.callbackType) {
+        case T.onDebugText:
+          typeof this.metadataCallbacks.onDebugText == "function" && this.metadataCallbacks.onDebugText(r.callbackParameters[0]);
           break;
-        case g2.onDetectionFailed:
+        case T.onDetectionFailed:
           typeof this.metadataCallbacks.onDetectionFailed == "function" && this.metadataCallbacks.onDetectionFailed();
           break;
-        case g2.onPointsDetection:
-          typeof this.metadataCallbacks.onPointsDetection == "function" && this.metadataCallbacks.onPointsDetection(i.callbackParameters[0]);
+        case T.onPointsDetection:
+          typeof this.metadataCallbacks.onPointsDetection == "function" && this.metadataCallbacks.onPointsDetection(r.callbackParameters[0]);
           break;
-        case g2.onQuadDetection:
-          typeof this.metadataCallbacks.onQuadDetection == "function" && this.metadataCallbacks.onQuadDetection(i.callbackParameters[0]);
+        case T.onQuadDetection:
+          typeof this.metadataCallbacks.onQuadDetection == "function" && this.metadataCallbacks.onQuadDetection(r.callbackParameters[0]);
           break;
-        case g2.onFirstSideResult:
+        case T.onFirstSideResult:
           typeof this.metadataCallbacks.onFirstSideResult == "function" && this.metadataCallbacks.onFirstSideResult();
           break;
-        case g2.clearTimeoutCallback:
+        case T.clearTimeoutCallback:
           this.clearTimeoutCallback && typeof this.clearTimeoutCallback.onClearTimeout == "function" && this.clearTimeoutCallback.onClearTimeout();
           break;
-        case g2.onGlare:
-          typeof this.metadataCallbacks.onGlare == "function" && this.metadataCallbacks.onGlare(i.callbackParameters[0]);
+        case T.onGlare:
+          typeof this.metadataCallbacks.onGlare == "function" && this.metadataCallbacks.onGlare(r.callbackParameters[0]);
           break;
-        case g2.recognizerCallback: {
-          let r = i.callbackParameters.shift(), a = this.recognizersWithCallbacks.get(r.recognizerHandle);
-          a !== void 0 ? a.invokeCallback(r.callbackName, i.callbackParameters) : console.warn("Cannot find recognizer to deliver callback message. Maybe it's destroyed?", r);
+        case T.recognizerCallback: {
+          let i = r.callbackParameters.shift(), s = this.recognizersWithCallbacks.get(i.recognizerHandle);
+          s !== void 0 ? s.invokeCallback(i.callbackName, r.callbackParameters) : console.warn("Cannot find recognizer to deliver callback message. Maybe it's destroyed?", i);
           break;
         }
         default:
-          throw new Error(`Unknown callback type: ${g2[i.callbackType]}`);
+          throw new Error(`Unknown callback type: ${T[r.callbackType]}`);
       }
     } else if ("isLoadProgressMessage" in t.data) {
-      let i = t.data;
-      typeof this.loadCallback == "function" && this.loadCallback(i.progress);
+      let r = t.data;
+      typeof this.loadCallback == "function" && this.loadCallback(r.progress);
     } else {
-      let i = t.data, r = this.eventHandlers[i.messageID];
-      delete this.eventHandlers[i.messageID], r(i);
+      let r = t.data, i = this.eventHandlers[r.messageID];
+      delete this.eventHandlers[r.messageID], i(r);
     }
   }
-  static createWasmWorker(t, i, r) {
+  static createWasmWorker(t, r, i) {
     return l1(this, void 0, void 0, function* () {
-      return new Promise((a, o) => {
-        let d = new o1(t, i.loadProgressCallback, r, o), R2 = new V(i, r), A = J2((U2) => {
-          let N = U2;
-          d.showOverlay = N.showOverlay, d.loadedWasmType = N.wasmType, a(d);
-        }, (U2) => {
-          d && typeof d.delete == "function" && d.delete(), o(U2);
+      return new Promise((s, o) => {
+        let c2 = new o1(t, r.loadProgressCallback, i, o), R2 = new j(r, i), A = W2((L) => {
+          let N = L;
+          c2.showOverlay = N.showOverlay, c2.loadedWasmType = N.wasmType, s(c2);
+        }, (L) => {
+          c2 && typeof c2.delete == "function" && c2.delete(), o(L);
         });
-        d.postMessage(R2, A);
+        c2.postMessage(R2, A);
       });
     });
   }
 };
-var D = class {
-  constructor(t, i) {
+var C = class {
+  constructor(t, r) {
     if (!t.code || !t.message)
       throw new Error("Instance of SDKError is required to have code and message.");
-    this.message = t.message, this.code = t.code, this.details = i;
+    this.message = t.message, this.code = t.code, this.details = r;
   }
 };
-var c2;
+var d;
 (function(e) {
   e.WORKER_WASM_LOAD_FAILURE = "WORKER_WASM_LOAD_FAILURE", e.WORKER_WASM_INIT_MISSING = "WORKER_WASM_INIT_MISSING", e.WORKER_FUNCTION_INVOKE_FAILURE = "WORKER_FUNCTION_INVOKE_FAILURE", e.WORKER_RECOGNIZER_CREATION_FAILURE = "WORKER_RECOGNIZER_CREATION_FAILURE", e.WORKER_RUNNER_EXISTS = "WORKER_RUNNER_EXISTS", e.WORKER_RUNNER_CREATION_FAILURE = "WORKER_RUNNER_CREATION_FAILURE", e.WORKER_RUNNER_MISSING = "WORKER_RUNNER_MISSING", e.WORKER_RUNNER_RECONFIGURE_FAILURE = "WORKER_RUNNER_RECONFIGURE_FAILURE", e.WORKER_RUNNER_DELETED = "WORKER_RUNNER_DELETED", e.WORKER_RUNNER_DELETE_FAILURE = "WORKER_RUNNER_DELETE_FAILURE", e.WORKER_OBJECT_INVOKE_FAILURE = "WORKER_OBJECT_INVOKE_FAILURE", e.WORKER_IMAGE_PROCESS_FAILURE = "WORKER_IMAGE_PROCESS_FAILURE", e.WORKER_HANDLE_UNDEFINED = "WORKER_HANDLE_UNDEFINED", e.WORKER_MESSAGE_ACTION_UNKNOWN = "WORKER_MESSAGE_ACTION_UNKNOWN", e.WORKER_LICENSE_UNLOCK_ERROR = "WORKER_LICENSE_UNLOCK_ERROR", e.WORKER_INTEGRATION_INFO_FAILURE = "WORKER_INTEGRATION_INFO_FAILURE", e.LOCAL_SDK_RUNNER_MISSING = "LOCAL_SDK_RUNNER_MISSING", e.LOCAL_SDK_RUNNER_EMPTY = "LOCAL_SDK_RUNNER_EMPTY", e.LICENSE_UNLOCK_ERROR = "LICENSE_UNLOCK_ERROR", e.FRAME_CAPTURE_SVG_UNSUPPORTED = "FRAME_CAPTURE_SVG_UNSUPPORTED", e.FRAME_CAPTURE_CANVAS_MISSING = "FRAME_CAPTURE_CANVAS_MISSING", e.SDK_WASM_SETTINGS_MISSING = "SDK_WASM_SETTINGS_MISSING", e.SDK_LICENSE_KEY_MISSING = "SDK_LICENSE_KEY_MISSING", e.SDK_WASM_MODULE_NAME_MISSING = "SDK_WASM_MODULE_NAME_MISSING", e.SDK_ENGINE_LOCATION_INVALID = "SDK_ENGINE_LOCATION_INVALID", e.SDK_WORKER_LOCATION_INVALID = "SDK_WORKER_LOCATION_INVALID", e.SDK_MISSING = "SDK_MISSING", e.SDK_RECOGNIZERS_MISSING = "SDK_RECOGNIZERS_MISSING", e.VIDEO_RECOGNIZER_ELEMENT_MISSING = "VIDEO_RECOGNIZER_ELEMENT_MISSING", e.VIDEO_RECOGNIZER_CAMERA_MISSING = "VIDEO_RECOGNIZER_CAMERA_MISSING", e.VIDEO_RECOGNIZER_CAMERA_NOT_ALLOWED = "VIDEO_RECOGNIZER_CAMERA_NOT_ALLOWED", e.VIDEO_RECOGNIZER_CAMERA_UNAVAILABLE = "VIDEO_RECOGNIZER_CAMERA_UNAVAILABLE", e.VIDEO_RECOGNIZER_CAMERA_IN_USE = "VIDEO_RECOGNIZER_CAMERA_IN_USE", e.VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED = "VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED", e.VIDEO_RECOGNIZER_FEED_RELEASED = "VIDEO_RECOGNIZER_FEED_RELEASED", e.VIDEO_RECOGNIZER_FEED_NOT_PAUSED = "VIDEO_RECOGNIZER_FEED_NOT_PAUSED", e.VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED = "VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED", e.VIDEO_RECOGNIZER_FEED_PAUSED = "VIDEO_RECOGNIZER_FEED_PAUSED", e.VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE = "VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE", e.VIDEO_RECOGNIZER_FEED_MISSING = "VIDEO_RECOGNIZER_FEED_MISSING";
-})(c2 || (c2 = {}));
+})(d || (d = {}));
 var I;
 (function(e) {
   e.WORKER_HANDLE_UNDEFINED = "Cannot find object with handle: undefined", e.WORKER_WASM_LOAD_FAILURE = "Failed to load WASM in web worker!", e.WORKER_WASM_INIT_MISSING = "WASM module is not initialized!", e.WORKER_FUNCTION_INVOKE_FAILURE = "Failed to invoke function!", e.WORKER_RECOGNIZER_CREATION_FAILURE = "Failed to create new recognizer!", e.WORKER_RUNNER_EXISTS = "Recognizer runner is already created! Multiple instances are not allowed!", e.WORKER_RUNNER_CREATION_FAILURE = "Failed to create new recognizer runner!", e.WORKER_RUNNER_MISSING = "Recognizer runner is not created! There is nothing to reconfigure!", e.WORKER_RUNNER_RECONFIGURE_FAILURE = "Failed to reconfigure recognizer runner!", e.WORKER_RUNNER_DELETED = "Recognizer runner is already deleted!", e.WORKER_RUNNER_DELETE_FAILURE = "Failed to delete recognizer runner!", e.WORKER_OBJECT_INVOKE_FAILURE = "Failed to invoke object!", e.WORKER_IMAGE_PROCESS_FAILURE = "Recognizer runner is not initialized! Cannot process image!", e.WORKER_INTEGRATION_INFO_FAILURE = "Failed to get product integration info!", e.LOCAL_SDK_RUNNER_MISSING = "Property nativeRecognizerRunner is not available!", e.LOCAL_SDK_RUNNER_EMPTY = "Native RecognizerRunner cannot be empty!", e.LICENSE_TOKEN_STATE_INCORRECT = "Internal error (Incorrect token state)", e.LICENSE_PAYLOAD_VERIFICATION_FAILED = "Failed to verify server permission's digital signature!", e.LICENSE_PAYLOAD_CORRUPTED = "Server permission payload is corrupted!", e.LICENSE_PERMISSION_EXPIRED = "Internal error (server permission expired)", e.LICENSE_REMOTE_LOCKED = "Provided license key has been remotely locked. Please contact support for more information!", e.FRAME_CAPTURE_SVG_UNSUPPORTED = "Recognition of SVG elements not supported!", e.FRAME_CAPTURE_CANVAS_MISSING = "Could not get canvas 2d context!", e.SDK_WASM_SETTINGS_MISSING = "Missing WASM load settings!", e.SDK_LICENSE_KEY_MISSING = "Missing license key!", e.SDK_WASM_MODULE_NAME_MISSING = "Missing WASM module name!", e.SDK_ENGINE_LOCATION_INVALID = "Setting property 'engineLocation' must be a string!", e.SDK_WORKER_LOCATION_INVALID = "Setting property 'workerLocation' must be a string!", e.SDK_MISSING = "SDK is not provided!", e.SDK_RECOGNIZERS_MISSING = "To create RecognizerRunner at least 1 recognizer is required.", e.VIDEO_RECOGNIZER_ELEMENT_MISSING = "Video element, i.e. camera feed is not provided!", e.VIDEO_RECOGNIZER_CAMERA_MISSING = "Camera not found!", e.VIDEO_RECOGNIZER_CAMERA_NOT_ALLOWED = "Camera not allowed!", e.VIDEO_RECOGNIZER_CAMERA_UNAVAILABLE = "Camera not available!", e.VIDEO_RECOGNIZER_CAMERA_IN_USE = "Camera in use!", e.VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED = "Media devices not supported by browser.", e.VIDEO_RECOGNIZER_FEED_RELEASED = "The associated video feed has been released!", e.VIDEO_RECOGNIZER_FEED_NOT_PAUSED = "The associated video feed is not paused. Use resumeRecognition instead!", e.VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED = "The play() request was interrupted or prevented by browser security rules!", e.VIDEO_RECOGNIZER_FEED_PAUSED = "Cannot resume recognition while video feed is paused! Use recognize or startRecognition", e.VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE = "Could not reset recognizers!", e.VIDEO_RECOGNIZER_FEED_MISSING = "Missing video feed!";
 })(I || (I = {}));
-var ie = { feedMissing: { message: I.VIDEO_RECOGNIZER_FEED_MISSING, code: c2.VIDEO_RECOGNIZER_FEED_MISSING }, recognizersResetFailure: { message: I.VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE, code: c2.VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE }, feedPaused: { message: I.VIDEO_RECOGNIZER_FEED_PAUSED, code: c2.VIDEO_RECOGNIZER_FEED_PAUSED }, playRequestInterrupted: { message: I.VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED, code: c2.VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED }, videoFeedNotPaused: { message: I.VIDEO_RECOGNIZER_FEED_NOT_PAUSED, code: c2.VIDEO_RECOGNIZER_FEED_NOT_PAUSED }, videoFeedReleased: { message: I.VIDEO_RECOGNIZER_FEED_RELEASED, code: c2.VIDEO_RECOGNIZER_FEED_RELEASED }, mediaDevicesUnsupported: { code: c2.VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED, message: I.VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED }, cameraMissing: { code: c2.VIDEO_RECOGNIZER_CAMERA_MISSING, message: I.VIDEO_RECOGNIZER_CAMERA_MISSING }, elementMissing: { message: I.VIDEO_RECOGNIZER_ELEMENT_MISSING, code: c2.VIDEO_RECOGNIZER_ELEMENT_MISSING } };
-var P = { wasmSettingsMissing: { message: I.SDK_WASM_SETTINGS_MISSING, code: c2.SDK_WASM_SETTINGS_MISSING }, licenseKeyMissing: { message: I.SDK_LICENSE_KEY_MISSING, code: c2.SDK_LICENSE_KEY_MISSING }, wasmModuleNameMissing: { message: I.SDK_WASM_MODULE_NAME_MISSING, code: c2.SDK_WASM_MODULE_NAME_MISSING }, engineLocationInvalid: { message: I.SDK_ENGINE_LOCATION_INVALID, code: c2.SDK_ENGINE_LOCATION_INVALID }, workerLocationInvalid: { message: I.SDK_WORKER_LOCATION_INVALID, code: c2.SDK_WORKER_LOCATION_INVALID }, missing: { message: I.SDK_MISSING, code: c2.SDK_MISSING }, recognizersMissing: { message: I.SDK_RECOGNIZERS_MISSING, code: c2.SDK_RECOGNIZERS_MISSING } };
-var re2 = { svgUnsupported: { message: I.FRAME_CAPTURE_SVG_UNSUPPORTED, code: c2.FRAME_CAPTURE_SVG_UNSUPPORTED }, canvasMissing: { message: I.FRAME_CAPTURE_CANVAS_MISSING, code: c2.FRAME_CAPTURE_CANVAS_MISSING } };
-var se2 = { licenseTokenStateIncorrect: { code: c2.LICENSE_UNLOCK_ERROR, message: I.LICENSE_TOKEN_STATE_INCORRECT }, licensePayloadVerificationFailed: { code: c2.LICENSE_UNLOCK_ERROR, message: I.LICENSE_PAYLOAD_VERIFICATION_FAILED }, licensePayloadCorrupted: { code: c2.LICENSE_UNLOCK_ERROR, message: I.LICENSE_PAYLOAD_CORRUPTED }, licensePermissionExpired: { code: c2.LICENSE_UNLOCK_ERROR, message: I.LICENSE_PERMISSION_EXPIRED }, licenseRemoteLocked: { code: c2.LICENSE_UNLOCK_ERROR, message: I.LICENSE_REMOTE_LOCKED }, licenseNetworkError: { code: c2.LICENSE_UNLOCK_ERROR }, licenseInvalid: { code: c2.LICENSE_UNLOCK_ERROR } };
-var ae2 = { runnerMissing: { message: I.LOCAL_SDK_RUNNER_MISSING, code: c2.LOCAL_SDK_RUNNER_MISSING }, runnerEmpty: { message: I.LOCAL_SDK_RUNNER_EMPTY, code: c2.LOCAL_SDK_RUNNER_EMPTY } };
-var ne2 = { imageProcessFailure: { message: I.WORKER_IMAGE_PROCESS_FAILURE, code: c2.WORKER_IMAGE_PROCESS_FAILURE }, objectInvokeFailure: { message: I.WORKER_OBJECT_INVOKE_FAILURE, code: c2.WORKER_OBJECT_INVOKE_FAILURE }, runnerDeleteFailure: { message: I.WORKER_RUNNER_DELETE_FAILURE, code: c2.WORKER_RUNNER_DELETE_FAILURE }, runnerDeleted: { message: I.WORKER_RUNNER_DELETED, code: c2.WORKER_RUNNER_DELETED }, runnerReconfigureFailure: { message: I.WORKER_RUNNER_RECONFIGURE_FAILURE, code: c2.WORKER_RUNNER_RECONFIGURE_FAILURE }, runnerMissing: { message: I.WORKER_RUNNER_MISSING, code: c2.WORKER_RUNNER_MISSING }, runnerCreationFailure: { message: I.WORKER_RUNNER_CREATION_FAILURE, code: c2.WORKER_RUNNER_CREATION_FAILURE }, runnerExists: { message: I.WORKER_RUNNER_EXISTS, code: c2.WORKER_RUNNER_EXISTS }, recognizerCreationFailure: { message: I.WORKER_RECOGNIZER_CREATION_FAILURE, code: c2.WORKER_RECOGNIZER_CREATION_FAILURE }, functionInvokeFailure: { message: I.WORKER_FUNCTION_INVOKE_FAILURE, code: c2.WORKER_FUNCTION_INVOKE_FAILURE }, wasmInitMissing: { message: I.WORKER_WASM_INIT_MISSING, code: c2.WORKER_WASM_INIT_MISSING }, wasmLoadFailure: { message: I.WORKER_WASM_LOAD_FAILURE, code: c2.WORKER_WASM_LOAD_FAILURE }, handleUndefined: { message: I.WORKER_HANDLE_UNDEFINED, code: c2.WORKER_HANDLE_UNDEFINED }, integrationInfoFailure: { message: I.WORKER_INTEGRATION_INFO_FAILURE, code: c2.WORKER_INTEGRATION_INFO_FAILURE } };
-var $1;
-(function(e) {
-  e[e.BackFacingCamera = 0] = "BackFacingCamera", e[e.FrontFacingCamera = 1] = "FrontFacingCamera";
-})($1 || ($1 = {}));
-var g1;
-(function(e) {
-  e[e.RotatedLeft90 = 0] = "RotatedLeft90", e[e.NoRotation = 1] = "NoRotation", e[e.RotatedRight90 = 2] = "RotatedRight90", e[e.Rotated180 = 3] = "Rotated180";
-})(g1 || (g1 = {}));
-var b;
-(function(e) {
-  e[e.Empty = 0] = "Empty", e[e.Uncertain = 1] = "Uncertain", e[e.Valid = 2] = "Valid", e[e.StageValid = 3] = "StageValid";
-})(b || (b = {}));
-var b1 = class {
-  constructor(t, i, r) {
-    this.imageData = t, this.orientation = i, this.videoFrame = r;
-  }
-};
-var y1;
-(function(e) {
-  e[e.Invalid = 0] = "Invalid", e[e.RequiresServerPermission = 1] = "RequiresServerPermission", e[e.Valid = 2] = "Valid";
-})(y1 || (y1 = {}));
-var e0;
-(function(e) {
-  e.LicenseTokenStateInvalid = "LICENSE_TOKEN_STATE_INVALID", e.NetworkError = "NETWORK_ERROR", e.RemoteLock = "REMOTE_LOCK", e.PermissionExpired = "PERMISSION_EXPIRED", e.PayloadCorrupted = "PAYLOAD_CORRUPTED", e.PayloadSignatureVerificationFailed = "PAYLOAD_SIGNATURE_VERIFICATION_FAILED", e.IncorrectTokenState = "INCORRECT_TOKEN_STATE";
-})(e0 || (e0 = {}));
+var oe2 = { feedMissing: { message: I.VIDEO_RECOGNIZER_FEED_MISSING, code: d.VIDEO_RECOGNIZER_FEED_MISSING }, recognizersResetFailure: { message: I.VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE, code: d.VIDEO_RECOGNIZER_RECOGNIZERS_RESET_FAILURE }, feedPaused: { message: I.VIDEO_RECOGNIZER_FEED_PAUSED, code: d.VIDEO_RECOGNIZER_FEED_PAUSED }, playRequestInterrupted: { message: I.VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED, code: d.VIDEO_RECOGNIZER_PLAY_REQUEST_INTERRUPTED }, videoFeedNotPaused: { message: I.VIDEO_RECOGNIZER_FEED_NOT_PAUSED, code: d.VIDEO_RECOGNIZER_FEED_NOT_PAUSED }, videoFeedReleased: { message: I.VIDEO_RECOGNIZER_FEED_RELEASED, code: d.VIDEO_RECOGNIZER_FEED_RELEASED }, mediaDevicesUnsupported: { code: d.VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED, message: I.VIDEO_RECOGNIZER_MEDIA_DEVICES_UNSUPPORTED }, cameraMissing: { code: d.VIDEO_RECOGNIZER_CAMERA_MISSING, message: I.VIDEO_RECOGNIZER_CAMERA_MISSING }, elementMissing: { message: I.VIDEO_RECOGNIZER_ELEMENT_MISSING, code: d.VIDEO_RECOGNIZER_ELEMENT_MISSING } };
+var P = { wasmSettingsMissing: { message: I.SDK_WASM_SETTINGS_MISSING, code: d.SDK_WASM_SETTINGS_MISSING }, licenseKeyMissing: { message: I.SDK_LICENSE_KEY_MISSING, code: d.SDK_LICENSE_KEY_MISSING }, wasmModuleNameMissing: { message: I.SDK_WASM_MODULE_NAME_MISSING, code: d.SDK_WASM_MODULE_NAME_MISSING }, engineLocationInvalid: { message: I.SDK_ENGINE_LOCATION_INVALID, code: d.SDK_ENGINE_LOCATION_INVALID }, workerLocationInvalid: { message: I.SDK_WORKER_LOCATION_INVALID, code: d.SDK_WORKER_LOCATION_INVALID }, missing: { message: I.SDK_MISSING, code: d.SDK_MISSING }, recognizersMissing: { message: I.SDK_RECOGNIZERS_MISSING, code: d.SDK_RECOGNIZERS_MISSING } };
+var le2 = { svgUnsupported: { message: I.FRAME_CAPTURE_SVG_UNSUPPORTED, code: d.FRAME_CAPTURE_SVG_UNSUPPORTED }, canvasMissing: { message: I.FRAME_CAPTURE_CANVAS_MISSING, code: d.FRAME_CAPTURE_CANVAS_MISSING } };
+var ue2 = { licenseTokenStateIncorrect: { code: d.LICENSE_UNLOCK_ERROR, message: I.LICENSE_TOKEN_STATE_INCORRECT }, licensePayloadVerificationFailed: { code: d.LICENSE_UNLOCK_ERROR, message: I.LICENSE_PAYLOAD_VERIFICATION_FAILED }, licensePayloadCorrupted: { code: d.LICENSE_UNLOCK_ERROR, message: I.LICENSE_PAYLOAD_CORRUPTED }, licensePermissionExpired: { code: d.LICENSE_UNLOCK_ERROR, message: I.LICENSE_PERMISSION_EXPIRED }, licenseRemoteLocked: { code: d.LICENSE_UNLOCK_ERROR, message: I.LICENSE_REMOTE_LOCKED }, licenseNetworkError: { code: d.LICENSE_UNLOCK_ERROR }, licenseInvalid: { code: d.LICENSE_UNLOCK_ERROR } };
+var de2 = { runnerMissing: { message: I.LOCAL_SDK_RUNNER_MISSING, code: d.LOCAL_SDK_RUNNER_MISSING }, runnerEmpty: { message: I.LOCAL_SDK_RUNNER_EMPTY, code: d.LOCAL_SDK_RUNNER_EMPTY } };
+var ce = { imageProcessFailure: { message: I.WORKER_IMAGE_PROCESS_FAILURE, code: d.WORKER_IMAGE_PROCESS_FAILURE }, objectInvokeFailure: { message: I.WORKER_OBJECT_INVOKE_FAILURE, code: d.WORKER_OBJECT_INVOKE_FAILURE }, runnerDeleteFailure: { message: I.WORKER_RUNNER_DELETE_FAILURE, code: d.WORKER_RUNNER_DELETE_FAILURE }, runnerDeleted: { message: I.WORKER_RUNNER_DELETED, code: d.WORKER_RUNNER_DELETED }, runnerReconfigureFailure: { message: I.WORKER_RUNNER_RECONFIGURE_FAILURE, code: d.WORKER_RUNNER_RECONFIGURE_FAILURE }, runnerMissing: { message: I.WORKER_RUNNER_MISSING, code: d.WORKER_RUNNER_MISSING }, runnerCreationFailure: { message: I.WORKER_RUNNER_CREATION_FAILURE, code: d.WORKER_RUNNER_CREATION_FAILURE }, runnerExists: { message: I.WORKER_RUNNER_EXISTS, code: d.WORKER_RUNNER_EXISTS }, recognizerCreationFailure: { message: I.WORKER_RECOGNIZER_CREATION_FAILURE, code: d.WORKER_RECOGNIZER_CREATION_FAILURE }, functionInvokeFailure: { message: I.WORKER_FUNCTION_INVOKE_FAILURE, code: d.WORKER_FUNCTION_INVOKE_FAILURE }, wasmInitMissing: { message: I.WORKER_WASM_INIT_MISSING, code: d.WORKER_WASM_INIT_MISSING }, wasmLoadFailure: { message: I.WORKER_WASM_LOAD_FAILURE, code: d.WORKER_WASM_LOAD_FAILURE }, handleUndefined: { message: I.WORKER_HANDLE_UNDEFINED, code: d.WORKER_HANDLE_UNDEFINED }, integrationInfoFailure: { message: I.WORKER_INTEGRATION_INFO_FAILURE, code: d.WORKER_INTEGRATION_INFO_FAILURE } };
 var t0;
 (function(e) {
-  e[e.Ok = 0] = "Ok", e[e.NetworkError = 1] = "NetworkError", e[e.RemoteLock = 2] = "RemoteLock", e[e.PermissionExpired = 3] = "PermissionExpired", e[e.PayloadCorrupted = 4] = "PayloadCorrupted", e[e.PayloadSignatureVerificationFailed = 5] = "PayloadSignatureVerificationFailed", e[e.IncorrectTokenState = 6] = "IncorrectTokenState";
+  e[e.BackFacingCamera = 0] = "BackFacingCamera", e[e.FrontFacingCamera = 1] = "FrontFacingCamera";
 })(t0 || (t0 = {}));
-var L1;
+var b1;
 (function(e) {
-  e[e.Fail = 0] = "Fail", e[e.Success = 1] = "Success", e[e.CameraTooHigh = 2] = "CameraTooHigh", e[e.FallbackSuccess = 3] = "FallbackSuccess", e[e.Partial = 4] = "Partial", e[e.CameraAtAngle = 5] = "CameraAtAngle", e[e.CameraTooNear = 6] = "CameraTooNear", e[e.DocumentTooCloseToEdge = 7] = "DocumentTooCloseToEdge";
-})(L1 || (L1 = {}));
-var i0;
+  e[e.RotatedLeft90 = 0] = "RotatedLeft90", e[e.NoRotation = 1] = "NoRotation", e[e.RotatedRight90 = 2] = "RotatedRight90", e[e.Rotated180 = 3] = "Rotated180";
+})(b1 || (b1 = {}));
+var M;
 (function(e) {
-  e.MediaDevicesNotSupported = "MediaDevicesNotSupported", e.CameraNotFound = "CameraNotFound", e.CameraNotAllowed = "CameraNotAllowed", e.CameraInUse = "CameraInUse", e.CameraNotAvailable = "CameraNotAvailable", e.VideoElementNotProvided = "VideoElementNotProvided";
-})(i0 || (i0 = {}));
+  e[e.Empty = 0] = "Empty", e[e.Uncertain = 1] = "Uncertain", e[e.Valid = 2] = "Valid", e[e.StageValid = 3] = "StageValid";
+})(M || (M = {}));
+var L1 = class {
+  constructor(t, r, i) {
+    this.imageData = t, this.orientation = r, this.videoFrame = i;
+  }
+};
 var r0;
 (function(e) {
-  e[e.Recognition = 0] = "Recognition", e[e.RecognitionTest = 1] = "RecognitionTest", e[e.DetectionTest = 2] = "DetectionTest";
+  e[e.Invalid = 0] = "Invalid", e[e.RequiresServerPermission = 1] = "RequiresServerPermission", e[e.Valid = 2] = "Valid";
 })(r0 || (r0 = {}));
-var T1 = class {
+var i0;
+(function(e) {
+  e.LicenseTokenStateInvalid = "LICENSE_TOKEN_STATE_INVALID", e.NetworkError = "NETWORK_ERROR", e.RemoteLock = "REMOTE_LOCK", e.PermissionExpired = "PERMISSION_EXPIRED", e.PayloadCorrupted = "PAYLOAD_CORRUPTED", e.PayloadSignatureVerificationFailed = "PAYLOAD_SIGNATURE_VERIFICATION_FAILED", e.IncorrectTokenState = "INCORRECT_TOKEN_STATE";
+})(i0 || (i0 = {}));
+var a0;
+(function(e) {
+  e[e.Ok = 0] = "Ok", e[e.NetworkError = 1] = "NetworkError", e[e.RemoteLock = 2] = "RemoteLock", e[e.PermissionExpired = 3] = "PermissionExpired", e[e.PayloadCorrupted = 4] = "PayloadCorrupted", e[e.PayloadSignatureVerificationFailed = 5] = "PayloadSignatureVerificationFailed", e[e.IncorrectTokenState = 6] = "IncorrectTokenState";
+})(a0 || (a0 = {}));
+var T1;
+(function(e) {
+  e[e.Fail = 0] = "Fail", e[e.Success = 1] = "Success", e[e.CameraTooHigh = 2] = "CameraTooHigh", e[e.FallbackSuccess = 3] = "FallbackSuccess", e[e.Partial = 4] = "Partial", e[e.CameraAtAngle = 5] = "CameraAtAngle", e[e.CameraTooNear = 6] = "CameraTooNear", e[e.DocumentTooCloseToEdge = 7] = "DocumentTooCloseToEdge";
+})(T1 || (T1 = {}));
+var s0;
+(function(e) {
+  e.MediaDevicesNotSupported = "MediaDevicesNotSupported", e.CameraNotFound = "CameraNotFound", e.CameraNotAllowed = "CameraNotAllowed", e.CameraInUse = "CameraInUse", e.CameraNotAvailable = "CameraNotAvailable", e.VideoElementNotProvided = "VideoElementNotProvided";
+})(s0 || (s0 = {}));
+var n0;
+(function(e) {
+  e[e.Recognition = 0] = "Recognition", e[e.RecognitionTest = 1] = "RecognitionTest", e[e.DetectionTest = 2] = "DetectionTest";
+})(n0 || (n0 = {}));
+var M1 = class {
   constructor(t) {
-    if (this.allowHelloMessage = true, this.engineLocation = "", this.workerLocation = "", this.wasmType = null, this.numberOfWorkers = null, this.loadProgressCallback = null, this.wasmModuleName = G0, !t)
-      throw new D(P.licenseKeyMissing);
+    if (this.allowHelloMessage = true, this.engineLocation = "", this.workerLocation = "", this.wasmType = null, this.numberOfWorkers = null, this.loadProgressCallback = null, this.wasmModuleName = z0, !t)
+      throw new C(P.licenseKeyMissing);
     this.licenseKey = t;
   }
 };
-function s0() {
+function o0() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (e) => (e ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> e / 4).toString(16));
 }
-function B0() {
+function j0() {
   try {
     let e = localStorage.getItem("mb-user-id");
-    return e === null && (e = s0(), localStorage.setItem("mb-user-id", e)), e;
+    return e === null && (e = o0(), localStorage.setItem("mb-user-id", e)), e;
   } catch (e) {
-    return s0();
+    return o0();
   }
 }
-function S0(e) {
+function O0(e) {
   return l1(this, void 0, void 0, function* () {
-    return new Promise((t, i) => {
+    return new Promise((t, r) => {
       if (!e || typeof e != "object") {
-        i(new D(P.wasmSettingsMissing));
+        r(new C(P.wasmSettingsMissing));
         return;
       }
       if (typeof e.licenseKey != "string") {
-        i(new D(P.licenseKeyMissing));
+        r(new C(P.licenseKeyMissing));
         return;
       }
       if (!e.wasmModuleName) {
-        i(new D(P.wasmModuleNameMissing));
+        r(new C(P.wasmModuleNameMissing));
         return;
       }
       if (typeof e.engineLocation != "string") {
-        i(new D(P.engineLocationInvalid));
+        r(new C(P.engineLocationInvalid));
         return;
       }
       if (typeof e.workerLocation != "string") {
-        i(new D(P.workerLocationInvalid));
+        r(new C(P.workerLocationInvalid));
         return;
       }
-      let r = B0();
+      let i = j0();
       try {
-        let a = `/resources/${e.wasmModuleName}.worker.min.js`, o = window.location.origin + a, d = e.workerLocation || o;
-        e.allowHelloMessage && console.log("Worker location is:", d);
-        let R2 = new Worker(d);
-        o1.createWasmWorker(R2, e, r).then((A) => {
+        let s = `/resources/${e.wasmModuleName}.worker.min.js`, o = window.location.origin + s, c2 = e.workerLocation || o;
+        e.allowHelloMessage && console.log("Worker location is:", c2);
+        let R2 = new Worker(c2);
+        o1.createWasmWorker(R2, e, i).then((A) => {
           t(A);
-        }, i);
-      } catch (a) {
-        i(a);
+        }, r);
+      } catch (s) {
+        r(s);
       }
     });
   });
 }
-function h0(e, t, i = false, r = {}) {
+function E0(e, t, r = false, i = {}) {
   return l1(this, void 0, void 0, function* () {
     if (typeof e != "object")
-      throw new D(P.missing);
+      throw new C(P.missing);
     if (typeof t != "object" || t.length < 1)
-      throw new D(P.recognizersMissing);
-    return e.mbWasmModule.createRecognizerRunner(t, i, r);
+      throw new C(P.recognizersMissing);
+    return e.mbWasmModule.createRecognizerRunner(t, r, i);
   });
 }
-var a0;
+var l0;
 (function(e) {
   e[e.NONE = 0] = "NONE", e[e.QR_CODE = 1] = "QR_CODE", e[e.DATA_MATRIX = 2] = "DATA_MATRIX", e[e.UPC_E = 3] = "UPC_E", e[e.UPC_A = 4] = "UPC_A", e[e.EAN_8 = 5] = "EAN_8", e[e.EAN_13 = 6] = "EAN_13", e[e.CODE_128 = 7] = "CODE_128", e[e.CODE_39 = 8] = "CODE_39", e[e.ITF = 9] = "ITF", e[e.AZTEC_BARCODE = 10] = "AZTEC_BARCODE", e[e.PDF417_BARCODE = 11] = "PDF417_BARCODE";
-})(a0 || (a0 = {}));
-var n0;
+})(l0 || (l0 = {}));
+var u0;
 (function(e) {
   e[e.None = 0] = "None", e[e.ImageOnly = 1] = "ImageOnly", e[e.ResultFieldsOnly = 2] = "ResultFieldsOnly", e[e.FullResult = 3] = "FullResult";
-})(n0 || (n0 = {}));
-var M1 = class {
+})(u0 || (u0 = {}));
+var v1 = class {
   constructor() {
     this.enableMrzId = true, this.enableMrzPassport = true, this.enableMrzVisa = true, this.enablePhotoId = true, this.enableBarcodeId = true, this.enableFullDocumentRecognition = true;
   }
 };
-var o0;
+var d0;
 (function(e) {
   e[e.DocumentType = 0] = "DocumentType", e[e.StandardVersionNumber = 1] = "StandardVersionNumber", e[e.CustomerFamilyName = 2] = "CustomerFamilyName", e[e.CustomerFirstName = 3] = "CustomerFirstName", e[e.CustomerFullName = 4] = "CustomerFullName", e[e.DateOfBirth = 5] = "DateOfBirth", e[e.Sex = 6] = "Sex", e[e.EyeColor = 7] = "EyeColor", e[e.AddressStreet = 8] = "AddressStreet", e[e.AddressCity = 9] = "AddressCity", e[e.AddressJurisdictionCode = 10] = "AddressJurisdictionCode", e[e.AddressPostalCode = 11] = "AddressPostalCode", e[e.FullAddress = 12] = "FullAddress", e[e.Height = 13] = "Height", e[e.HeightIn = 14] = "HeightIn", e[e.HeightCm = 15] = "HeightCm", e[e.CustomerMiddleName = 16] = "CustomerMiddleName", e[e.HairColor = 17] = "HairColor", e[e.NameSuffix = 18] = "NameSuffix", e[e.AKAFullName = 19] = "AKAFullName", e[e.AKAFamilyName = 20] = "AKAFamilyName", e[e.AKAGivenName = 21] = "AKAGivenName", e[e.AKASuffixName = 22] = "AKASuffixName", e[e.WeightRange = 23] = "WeightRange", e[e.WeightPounds = 24] = "WeightPounds", e[e.WeightKilograms = 25] = "WeightKilograms", e[e.CustomerIdNumber = 26] = "CustomerIdNumber", e[e.FamilyNameTruncation = 27] = "FamilyNameTruncation", e[e.FirstNameTruncation = 28] = "FirstNameTruncation", e[e.MiddleNameTruncation = 29] = "MiddleNameTruncation", e[e.PlaceOfBirth = 30] = "PlaceOfBirth", e[e.AddressStreet2 = 31] = "AddressStreet2", e[e.RaceEthnicity = 32] = "RaceEthnicity", e[e.NamePrefix = 33] = "NamePrefix", e[e.CountryIdentification = 34] = "CountryIdentification", e[e.ResidenceStreetAddress = 35] = "ResidenceStreetAddress", e[e.ResidenceStreetAddress2 = 36] = "ResidenceStreetAddress2", e[e.ResidenceCity = 37] = "ResidenceCity", e[e.ResidenceJurisdictionCode = 38] = "ResidenceJurisdictionCode", e[e.ResidencePostalCode = 39] = "ResidencePostalCode", e[e.ResidenceFullAddress = 40] = "ResidenceFullAddress", e[e.Under18 = 41] = "Under18", e[e.Under19 = 42] = "Under19", e[e.Under21 = 43] = "Under21", e[e.SocialSecurityNumber = 44] = "SocialSecurityNumber", e[e.AKASocialSecurityNumber = 45] = "AKASocialSecurityNumber", e[e.AKAMiddleName = 46] = "AKAMiddleName", e[e.AKAPrefixName = 47] = "AKAPrefixName", e[e.OrganDonor = 48] = "OrganDonor", e[e.Veteran = 49] = "Veteran", e[e.AKADateOfBirth = 50] = "AKADateOfBirth", e[e.IssuerIdentificationNumber = 51] = "IssuerIdentificationNumber", e[e.DocumentExpirationDate = 52] = "DocumentExpirationDate", e[e.JurisdictionVersionNumber = 53] = "JurisdictionVersionNumber", e[e.JurisdictionVehicleClass = 54] = "JurisdictionVehicleClass", e[e.JurisdictionRestrictionCodes = 55] = "JurisdictionRestrictionCodes", e[e.JurisdictionEndorsementCodes = 56] = "JurisdictionEndorsementCodes", e[e.DocumentIssueDate = 57] = "DocumentIssueDate", e[e.FederalCommercialVehicleCodes = 58] = "FederalCommercialVehicleCodes", e[e.IssuingJurisdiction = 59] = "IssuingJurisdiction", e[e.StandardVehicleClassification = 60] = "StandardVehicleClassification", e[e.IssuingJurisdictionName = 61] = "IssuingJurisdictionName", e[e.StandardEndorsementCode = 62] = "StandardEndorsementCode", e[e.StandardRestrictionCode = 63] = "StandardRestrictionCode", e[e.JurisdictionVehicleClassificationDescription = 64] = "JurisdictionVehicleClassificationDescription", e[e.JurisdictionEndorsmentCodeDescription = 65] = "JurisdictionEndorsmentCodeDescription", e[e.JurisdictionRestrictionCodeDescription = 66] = "JurisdictionRestrictionCodeDescription", e[e.InventoryControlNumber = 67] = "InventoryControlNumber", e[e.CardRevisionDate = 68] = "CardRevisionDate", e[e.DocumentDiscriminator = 69] = "DocumentDiscriminator", e[e.LimitedDurationDocument = 70] = "LimitedDurationDocument", e[e.AuditInformation = 71] = "AuditInformation", e[e.ComplianceType = 72] = "ComplianceType", e[e.IssueTimestamp = 73] = "IssueTimestamp", e[e.PermitExpirationDate = 74] = "PermitExpirationDate", e[e.PermitIdentifier = 75] = "PermitIdentifier", e[e.PermitIssueDate = 76] = "PermitIssueDate", e[e.NumberOfDuplicates = 77] = "NumberOfDuplicates", e[e.HAZMATExpirationDate = 78] = "HAZMATExpirationDate", e[e.MedicalIndicator = 79] = "MedicalIndicator", e[e.NonResident = 80] = "NonResident", e[e.UniqueCustomerId = 81] = "UniqueCustomerId", e[e.DataDiscriminator = 82] = "DataDiscriminator", e[e.DocumentExpirationMonth = 83] = "DocumentExpirationMonth", e[e.DocumentNonexpiring = 84] = "DocumentNonexpiring", e[e.SecurityVersion = 85] = "SecurityVersion", e[e.Count = 86] = "Count";
-})(o0 || (o0 = {}));
-var l0;
+})(d0 || (d0 = {}));
+var c0;
 (function(e) {
   e[e.NONE = 0] = "NONE", e[e.ALBANIA = 1] = "ALBANIA", e[e.ALGERIA = 2] = "ALGERIA", e[e.ARGENTINA = 3] = "ARGENTINA", e[e.AUSTRALIA = 4] = "AUSTRALIA", e[e.AUSTRIA = 5] = "AUSTRIA", e[e.AZERBAIJAN = 6] = "AZERBAIJAN", e[e.BAHRAIN = 7] = "BAHRAIN", e[e.BANGLADESH = 8] = "BANGLADESH", e[e.BELGIUM = 9] = "BELGIUM", e[e.BOSNIA_AND_HERZEGOVINA = 10] = "BOSNIA_AND_HERZEGOVINA", e[e.BRUNEI = 11] = "BRUNEI", e[e.BULGARIA = 12] = "BULGARIA", e[e.CAMBODIA = 13] = "CAMBODIA", e[e.CANADA = 14] = "CANADA", e[e.CHILE = 15] = "CHILE", e[e.COLOMBIA = 16] = "COLOMBIA", e[e.COSTA_RICA = 17] = "COSTA_RICA", e[e.CROATIA = 18] = "CROATIA", e[e.CYPRUS = 19] = "CYPRUS", e[e.CZECHIA = 20] = "CZECHIA", e[e.DENMARK = 21] = "DENMARK", e[e.DOMINICAN_REPUBLIC = 22] = "DOMINICAN_REPUBLIC", e[e.EGYPT = 23] = "EGYPT", e[e.ESTONIA = 24] = "ESTONIA", e[e.FINLAND = 25] = "FINLAND", e[e.FRANCE = 26] = "FRANCE", e[e.GEORGIA = 27] = "GEORGIA", e[e.GERMANY = 28] = "GERMANY", e[e.GHANA = 29] = "GHANA", e[e.GREECE = 30] = "GREECE", e[e.GUATEMALA = 31] = "GUATEMALA", e[e.HONG_KONG = 32] = "HONG_KONG", e[e.HUNGARY = 33] = "HUNGARY", e[e.INDIA = 34] = "INDIA", e[e.INDONESIA = 35] = "INDONESIA", e[e.IRELAND = 36] = "IRELAND", e[e.ISRAEL = 37] = "ISRAEL", e[e.ITALY = 38] = "ITALY", e[e.JORDAN = 39] = "JORDAN", e[e.KAZAKHSTAN = 40] = "KAZAKHSTAN", e[e.KENYA = 41] = "KENYA", e[e.KOSOVO = 42] = "KOSOVO", e[e.KUWAIT = 43] = "KUWAIT", e[e.LATVIA = 44] = "LATVIA", e[e.LITHUANIA = 45] = "LITHUANIA", e[e.MALAYSIA = 46] = "MALAYSIA", e[e.MALDIVES = 47] = "MALDIVES", e[e.MALTA = 48] = "MALTA", e[e.MAURITIUS = 49] = "MAURITIUS", e[e.MEXICO = 50] = "MEXICO", e[e.MOROCCO = 51] = "MOROCCO", e[e.NETHERLANDS = 52] = "NETHERLANDS", e[e.NEW_ZEALAND = 53] = "NEW_ZEALAND", e[e.NIGERIA = 54] = "NIGERIA", e[e.PAKISTAN = 55] = "PAKISTAN", e[e.PANAMA = 56] = "PANAMA", e[e.PARAGUAY = 57] = "PARAGUAY", e[e.PHILIPPINES = 58] = "PHILIPPINES", e[e.POLAND = 59] = "POLAND", e[e.PORTUGAL = 60] = "PORTUGAL", e[e.PUERTO_RICO = 61] = "PUERTO_RICO", e[e.QATAR = 62] = "QATAR", e[e.ROMANIA = 63] = "ROMANIA", e[e.RUSSIA = 64] = "RUSSIA", e[e.SAUDI_ARABIA = 65] = "SAUDI_ARABIA", e[e.SERBIA = 66] = "SERBIA", e[e.SINGAPORE = 67] = "SINGAPORE", e[e.SLOVAKIA = 68] = "SLOVAKIA", e[e.SLOVENIA = 69] = "SLOVENIA", e[e.SOUTH_AFRICA = 70] = "SOUTH_AFRICA", e[e.SPAIN = 71] = "SPAIN", e[e.SWEDEN = 72] = "SWEDEN", e[e.SWITZERLAND = 73] = "SWITZERLAND", e[e.TAIWAN = 74] = "TAIWAN", e[e.THAILAND = 75] = "THAILAND", e[e.TUNISIA = 76] = "TUNISIA", e[e.TURKEY = 77] = "TURKEY", e[e.UAE = 78] = "UAE", e[e.UGANDA = 79] = "UGANDA", e[e.UK = 80] = "UK", e[e.UKRAINE = 81] = "UKRAINE", e[e.USA = 82] = "USA", e[e.VIETNAM = 83] = "VIETNAM", e[e.BRAZIL = 84] = "BRAZIL", e[e.NORWAY = 85] = "NORWAY", e[e.OMAN = 86] = "OMAN", e[e.ECUADOR = 87] = "ECUADOR", e[e.EL_SALVADOR = 88] = "EL_SALVADOR", e[e.SRI_LANKA = 89] = "SRI_LANKA", e[e.PERU = 90] = "PERU", e[e.URUGUAY = 91] = "URUGUAY", e[e.BAHAMAS = 92] = "BAHAMAS", e[e.BERMUDA = 93] = "BERMUDA", e[e.BOLIVIA = 94] = "BOLIVIA", e[e.CHINA = 95] = "CHINA", e[e.EUROPEAN_UNION = 96] = "EUROPEAN_UNION", e[e.HAITI = 97] = "HAITI", e[e.HONDURAS = 98] = "HONDURAS", e[e.ICELAND = 99] = "ICELAND", e[e.JAPAN = 100] = "JAPAN", e[e.LUXEMBOURG = 101] = "LUXEMBOURG", e[e.MONTENEGRO = 102] = "MONTENEGRO", e[e.NICARAGUA = 103] = "NICARAGUA", e[e.SOUTH_KOREA = 104] = "SOUTH_KOREA", e[e.VENEZUELA = 105] = "VENEZUELA", e[e.AFGHANISTAN = 106] = "AFGHANISTAN", e[e.ALAND_ISLANDS = 107] = "ALAND_ISLANDS", e[e.AMERICAN_SAMOA = 108] = "AMERICAN_SAMOA", e[e.ANDORRA = 109] = "ANDORRA", e[e.ANGOLA = 110] = "ANGOLA", e[e.ANGUILLA = 111] = "ANGUILLA", e[e.ANTARCTICA = 112] = "ANTARCTICA", e[e.ANTIGUA_AND_BARBUDA = 113] = "ANTIGUA_AND_BARBUDA", e[e.ARMENIA = 114] = "ARMENIA", e[e.ARUBA = 115] = "ARUBA", e[e.BAILIWICK_OF_GUERNSEY = 116] = "BAILIWICK_OF_GUERNSEY", e[e.BAILIWICK_OF_JERSEY = 117] = "BAILIWICK_OF_JERSEY", e[e.BARBADOS = 118] = "BARBADOS", e[e.BELARUS = 119] = "BELARUS", e[e.BELIZE = 120] = "BELIZE", e[e.BENIN = 121] = "BENIN", e[e.BHUTAN = 122] = "BHUTAN", e[e.BONAIRE_SAINT_EUSTATIUS_AND_SABA = 123] = "BONAIRE_SAINT_EUSTATIUS_AND_SABA", e[e.BOTSWANA = 124] = "BOTSWANA", e[e.BOUVET_ISLAND = 125] = "BOUVET_ISLAND", e[e.BRITISH_INDIAN_OCEAN_TERRITORY = 126] = "BRITISH_INDIAN_OCEAN_TERRITORY", e[e.BURKINA_FASO = 127] = "BURKINA_FASO", e[e.BURUNDI = 128] = "BURUNDI", e[e.CAMEROON = 129] = "CAMEROON", e[e.CAPE_VERDE = 130] = "CAPE_VERDE", e[e.CARIBBEAN_NETHERLANDS = 131] = "CARIBBEAN_NETHERLANDS", e[e.CAYMAN_ISLANDS = 132] = "CAYMAN_ISLANDS", e[e.CENTRAL_AFRICAN_REPUBLIC = 133] = "CENTRAL_AFRICAN_REPUBLIC", e[e.CHAD = 134] = "CHAD", e[e.CHRISTMAS_ISLAND = 135] = "CHRISTMAS_ISLAND", e[e.COCOS_ISLANDS = 136] = "COCOS_ISLANDS", e[e.COMOROS = 137] = "COMOROS", e[e.CONGO = 138] = "CONGO", e[e.COOK_ISLANDS = 139] = "COOK_ISLANDS", e[e.CUBA = 140] = "CUBA", e[e.CURACAO = 141] = "CURACAO", e[e.DEMOCRATIC_REPUBLIC_OF_THE_CONGO = 142] = "DEMOCRATIC_REPUBLIC_OF_THE_CONGO", e[e.DJIBOUTI = 143] = "DJIBOUTI", e[e.DOMINICA = 144] = "DOMINICA", e[e.EAST_TIMOR = 145] = "EAST_TIMOR", e[e.EQUATORIAL_GUINEA = 146] = "EQUATORIAL_GUINEA", e[e.ERITREA = 147] = "ERITREA", e[e.ETHIOPIA = 148] = "ETHIOPIA", e[e.FALKLAND_ISLANDS = 149] = "FALKLAND_ISLANDS", e[e.FAROE_ISLANDS = 150] = "FAROE_ISLANDS", e[e.FEDERATED_STATES_OF_MICRONESIA = 151] = "FEDERATED_STATES_OF_MICRONESIA", e[e.FIJI = 152] = "FIJI", e[e.FRENCH_GUIANA = 153] = "FRENCH_GUIANA", e[e.FRENCH_POLYNESIA = 154] = "FRENCH_POLYNESIA", e[e.FRENCH_SOUTHERN_TERRITORIES = 155] = "FRENCH_SOUTHERN_TERRITORIES", e[e.GABON = 156] = "GABON", e[e.GAMBIA = 157] = "GAMBIA", e[e.GIBRALTAR = 158] = "GIBRALTAR", e[e.GREENLAND = 159] = "GREENLAND", e[e.GRENADA = 160] = "GRENADA", e[e.GUADELOUPE = 161] = "GUADELOUPE", e[e.GUAM = 162] = "GUAM", e[e.GUINEA = 163] = "GUINEA", e[e.GUINEA_BISSAU = 164] = "GUINEA_BISSAU", e[e.GUYANA = 165] = "GUYANA", e[e.HEARD_ISLAND_AND_MCDONALD_ISLANDS = 166] = "HEARD_ISLAND_AND_MCDONALD_ISLANDS", e[e.IRAN = 167] = "IRAN", e[e.IRAQ = 168] = "IRAQ", e[e.ISLE_OF_MAN = 169] = "ISLE_OF_MAN", e[e.IVORY_COAST = 170] = "IVORY_COAST", e[e.JAMAICA = 171] = "JAMAICA", e[e.KIRIBATI = 172] = "KIRIBATI", e[e.KYRGYZSTAN = 173] = "KYRGYZSTAN", e[e.LAOS = 174] = "LAOS", e[e.LEBANON = 175] = "LEBANON", e[e.LESOTHO = 176] = "LESOTHO", e[e.LIBERIA = 177] = "LIBERIA", e[e.LIBYA = 178] = "LIBYA", e[e.LIECHTENSTEIN = 179] = "LIECHTENSTEIN", e[e.MACAU = 180] = "MACAU", e[e.MADAGASCAR = 181] = "MADAGASCAR", e[e.MALAWI = 182] = "MALAWI", e[e.MALI = 183] = "MALI", e[e.MARSHALL_ISLANDS = 184] = "MARSHALL_ISLANDS", e[e.MARTINIQUE = 185] = "MARTINIQUE", e[e.MAURITANIA = 186] = "MAURITANIA", e[e.MAYOTTE = 187] = "MAYOTTE", e[e.MOLDOVA = 188] = "MOLDOVA", e[e.MONACO = 189] = "MONACO", e[e.MONGOLIA = 190] = "MONGOLIA", e[e.MONTSERRAT = 191] = "MONTSERRAT", e[e.MOZAMBIQUE = 192] = "MOZAMBIQUE", e[e.MYANMAR = 193] = "MYANMAR", e[e.NAMIBIA = 194] = "NAMIBIA", e[e.NAURU = 195] = "NAURU", e[e.NEPAL = 196] = "NEPAL", e[e.NEW_CALEDONIA = 197] = "NEW_CALEDONIA", e[e.NIGER = 198] = "NIGER", e[e.NIUE = 199] = "NIUE", e[e.NORFOLK_ISLAND = 200] = "NORFOLK_ISLAND", e[e.NORTHERN_CYPRUS = 201] = "NORTHERN_CYPRUS", e[e.NORTHERN_MARIANA_ISLANDS = 202] = "NORTHERN_MARIANA_ISLANDS", e[e.NORTH_KOREA = 203] = "NORTH_KOREA", e[e.NORTH_MACEDONIA = 204] = "NORTH_MACEDONIA", e[e.PALAU = 205] = "PALAU", e[e.PALESTINE = 206] = "PALESTINE", e[e.PAPUA_NEW_GUINEA = 207] = "PAPUA_NEW_GUINEA", e[e.PITCAIRN = 208] = "PITCAIRN", e[e.REUNION = 209] = "REUNION", e[e.RWANDA = 210] = "RWANDA", e[e.SAINT_BARTHELEMY = 211] = "SAINT_BARTHELEMY", e[e.SAINT_HELENA_ASCENSION_AND_TRISTIAN_DA_CUNHA = 212] = "SAINT_HELENA_ASCENSION_AND_TRISTIAN_DA_CUNHA", e[e.SAINT_KITTS_AND_NEVIS = 213] = "SAINT_KITTS_AND_NEVIS", e[e.SAINT_LUCIA = 214] = "SAINT_LUCIA", e[e.SAINT_MARTIN = 215] = "SAINT_MARTIN", e[e.SAINT_PIERRE_AND_MIQUELON = 216] = "SAINT_PIERRE_AND_MIQUELON", e[e.SAINT_VINCENT_AND_THE_GRENADINES = 217] = "SAINT_VINCENT_AND_THE_GRENADINES", e[e.SAMOA = 218] = "SAMOA", e[e.SAN_MARINO = 219] = "SAN_MARINO", e[e.SAO_TOME_AND_PRINCIPE = 220] = "SAO_TOME_AND_PRINCIPE", e[e.SENEGAL = 221] = "SENEGAL", e[e.SEYCHELLES = 222] = "SEYCHELLES", e[e.SIERRA_LEONE = 223] = "SIERRA_LEONE", e[e.SINT_MAARTEN = 224] = "SINT_MAARTEN", e[e.SOLOMON_ISLANDS = 225] = "SOLOMON_ISLANDS", e[e.SOMALIA = 226] = "SOMALIA", e[e.SOUTH_GEORGIA_AND_THE_SOUTH_SANDWICH_ISLANDS = 227] = "SOUTH_GEORGIA_AND_THE_SOUTH_SANDWICH_ISLANDS", e[e.SOUTH_SUDAN = 228] = "SOUTH_SUDAN", e[e.SUDAN = 229] = "SUDAN", e[e.SURINAME = 230] = "SURINAME", e[e.SVALBARD_AND_JAN_MAYEN = 231] = "SVALBARD_AND_JAN_MAYEN", e[e.ESWATINI = 232] = "ESWATINI", e[e.SYRIA = 233] = "SYRIA", e[e.TAJIKISTAN = 234] = "TAJIKISTAN", e[e.TANZANIA = 235] = "TANZANIA", e[e.TOGO = 236] = "TOGO", e[e.TOKELAU = 237] = "TOKELAU", e[e.TONGA = 238] = "TONGA", e[e.TRINIDAD_AND_TOBAGO = 239] = "TRINIDAD_AND_TOBAGO", e[e.TURKMENISTAN = 240] = "TURKMENISTAN", e[e.TURKS_AND_CAICOS_ISLANDS = 241] = "TURKS_AND_CAICOS_ISLANDS", e[e.TUVALU = 242] = "TUVALU", e[e.UNITED_STATES_MINOR_OUTLYING_ISLANDS = 243] = "UNITED_STATES_MINOR_OUTLYING_ISLANDS", e[e.UZBEKISTAN = 244] = "UZBEKISTAN", e[e.VANUATU = 245] = "VANUATU", e[e.VATICAN_CITY = 246] = "VATICAN_CITY", e[e.VIRGIN_ISLANDS_BRITISH = 247] = "VIRGIN_ISLANDS_BRITISH", e[e.VIRGIN_ISLANDS_US = 248] = "VIRGIN_ISLANDS_US", e[e.WALLIS_AND_FUTUNA = 249] = "WALLIS_AND_FUTUNA", e[e.WESTERN_SAHARA = 250] = "WESTERN_SAHARA", e[e.YEMEN = 251] = "YEMEN", e[e.YUGOSLAVIA = 252] = "YUGOSLAVIA", e[e.ZAMBIA = 253] = "ZAMBIA", e[e.ZIMBABWE = 254] = "ZIMBABWE", e[e.COUNT = 255] = "COUNT";
-})(l0 || (l0 = {}));
-var s;
+})(c0 || (c0 = {}));
+var a;
 (function(e) {
   e[e.NONE = 0] = "NONE", e[e.ALABAMA = 1] = "ALABAMA", e[e.ALASKA = 2] = "ALASKA", e[e.ALBERTA = 3] = "ALBERTA", e[e.ARIZONA = 4] = "ARIZONA", e[e.ARKANSAS = 5] = "ARKANSAS", e[e.AUSTRALIAN_CAPITAL_TERRITORY = 6] = "AUSTRALIAN_CAPITAL_TERRITORY", e[e.BRITISH_COLUMBIA = 7] = "BRITISH_COLUMBIA", e[e.CALIFORNIA = 8] = "CALIFORNIA", e[e.COLORADO = 9] = "COLORADO", e[e.CONNECTICUT = 10] = "CONNECTICUT", e[e.DELAWARE = 11] = "DELAWARE", e[e.DISTRICT_OF_COLUMBIA = 12] = "DISTRICT_OF_COLUMBIA", e[e.FLORIDA = 13] = "FLORIDA", e[e.GEORGIA = 14] = "GEORGIA", e[e.HAWAII = 15] = "HAWAII", e[e.IDAHO = 16] = "IDAHO", e[e.ILLINOIS = 17] = "ILLINOIS", e[e.INDIANA = 18] = "INDIANA", e[e.IOWA = 19] = "IOWA", e[e.KANSAS = 20] = "KANSAS", e[e.KENTUCKY = 21] = "KENTUCKY", e[e.LOUISIANA = 22] = "LOUISIANA", e[e.MAINE = 23] = "MAINE", e[e.MANITOBA = 24] = "MANITOBA", e[e.MARYLAND = 25] = "MARYLAND", e[e.MASSACHUSETTS = 26] = "MASSACHUSETTS", e[e.MICHIGAN = 27] = "MICHIGAN", e[e.MINNESOTA = 28] = "MINNESOTA", e[e.MISSISSIPPI = 29] = "MISSISSIPPI", e[e.MISSOURI = 30] = "MISSOURI", e[e.MONTANA = 31] = "MONTANA", e[e.NEBRASKA = 32] = "NEBRASKA", e[e.NEVADA = 33] = "NEVADA", e[e.NEW_BRUNSWICK = 34] = "NEW_BRUNSWICK", e[e.NEW_HAMPSHIRE = 35] = "NEW_HAMPSHIRE", e[e.NEW_JERSEY = 36] = "NEW_JERSEY", e[e.NEW_MEXICO = 37] = "NEW_MEXICO", e[e.NEW_SOUTH_WALES = 38] = "NEW_SOUTH_WALES", e[e.NEW_YORK = 39] = "NEW_YORK", e[e.NORTHERN_TERRITORY = 40] = "NORTHERN_TERRITORY", e[e.NORTH_CAROLINA = 41] = "NORTH_CAROLINA", e[e.NORTH_DAKOTA = 42] = "NORTH_DAKOTA", e[e.NOVA_SCOTIA = 43] = "NOVA_SCOTIA", e[e.OHIO = 44] = "OHIO", e[e.OKLAHOMA = 45] = "OKLAHOMA", e[e.ONTARIO = 46] = "ONTARIO", e[e.OREGON = 47] = "OREGON", e[e.PENNSYLVANIA = 48] = "PENNSYLVANIA", e[e.QUEBEC = 49] = "QUEBEC", e[e.QUEENSLAND = 50] = "QUEENSLAND", e[e.RHODE_ISLAND = 51] = "RHODE_ISLAND", e[e.SASKATCHEWAN = 52] = "SASKATCHEWAN", e[e.SOUTH_AUSTRALIA = 53] = "SOUTH_AUSTRALIA", e[e.SOUTH_CAROLINA = 54] = "SOUTH_CAROLINA", e[e.SOUTH_DAKOTA = 55] = "SOUTH_DAKOTA", e[e.TASMANIA = 56] = "TASMANIA", e[e.TENNESSEE = 57] = "TENNESSEE", e[e.TEXAS = 58] = "TEXAS", e[e.UTAH = 59] = "UTAH", e[e.VERMONT = 60] = "VERMONT", e[e.VICTORIA = 61] = "VICTORIA", e[e.VIRGINIA = 62] = "VIRGINIA", e[e.WASHINGTON = 63] = "WASHINGTON", e[e.WESTERN_AUSTRALIA = 64] = "WESTERN_AUSTRALIA", e[e.WEST_VIRGINIA = 65] = "WEST_VIRGINIA", e[e.WISCONSIN = 66] = "WISCONSIN", e[e.WYOMING = 67] = "WYOMING", e[e.YUKON = 68] = "YUKON", e[e.CIUDAD_DE_MEXICO = 69] = "CIUDAD_DE_MEXICO", e[e.JALISCO = 70] = "JALISCO", e[e.NEWFOUNDLAND_AND_LABRADOR = 71] = "NEWFOUNDLAND_AND_LABRADOR", e[e.NUEVO_LEON = 72] = "NUEVO_LEON", e[e.BAJA_CALIFORNIA = 73] = "BAJA_CALIFORNIA", e[e.CHIHUAHUA = 74] = "CHIHUAHUA", e[e.GUANAJUATO = 75] = "GUANAJUATO", e[e.GUERRERO = 76] = "GUERRERO", e[e.MEXICO = 77] = "MEXICO", e[e.MICHOACAN = 78] = "MICHOACAN", e[e.NEW_YORK_CITY = 79] = "NEW_YORK_CITY", e[e.TAMAULIPAS = 80] = "TAMAULIPAS", e[e.VERACRUZ = 81] = "VERACRUZ", e[e.CHIAPAS = 82] = "CHIAPAS", e[e.COAHUILA = 83] = "COAHUILA", e[e.DURANGO = 84] = "DURANGO", e[e.GUERRERO_COCULA = 85] = "GUERRERO_COCULA", e[e.GUERRERO_JUCHITAN = 86] = "GUERRERO_JUCHITAN", e[e.GUERRERO_TEPECOACUILCO = 87] = "GUERRERO_TEPECOACUILCO", e[e.GUERRERO_TLACOAPA = 88] = "GUERRERO_TLACOAPA", e[e.GUJARAT = 89] = "GUJARAT", e[e.HIDALGO = 90] = "HIDALGO", e[e.KARNATAKA = 91] = "KARNATAKA", e[e.KERALA = 92] = "KERALA", e[e.KHYBER_PAKHTUNKHWA = 93] = "KHYBER_PAKHTUNKHWA", e[e.MADHYA_PRADESH = 94] = "MADHYA_PRADESH", e[e.MAHARASHTRA = 95] = "MAHARASHTRA", e[e.MORELOS = 96] = "MORELOS", e[e.NAYARIT = 97] = "NAYARIT", e[e.OAXACA = 98] = "OAXACA", e[e.PUEBLA = 99] = "PUEBLA", e[e.PUNJAB = 100] = "PUNJAB", e[e.QUERETARO = 101] = "QUERETARO", e[e.SAN_LUIS_POTOSI = 102] = "SAN_LUIS_POTOSI", e[e.SINALOA = 103] = "SINALOA", e[e.SONORA = 104] = "SONORA", e[e.TABASCO = 105] = "TABASCO", e[e.TAMIL_NADU = 106] = "TAMIL_NADU", e[e.YUCATAN = 107] = "YUCATAN", e[e.ZACATECAS = 108] = "ZACATECAS", e[e.AGUASCALIENTES = 109] = "AGUASCALIENTES", e[e.BAJA_CALIFORNIA_SUR = 110] = "BAJA_CALIFORNIA_SUR", e[e.CAMPECHE = 111] = "CAMPECHE", e[e.COLIMA = 112] = "COLIMA", e[e.QUINTANA_ROO_BENITO_JUAREZ = 113] = "QUINTANA_ROO_BENITO_JUAREZ", e[e.UINTANA_ROO = 114] = "UINTANA_ROO", e[e.QUINTANA_ROO_SOLIDARIDAD = 115] = "QUINTANA_ROO_SOLIDARIDAD", e[e.TLAXCALA = 116] = "TLAXCALA", e[e.QUINTANA_ROO_COZUMEL = 117] = "QUINTANA_ROO_COZUMEL", e[e.COUNT = 118] = "COUNT";
-})(s || (s = {}));
+})(a || (a = {}));
 var l;
 (function(e) {
   e[e.NONE = 0] = "NONE", e[e.CONSULAR_ID = 1] = "CONSULAR_ID", e[e.DL = 2] = "DL", e[e.DL_PUBLIC_SERVICES_CARD = 3] = "DL_PUBLIC_SERVICES_CARD", e[e.EMPLOYMENT_PASS = 4] = "EMPLOYMENT_PASS", e[e.FIN_CARD = 5] = "FIN_CARD", e[e.ID = 6] = "ID", e[e.MULTIPURPOSE_ID = 7] = "MULTIPURPOSE_ID", e[e.MyKad = 8] = "MyKad", e[e.MyKid = 9] = "MyKid", e[e.MyPR = 10] = "MyPR", e[e.MyTentera = 11] = "MyTentera", e[e.PAN_CARD = 12] = "PAN_CARD", e[e.PROFESSIONAL_ID = 13] = "PROFESSIONAL_ID", e[e.PUBLIC_SERVICES_CARD = 14] = "PUBLIC_SERVICES_CARD", e[e.RESIDENCE_PERMIT = 15] = "RESIDENCE_PERMIT", e[e.RESIDENT_ID = 16] = "RESIDENT_ID", e[e.TEMPORARY_RESIDENCE_PERMIT = 17] = "TEMPORARY_RESIDENCE_PERMIT", e[e.VOTER_ID = 18] = "VOTER_ID", e[e.WORK_PERMIT = 19] = "WORK_PERMIT", e[e.iKAD = 20] = "iKAD", e[e.MILITARY_ID = 21] = "MILITARY_ID", e[e.MyKAS = 22] = "MyKAS", e[e.SOCIAL_SECURITY_CARD = 23] = "SOCIAL_SECURITY_CARD", e[e.HEALTH_INSURANCE_CARD = 24] = "HEALTH_INSURANCE_CARD", e[e.PASSPORT = 25] = "PASSPORT", e[e.S_PASS = 26] = "S_PASS", e[e.ADDRESS_CARD = 27] = "ADDRESS_CARD", e[e.ALIEN_ID = 28] = "ALIEN_ID", e[e.ALIEN_PASSPORT = 29] = "ALIEN_PASSPORT", e[e.GREEN_CARD = 30] = "GREEN_CARD", e[e.MINORS_ID = 31] = "MINORS_ID", e[e.POSTAL_ID = 32] = "POSTAL_ID", e[e.PROFESSIONAL_DL = 33] = "PROFESSIONAL_DL", e[e.TAX_ID = 34] = "TAX_ID", e[e.WEAPON_PERMIT = 35] = "WEAPON_PERMIT", e[e.VISA = 36] = "VISA", e[e.BORDER_CROSSING_CARD = 37] = "BORDER_CROSSING_CARD", e[e.DRIVER_CARD = 38] = "DRIVER_CARD", e[e.GLOBAL_ENTRY_CARD = 39] = "GLOBAL_ENTRY_CARD", e[e.MyPolis = 40] = "MyPolis", e[e.NEXUS_CARD = 41] = "NEXUS_CARD", e[e.PASSPORT_CARD = 42] = "PASSPORT_CARD", e[e.PROOF_OF_AGE_CARD = 43] = "PROOF_OF_AGE_CARD", e[e.REFUGEE_ID = 44] = "REFUGEE_ID", e[e.TRIBAL_ID = 45] = "TRIBAL_ID", e[e.VETERAN_ID = 46] = "VETERAN_ID", e[e.CITIZENSHIP_CERTIFICATE = 47] = "CITIZENSHIP_CERTIFICATE", e[e.MY_NUMBER_CARD = 48] = "MY_NUMBER_CARD", e[e.CONSULAR_PASSPORT = 49] = "CONSULAR_PASSPORT", e[e.MINORS_PASSPORT = 50] = "MINORS_PASSPORT", e[e.MINORS_PUBLIC_SERVICES_CARD = 51] = "MINORS_PUBLIC_SERVICES_CARD", e[e.COUNT = 52] = "COUNT";
 })(l || (l = {}));
-var u0;
-(function(e) {
-  e[e.NotAvailable = 0] = "NotAvailable", e[e.BlackAndWhite = 1] = "BlackAndWhite", e[e.Color = 2] = "Color";
-})(u0 || (u0 = {}));
-var c0;
-(function(e) {
-  e[e.NotAvailable = 0] = "NotAvailable", e[e.NotDetected = 1] = "NotDetected", e[e.Detected = 2] = "Detected";
-})(c0 || (c0 = {}));
-var d0;
-(function(e) {
-  e[e.Success = 0] = "Success", e[e.DetectionFailed = 1] = "DetectionFailed", e[e.ImagePreprocessingFailed = 2] = "ImagePreprocessingFailed", e[e.StabilityTestFailed = 3] = "StabilityTestFailed", e[e.ScanningWrongSide = 4] = "ScanningWrongSide", e[e.FieldIdentificationFailed = 5] = "FieldIdentificationFailed", e[e.MandatoryFieldMissing = 6] = "MandatoryFieldMissing", e[e.InvalidCharactersFound = 7] = "InvalidCharactersFound", e[e.ImageReturnFailed = 8] = "ImageReturnFailed", e[e.BarcodeRecognitionFailed = 9] = "BarcodeRecognitionFailed", e[e.MrzParsingFailed = 10] = "MrzParsingFailed", e[e.ClassFiltered = 11] = "ClassFiltered", e[e.UnsupportedClass = 12] = "UnsupportedClass", e[e.UnsupportedByLicense = 13] = "UnsupportedByLicense", e[e.AwaitingOtherSide = 14] = "AwaitingOtherSide", e[e.Count = 15] = "Count";
-})(d0 || (d0 = {}));
 var I0;
 (function(e) {
-  e[e.None = 0] = "None", e[e.MrzId = 1] = "MrzId", e[e.MrzVisa = 2] = "MrzVisa", e[e.MrzPassport = 3] = "MrzPassport", e[e.PhotoId = 4] = "PhotoId", e[e.FullRecognition = 5] = "FullRecognition", e[e.BarcodeId = 6] = "BarcodeId", e[e.Count = 7] = "Count";
+  e[e.NotAvailable = 0] = "NotAvailable", e[e.BlackAndWhite = 1] = "BlackAndWhite", e[e.Color = 2] = "Color";
 })(I0 || (I0 = {}));
-function O0(e) {
-  return l1(this, void 0, void 0, function* () {
-    return e.mbWasmModule.newRecognizer("BlinkIdRecognizer");
-  });
-}
-function E0(e) {
-  return l1(this, void 0, void 0, function* () {
-    return e.mbWasmModule.newRecognizer("BlinkIdCombinedRecognizer");
-  });
-}
 var A0;
 (function(e) {
-  e[e.None = 0] = "None", e[e.AAMVACompliant = 1] = "AAMVACompliant", e[e.ArgentinaID = 2] = "ArgentinaID", e[e.ArgentinaAlienID = 3] = "ArgentinaAlienID", e[e.ArgentinaDL = 4] = "ArgentinaDL", e[e.ColombiaID = 5] = "ColombiaID", e[e.ColombiaDL = 6] = "ColombiaDL", e[e.NigeriaVoterID = 7] = "NigeriaVoterID", e[e.NigeriaDL = 8] = "NigeriaDL", e[e.PanamaID = 9] = "PanamaID", e[e.SouthAfricaID = 10] = "SouthAfricaID";
+  e[e.NotAvailable = 0] = "NotAvailable", e[e.NotDetected = 1] = "NotDetected", e[e.Detected = 2] = "Detected";
 })(A0 || (A0 = {}));
-function K1(e) {
+var N0;
+(function(e) {
+  e[e.Success = 0] = "Success", e[e.DetectionFailed = 1] = "DetectionFailed", e[e.ImagePreprocessingFailed = 2] = "ImagePreprocessingFailed", e[e.StabilityTestFailed = 3] = "StabilityTestFailed", e[e.ScanningWrongSide = 4] = "ScanningWrongSide", e[e.FieldIdentificationFailed = 5] = "FieldIdentificationFailed", e[e.MandatoryFieldMissing = 6] = "MandatoryFieldMissing", e[e.InvalidCharactersFound = 7] = "InvalidCharactersFound", e[e.ImageReturnFailed = 8] = "ImageReturnFailed", e[e.BarcodeRecognitionFailed = 9] = "BarcodeRecognitionFailed", e[e.MrzParsingFailed = 10] = "MrzParsingFailed", e[e.ClassFiltered = 11] = "ClassFiltered", e[e.UnsupportedClass = 12] = "UnsupportedClass", e[e.UnsupportedByLicense = 13] = "UnsupportedByLicense", e[e.AwaitingOtherSide = 14] = "AwaitingOtherSide", e[e.Count = 15] = "Count";
+})(N0 || (N0 = {}));
+var p0;
+(function(e) {
+  e[e.None = 0] = "None", e[e.MrzId = 1] = "MrzId", e[e.MrzVisa = 2] = "MrzVisa", e[e.MrzPassport = 3] = "MrzPassport", e[e.PhotoId = 4] = "PhotoId", e[e.FullRecognition = 5] = "FullRecognition", e[e.BarcodeId = 6] = "BarcodeId", e[e.Count = 7] = "Count";
+})(p0 || (p0 = {}));
+function m0(e) {
+  return l1(this, void 0, void 0, function* () {
+    return e.mbWasmModule.newRecognizer(atob("QmxpbmtJZFJlY29nbml6ZXI="));
+  });
+}
+function C0(e) {
+  return l1(this, void 0, void 0, function* () {
+    return e.mbWasmModule.newRecognizer(atob("QmxpbmtJZENvbWJpbmVkUmVjb2duaXplcg=="));
+  });
+}
+var R0;
+(function(e) {
+  e[e.None = 0] = "None", e[e.AAMVACompliant = 1] = "AAMVACompliant", e[e.ArgentinaID = 2] = "ArgentinaID", e[e.ArgentinaAlienID = 3] = "ArgentinaAlienID", e[e.ArgentinaDL = 4] = "ArgentinaDL", e[e.ColombiaID = 5] = "ColombiaID", e[e.ColombiaDL = 6] = "ColombiaDL", e[e.NigeriaVoterID = 7] = "NigeriaVoterID", e[e.NigeriaDL = 8] = "NigeriaDL", e[e.PanamaID = 9] = "PanamaID", e[e.SouthAfricaID = 10] = "SouthAfricaID";
+})(R0 || (R0 = {}));
+function x1(e) {
   return typeof e == "object" && e != null;
 }
-function W0(e) {
-  return K1(e) && Object.prototype.hasOwnProperty.call(e, "code") && Object.values(c2).includes(e.code);
+function K0(e) {
+  return x1(e) && Object.prototype.hasOwnProperty.call(e, "code") && Object.values(d).includes(e.code);
 }
-var H1 = /* @__PURE__ */ new Map();
-H1.set([77, 105, 99, 114, 111, 98, 108, 105, 110, 107], "Scandit");
-H1.set([66, 108, 105, 110, 107, 73, 68], "ID Capture");
+var Z1 = /* @__PURE__ */ new Map();
+Z1.set([77, 105, 99, 114, 111, 98, 108, 105, 110, 107], "Scandit");
+Z1.set([66, 108, 105, 110, 107, 73, 68], "ID Capture");
 var B = class {
   constructor() {
     n(this, "licenseKey");
     n(this, "wasmSDK");
   }
   static async load(t) {
-    let i = new B();
+    let r = new B();
     try {
-      await i.initCentaurus(t);
-    } catch (r) {
-      if (W0(r)) {
-        if (r.code === c2.LICENSE_UNLOCK_ERROR)
+      await r.initCentaurus(t);
+    } catch (i) {
+      if (K0(i)) {
+        if (i.code === d.LICENSE_UNLOCK_ERROR)
           throw new J({ message: "Invalid license key. Platform or domain may be incorrect.", name: "IdCaptureLoadingError" });
-        if (r.code === c2.SDK_LICENSE_KEY_MISSING)
+        if (i.code === d.SDK_LICENSE_KEY_MISSING)
           throw new J({ message: "Invalid license key (sub-part is missing).", name: "IdCaptureLoadingError" });
       }
-      throw new J({ message: B.replaceCentaurusMentions(K1(r) ? r.message : "(no message)", H1), name: "IdCaptureLoadingError" });
+      throw new J({ message: B.replaceCentaurusMentions(x1(i) ? i.message : "(no message)", Z1), name: "IdCaptureLoadingError" });
     }
-    return i;
+    return r;
   }
-  static replaceCentaurusMentions(t, i) {
-    return typeof t == "string" ? [...i.entries()].reduce((r, [a, o]) => {
-      let d = a.map((R2) => String.fromCodePoint(R2)).join("");
-      return r.replace(new RegExp(d, "gi"), o);
+  static replaceCentaurusMentions(t, r) {
+    return typeof t == "string" ? [...r.entries()].reduce((i, [s, o]) => {
+      let c2 = s.map((R2) => String.fromCodePoint(R2)).join("");
+      return i.replace(new RegExp(c2, "gi"), o);
     }, t) : "(no message)";
   }
   async initCentaurus(t) {
     this.licenseKey = t.licenseKey;
-    let i = new T1(t.licenseKey);
-    i.engineLocation = t.libraryLocation;
-    let r = new URL("Centaurus.worker.min.js", t.libraryLocation).toString(), a = new Blob([`importScripts("${r}");`], { type: "text/javascript" });
-    i.workerLocation = URL.createObjectURL(a), i.allowHelloMessage = false, i.wasmModuleName = "Centaurus", this.wasmSDK = await S0(i);
+    let r = new M1(t.licenseKey);
+    r.engineLocation = t.libraryLocation;
+    let i = new URL("Centaurus.worker.min.js", t.libraryLocation).toString(), s = new Blob([`importScripts("${i}");`], { type: "text/javascript" });
+    r.workerLocation = URL.createObjectURL(s), r.allowHelloMessage = false, r.wasmModuleName = "Centaurus", this.wasmSDK = await O0(r);
   }
 };
-var V0 = URL.createObjectURL(new Blob([new Uint8Array([40, 40, 41, 61, 62, 123, 118, 97, 114, 32, 36, 61, 79, 98, 106, 101, 99, 116, 46, 100, 101, 102, 105, 110, 101, 80, 114, 111, 112, 101, 114, 116, 121, 59, 118, 97, 114, 32, 86, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 116, 32, 105, 110, 32, 101, 63, 36, 40, 101, 44, 116, 44, 123, 101, 110, 117, 109, 101, 114, 97, 98, 108, 101, 58, 33, 48, 44, 99, 111, 110, 102, 105, 103, 117, 114, 97, 98, 108, 101, 58, 33, 48, 44, 119, 114, 105, 116, 97, 98, 108, 101, 58, 33, 48, 44, 118, 97, 108, 117, 101, 58, 114, 125, 41, 58, 101, 91, 116, 93, 61, 114, 59, 118, 97, 114, 32, 103, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 40, 86, 40, 101, 44, 116, 121, 112, 101, 111, 102, 32, 116, 33, 61, 34, 115, 121, 109, 98, 111, 108, 34, 63, 116, 43, 34, 34, 58, 116, 44, 114, 41, 44, 114, 41, 59, 118, 97, 114, 32, 72, 61, 79, 98, 106, 101, 99, 116, 46, 100, 101, 102, 105, 110, 101, 80, 114, 111, 112, 101, 114, 116, 121, 59, 118, 97, 114, 32, 74, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 116, 32, 105, 110, 32, 101, 63, 72, 40, 101, 44, 116, 44, 123, 101, 110, 117, 109, 101, 114, 97, 98, 108, 101, 58, 33, 48, 44, 99, 111, 110, 102, 105, 103, 117, 114, 97, 98, 108, 101, 58, 33, 48, 44, 119, 114, 105, 116, 97, 98, 108, 101, 58, 33, 48, 44, 118, 97, 108, 117, 101, 58, 114, 125, 41, 58, 101, 91, 116, 93, 61, 114, 59, 118, 97, 114, 32, 109, 61, 40, 101, 44, 116, 44, 114, 41, 61, 62, 40, 74, 40, 101, 44, 116, 121, 112, 101, 111, 102, 32, 116, 33, 61, 34, 115, 121, 109, 98, 111, 108, 34, 63, 116, 43, 34, 34, 58, 116, 44, 114, 41, 44, 114, 41, 44, 99, 59, 40, 101, 61, 62, 123, 108, 101, 116, 32, 116, 59, 40, 100, 61, 62, 40, 100, 46, 68, 101, 98, 117, 103, 61, 34, 100, 101, 98, 117, 103, 34, 44, 100, 46, 73, 110, 102, 111, 61, 34, 105, 110, 102, 111, 34, 44, 100, 46, 87, 97, 114, 110, 61, 34, 119, 97, 114, 110, 34, 44, 100, 46, 69, 114, 114, 111, 114, 61, 34, 101, 114, 114, 111, 114, 34, 44, 100, 46, 81, 117, 105, 101, 116, 61, 34, 113, 117, 105, 101, 116, 34, 41, 41, 40, 116, 61, 101, 46, 76, 101, 118, 101, 108, 124, 124, 40, 101, 46, 76, 101, 118, 101, 108, 61, 123, 125, 41, 41, 59, 108, 101, 116, 32, 114, 61, 110, 101, 119, 32, 77, 97, 112, 40, 91, 91, 34, 100, 101, 98, 117, 103, 34, 44, 49, 93, 44, 91, 34, 105, 110, 102, 111, 34, 44, 50, 93, 44, 91, 34, 119, 97, 114, 110, 34, 44, 51, 93, 44, 91, 34, 101, 114, 114, 111, 114, 34, 44, 52, 93, 44, 91, 34, 113, 117, 105, 101, 116, 34, 44, 53, 93, 93, 41, 44, 105, 61, 34, 100, 101, 98, 117, 103, 34, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 97, 40, 100, 41, 123, 105, 61, 100, 125, 101, 46, 115, 101, 116, 76, 101, 118, 101, 108, 61, 97, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 111, 40, 100, 44, 46, 46, 46, 110, 41, 123, 105, 102, 40, 33, 40, 114, 46, 103, 101, 116, 40, 105, 41, 62, 114, 46, 103, 101, 116, 40, 100, 41, 41, 41, 115, 119, 105, 116, 99, 104, 40, 100, 41, 123, 99, 97, 115, 101, 34, 100, 101, 98, 117, 103, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 100, 101, 98, 117, 103, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 105, 110, 102, 111, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 108, 111, 103, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 119, 97, 114, 110, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 119, 97, 114, 110, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 101, 114, 114, 111, 114, 34, 58, 99, 111, 110, 115, 111, 108, 101, 46, 101, 114, 114, 111, 114, 40, 46, 46, 46, 110, 41, 59, 98, 114, 101, 97, 107, 59, 100, 101, 102, 97, 117, 108, 116, 58, 98, 114, 101, 97, 107, 125, 125, 101, 46, 108, 111, 103, 61, 111, 125, 41, 40, 99, 124, 124, 40, 99, 61, 123, 125, 41, 41, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 85, 40, 101, 44, 116, 44, 114, 44, 105, 41, 123, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 97, 40, 115, 41, 123, 116, 114, 121, 123, 108, 101, 116, 32, 108, 61, 97, 119, 97, 105, 116, 40, 115, 33, 61, 110, 117, 108, 108, 63, 115, 58, 97, 119, 97, 105, 116, 32, 104, 40, 33, 48, 41, 41, 46, 97, 114, 114, 97, 121, 66, 117, 102, 102, 101, 114, 40, 41, 44, 117, 61, 97, 119, 97, 105, 116, 32, 115, 101, 108, 102, 46, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 46, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 40, 108, 44, 101, 41, 59, 105, 40, 117, 46, 105, 110, 115, 116, 97, 110, 99, 101, 44, 117, 46, 109, 111, 100, 117, 108, 101, 41, 125, 99, 97, 116, 99, 104, 40, 108, 41, 123, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 69, 114, 114, 111, 114, 44, 108, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 69, 114, 114, 111, 114, 44, 96, 67, 111, 117, 108, 100, 110, 39, 116, 32, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 83, 68, 75, 32, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 97, 116, 32, 36, 123, 116, 125, 44, 32, 100, 105, 100, 32, 121, 111, 117, 32, 99, 111, 110, 102, 105, 103, 117, 114, 101, 32, 116, 104, 101, 32, 112, 97, 116, 104, 32, 102, 111, 114, 32, 105, 116, 32, 99, 111, 114, 114, 101, 99, 116, 108, 121, 63, 96, 41, 125, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 111, 40, 41, 123, 108, 101, 116, 32, 115, 61, 97, 119, 97, 105, 116, 32, 104, 40, 33, 49, 41, 59, 116, 114, 121, 123, 108, 101, 116, 32, 108, 61, 97, 119, 97, 105, 116, 32, 115, 101, 108, 102, 46, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 46, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 83, 116, 114, 101, 97, 109, 105, 110, 103, 40, 115, 44, 101, 41, 59, 105, 40, 108, 46, 105, 110, 115, 116, 97, 110, 99, 101, 44, 108, 46, 109, 111, 100, 117, 108, 101, 41, 125, 99, 97, 116, 99, 104, 40, 108, 41, 123, 114, 101, 116, 117, 114, 110, 32, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 108, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 34, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 32, 115, 116, 114, 101, 97, 109, 105, 110, 103, 32, 99, 111, 109, 112, 105, 108, 101, 32, 102, 97, 105, 108, 101, 100, 46, 32, 70, 97, 108, 108, 105, 110, 103, 32, 98, 97, 99, 107, 32, 116, 111, 32, 65, 114, 114, 97, 121, 66, 117, 102, 102, 101, 114, 32, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 105, 111, 110, 32, 40, 116, 104, 105, 115, 32, 119, 105, 108, 108, 32, 109, 97, 107, 101, 32, 116, 104, 105, 110, 103, 115, 32, 115, 108, 111, 119, 101, 114, 41, 34, 41, 44, 97, 40, 115, 46, 98, 111, 100, 121, 85, 115, 101, 100, 63, 118, 111, 105, 100, 32, 48, 58, 115, 41, 125, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 100, 40, 115, 41, 123, 114, 101, 116, 117, 114, 110, 91, 46, 46, 46, 110, 101, 119, 32, 85, 105, 110, 116, 56, 65, 114, 114, 97, 121, 40, 115, 41, 93, 46, 109, 97, 112, 40, 108, 61, 62, 123, 108, 101, 116, 32, 117, 61, 108, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 49, 54, 41, 59, 114, 101, 116, 117, 114, 110, 32, 117, 46, 108, 101, 110, 103, 116, 104, 61, 61, 61, 49, 63, 96, 48, 36, 123, 117, 125, 96, 58, 117, 125, 41, 46, 106, 111, 105, 110, 40, 34, 34, 41, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 110, 40, 115, 41, 123, 116, 121, 112, 101, 111, 102, 32, 99, 114, 121, 112, 116, 111, 46, 115, 117, 98, 116, 108, 101, 46, 100, 105, 103, 101, 115, 116, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 99, 114, 121, 112, 116, 111, 46, 115, 117, 98, 116, 108, 101, 46, 100, 105, 103, 101, 115, 116, 40, 34, 83, 72, 65, 45, 50, 53, 54, 34, 44, 115, 41, 46, 116, 104, 101, 110, 40, 108, 61, 62, 123, 108, 101, 116, 32, 117, 61, 100, 40, 108, 41, 59, 114, 124, 124, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 34, 84, 104, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 104, 97, 115, 104, 32, 105, 115, 32, 110, 111, 116, 32, 100, 101, 102, 105, 110, 101, 100, 32, 111, 114, 32, 101, 109, 112, 116, 121, 44, 32, 99, 97, 110, 110, 111, 116, 32, 99, 111, 114, 114, 101, 99, 116, 108, 121, 32, 118, 101, 114, 105, 102, 121, 32, 105, 110, 116, 101, 103, 114, 105, 116, 121, 46, 34, 41, 44, 117, 33, 61, 61, 114, 38, 38, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 84, 104, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 87, 65, 83, 77, 32, 102, 105, 108, 101, 32, 102, 111, 117, 110, 100, 32, 97, 116, 32, 36, 123, 116, 125, 32, 115, 101, 101, 109, 115, 32, 105, 110, 118, 97, 108, 105, 100, 58, 32, 101, 120, 112, 101, 99, 116, 101, 100, 32, 102, 105, 108, 101, 32, 104, 97, 115, 104, 32, 100, 111, 101, 115, 110, 39, 116, 32, 109, 97, 116, 99, 104, 32, 40, 114, 101, 99, 101, 105, 118, 101, 100, 58, 32, 36, 123, 117, 125, 44, 32, 101, 120, 112, 101, 99, 116, 101, 100, 58, 32, 36, 123, 114, 125, 41, 46, 32, 80, 108, 101, 97, 115, 101, 32, 101, 110, 115, 117, 114, 101, 32, 116, 104, 101, 32, 99, 111, 114, 114, 101, 99, 116, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 102, 105, 108, 101, 32, 40, 119, 105, 116, 104, 32, 99, 111, 114, 114, 101, 99, 116, 32, 118, 101, 114, 115, 105, 111, 110, 41, 32, 105, 115, 32, 114, 101, 116, 114, 105, 101, 118, 101, 100, 46, 96, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 40, 41, 61, 62, 123, 125, 41, 58, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 73, 110, 115, 101, 99, 117, 114, 101, 32, 99, 111, 110, 116, 101, 120, 116, 32, 40, 115, 101, 101, 32, 104, 116, 116, 112, 115, 58, 47, 47, 100, 101, 118, 101, 108, 111, 112, 101, 114, 46, 109, 111, 122, 105, 108, 108, 97, 46, 111, 114, 103, 47, 101, 110, 45, 85, 83, 47, 100, 111, 99, 115, 47, 87, 101, 98, 47, 83, 101, 99, 117, 114, 105, 116, 121, 47, 83, 101, 99, 117, 114, 101, 95, 67, 111, 110, 116, 101, 120, 116, 115, 41, 58, 32, 84, 104, 101, 32, 104, 97, 115, 104, 32, 111, 102, 32, 116, 104, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 87, 65, 83, 77, 32, 102, 105, 108, 101, 32, 102, 111, 117, 110, 100, 32, 97, 116, 32, 36, 123, 116, 125, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 98, 101, 32, 118, 101, 114, 105, 102, 105, 101, 100, 96, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 104, 40, 115, 41, 123, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 108, 44, 117, 41, 61, 62, 123, 102, 101, 116, 99, 104, 40, 116, 41, 46, 116, 104, 101, 110, 40, 112, 61, 62, 123, 112, 46, 111, 107, 63, 40, 112, 46, 99, 108, 111, 110, 101, 40, 41, 46, 97, 114, 114, 97, 121, 66, 117, 102, 102, 101, 114, 40, 41, 46, 116, 104, 101, 110, 40, 67, 61, 62, 123, 115, 38, 38, 108, 40, 112, 41, 44, 110, 40, 67, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 67, 61, 62, 123, 115, 38, 38, 117, 40, 67, 41, 125, 41, 44, 115, 124, 124, 108, 40, 112, 41, 41, 58, 117, 40, 110, 101, 119, 32, 69, 114, 114, 111, 114, 40, 34, 72, 84, 84, 80, 32, 115, 116, 97, 116, 117, 115, 32, 99, 111, 100, 101, 32, 105, 115, 32, 110, 111, 116, 32, 111, 107, 34, 41, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 112, 61, 62, 123, 117, 40, 112, 41, 125, 41, 125, 41, 125, 116, 121, 112, 101, 111, 102, 32, 115, 101, 108, 102, 46, 87, 101, 98, 65, 115, 115, 101, 109, 98, 108, 121, 46, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 83, 116, 114, 101, 97, 109, 105, 110, 103, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 111, 40, 41, 58, 97, 40, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 66, 40, 101, 41, 123, 108, 101, 116, 32, 116, 44, 123, 112, 114, 101, 108, 111, 97, 100, 105, 110, 103, 58, 114, 125, 61, 101, 44, 105, 61, 80, 114, 111, 109, 105, 115, 101, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 97, 61, 33, 49, 44, 111, 61, 33, 49, 59, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 100, 40, 41, 123, 108, 101, 116, 32, 115, 61, 34, 70, 73, 76, 69, 95, 68, 65, 84, 65, 34, 44, 108, 44, 117, 44, 112, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 67, 40, 41, 123, 117, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 112, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 108, 40, 48, 41, 125, 102, 117, 110, 99, 116, 105, 111, 110, 32, 119, 40, 41, 123, 116, 114, 121, 123, 108, 101, 116, 32, 98, 61, 91, 93, 44, 68, 61, 117, 46, 114, 101, 115, 117, 108, 116, 46, 116, 114, 97, 110, 115, 97, 99, 116, 105, 111, 110, 40, 115, 44, 34, 114, 101, 97, 100, 111, 110, 108, 121, 34, 41, 59, 68, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 59, 108, 101, 116, 32, 83, 61, 68, 46, 111, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 46, 111, 112, 101, 110, 67, 117, 114, 115, 111, 114, 40, 41, 59, 83, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 108, 101, 116, 32, 77, 61, 83, 46, 114, 101, 115, 117, 108, 116, 59, 105, 102, 40, 77, 61, 61, 110, 117, 108, 108, 41, 116, 114, 121, 123, 108, 101, 116, 32, 76, 61, 48, 44, 102, 61, 112, 46, 114, 101, 115, 117, 108, 116, 46, 116, 114, 97, 110, 115, 97, 99, 116, 105, 111, 110, 40, 115, 44, 34, 114, 101, 97, 100, 119, 114, 105, 116, 101, 34, 41, 44, 121, 61, 102, 46, 111, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 59, 102, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 44, 102, 46, 111, 110, 99, 111, 109, 112, 108, 101, 116, 101, 61, 40, 41, 61, 62, 123, 117, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 112, 46, 114, 101, 115, 117, 108, 116, 46, 99, 108, 111, 115, 101, 40, 41, 44, 108, 40, 76, 41, 125, 59, 102, 111, 114, 40, 108, 101, 116, 32, 107, 32, 111, 102, 32, 98, 41, 123, 108, 101, 116, 32, 118, 61, 121, 46, 99, 111, 117, 110, 116, 40, 107, 46, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 41, 59, 118, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 118, 46, 114, 101, 115, 117, 108, 116, 61, 61, 61, 48, 38, 38, 40, 43, 43, 76, 44, 121, 46, 97, 100, 100, 40, 107, 46, 118, 97, 108, 117, 101, 44, 107, 46, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 41, 41, 125, 125, 125, 99, 97, 116, 99, 104, 40, 76, 41, 123, 67, 46, 99, 97, 108, 108, 40, 123, 101, 114, 114, 111, 114, 58, 76, 125, 41, 125, 101, 108, 115, 101, 32, 98, 46, 112, 117, 115, 104, 40, 123, 118, 97, 108, 117, 101, 58, 77, 46, 118, 97, 108, 117, 101, 44, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 58, 77, 46, 112, 114, 105, 109, 97, 114, 121, 75, 101, 121, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 41, 46, 114, 101, 112, 108, 97, 99, 101, 40, 96, 36, 123, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 80, 114, 101, 108, 111, 97, 100, 125, 47, 96, 44, 96, 36, 123, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 83, 116, 97, 110, 100, 97, 114, 100, 125, 47, 96, 41, 125, 41, 44, 77, 46, 99, 111, 110, 116, 105, 110, 117, 101, 40, 41, 125, 44, 83, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 125, 99, 97, 116, 99, 104, 40, 98, 41, 123, 67, 46, 99, 97, 108, 108, 40, 123, 101, 114, 114, 111, 114, 58, 98, 125, 41, 125, 125, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 98, 61, 62, 123, 108, 61, 98, 44, 117, 61, 105, 110, 100, 101, 120, 101, 100, 68, 66, 46, 111, 112, 101, 110, 40, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 80, 114, 101, 108, 111, 97, 100, 41, 44, 117, 46, 111, 110, 117, 112, 103, 114, 97, 100, 101, 110, 101, 101, 100, 101, 100, 61, 40, 41, 61, 62, 123, 116, 114, 121, 123, 117, 46, 114, 101, 115, 117, 108, 116, 46, 99, 114, 101, 97, 116, 101, 79, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 125, 99, 97, 116, 99, 104, 40, 68, 41, 123, 125, 125, 44, 117, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 105, 102, 40, 33, 65, 114, 114, 97, 121, 46, 102, 114, 111, 109, 40, 117, 46, 114, 101, 115, 117, 108, 116, 46, 111, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 78, 97, 109, 101, 115, 41, 46, 105, 110, 99, 108, 117, 100, 101, 115, 40, 115, 41, 41, 123, 98, 40, 48, 41, 59, 114, 101, 116, 117, 114, 110, 125, 112, 61, 105, 110, 100, 101, 120, 101, 100, 68, 66, 46, 111, 112, 101, 110, 40, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 83, 116, 97, 110, 100, 97, 114, 100, 41, 44, 112, 46, 111, 110, 117, 112, 103, 114, 97, 100, 101, 110, 101, 101, 100, 101, 100, 61, 40, 41, 61, 62, 123, 116, 114, 121, 123, 112, 46, 114, 101, 115, 117, 108, 116, 46, 99, 114, 101, 97, 116, 101, 79, 98, 106, 101, 99, 116, 83, 116, 111, 114, 101, 40, 115, 41, 125, 99, 97, 116, 99, 104, 40, 68, 41, 123, 125, 125, 44, 112, 46, 111, 110, 115, 117, 99, 99, 101, 115, 115, 61, 40, 41, 61, 62, 123, 119, 40, 41, 125, 44, 112, 46, 111, 110, 98, 108, 111, 99, 107, 101, 100, 61, 112, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 125, 44, 117, 46, 111, 110, 98, 108, 111, 99, 107, 101, 100, 61, 117, 46, 111, 110, 101, 114, 114, 111, 114, 61, 67, 125, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 110, 40, 115, 44, 108, 41, 123, 105, 102, 40, 116, 33, 61, 110, 117, 108, 108, 41, 114, 101, 116, 117, 114, 110, 32, 97, 61, 33, 48, 44, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 117, 44, 112, 41, 61, 62, 123, 40, 33, 114, 38, 38, 115, 63, 100, 40, 41, 58, 80, 114, 111, 109, 105, 115, 101, 46, 114, 101, 115, 111, 108, 118, 101, 40, 48, 41, 41, 46, 116, 104, 101, 110, 40, 67, 61, 62, 123, 105, 102, 40, 33, 114, 38, 38, 115, 38, 38, 33, 108, 38, 38, 67, 61, 61, 61, 48, 41, 123, 97, 61, 33, 49, 44, 117, 40, 41, 59, 114, 101, 116, 117, 114, 110, 125, 116, 40, 115, 44, 119, 61, 62, 123, 105, 102, 40, 97, 61, 33, 49, 44, 119, 33, 61, 110, 117, 108, 108, 41, 123, 112, 40, 119, 41, 59, 114, 101, 116, 117, 114, 110, 125, 117, 40, 41, 125, 41, 125, 41, 46, 99, 97, 116, 99, 104, 40, 112, 41, 125, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 104, 40, 115, 44, 108, 61, 33, 49, 44, 117, 61, 33, 49, 41, 123, 114, 101, 116, 117, 114, 110, 40, 33, 111, 124, 124, 117, 41, 38, 38, 40, 97, 63, 40, 111, 61, 33, 48, 44, 105, 61, 105, 46, 116, 104, 101, 110, 40, 97, 115, 121, 110, 99, 40, 41, 61, 62, 40, 111, 61, 33, 49, 44, 110, 40, 115, 44, 108, 41, 41, 41, 41, 58, 105, 61, 110, 40, 115, 44, 108, 41, 41, 44, 105, 125, 116, 61, 70, 83, 46, 115, 121, 110, 99, 102, 115, 44, 70, 83, 46, 115, 121, 110, 99, 102, 115, 61, 40, 115, 44, 108, 41, 61, 62, 123, 108, 101, 116, 32, 117, 61, 108, 59, 108, 61, 112, 61, 62, 123, 117, 40, 112, 41, 125, 44, 104, 40, 115, 41, 46, 116, 104, 101, 110, 40, 108, 41, 46, 99, 97, 116, 99, 104, 40, 108, 41, 125, 59, 116, 114, 121, 123, 70, 83, 46, 109, 107, 100, 105, 114, 40, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 41, 125, 99, 97, 116, 99, 104, 40, 115, 41, 123, 105, 102, 40, 115, 46, 99, 111, 100, 101, 33, 61, 61, 34, 69, 69, 88, 73, 83, 84, 34, 41, 114, 101, 116, 117, 114, 110, 32, 116, 61, 118, 111, 105, 100, 32, 48, 44, 80, 114, 111, 109, 105, 115, 101, 46, 114, 101, 106, 101, 99, 116, 40, 115, 41, 125, 114, 101, 116, 117, 114, 110, 32, 70, 83, 46, 109, 111, 117, 110, 116, 40, 73, 68, 66, 70, 83, 44, 123, 125, 44, 101, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 41, 44, 104, 40, 33, 48, 44, 33, 48, 41, 125, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 84, 40, 101, 44, 116, 44, 114, 44, 105, 41, 123, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 97, 44, 111, 41, 61, 62, 123, 101, 40, 41, 46, 116, 104, 101, 110, 40, 97, 41, 46, 99, 97, 116, 99, 104, 40, 100, 61, 62, 123, 108, 101, 116, 32, 110, 61, 116, 42, 50, 59, 105, 102, 40, 110, 62, 114, 41, 123, 111, 40, 100, 41, 59, 114, 101, 116, 117, 114, 110, 125, 105, 40, 100, 41, 44, 115, 101, 116, 84, 105, 109, 101, 111, 117, 116, 40, 40, 41, 61, 62, 123, 84, 40, 101, 44, 110, 44, 114, 44, 105, 41, 46, 116, 104, 101, 110, 40, 97, 41, 46, 99, 97, 116, 99, 104, 40, 111, 41, 125, 44, 116, 41, 125, 41, 125, 41, 125, 118, 97, 114, 32, 87, 61, 99, 108, 97, 115, 115, 32, 101, 120, 116, 101, 110, 100, 115, 32, 69, 114, 114, 111, 114, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 101, 61, 123, 125, 41, 123, 115, 117, 112, 101, 114, 40, 101, 46, 109, 101, 115, 115, 97, 103, 101, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 110, 97, 109, 101, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 109, 101, 115, 115, 97, 103, 101, 34, 41, 44, 79, 98, 106, 101, 99, 116, 46, 115, 101, 116, 80, 114, 111, 116, 111, 116, 121, 112, 101, 79, 102, 40, 116, 104, 105, 115, 44, 87, 46, 112, 114, 111, 116, 111, 116, 121, 112, 101, 41, 44, 116, 121, 112, 101, 111, 102, 32, 101, 46, 110, 97, 109, 101, 61, 61, 34, 115, 116, 114, 105, 110, 103, 34, 38, 38, 40, 116, 104, 105, 115, 46, 110, 97, 109, 101, 61, 101, 46, 110, 97, 109, 101, 41, 125, 125, 44, 80, 59, 40, 101, 61, 62, 123, 102, 117, 110, 99, 116, 105, 111, 110, 32, 116, 40, 41, 123, 108, 101, 116, 32, 114, 61, 34, 54, 46, 49, 53, 46, 48, 34, 59, 105, 102, 40, 114, 61, 61, 110, 117, 108, 108, 41, 116, 104, 114, 111, 119, 32, 110, 101, 119, 32, 87, 40, 123, 110, 97, 109, 101, 58, 34, 73, 110, 118, 97, 108, 105, 100, 32, 108, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 34, 44, 109, 101, 115, 115, 97, 103, 101, 58, 34, 76, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 32, 105, 115, 32, 110, 111, 116, 32, 100, 101, 102, 105, 110, 101, 100, 32, 111, 114, 32, 101, 109, 112, 116, 121, 46, 34, 125, 41, 59, 114, 101, 116, 117, 114, 110, 32, 114, 125, 101, 46, 115, 100, 107, 86, 101, 114, 115, 105, 111, 110, 61, 116, 125, 41, 40, 80, 124, 124, 40, 80, 61, 123, 125, 41, 41, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 113, 40, 101, 44, 116, 44, 114, 44, 105, 41, 123, 108, 101, 116, 32, 97, 61, 33, 49, 44, 111, 61, 34, 115, 99, 97, 110, 100, 105, 116, 45, 119, 101, 98, 45, 100, 97, 116, 97, 99, 97, 112, 116, 117, 114, 101, 45, 99, 111, 114, 101, 34, 59, 105, 102, 40, 33, 111, 41, 116, 104, 114, 111, 119, 32, 110, 101, 119, 32, 69, 114, 114, 111, 114, 40, 34, 78, 111, 32, 112, 97, 99, 107, 97, 103, 101, 32, 110, 97, 109, 101, 44, 32, 99, 97, 110, 110, 111, 116, 32, 103, 101, 110, 101, 114, 97, 116, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 108, 111, 99, 97, 116, 105, 111, 110, 34, 41, 59, 47, 94, 104, 116, 116, 112, 115, 63, 58, 92, 47, 92, 47, 40, 91, 94, 46, 47, 93, 42, 92, 46, 41, 42, 99, 100, 110, 46, 106, 115, 100, 101, 108, 105, 118, 114, 46, 110, 101, 116, 92, 47, 47, 46, 116, 101, 115, 116, 40, 116, 41, 63, 40, 116, 61, 96, 104, 116, 116, 112, 115, 58, 47, 47, 99, 100, 110, 46, 106, 115, 100, 101, 108, 105, 118, 114, 46, 110, 101, 116, 47, 110, 112, 109, 47, 36, 123, 111, 125, 64, 36, 123, 101, 125, 47, 98, 117, 105, 108, 100, 47, 101, 110, 103, 105, 110, 101, 47, 96, 44, 97, 61, 33, 48, 41, 58, 47, 94, 104, 116, 116, 112, 115, 63, 58, 92, 47, 92, 47, 40, 91, 94, 46, 47, 93, 42, 92, 46, 41, 42, 117, 110, 112, 107, 103, 46, 99, 111, 109, 92, 47, 47, 46, 116, 101, 115, 116, 40, 116, 41, 38, 38, 40, 116, 61, 96, 104, 116, 116, 112, 115, 58, 47, 47, 117, 110, 112, 107, 103, 46, 99, 111, 109, 47, 36, 123, 111, 125, 64, 36, 123, 101, 125, 47, 98, 117, 105, 108, 100, 47, 101, 110, 103, 105, 110, 101, 47, 96, 44, 97, 61, 33, 48, 41, 59, 108, 101, 116, 32, 100, 61, 34, 34, 59, 105, 38, 38, 40, 100, 43, 61, 34, 45, 115, 105, 109, 100, 34, 41, 59, 108, 101, 116, 32, 110, 61, 114, 46, 114, 101, 112, 108, 97, 99, 101, 40, 34, 46, 119, 97, 115, 109, 34, 44, 34, 34, 41, 59, 114, 101, 116, 117, 114, 110, 32, 97, 63, 123, 106, 115, 85, 82, 73, 58, 96, 36, 123, 116, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 106, 115, 96, 44, 119, 97, 115, 109, 85, 82, 73, 58, 96, 36, 123, 116, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 119, 97, 115, 109, 96, 125, 58, 123, 106, 115, 85, 82, 73, 58, 96, 36, 123, 116, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 106, 115, 63, 118, 61, 36, 123, 101, 125, 96, 44, 119, 97, 115, 109, 85, 82, 73, 58, 96, 36, 123, 116, 125, 36, 123, 110, 125, 36, 123, 100, 125, 46, 119, 97, 115, 109, 63, 118, 61, 36, 123, 101, 125, 96, 125, 125, 118, 97, 114, 32, 65, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 101, 44, 116, 41, 123, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 61, 101, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 61, 116, 44, 109, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 77, 65, 88, 95, 78, 85, 77, 66, 69, 82, 95, 79, 70, 95, 73, 77, 65, 71, 69, 83, 95, 73, 78, 95, 70, 82, 65, 77, 69, 95, 68, 65, 84, 65, 95, 80, 79, 79, 76, 34, 44, 49, 48, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 114, 101, 115, 111, 117, 114, 99, 101, 80, 97, 116, 104, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 95, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 34, 44, 33, 49, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 114, 101, 100, 114, 97, 119, 73, 110, 116, 101, 114, 118, 97, 108, 34, 44, 49, 101, 51, 47, 51, 48, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 34, 44, 91, 93, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 99, 111, 110, 116, 101, 120, 116, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 118, 105, 101, 119, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 34, 44, 45, 49, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 34, 44, 110, 101, 119, 32, 77, 97, 112, 41, 125, 103, 101, 116, 32, 77, 111, 100, 117, 108, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 103, 101, 116, 40, 41, 125, 108, 111, 97, 100, 76, 105, 98, 114, 97, 114, 121, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 33, 61, 110, 117, 108, 108, 63, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 58, 40, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 61, 116, 104, 105, 115, 46, 115, 101, 116, 117, 112, 40, 101, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 99, 97, 116, 105, 111, 110, 44, 101, 46, 108, 111, 99, 97, 116, 105, 111, 110, 80, 97, 116, 104, 44, 101, 46, 112, 114, 101, 108, 111, 97, 100, 69, 110, 103, 105, 110, 101, 41, 44, 116, 104, 105, 115, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 97, 100, 105, 110, 103, 80, 114, 111, 109, 105, 115, 101, 41, 125, 99, 114, 101, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 67, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 116, 104, 105, 115, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 44, 101, 46, 100, 101, 118, 105, 99, 101, 73, 100, 44, 101, 46, 99, 111, 110, 116, 101, 120, 116, 46, 100, 101, 118, 105, 99, 101, 78, 97, 109, 101, 44, 101, 46, 100, 111, 109, 97, 105, 110, 44, 116, 44, 101, 46, 100, 101, 108, 97, 121, 101, 100, 82, 101, 103, 105, 115, 116, 114, 97, 116, 105, 111, 110, 44, 101, 46, 104, 105, 103, 104, 69, 110, 100, 66, 108, 117, 114, 114, 121, 82, 101, 99, 111, 103, 110, 105, 116, 105, 111, 110, 44, 116, 104, 105, 115, 46, 114, 101, 115, 111, 117, 114, 99, 101, 80, 97, 116, 104, 41, 59, 108, 101, 116, 32, 114, 61, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 99, 111, 110, 116, 101, 120, 116, 70, 114, 111, 109, 74, 115, 111, 110, 40, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 101, 46, 99, 111, 110, 116, 101, 120, 116, 41, 41, 44, 105, 61, 114, 46, 103, 101, 116, 86, 105, 101, 119, 40, 41, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 61, 114, 46, 103, 101, 116, 67, 111, 110, 116, 101, 120, 116, 40, 41, 59, 108, 101, 116, 32, 97, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 67, 111, 110, 116, 101, 120, 116, 76, 105, 115, 116, 101, 110, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 67, 111, 110, 116, 101, 120, 116, 76, 105, 115, 116, 101, 110, 101, 114, 34, 44, 123, 100, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 58, 40, 100, 44, 110, 41, 61, 62, 123, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 40, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 110, 46, 116, 111, 74, 115, 111, 110, 40, 41, 41, 41, 125, 44, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 58, 40, 41, 61, 62, 123, 116, 104, 105, 115, 46, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 40, 41, 125, 125, 41, 44, 111, 61, 110, 101, 119, 32, 97, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 97, 100, 100, 76, 105, 115, 116, 101, 110, 101, 114, 40, 111, 41, 44, 111, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 115, 101, 116, 86, 105, 101, 119, 40, 105, 41, 125, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 86, 101, 99, 116, 111, 114, 68, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 125, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 101, 41, 123, 118, 97, 114, 32, 116, 59, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 61, 116, 104, 105, 115, 46, 109, 97, 112, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 79, 110, 77, 111, 100, 117, 108, 101, 40, 101, 41, 44, 40, 116, 61, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 109, 97, 103, 101, 66, 117, 102, 102, 101, 114, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 41, 44, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 41, 125, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 101, 41, 123, 118, 97, 114, 32, 116, 59, 105, 102, 40, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 61, 61, 110, 117, 108, 108, 41, 114, 101, 116, 117, 114, 110, 123, 112, 97, 121, 108, 111, 97, 100, 58, 101, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 101, 46, 100, 97, 116, 97, 46, 98, 117, 102, 102, 101, 114, 93, 125, 59, 108, 101, 116, 32, 114, 61, 101, 46, 100, 97, 116, 97, 44, 105, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 97, 108, 108, 111, 99, 97, 116, 101, 85, 105, 110, 116, 56, 65, 114, 114, 97, 121, 40, 114, 46, 98, 121, 116, 101, 76, 101, 110, 103, 116, 104, 41, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 72, 69, 65, 80, 85, 56, 46, 115, 101, 116, 40, 114, 44, 105, 41, 44, 40, 116, 61, 116, 104, 105, 115, 46, 105, 109, 97, 103, 101, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 111, 117, 116, 112, 117, 116, 70, 114, 97, 109, 101, 40, 105, 44, 101, 46, 119, 105, 100, 116, 104, 44, 101, 46, 104, 101, 105, 103, 104, 116, 44, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 109, 97, 103, 101, 66, 117, 102, 102, 101, 114, 70, 111, 114, 109, 97, 116, 46, 82, 103, 98, 97, 56, 56, 56, 56, 41, 44, 123, 112, 97, 121, 108, 111, 97, 100, 58, 101, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 101, 46, 100, 97, 116, 97, 46, 98, 117, 102, 102, 101, 114, 93, 125, 125, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 101, 41, 123, 105, 102, 40, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 33, 61, 110, 117, 108, 108, 38, 38, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 33, 61, 110, 117, 108, 108, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 70, 114, 111, 109, 74, 115, 111, 110, 40, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 44, 116, 104, 105, 115, 46, 118, 105, 101, 119, 44, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 101, 46, 99, 111, 110, 116, 101, 120, 116, 41, 41, 59, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 61, 116, 46, 103, 101, 116, 67, 111, 110, 116, 101, 120, 116, 40, 41, 59, 108, 101, 116, 32, 114, 61, 116, 46, 103, 101, 116, 86, 105, 101, 119, 40, 41, 59, 114, 33, 61, 110, 117, 108, 108, 38, 38, 101, 46, 118, 105, 101, 119, 33, 61, 110, 117, 108, 108, 38, 38, 114, 46, 115, 101, 116, 86, 105, 101, 119, 83, 105, 122, 101, 40, 101, 46, 118, 105, 101, 119, 46, 119, 105, 100, 116, 104, 44, 101, 46, 118, 105, 101, 119, 46, 104, 101, 105, 103, 104, 116, 41, 44, 116, 104, 105, 115, 46, 115, 101, 116, 86, 105, 101, 119, 40, 114, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 68, 101, 98, 117, 103, 44, 34, 99, 111, 110, 116, 101, 120, 116, 32, 117, 112, 100, 97, 116, 101, 100, 34, 44, 101, 41, 125, 125, 114, 101, 112, 111, 114, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 40, 101, 41, 123, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 115, 101, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 40, 101, 46, 100, 101, 118, 105, 99, 101, 73, 100, 44, 101, 46, 105, 115, 70, 114, 111, 110, 116, 70, 97, 99, 105, 110, 103, 44, 101, 46, 104, 97, 115, 65, 117, 116, 111, 102, 111, 99, 117, 115, 41, 125, 100, 105, 115, 112, 111, 115, 101, 40, 41, 123, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 46, 100, 105, 115, 112, 111, 115, 101, 40, 41, 125, 101, 120, 116, 114, 97, 99, 116, 67, 101, 110, 116, 97, 117, 114, 117, 115, 76, 105, 99, 101, 110, 115, 101, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 99, 101, 110, 116, 97, 117, 114, 117, 115, 58, 123, 108, 105, 99, 101, 110, 115, 101, 75, 101, 121, 58, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 76, 105, 99, 101, 110, 115, 101, 85, 116, 105, 108, 115, 46, 103, 101, 116, 66, 108, 105, 110, 107, 73, 100, 76, 105, 99, 101, 110, 115, 101, 75, 101, 121, 40, 101, 41, 125, 125, 125, 125, 99, 111, 110, 118, 101, 114, 116, 84, 111, 76, 111, 97, 100, 97, 98, 108, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 103, 101, 116, 78, 101, 120, 116, 70, 114, 97, 109, 101, 73, 100, 40, 41, 59, 116, 104, 105, 115, 46, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 46, 115, 101, 116, 40, 116, 44, 110, 101, 119, 32, 85, 105, 110, 116, 56, 67, 108, 97, 109, 112, 101, 100, 65, 114, 114, 97, 121, 40, 101, 46, 103, 101, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 41, 41, 41, 59, 108, 101, 116, 32, 114, 61, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 33, 61, 110, 117, 108, 108, 63, 116, 104, 105, 115, 46, 108, 97, 115, 116, 85, 115, 101, 100, 77, 111, 100, 117, 108, 101, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 33, 61, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 78, 111, 110, 101, 58, 33, 49, 59, 114, 101, 116, 117, 114, 110, 123, 102, 114, 97, 109, 101, 73, 100, 58, 116, 44, 119, 105, 100, 116, 104, 58, 101, 46, 103, 101, 116, 87, 105, 100, 116, 104, 40, 41, 44, 104, 101, 105, 103, 104, 116, 58, 101, 46, 103, 101, 116, 72, 101, 105, 103, 104, 116, 40, 41, 44, 105, 115, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 77, 105, 114, 114, 111, 114, 101, 100, 58, 114, 125, 125, 114, 101, 113, 117, 101, 115, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 101, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 46, 103, 101, 116, 40, 101, 41, 59, 114, 101, 116, 117, 114, 110, 32, 116, 61, 61, 110, 117, 108, 108, 63, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 100, 97, 116, 97, 58, 110, 117, 108, 108, 125, 125, 58, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 100, 97, 116, 97, 58, 116, 125, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 116, 46, 98, 117, 102, 102, 101, 114, 93, 125, 125, 100, 101, 108, 101, 116, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 101, 41, 123, 116, 104, 105, 115, 46, 102, 114, 97, 109, 101, 68, 97, 116, 97, 80, 111, 111, 108, 46, 100, 101, 108, 101, 116, 101, 40, 101, 41, 125, 103, 101, 116, 78, 101, 120, 116, 70, 114, 97, 109, 101, 73, 100, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 43, 43, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 62, 61, 116, 104, 105, 115, 46, 77, 65, 88, 95, 78, 85, 77, 66, 69, 82, 95, 79, 70, 95, 73, 77, 65, 71, 69, 83, 95, 73, 78, 95, 70, 82, 65, 77, 69, 95, 68, 65, 84, 65, 95, 80, 79, 79, 76, 38, 38, 40, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 61, 48, 41, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 70, 114, 97, 109, 101, 67, 111, 117, 110, 116, 101, 114, 125, 115, 101, 116, 86, 105, 101, 119, 40, 101, 41, 123, 116, 104, 105, 115, 46, 118, 105, 101, 119, 61, 101, 44, 116, 104, 105, 115, 46, 115, 101, 116, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 40, 101, 41, 44, 101, 61, 61, 110, 117, 108, 108, 38, 38, 40, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 61, 33, 49, 44, 116, 104, 105, 115, 46, 115, 101, 110, 100, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 67, 111, 109, 109, 97, 110, 100, 115, 40, 91, 93, 41, 41, 125, 99, 111, 110, 116, 101, 120, 116, 68, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 40, 101, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 99, 111, 110, 116, 101, 120, 116, 68, 105, 100, 67, 104, 97, 110, 103, 101, 83, 116, 97, 116, 117, 115, 34, 44, 112, 97, 121, 108, 111, 97, 100, 58, 101, 125, 41, 125, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 40, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 100, 105, 100, 83, 116, 97, 114, 116, 79, 98, 115, 101, 114, 118, 105, 110, 103, 67, 111, 110, 116, 101, 120, 116, 34, 125, 41, 125, 115, 101, 116, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 40, 101, 41, 123, 105, 102, 40, 101, 61, 61, 110, 117, 108, 108, 124, 124, 101, 46, 105, 115, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 83, 101, 116, 41, 114, 101, 116, 117, 114, 110, 59, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 68, 101, 108, 101, 103, 97, 116, 101, 46, 101, 120, 116, 101, 110, 100, 40, 34, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 68, 101, 108, 101, 103, 97, 116, 101, 34, 44, 123, 115, 101, 116, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 73, 110, 58, 116, 104, 105, 115, 46, 115, 99, 104, 101, 100, 117, 108, 101, 82, 101, 100, 114, 97, 119, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 44, 101, 41, 125, 41, 44, 114, 61, 110, 101, 119, 32, 116, 59, 101, 46, 115, 101, 116, 78, 101, 101, 100, 115, 82, 101, 100, 114, 97, 119, 68, 101, 108, 101, 103, 97, 116, 101, 40, 114, 41, 44, 101, 46, 105, 115, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 72, 97, 110, 100, 108, 101, 114, 83, 101, 116, 61, 33, 48, 125, 115, 99, 104, 101, 100, 117, 108, 101, 82, 101, 100, 114, 97, 119, 40, 101, 44, 116, 41, 123, 116, 104, 105, 115, 46, 97, 100, 100, 82, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 40, 116, 41, 44, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 124, 124, 116, 104, 105, 115, 46, 115, 116, 97, 114, 116, 68, 114, 97, 119, 76, 111, 111, 112, 40, 101, 41, 125, 103, 101, 116, 32, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 95, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 125, 115, 101, 116, 32, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 40, 101, 41, 123, 116, 104, 105, 115, 46, 95, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 61, 101, 44, 33, 101, 38, 38, 116, 121, 112, 101, 111, 102, 32, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 61, 61, 34, 110, 117, 109, 98, 101, 114, 34, 38, 38, 40, 99, 108, 101, 97, 114, 84, 105, 109, 101, 111, 117, 116, 40, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 41, 44, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 61, 118, 111, 105, 100, 32, 48, 41, 125, 97, 100, 100, 82, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 40, 101, 41, 123, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 112, 117, 115, 104, 40, 77, 97, 116, 104, 46, 114, 111, 117, 110, 100, 40, 112, 101, 114, 102, 111, 114, 109, 97, 110, 99, 101, 46, 110, 111, 119, 40, 41, 41, 43, 101, 41, 44, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 115, 111, 114, 116, 40, 40, 116, 44, 114, 41, 61, 62, 116, 45, 114, 41, 125, 115, 116, 97, 114, 116, 68, 114, 97, 119, 76, 111, 111, 112, 40, 101, 41, 123, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 61, 33, 48, 59, 108, 101, 116, 32, 116, 61, 97, 61, 62, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 108, 101, 110, 103, 116, 104, 62, 48, 38, 38, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 91, 48, 93, 60, 61, 97, 44, 114, 61, 97, 61, 62, 123, 102, 111, 114, 40, 59, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 108, 101, 110, 103, 116, 104, 62, 48, 38, 38, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 91, 48, 93, 60, 61, 97, 59, 41, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 82, 101, 113, 117, 101, 115, 116, 115, 46, 115, 104, 105, 102, 116, 40, 41, 125, 44, 105, 61, 40, 41, 61, 62, 123, 116, 104, 105, 115, 46, 108, 111, 111, 112, 84, 105, 109, 101, 111, 117, 116, 73, 100, 61, 115, 101, 116, 84, 105, 109, 101, 111, 117, 116, 40, 40, 41, 61, 62, 123, 105, 102, 40, 33, 116, 104, 105, 115, 46, 105, 115, 68, 114, 97, 119, 76, 111, 111, 112, 82, 117, 110, 110, 105, 110, 103, 41, 114, 101, 116, 117, 114, 110, 59, 108, 101, 116, 32, 97, 61, 112, 101, 114, 102, 111, 114, 109, 97, 110, 99, 101, 46, 110, 111, 119, 40, 41, 59, 116, 40, 97, 41, 38, 38, 40, 114, 40, 97, 41, 44, 101, 46, 100, 114, 97, 119, 40, 41, 44, 116, 104, 105, 115, 46, 115, 101, 110, 100, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 67, 111, 109, 109, 97, 110, 100, 115, 40, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 101, 46, 103, 101, 116, 68, 114, 97, 119, 67, 111, 109, 109, 97, 110, 100, 115, 40, 41, 41, 41, 41, 44, 105, 40, 41, 125, 44, 116, 104, 105, 115, 46, 114, 101, 100, 114, 97, 119, 73, 110, 116, 101, 114, 118, 97, 108, 41, 125, 59, 105, 40, 41, 125, 115, 101, 110, 100, 86, 105, 101, 119, 82, 101, 102, 114, 101, 115, 104, 67, 111, 109, 109, 97, 110, 100, 115, 40, 101, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 100, 114, 97, 119, 34, 44, 112, 97, 121, 108, 111, 97, 100, 58, 101, 125, 41, 125, 103, 101, 116, 87, 97, 115, 109, 68, 121, 110, 97, 109, 105, 99, 76, 105, 98, 114, 97, 114, 105, 101, 115, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 61, 61, 110, 117, 108, 108, 63, 91, 93, 58, 91, 96, 36, 123, 101, 46, 114, 101, 112, 108, 97, 99, 101, 40, 47, 91, 94, 47, 93, 43, 92, 46, 119, 97, 115, 109, 40, 92, 63, 46, 43, 41, 63, 47, 44, 34, 34, 41, 125, 36, 123, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 125, 96, 93, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 69, 120, 112, 101, 99, 116, 101, 100, 72, 97, 115, 104, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 97, 115, 121, 110, 99, 32, 115, 101, 116, 117, 112, 40, 101, 44, 116, 44, 114, 41, 123, 118, 97, 114, 32, 105, 59, 108, 101, 116, 32, 97, 61, 33, 49, 44, 111, 61, 33, 49, 44, 100, 61, 34, 47, 115, 99, 97, 110, 100, 105, 116, 95, 115, 121, 110, 99, 95, 102, 111, 108, 100, 101, 114, 95, 112, 114, 101, 108, 111, 97, 100, 34, 44, 110, 61, 34, 47, 115, 99, 97, 110, 100, 105, 116, 95, 115, 121, 110, 99, 95, 102, 111, 108, 100, 101, 114, 34, 44, 104, 61, 34, 114, 101, 115, 111, 117, 114, 99, 101, 115, 34, 59, 116, 104, 105, 115, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 61, 114, 63, 100, 58, 110, 44, 116, 104, 105, 115, 46, 114, 101, 115, 111, 117, 114, 99, 101, 80, 97, 116, 104, 61, 96, 36, 123, 101, 125, 36, 123, 104, 125, 47, 96, 44, 115, 101, 108, 102, 46, 112, 97, 116, 104, 61, 116, 59, 108, 101, 116, 32, 115, 44, 108, 44, 117, 61, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 102, 44, 121, 41, 61, 62, 123, 115, 61, 102, 44, 108, 61, 121, 125, 41, 44, 112, 61, 40, 41, 61, 62, 123, 111, 38, 38, 97, 38, 38, 40, 67, 46, 97, 112, 112, 108, 121, 40, 116, 104, 105, 115, 41, 44, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 103, 101, 116, 40, 41, 46, 99, 97, 108, 108, 77, 97, 105, 110, 40, 41, 44, 115, 40, 41, 41, 125, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 67, 40, 41, 123, 108, 101, 116, 32, 102, 61, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 103, 101, 116, 40, 41, 44, 121, 61, 102, 46, 68, 97, 116, 97, 68, 101, 99, 111, 100, 105, 110, 103, 46, 101, 120, 116, 101, 110, 100, 40, 34, 68, 97, 116, 97, 68, 101, 99, 111, 100, 105, 110, 103, 34, 44, 123, 100, 101, 99, 111, 100, 101, 40, 118, 44, 70, 41, 123, 116, 114, 121, 123, 108, 101, 116, 32, 95, 61, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 70, 41, 44, 78, 61, 91, 93, 59, 102, 111, 114, 40, 108, 101, 116, 32, 82, 32, 111, 102, 32, 95, 41, 123, 108, 101, 116, 32, 106, 61, 110, 101, 119, 32, 84, 101, 120, 116, 68, 101, 99, 111, 100, 101, 114, 40, 82, 46, 105, 97, 110, 97, 78, 97, 109, 101, 44, 123, 102, 97, 116, 97, 108, 58, 33, 48, 125, 41, 59, 78, 46, 112, 117, 115, 104, 40, 106, 46, 100, 101, 99, 111, 100, 101, 40, 118, 46, 115, 108, 105, 99, 101, 40, 82, 46, 115, 116, 97, 114, 116, 73, 110, 100, 101, 120, 44, 82, 46, 101, 110, 100, 73, 110, 100, 101, 120, 41, 41, 41, 125, 114, 101, 116, 117, 114, 110, 32, 78, 46, 106, 111, 105, 110, 40, 34, 34, 41, 125, 99, 97, 116, 99, 104, 40, 95, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 125, 125, 41, 44, 107, 61, 110, 101, 119, 32, 121, 59, 102, 46, 115, 101, 116, 68, 97, 116, 97, 68, 101, 99, 111, 100, 105, 110, 103, 40, 107, 41, 125, 108, 101, 116, 32, 119, 61, 80, 46, 115, 100, 107, 86, 101, 114, 115, 105, 111, 110, 40, 41, 59, 105, 102, 40, 119, 61, 61, 61, 34, 34, 41, 116, 104, 114, 111, 119, 32, 110, 101, 119, 32, 87, 40, 123, 110, 97, 109, 101, 58, 34, 73, 110, 118, 97, 108, 105, 100, 32, 108, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 34, 44, 109, 101, 115, 115, 97, 103, 101, 58, 34, 76, 105, 98, 114, 97, 114, 121, 32, 118, 101, 114, 115, 105, 111, 110, 32, 105, 115, 32, 110, 111, 116, 32, 100, 101, 102, 105, 110, 101, 100, 32, 111, 114, 32, 101, 109, 112, 116, 121, 44, 32, 99, 97, 110, 110, 111, 116, 32, 103, 101, 110, 101, 114, 97, 116, 101, 32, 112, 114, 111, 112, 101, 114, 32, 112, 97, 116, 104, 32, 116, 111, 32, 108, 105, 98, 114, 97, 114, 121, 32, 102, 105, 108, 101, 115, 46, 34, 125, 41, 59, 108, 101, 116, 32, 98, 61, 33, 49, 44, 68, 61, 113, 40, 119, 44, 101, 44, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 44, 98, 41, 44, 123, 106, 115, 85, 82, 73, 58, 83, 125, 61, 68, 44, 123, 119, 97, 115, 109, 85, 82, 73, 58, 77, 125, 61, 68, 59, 116, 104, 105, 115, 46, 109, 111, 100, 117, 108, 101, 72, 97, 110, 100, 108, 101, 114, 46, 115, 101, 116, 40, 123, 99, 97, 110, 118, 97, 115, 58, 40, 105, 61, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 40, 41, 41, 33, 61, 110, 117, 108, 108, 63, 105, 58, 123, 103, 101, 116, 67, 111, 110, 116, 101, 120, 116, 58, 40, 41, 61, 62, 110, 117, 108, 108, 125, 44, 105, 110, 115, 116, 97, 110, 116, 105, 97, 116, 101, 87, 97, 115, 109, 58, 40, 102, 44, 121, 41, 61, 62, 40, 85, 40, 102, 44, 77, 44, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 69, 120, 112, 101, 99, 116, 101, 100, 72, 97, 115, 104, 40, 41, 44, 121, 41, 44, 123, 125, 41, 44, 100, 121, 110, 97, 109, 105, 99, 76, 105, 98, 114, 97, 114, 105, 101, 115, 58, 116, 104, 105, 115, 46, 103, 101, 116, 87, 97, 115, 109, 68, 121, 110, 97, 109, 105, 99, 76, 105, 98, 114, 97, 114, 105, 101, 115, 40, 77, 41, 44, 110, 111, 73, 110, 105, 116, 105, 97, 108, 82, 117, 110, 58, 33, 48, 44, 112, 114, 101, 82, 117, 110, 58, 91, 97, 115, 121, 110, 99, 40, 41, 61, 62, 123, 116, 114, 121, 123, 97, 119, 97, 105, 116, 32, 66, 40, 123, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 80, 114, 101, 108, 111, 97, 100, 58, 100, 44, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 83, 116, 97, 110, 100, 97, 114, 100, 58, 110, 44, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 58, 116, 104, 105, 115, 46, 119, 114, 105, 116, 97, 98, 108, 101, 68, 97, 116, 97, 80, 97, 116, 104, 44, 112, 114, 101, 108, 111, 97, 100, 105, 110, 103, 58, 114, 125, 41, 125, 99, 97, 116, 99, 104, 40, 102, 41, 123, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 68, 101, 98, 117, 103, 44, 34, 78, 111, 32, 73, 110, 100, 101, 120, 101, 100, 68, 66, 32, 115, 117, 112, 112, 111, 114, 116, 44, 32, 115, 111, 109, 101, 32, 100, 97, 116, 97, 32, 119, 105, 108, 108, 32, 110, 111, 116, 32, 98, 101, 32, 112, 101, 114, 115, 105, 115, 116, 101, 100, 58, 34, 44, 102, 41, 125, 111, 61, 33, 48, 44, 112, 40, 41, 125, 93, 44, 111, 110, 82, 117, 110, 116, 105, 109, 101, 73, 110, 105, 116, 105, 97, 108, 105, 122, 101, 100, 58, 40, 41, 61, 62, 123, 97, 61, 33, 48, 44, 112, 40, 41, 125, 125, 41, 59, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 76, 40, 102, 41, 123, 118, 97, 114, 32, 121, 59, 97, 115, 121, 110, 99, 32, 102, 117, 110, 99, 116, 105, 111, 110, 32, 107, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 105, 109, 112, 111, 114, 116, 83, 99, 114, 105, 112, 116, 115, 40, 102, 41, 125, 116, 114, 121, 123, 97, 119, 97, 105, 116, 32, 84, 40, 107, 44, 50, 53, 48, 44, 52, 101, 51, 44, 70, 61, 62, 123, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 70, 41, 44, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 67, 111, 117, 108, 100, 110, 39, 116, 32, 114, 101, 116, 114, 105, 101, 118, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 97, 116, 32, 36, 123, 102, 125, 44, 32, 114, 101, 116, 114, 121, 105, 110, 103, 46, 46, 46, 96, 41, 125, 41, 59, 108, 101, 116, 32, 118, 61, 40, 121, 61, 115, 101, 108, 102, 46, 83, 68, 67, 95, 87, 65, 83, 77, 95, 74, 83, 95, 86, 69, 82, 83, 73, 79, 78, 41, 33, 61, 110, 117, 108, 108, 63, 121, 58, 34, 117, 110, 100, 101, 102, 105, 110, 101, 100, 34, 59, 114, 101, 116, 117, 114, 110, 32, 118, 33, 61, 61, 119, 38, 38, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 87, 97, 114, 110, 44, 96, 84, 104, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 74, 83, 32, 102, 105, 108, 101, 32, 102, 111, 117, 110, 100, 32, 97, 116, 32, 36, 123, 102, 125, 32, 115, 101, 101, 109, 115, 32, 105, 110, 118, 97, 108, 105, 100, 58, 32, 101, 120, 112, 101, 99, 116, 101, 100, 32, 118, 101, 114, 115, 105, 111, 110, 32, 100, 111, 101, 115, 110, 39, 116, 32, 109, 97, 116, 99, 104, 32, 40, 114, 101, 99, 101, 105, 118, 101, 100, 58, 32, 36, 123, 118, 125, 44, 32, 101, 120, 112, 101, 99, 116, 101, 100, 58, 32, 36, 123, 119, 125, 41, 46, 32, 80, 108, 101, 97, 115, 101, 32, 101, 110, 115, 117, 114, 101, 32, 116, 104, 101, 32, 99, 111, 114, 114, 101, 99, 116, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 102, 105, 108, 101, 32, 40, 119, 105, 116, 104, 32, 99, 111, 114, 114, 101, 99, 116, 32, 118, 101, 114, 115, 105, 111, 110, 41, 32, 105, 115, 32, 114, 101, 116, 114, 105, 101, 118, 101, 100, 46, 96, 41, 44, 33, 48, 125, 99, 97, 116, 99, 104, 40, 118, 41, 123, 114, 101, 116, 117, 114, 110, 32, 99, 46, 108, 111, 103, 40, 99, 46, 76, 101, 118, 101, 108, 46, 69, 114, 114, 111, 114, 44, 118, 41, 44, 33, 49, 125, 125, 114, 101, 116, 117, 114, 110, 32, 97, 119, 97, 105, 116, 32, 76, 40, 83, 41, 124, 124, 108, 40, 96, 67, 111, 117, 108, 100, 110, 39, 116, 32, 114, 101, 116, 114, 105, 101, 118, 101, 32, 83, 99, 97, 110, 100, 105, 116, 32, 68, 97, 116, 97, 32, 67, 97, 112, 116, 117, 114, 101, 32, 108, 105, 98, 114, 97, 114, 121, 32, 97, 116, 32, 36, 123, 83, 125, 44, 32, 100, 105, 100, 32, 121, 111, 117, 32, 99, 111, 110, 102, 105, 103, 117, 114, 101, 32, 116, 104, 101, 32, 112, 97, 116, 104, 32, 102, 111, 114, 32, 105, 116, 32, 99, 111, 114, 114, 101, 99, 116, 108, 121, 63, 96, 41, 44, 117, 125, 109, 97, 112, 77, 105, 114, 114, 111, 114, 65, 120, 105, 115, 79, 110, 77, 111, 100, 117, 108, 101, 40, 101, 41, 123, 115, 119, 105, 116, 99, 104, 40, 101, 41, 123, 99, 97, 115, 101, 34, 78, 111, 110, 101, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 78, 111, 110, 101, 59, 99, 97, 115, 101, 34, 88, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 88, 59, 99, 97, 115, 101, 34, 89, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 89, 59, 100, 101, 102, 97, 117, 108, 116, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 120, 105, 115, 46, 78, 111, 110, 101, 125, 125, 125, 59, 102, 117, 110, 99, 116, 105, 111, 110, 32, 75, 40, 101, 41, 123, 99, 111, 110, 115, 111, 108, 101, 46, 119, 97, 114, 110, 40, 34, 82, 101, 97, 99, 104, 101, 100, 32, 117, 110, 101, 120, 112, 101, 99, 116, 101, 100, 32, 99, 97, 115, 101, 34, 41, 125, 118, 97, 114, 32, 69, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 101, 44, 116, 41, 123, 109, 40, 116, 104, 105, 115, 44, 34, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 34, 41, 44, 109, 40, 116, 104, 105, 115, 44, 34, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 34, 41, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 61, 101, 44, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 61, 110, 101, 119, 32, 65, 40, 116, 44, 123, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 58, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 44, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 58, 116, 104, 105, 115, 46, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 125, 41, 44, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 84, 111, 77, 101, 115, 115, 97, 103, 101, 115, 40, 41, 125, 108, 105, 115, 116, 101, 110, 84, 111, 77, 101, 115, 115, 97, 103, 101, 115, 40, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 111, 110, 109, 101, 115, 115, 97, 103, 101, 61, 116, 104, 105, 115, 46, 111, 110, 77, 101, 115, 115, 97, 103, 101, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 125, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 101, 44, 116, 41, 123, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 101, 44, 116, 33, 61, 110, 117, 108, 108, 63, 116, 58, 91, 93, 41, 125, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 40, 41, 123, 105, 102, 40, 116, 121, 112, 101, 111, 102, 32, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 41, 114, 101, 116, 117, 114, 110, 32, 110, 101, 119, 32, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 83, 101, 108, 102, 46, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 40, 51, 50, 44, 51, 50, 41, 125, 104, 97, 115, 80, 97, 121, 108, 111, 97, 100, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 101, 33, 61, 61, 110, 117, 108, 108, 38, 38, 116, 121, 112, 101, 111, 102, 32, 101, 61, 61, 34, 111, 98, 106, 101, 99, 116, 34, 38, 38, 34, 112, 97, 121, 108, 111, 97, 100, 34, 105, 110, 32, 101, 125, 104, 97, 115, 84, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 40, 101, 41, 123, 114, 101, 116, 117, 114, 110, 32, 101, 33, 61, 61, 110, 117, 108, 108, 38, 38, 116, 121, 112, 101, 111, 102, 32, 101, 61, 61, 34, 111, 98, 106, 101, 99, 116, 34, 38, 38, 34, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 34, 105, 110, 32, 101, 38, 38, 65, 114, 114, 97, 121, 46, 105, 115, 65, 114, 114, 97, 121, 40, 101, 46, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 41, 125, 97, 115, 121, 110, 99, 32, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 44, 116, 44, 114, 41, 123, 108, 101, 116, 32, 105, 61, 110, 117, 108, 108, 44, 97, 59, 116, 114, 121, 123, 97, 61, 114, 40, 41, 44, 97, 32, 105, 110, 115, 116, 97, 110, 99, 101, 111, 102, 32, 80, 114, 111, 109, 105, 115, 101, 38, 38, 40, 97, 61, 97, 119, 97, 105, 116, 32, 97, 41, 125, 99, 97, 116, 99, 104, 40, 100, 41, 123, 97, 61, 118, 111, 105, 100, 32, 48, 44, 105, 61, 116, 121, 112, 101, 111, 102, 32, 100, 46, 116, 111, 83, 116, 114, 105, 110, 103, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 100, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 41, 58, 34, 117, 110, 107, 110, 111, 119, 32, 101, 114, 114, 111, 114, 34, 125, 108, 101, 116, 32, 111, 61, 123, 116, 121, 112, 101, 58, 34, 119, 111, 114, 107, 101, 114, 84, 97, 115, 107, 73, 100, 34, 44, 99, 111, 109, 109, 97, 110, 100, 58, 101, 44, 105, 100, 58, 116, 44, 112, 97, 121, 108, 111, 97, 100, 58, 116, 104, 105, 115, 46, 104, 97, 115, 80, 97, 121, 108, 111, 97, 100, 40, 97, 41, 63, 97, 46, 112, 97, 121, 108, 111, 97, 100, 58, 118, 111, 105, 100, 32, 48, 125, 59, 105, 33, 61, 110, 117, 108, 108, 38, 38, 40, 111, 46, 101, 114, 114, 111, 114, 61, 105, 41, 44, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 111, 44, 116, 104, 105, 115, 46, 104, 97, 115, 84, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 40, 97, 41, 63, 97, 46, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 93, 41, 125, 111, 110, 77, 101, 115, 115, 97, 103, 101, 40, 101, 41, 123, 115, 119, 105, 116, 99, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 41, 123, 99, 97, 115, 101, 34, 108, 111, 97, 100, 76, 105, 98, 114, 97, 114, 121, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 108, 111, 97, 100, 76, 105, 98, 114, 97, 114, 121, 40, 123, 108, 105, 98, 114, 97, 114, 121, 76, 111, 99, 97, 116, 105, 111, 110, 58, 116, 46, 108, 105, 98, 114, 97, 114, 121, 76, 111, 99, 97, 116, 105, 111, 110, 44, 108, 111, 99, 97, 116, 105, 111, 110, 80, 97, 116, 104, 58, 116, 46, 108, 111, 99, 97, 116, 105, 111, 110, 80, 97, 116, 104, 44, 112, 114, 101, 108, 111, 97, 100, 69, 110, 103, 105, 110, 101, 58, 116, 46, 112, 114, 101, 108, 111, 97, 100, 69, 110, 103, 105, 110, 101, 125, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 99, 114, 101, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 99, 114, 101, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 123, 99, 111, 110, 116, 101, 120, 116, 58, 116, 46, 99, 111, 110, 116, 101, 120, 116, 44, 100, 101, 118, 105, 99, 101, 73, 100, 58, 116, 46, 100, 101, 118, 105, 99, 101, 73, 100, 44, 100, 111, 109, 97, 105, 110, 58, 116, 46, 100, 111, 109, 97, 105, 110, 44, 100, 101, 108, 97, 121, 101, 100, 82, 101, 103, 105, 115, 116, 114, 97, 116, 105, 111, 110, 58, 116, 46, 100, 101, 108, 97, 121, 101, 100, 82, 101, 103, 105, 115, 116, 114, 97, 116, 105, 111, 110, 44, 104, 105, 103, 104, 69, 110, 100, 66, 108, 117, 114, 114, 121, 82, 101, 99, 111, 103, 110, 105, 116, 105, 111, 110, 58, 116, 46, 104, 105, 103, 104, 69, 110, 100, 66, 108, 117, 114, 114, 121, 82, 101, 99, 111, 103, 110, 105, 116, 105, 111, 110, 125, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 115, 101, 116, 70, 114, 97, 109, 101, 83, 111, 117, 114, 99, 101, 40, 116, 46, 109, 105, 114, 114, 111, 114, 65, 120, 105, 115, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 123, 100, 97, 116, 97, 58, 116, 46, 100, 97, 116, 97, 44, 119, 105, 100, 116, 104, 58, 116, 46, 119, 105, 100, 116, 104, 44, 104, 101, 105, 103, 104, 116, 58, 116, 46, 104, 101, 105, 103, 104, 116, 125, 41, 41, 59, 98, 114, 101, 97, 107, 125, 99, 97, 115, 101, 34, 114, 101, 113, 117, 101, 115, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 114, 101, 113, 117, 101, 115, 116, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 116, 46, 102, 114, 97, 109, 101, 73, 100, 41, 41, 59, 98, 114, 101, 97, 107, 125, 99, 97, 115, 101, 34, 100, 101, 108, 101, 116, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 123, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 100, 101, 108, 101, 116, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 116, 46, 102, 114, 97, 109, 101, 73, 100, 41, 125, 41, 59, 98, 114, 101, 97, 107, 125, 99, 97, 115, 101, 34, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 116, 41, 41, 125, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 100, 105, 115, 112, 111, 115, 101, 34, 58, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 100, 105, 115, 112, 111, 115, 101, 40, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 114, 101, 112, 111, 114, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 34, 58, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 114, 101, 112, 111, 114, 116, 67, 97, 109, 101, 114, 97, 80, 114, 111, 112, 101, 114, 116, 105, 101, 115, 40, 101, 46, 100, 97, 116, 97, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 115, 101, 116, 76, 111, 103, 76, 101, 118, 101, 108, 34, 58, 99, 46, 115, 101, 116, 76, 101, 118, 101, 108, 40, 101, 46, 100, 97, 116, 97, 46, 108, 101, 118, 101, 108, 41, 59, 98, 114, 101, 97, 107, 59, 99, 97, 115, 101, 34, 101, 120, 116, 114, 97, 99, 116, 67, 101, 110, 116, 97, 117, 114, 117, 115, 76, 105, 99, 101, 110, 115, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 116, 125, 61, 101, 59, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 101, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 44, 116, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 101, 120, 116, 114, 97, 99, 116, 67, 101, 110, 116, 97, 117, 114, 117, 115, 76, 105, 99, 101, 110, 115, 101, 40, 116, 46, 108, 105, 99, 101, 110, 115, 101, 75, 101, 121, 41, 41, 125, 98, 114, 101, 97, 107, 59, 100, 101, 102, 97, 117, 108, 116, 58, 114, 101, 116, 117, 114, 110, 32, 75, 40, 101, 46, 100, 97, 116, 97, 41, 44, 33, 49, 125, 114, 101, 116, 117, 114, 110, 33, 48, 125, 125, 44, 89, 61, 110, 101, 119, 32, 69, 40, 115, 101, 108, 102, 44, 123, 103, 101, 116, 58, 40, 41, 61, 62, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 44, 115, 101, 116, 58, 101, 61, 62, 123, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 61, 101, 125, 125, 41, 59, 118, 97, 114, 32, 73, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 41, 123, 103, 40, 116, 104, 105, 115, 44, 34, 112, 114, 111, 109, 105, 115, 101, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 114, 101, 115, 111, 108, 118, 101, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 114, 101, 106, 101, 99, 116, 34, 41, 59, 116, 104, 105, 115, 46, 112, 114, 111, 109, 105, 115, 101, 61, 110, 101, 119, 32, 80, 114, 111, 109, 105, 115, 101, 40, 40, 116, 44, 114, 41, 61, 62, 123, 116, 104, 105, 115, 46, 114, 101, 106, 101, 99, 116, 61, 114, 44, 116, 104, 105, 115, 46, 114, 101, 115, 111, 108, 118, 101, 61, 116, 125, 41, 125, 125, 59, 118, 97, 114, 32, 120, 61, 99, 108, 97, 115, 115, 32, 101, 120, 116, 101, 110, 100, 115, 32, 65, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 114, 44, 105, 41, 123, 115, 117, 112, 101, 114, 40, 114, 44, 105, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 34, 41, 125, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 114, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 105, 115, 67, 101, 110, 116, 97, 117, 114, 117, 115, 80, 114, 111, 99, 101, 115, 115, 105, 110, 103, 70, 114, 97, 109, 101, 40, 41, 63, 123, 112, 97, 121, 108, 111, 97, 100, 58, 114, 44, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 114, 46, 100, 97, 116, 97, 46, 98, 117, 102, 102, 101, 114, 93, 125, 58, 115, 117, 112, 101, 114, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 40, 114, 41, 125, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 114, 41, 123, 105, 102, 40, 115, 117, 112, 101, 114, 46, 117, 112, 100, 97, 116, 101, 67, 111, 110, 116, 101, 120, 116, 40, 114, 41, 44, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 33, 61, 110, 117, 108, 108, 38, 38, 116, 104, 105, 115, 46, 99, 111, 110, 116, 101, 120, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 33, 61, 110, 117, 108, 108, 41, 123, 108, 101, 116, 32, 105, 61, 114, 46, 99, 111, 110, 116, 101, 120, 116, 46, 109, 111, 100, 101, 115, 46, 102, 105, 110, 100, 40, 97, 61, 62, 97, 46, 116, 121, 112, 101, 61, 61, 61, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 34, 41, 59, 105, 102, 40, 105, 41, 123, 108, 101, 116, 32, 97, 61, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 105, 46, 115, 101, 116, 116, 105, 110, 103, 115, 41, 59, 116, 104, 105, 115, 46, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 33, 61, 61, 34, 34, 38, 38, 97, 33, 61, 61, 116, 104, 105, 115, 46, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 38, 38, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 99, 114, 101, 97, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 83, 101, 114, 105, 97, 108, 105, 122, 101, 100, 83, 101, 116, 116, 105, 110, 103, 115, 61, 97, 125, 125, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 114, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 114, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 114, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 114, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 114, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 115, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 114, 41, 125, 97, 115, 121, 110, 99, 32, 105, 100, 67, 97, 112, 116, 117, 114, 101, 82, 101, 115, 101, 116, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 101, 116, 40, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 101, 100, 40, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 111, 108, 118, 101, 76, 97, 115, 116, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 68, 101, 102, 101, 114, 114, 101, 100, 40, 41, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 114, 41, 123, 114, 101, 116, 117, 114, 110, 123, 112, 97, 121, 108, 111, 97, 100, 58, 123, 114, 101, 115, 117, 108, 116, 58, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 114, 41, 125, 125, 125, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 61, 110, 101, 119, 32, 122, 40, 116, 104, 105, 115, 44, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 41, 59, 108, 101, 116, 32, 114, 61, 115, 117, 112, 101, 114, 46, 103, 101, 116, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 115, 40, 41, 59, 114, 101, 116, 117, 114, 110, 32, 114, 46, 112, 117, 115, 104, 95, 98, 97, 99, 107, 40, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 103, 101, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 41, 41, 44, 114, 125, 103, 101, 116, 87, 97, 115, 109, 83, 105, 100, 101, 77, 111, 100, 117, 108, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 34, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 70, 105, 108, 101, 78, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 115, 99, 97, 110, 100, 105, 116, 45, 100, 97, 116, 97, 99, 97, 112, 116, 117, 114, 101, 45, 115, 100, 107, 45, 105, 100, 46, 119, 97, 115, 109, 34, 125, 103, 101, 116, 87, 97, 115, 109, 67, 111, 114, 101, 69, 120, 112, 101, 99, 116, 101, 100, 72, 97, 115, 104, 40, 41, 123, 114, 101, 116, 117, 114, 110, 34, 98, 102, 52, 51, 57, 97, 48, 98, 52, 102, 102, 100, 56, 52, 98, 99, 99, 100, 52, 56, 101, 102, 50, 50, 49, 102, 53, 57, 55, 54, 48, 48, 53, 101, 49, 54, 52, 99, 54, 55, 53, 97, 53, 48, 99, 50, 101, 48, 102, 57, 49, 49, 54, 56, 51, 49, 50, 48, 100, 99, 57, 98, 49, 56, 34, 125, 125, 44, 122, 61, 99, 108, 97, 115, 115, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 116, 44, 114, 44, 105, 41, 123, 103, 40, 116, 104, 105, 115, 44, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 34, 44, 33, 49, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 34, 44, 34, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 69, 114, 114, 111, 114, 34, 44, 34, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 34, 44, 34, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 99, 111, 114, 101, 69, 110, 103, 105, 110, 101, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 77, 111, 100, 117, 108, 101, 34, 41, 59, 103, 40, 116, 104, 105, 115, 44, 34, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 34, 41, 59, 116, 104, 105, 115, 46, 99, 111, 114, 101, 69, 110, 103, 105, 110, 101, 61, 116, 44, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 61, 114, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 61, 105, 44, 116, 104, 105, 115, 46, 115, 101, 116, 117, 112, 40, 41, 125, 115, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 116, 41, 123, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 61, 116, 125, 115, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 116, 41, 123, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 61, 116, 125, 115, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 116, 41, 123, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 61, 116, 125, 97, 115, 121, 110, 99, 32, 114, 101, 115, 101, 116, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 61, 110, 101, 119, 32, 73, 44, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 114, 101, 115, 101, 116, 40, 41, 44, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 46, 112, 114, 111, 109, 105, 115, 101, 125, 114, 101, 115, 111, 108, 118, 101, 76, 97, 115, 116, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 68, 101, 102, 101, 114, 114, 101, 100, 40, 41, 123, 118, 97, 114, 32, 116, 59, 40, 116, 61, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 125, 105, 115, 67, 101, 110, 116, 97, 117, 114, 117, 115, 80, 114, 111, 99, 101, 115, 115, 105, 110, 103, 70, 114, 97, 109, 101, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 33, 61, 110, 117, 108, 108, 125, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 116, 41, 123, 108, 101, 116, 32, 105, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 65, 97, 109, 118, 97, 86, 105, 122, 66, 97, 114, 99, 111, 100, 101, 67, 111, 109, 112, 97, 114, 105, 115, 111, 110, 86, 101, 114, 105, 102, 105, 101, 114, 40, 41, 46, 118, 101, 114, 105, 102, 121, 40, 74, 83, 79, 78, 46, 115, 116, 114, 105, 110, 103, 105, 102, 121, 40, 116, 41, 41, 59, 114, 101, 116, 117, 114, 110, 32, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 105, 46, 116, 111, 74, 115, 111, 110, 40, 41, 41, 125, 115, 101, 116, 117, 112, 40, 41, 123, 108, 101, 116, 32, 116, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 76, 105, 115, 116, 101, 110, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 76, 105, 115, 116, 101, 110, 101, 114, 34, 44, 123, 111, 110, 73, 100, 67, 97, 112, 116, 117, 114, 101, 100, 58, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 116, 104, 105, 115, 46, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 105, 100, 67, 97, 112, 116, 117, 114, 101, 73, 100, 34, 44, 104, 44, 115, 41, 125, 44, 111, 110, 73, 100, 76, 111, 99, 97, 108, 105, 122, 101, 100, 58, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 116, 104, 105, 115, 46, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 105, 100, 76, 111, 99, 97, 108, 105, 122, 101, 73, 100, 34, 44, 104, 44, 115, 41, 125, 44, 111, 110, 73, 100, 82, 101, 106, 101, 99, 116, 101, 100, 58, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 116, 104, 105, 115, 46, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 105, 100, 82, 101, 106, 101, 99, 116, 73, 100, 34, 44, 104, 44, 115, 41, 125, 125, 41, 44, 114, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 76, 105, 115, 116, 101, 110, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 76, 105, 115, 116, 101, 110, 101, 114, 34, 44, 123, 111, 110, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 70, 105, 110, 105, 115, 104, 101, 100, 58, 40, 110, 44, 104, 41, 61, 62, 123, 105, 102, 40, 33, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 41, 123, 108, 101, 116, 32, 115, 61, 110, 101, 119, 32, 116, 59, 104, 46, 97, 100, 100, 76, 105, 115, 116, 101, 110, 101, 114, 40, 115, 41, 44, 115, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 61, 33, 48, 125, 125, 44, 111, 110, 77, 111, 100, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 83, 116, 97, 114, 116, 101, 100, 40, 41, 123, 125, 44, 111, 110, 83, 101, 116, 116, 105, 110, 103, 115, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 83, 116, 97, 114, 116, 101, 100, 40, 41, 123, 125, 44, 111, 110, 83, 101, 116, 116, 105, 110, 103, 115, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 97, 116, 105, 111, 110, 70, 105, 110, 105, 115, 104, 101, 100, 40, 41, 123, 125, 125, 41, 44, 105, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 66, 97, 99, 107, 101, 110, 100, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 66, 97, 99, 107, 101, 110, 100, 34, 44, 123, 103, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 58, 40, 41, 61, 62, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 44, 103, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 58, 40, 41, 61, 62, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 44, 103, 101, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 79, 110, 108, 121, 73, 100, 58, 40, 41, 61, 62, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 44, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 58, 97, 115, 121, 110, 99, 40, 110, 44, 104, 44, 115, 41, 61, 62, 123, 108, 101, 116, 32, 108, 61, 110, 101, 119, 32, 85, 105, 110, 116, 56, 67, 108, 97, 109, 112, 101, 100, 65, 114, 114, 97, 121, 40, 110, 46, 108, 101, 110, 103, 116, 104, 41, 59, 114, 101, 116, 117, 114, 110, 32, 108, 46, 115, 101, 116, 40, 110, 41, 44, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 111, 114, 119, 97, 114, 100, 70, 114, 97, 109, 101, 34, 44, 112, 97, 121, 108, 111, 97, 100, 58, 123, 100, 97, 116, 97, 58, 108, 44, 119, 105, 100, 116, 104, 58, 104, 44, 104, 101, 105, 103, 104, 116, 58, 115, 125, 125, 44, 91, 108, 46, 98, 117, 102, 102, 101, 114, 93, 41, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 61, 110, 101, 119, 32, 73, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 46, 112, 114, 111, 109, 105, 115, 101, 125, 44, 114, 101, 115, 101, 116, 58, 40, 41, 61, 62, 123, 118, 97, 114, 32, 110, 59, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 61, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 61, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 61, 34, 34, 44, 40, 110, 61, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 110, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 125, 44, 117, 112, 100, 97, 116, 101, 83, 101, 116, 116, 105, 110, 103, 115, 40, 110, 41, 123, 125, 125, 41, 44, 97, 61, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 72, 101, 108, 112, 101, 114, 46, 101, 120, 116, 101, 110, 100, 40, 34, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 72, 101, 108, 112, 101, 114, 34, 44, 123, 99, 114, 101, 97, 116, 101, 77, 111, 100, 101, 58, 40, 110, 44, 104, 41, 61, 62, 123, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 33, 61, 110, 117, 108, 108, 38, 38, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 46, 100, 101, 108, 101, 116, 101, 40, 41, 59, 108, 101, 116, 32, 115, 61, 110, 101, 119, 32, 105, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 40, 110, 44, 115, 44, 104, 41, 44, 115, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 77, 111, 100, 101, 125, 125, 41, 44, 111, 61, 110, 101, 119, 32, 97, 59, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 61, 110, 101, 119, 32, 116, 104, 105, 115, 46, 77, 111, 100, 117, 108, 101, 46, 73, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 111, 41, 44, 111, 46, 100, 101, 108, 101, 116, 101, 40, 41, 59, 108, 101, 116, 32, 100, 61, 110, 101, 119, 32, 114, 59, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 115, 101, 116, 76, 105, 115, 116, 101, 110, 101, 114, 40, 100, 41, 44, 100, 46, 100, 101, 108, 101, 116, 101, 40, 41, 125, 112, 111, 115, 116, 73, 100, 67, 97, 112, 116, 117, 114, 101, 67, 97, 108, 108, 98, 97, 99, 107, 40, 116, 44, 114, 44, 105, 41, 123, 108, 101, 116, 32, 97, 61, 116, 104, 105, 115, 46, 99, 111, 114, 101, 69, 110, 103, 105, 110, 101, 46, 99, 111, 110, 118, 101, 114, 116, 84, 111, 76, 111, 97, 100, 97, 98, 108, 101, 70, 114, 97, 109, 101, 68, 97, 116, 97, 40, 105, 41, 59, 116, 104, 105, 115, 46, 119, 111, 114, 107, 101, 114, 70, 117, 110, 99, 116, 105, 111, 110, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 123, 116, 121, 112, 101, 58, 116, 44, 112, 97, 121, 108, 111, 97, 100, 58, 123, 115, 101, 115, 115, 105, 111, 110, 58, 74, 83, 79, 78, 46, 112, 97, 114, 115, 101, 40, 114, 46, 116, 111, 74, 115, 111, 110, 40, 41, 41, 44, 102, 114, 97, 109, 101, 68, 97, 116, 97, 58, 97, 125, 125, 41, 125, 103, 101, 116, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 40, 41, 123, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 125, 114, 101, 99, 114, 101, 97, 116, 101, 40, 41, 123, 118, 97, 114, 32, 116, 44, 114, 59, 116, 104, 105, 115, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 68, 101, 115, 101, 114, 105, 97, 108, 105, 122, 101, 114, 46, 100, 101, 108, 101, 116, 101, 40, 41, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 69, 114, 114, 111, 114, 61, 34, 34, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 61, 34, 34, 44, 116, 104, 105, 115, 46, 108, 97, 115, 116, 82, 101, 115, 117, 108, 116, 61, 34, 34, 44, 40, 116, 61, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 116, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 40, 114, 61, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 41, 61, 61, 110, 117, 108, 108, 124, 124, 114, 46, 114, 101, 115, 111, 108, 118, 101, 40, 41, 44, 116, 104, 105, 115, 46, 114, 101, 115, 101, 116, 82, 101, 113, 117, 101, 115, 116, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 44, 116, 104, 105, 115, 46, 112, 114, 111, 99, 101, 115, 115, 70, 114, 97, 109, 101, 68, 101, 102, 101, 114, 114, 101, 100, 61, 118, 111, 105, 100, 32, 48, 44, 116, 104, 105, 115, 46, 108, 105, 115, 116, 101, 110, 101, 114, 83, 101, 116, 61, 33, 49, 44, 116, 104, 105, 115, 46, 115, 101, 116, 117, 112, 40, 41, 125, 125, 59, 118, 97, 114, 32, 79, 61, 99, 108, 97, 115, 115, 32, 101, 120, 116, 101, 110, 100, 115, 32, 69, 123, 99, 111, 110, 115, 116, 114, 117, 99, 116, 111, 114, 40, 116, 44, 114, 41, 123, 115, 117, 112, 101, 114, 40, 116, 44, 114, 41, 44, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 61, 110, 101, 119, 32, 120, 40, 114, 44, 123, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 58, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 44, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 58, 116, 104, 105, 115, 46, 103, 101, 116, 79, 102, 102, 115, 99, 114, 101, 101, 110, 67, 97, 110, 118, 97, 115, 46, 98, 105, 110, 100, 40, 116, 104, 105, 115, 41, 125, 41, 125, 97, 115, 121, 110, 99, 32, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 116, 44, 114, 44, 105, 41, 123, 108, 101, 116, 32, 97, 61, 110, 117, 108, 108, 44, 111, 59, 116, 114, 121, 123, 111, 61, 105, 40, 41, 44, 111, 32, 105, 110, 115, 116, 97, 110, 99, 101, 111, 102, 32, 80, 114, 111, 109, 105, 115, 101, 38, 38, 40, 111, 61, 97, 119, 97, 105, 116, 32, 111, 41, 125, 99, 97, 116, 99, 104, 40, 110, 41, 123, 111, 61, 118, 111, 105, 100, 32, 48, 44, 97, 61, 116, 121, 112, 101, 111, 102, 32, 110, 46, 116, 111, 83, 116, 114, 105, 110, 103, 61, 61, 34, 102, 117, 110, 99, 116, 105, 111, 110, 34, 63, 110, 46, 116, 111, 83, 116, 114, 105, 110, 103, 40, 41, 58, 34, 117, 110, 107, 110, 111, 119, 32, 101, 114, 114, 111, 114, 34, 125, 108, 101, 116, 32, 100, 61, 123, 116, 121, 112, 101, 58, 34, 119, 111, 114, 107, 101, 114, 84, 97, 115, 107, 73, 100, 34, 44, 99, 111, 109, 109, 97, 110, 100, 58, 116, 44, 105, 100, 58, 114, 44, 112, 97, 121, 108, 111, 97, 100, 58, 116, 104, 105, 115, 46, 104, 97, 115, 80, 97, 121, 108, 111, 97, 100, 40, 111, 41, 63, 111, 46, 112, 97, 121, 108, 111, 97, 100, 58, 118, 111, 105, 100, 32, 48, 125, 59, 97, 33, 61, 110, 117, 108, 108, 38, 38, 40, 100, 46, 101, 114, 114, 111, 114, 61, 97, 41, 44, 116, 104, 105, 115, 46, 112, 111, 115, 116, 77, 101, 115, 115, 97, 103, 101, 40, 100, 44, 116, 104, 105, 115, 46, 104, 97, 115, 84, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 40, 111, 41, 63, 111, 46, 116, 114, 97, 110, 115, 102, 101, 114, 97, 98, 108, 101, 115, 58, 91, 93, 41, 125, 111, 110, 77, 101, 115, 115, 97, 103, 101, 40, 116, 41, 123, 115, 119, 105, 116, 99, 104, 40, 116, 46, 100, 97, 116, 97, 46, 99, 111, 109, 109, 97, 110, 100, 41, 123, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 82, 101, 115, 117, 108, 116, 40, 114, 46, 114, 101, 115, 117, 108, 116, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 69, 114, 114, 111, 114, 40, 114, 46, 101, 114, 114, 111, 114, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 83, 101, 116, 76, 97, 115, 116, 76, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 40, 114, 46, 108, 111, 99, 97, 108, 105, 122, 101, 100, 73, 100, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 82, 101, 115, 101, 116, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 114, 46, 99, 111, 109, 109, 97, 110, 100, 44, 114, 46, 105, 100, 44, 97, 115, 121, 110, 99, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 82, 101, 115, 101, 116, 40, 41, 41, 44, 33, 48, 125, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 101, 100, 34, 58, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 70, 114, 97, 109, 101, 80, 114, 111, 99, 101, 115, 115, 101, 100, 40, 41, 44, 33, 48, 59, 99, 97, 115, 101, 34, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 34, 58, 123, 108, 101, 116, 123, 100, 97, 116, 97, 58, 114, 125, 61, 116, 59, 114, 101, 116, 117, 114, 110, 32, 116, 104, 105, 115, 46, 114, 101, 115, 112, 111, 110, 100, 87, 105, 116, 104, 40, 114, 46, 99, 111, 109, 109, 97, 110, 100, 44, 114, 46, 105, 100, 44, 40, 41, 61, 62, 116, 104, 105, 115, 46, 100, 97, 116, 97, 67, 97, 112, 116, 117, 114, 101, 73, 110, 115, 116, 97, 110, 99, 101, 46, 105, 100, 67, 97, 112, 116, 117, 114, 101, 86, 101, 114, 105, 102, 121, 65, 97, 109, 118, 97, 67, 97, 112, 116, 117, 114, 101, 40, 114, 46, 99, 97, 112, 116, 117, 114, 101, 100, 73, 100, 41, 41, 44, 33, 48, 125, 100, 101, 102, 97, 117, 108, 116, 58, 114, 101, 116, 117, 114, 110, 32, 115, 117, 112, 101, 114, 46, 111, 110, 77, 101, 115, 115, 97, 103, 101, 40, 116, 41, 125, 125, 125, 44, 110, 101, 61, 110, 101, 119, 32, 79, 40, 115, 101, 108, 102, 44, 123, 103, 101, 116, 58, 40, 41, 61, 62, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 44, 115, 101, 116, 58, 101, 61, 62, 123, 115, 101, 108, 102, 46, 77, 111, 100, 117, 108, 101, 61, 101, 125, 125, 41, 59, 125, 41, 40, 41, 59, 10])], { type: "text/javascript" }));
-var p0 = V0;
-var e1 = class extends er {
-  static async create(i) {
-    var a, o;
-    let r = new e1(i.libraryLocation, (a = i.preloadEngine) != null ? a : false);
-    return r.workerCommand("setLogLevel", { level: (o = i.logLevel) != null ? o : g.Level.Debug }), await r.load(), r;
-  }
-  get dataCaptureWorker() {
-    var i;
-    return this._dataCaptureWorker = (i = this._dataCaptureWorker) != null ? i : new Worker(p0, { name: `SDCLoader ${this.isPreloadEngine ? " (preload)" : ""}` }), this._dataCaptureWorker;
-  }
-  async workerCommand(i, r, a) {
-    return new Promise((o, d) => {
-      let R2 = this.workerCommandId++;
-      this.workerTasks.set(R2, { resolve: o, reject: d });
-      let A = O2(h({}, r), { command: i, id: R2 });
-      this.dataCaptureWorker.postMessage(A, a);
-    });
-  }
-};
-var K0 = ((E) => (E.AAMVABarcodeResult = "aamvaBarcodeResult", E.ArgentinaIdBarcodeResult = "argentinaIdBarcodeResult", E.ChinaMainlandTravelPermitMrzResult = "chinaMainlandTravelPermitMrzResult", E.ChinaExitEntryPermitMrzResult = "chinaExitEntryPermitMrzResult", E.ColombiaIdBarcodeResult = "colombiaIdBarcodeResult", E.ColombiaDlBarcodeResult = "colombiaDlBarcodeResult", E.MRZResult = "mrzResult", E.SouthAfricaDlBarcodeResult = "southAfricaDlBarcodeResult", E.SouthAfricaIdBarcodeResult = "southAfricaIdBarcodeResult", E.USUniformedServicesBarcodeResult = "usUniformedServicesBarcodeResult", E.VIZResult = "vizResult", E))(K0 || {});
-var Z1 = ((u) => (u.None = "none", u.ConsularId = "consularId", u.DrivingLicense = "drivingLicense", u.DrivingLicensePublicServicesCard = "drivingLicensePublicServicesCard", u.EmploymentPass = "employmentPass", u.FinCard = "finCard", u.Id = "id", u.MultipurposeId = "multipurposeId", u.MyKad = "myKad", u.MyKid = "myKid", u.MyPR = "myPr", u.MyTentera = "myTentera", u.PanCard = "panCard", u.ProfessionalId = "professionalId", u.PublicServicesCard = "publicServicesCard", u.ResidencePermit = "residencePermit", u.ResidentId = "residentId", u.TemporaryResidencePermit = "temporaryResidencePermit", u.VoterId = "voterId", u.WorkPermit = "workPermit", u.IKad = "iKad", u.MilitaryId = "militaryId", u.MyKas = "myKas", u.SocialSecurityCard = "socialSecurityCard", u.HealthInsuranceCard = "healthInsuranceCard", u.Passport = "passport", u.Visa = "visa", u.SPass = "sPass", u.AddressCard = "addressCard", u.AlienId = "alienId", u.AlienPassport = "alienPassport", u.GreenCard = "greenCard", u.MinorsId = "minorsId", u.PostalId = "postalId", u.ProfessionalDl = "professionalDl", u.TaxId = "taxId", u.WeaponPermit = "weaponPermit", u.BorderCrossingCard = "borderCrossingCard", u.DriverCard = "driverCard", u.GlobalEntryCard = "globalEntryCard", u.MyPolis = "myPolis", u.NexusCard = "nexusCard", u.PassportCard = "passportCard", u.ProofOfAgeCard = "proofOfAgeCard", u.RefugeeId = "refugeeId", u.TribalId = "tribalId", u.VeteranId = "veteranId", u.CitizenshipCertificate = "citizenshipCertificate", u.MyNumberCard = "myNumberCard", u.MinorsPassport = "minorsPassport", u.MinorsPublicServicesCard = "minorsPublicServicesCard", u.DiplomaticPassport = "diplomaticPassport", u))(Z1 || {});
-var x0 = ((p) => (p.AAMVABarcode = "aamvaBarcode", p.ArgentinaIdBarcode = "argentinaIdBarcode", p.ChinaMainlandTravelPermitMRZ = "chinaMainlandTravelPermitMrz", p.ChinaExitEntryPermitMRZ = "chinaExitEntryPermitMrz", p.ColombiaDlBarcode = "colombiaDlBarcode", p.ColombiaIdBarcode = "colombiaIdBarcode", p.DLVIZ = "dlViz", p.IdCardMRZ = "idCardMrz", p.IdCardVIZ = "idCardViz", p.PassportMRZ = "passportMrz", p.SouthAfricaDlBarcode = "southAfricaDlBarcode", p.SouthAfricaIdBarcode = "southAfricaIdBarcode", p.SwissDLMRZ = "swissDlMrz", p.USUSIdBarcode = "usUsIdBarcode", p.VisaMRZ = "visaMrz", p))(x0 || {});
-var v1 = ((i) => (i.FrontOnly = "frontOnly", i.FrontAndBack = "frontAndBack", i))(v1 || {});
-var m0 = ((r) => (r.Face = "face", r.IdFront = "idFront", r.IdBack = "idBack", r))(m0 || {});
-var _0 = ((A) => (A.TD1 = "td1", A.TD2 = "td2", A.TD3 = "td3", A.MRVa = "mrvA", A.VIZ = "viz", A.PDF417 = "pdf417", A.Auto = "auto", A.None = "none", A))(_0 || {});
-var D0 = ((i) => (i.Rounded = "rounded", i.Square = "square", i))(D0 || {});
-var f0 = ((i) => (i.Light = "light", i.Bold = "bold", i))(f0 || {});
-var H0 = ((r) => (r.Passed = "Passed", r.Skipped = "Skipped", r.Failed = "Failed", r))(H0 || {});
-var S = class {
+var x0 = ((O2) => (O2.AAMVABarcodeResult = "aamvaBarcodeResult", O2.ArgentinaIdBarcodeResult = "argentinaIdBarcodeResult", O2.ChinaMainlandTravelPermitMrzResult = "chinaMainlandTravelPermitMrzResult", O2.ChinaExitEntryPermitMrzResult = "chinaExitEntryPermitMrzResult", O2.ColombiaIdBarcodeResult = "colombiaIdBarcodeResult", O2.ColombiaDlBarcodeResult = "colombiaDlBarcodeResult", O2.MRZResult = "mrzResult", O2.SouthAfricaDlBarcodeResult = "southAfricaDlBarcodeResult", O2.SouthAfricaIdBarcodeResult = "southAfricaIdBarcodeResult", O2.USUniformedServicesBarcodeResult = "usUniformedServicesBarcodeResult", O2.VIZResult = "vizResult", O2))(x0 || {});
+var Y1 = ((u) => (u.None = "none", u.ConsularId = "consularId", u.DrivingLicense = "drivingLicense", u.DrivingLicensePublicServicesCard = "drivingLicensePublicServicesCard", u.EmploymentPass = "employmentPass", u.FinCard = "finCard", u.Id = "id", u.MultipurposeId = "multipurposeId", u.MyKad = "myKad", u.MyKid = "myKid", u.MyPR = "myPr", u.MyTentera = "myTentera", u.PanCard = "panCard", u.ProfessionalId = "professionalId", u.PublicServicesCard = "publicServicesCard", u.ResidencePermit = "residencePermit", u.ResidentId = "residentId", u.TemporaryResidencePermit = "temporaryResidencePermit", u.VoterId = "voterId", u.WorkPermit = "workPermit", u.IKad = "iKad", u.MilitaryId = "militaryId", u.MyKas = "myKas", u.SocialSecurityCard = "socialSecurityCard", u.HealthInsuranceCard = "healthInsuranceCard", u.Passport = "passport", u.Visa = "visa", u.SPass = "sPass", u.AddressCard = "addressCard", u.AlienId = "alienId", u.AlienPassport = "alienPassport", u.GreenCard = "greenCard", u.MinorsId = "minorsId", u.PostalId = "postalId", u.ProfessionalDl = "professionalDl", u.TaxId = "taxId", u.WeaponPermit = "weaponPermit", u.BorderCrossingCard = "borderCrossingCard", u.DriverCard = "driverCard", u.GlobalEntryCard = "globalEntryCard", u.MyPolis = "myPolis", u.NexusCard = "nexusCard", u.PassportCard = "passportCard", u.ProofOfAgeCard = "proofOfAgeCard", u.RefugeeId = "refugeeId", u.TribalId = "tribalId", u.VeteranId = "veteranId", u.CitizenshipCertificate = "citizenshipCertificate", u.MyNumberCard = "myNumberCard", u.MinorsPassport = "minorsPassport", u.MinorsPublicServicesCard = "minorsPublicServicesCard", u.DiplomaticPassport = "diplomaticPassport", u))(Y1 || {});
+var H0 = ((E) => (E.AAMVABarcode = "aamvaBarcode", E.ArgentinaIdBarcode = "argentinaIdBarcode", E.ChinaMainlandTravelPermitMRZ = "chinaMainlandTravelPermitMrz", E.ChinaExitEntryPermitMRZ = "chinaExitEntryPermitMrz", E.ColombiaDlBarcode = "colombiaDlBarcode", E.ColombiaIdBarcode = "colombiaIdBarcode", E.DLVIZ = "dlViz", E.IdCardMRZ = "idCardMrz", E.IdCardVIZ = "idCardViz", E.PassportMRZ = "passportMrz", E.SouthAfricaDlBarcode = "southAfricaDlBarcode", E.SouthAfricaIdBarcode = "southAfricaIdBarcode", E.SwissDLMRZ = "swissDlMrz", E.USUSIdBarcode = "usUsIdBarcode", E.VisaMRZ = "visaMrz", E))(H0 || {});
+var u1 = ((r) => (r.FrontOnly = "frontOnly", r.FrontAndBack = "frontAndBack", r))(u1 || {});
+var _0 = ((i) => (i.Face = "face", i.IdFront = "idFront", i.IdBack = "idBack", i))(_0 || {});
+var D0 = ((A) => (A.TD1 = "td1", A.TD2 = "td2", A.TD3 = "td3", A.MRVa = "mrvA", A.VIZ = "viz", A.PDF417 = "pdf417", A.Auto = "auto", A.None = "none", A))(D0 || {});
+var f0 = ((r) => (r.Rounded = "rounded", r.Square = "square", r))(f0 || {});
+var g0 = ((r) => (r.Light = "light", r.Bold = "bold", r))(g0 || {});
+var Z0 = ((i) => (i.Passed = "Passed", i.Skipped = "Skipped", i.Failed = "Failed", i))(Z0 || {});
+var p = class {
   constructor() {
     n(this, "json", {});
   }
@@ -5868,20 +5877,20 @@ var S = class {
   static fromJSON(t) {
     if (t == null)
       return null;
-    let i = new S();
-    return i.json = t, i;
+    let r = new p();
+    return r.json = t, r;
   }
   toJSONObject() {
     return { day: this.day, month: this.month, year: this.year };
   }
 };
-var u1 = class {
+var d1 = class {
   constructor() {
     n(this, "json");
   }
   get dateOfExpiry() {
     var t;
-    return (t = S.fromJSON(this.json.dateOfExpiry)) != null ? t : new S();
+    return (t = p.fromJSON(this.json.dateOfExpiry)) != null ? t : new p();
   }
   get codes() {
     return this.json.codes;
@@ -5889,8 +5898,8 @@ var u1 = class {
   static fromJSON(t) {
     if (t === null)
       return null;
-    let i = new u1();
-    return i.json = t, i;
+    let r = new d1();
+    return r.json = t, r;
   }
   toJSONObject() {
     return { codes: this.codes, dateOfExpiry: this.dateOfExpiry.toJSONObject() };
@@ -5908,13 +5917,13 @@ var c1 = class {
   }
   get dateOfIssue() {
     var t;
-    return (t = S.fromJSON(this.json.dateOfIssue)) != null ? t : new S();
+    return (t = p.fromJSON(this.json.dateOfIssue)) != null ? t : new p();
   }
   static fromJSON(t) {
     if (t === null)
       return null;
-    let i = new c1();
-    return i.json = t, i;
+    let r = new c1();
+    return r.json = t, r;
   }
   toJSONObject() {
     return { dateOfIssue: this.dateOfIssue.toJSONObject(), vehicleCode: this.vehicleCode, vehicleRestriction: this.vehicleRestriction };
@@ -5937,7 +5946,7 @@ var _ = class {
     return this.json.sex;
   }
   get dateOfBirth() {
-    return S.fromJSON(this.json.dateOfBirth);
+    return p.fromJSON(this.json.dateOfBirth);
   }
   get nationality() {
     return this.json.nationality;
@@ -5958,10 +5967,10 @@ var _ = class {
     return this.json.documentNumber;
   }
   get dateOfExpiry() {
-    return S.fromJSON(this.json.dateOfExpiry);
+    return p.fromJSON(this.json.dateOfExpiry);
   }
   get dateOfIssue() {
-    return S.fromJSON(this.json.dateOfIssue);
+    return p.fromJSON(this.json.dateOfIssue);
   }
   toJSONObject() {
     return { firstName: this.firstName, lastName: this.lastName, fullName: this.fullName, sex: this.sex, dateOfBirth: this.dateOfBirth ? this.dateOfBirth.toJSONObject() : null, nationality: this.nationality, address: this.address, documentType: this.documentType, issuingCountryIso: this.issuingCountryIso, issuingCountry: this.issuingCountry, documentNumber: this.documentNumber, dateOfExpiry: this.dateOfExpiry ? this.dateOfExpiry.toJSONObject() : null, dateOfIssue: this.dateOfIssue ? this.dateOfIssue.toJSONObject() : null };
@@ -5988,7 +5997,7 @@ var F = class {
   }
   get aamvaBarcodeResult() {
     var t;
-    return this._aamvaBarcodeResult == null && this.json.aamvaBarcodeResult != null && (this._aamvaBarcodeResult = I1.fromJSON(this.json.aamvaBarcodeResult)), (t = this._aamvaBarcodeResult) != null ? t : null;
+    return this._aamvaBarcodeResult == null && this.json.aamvaBarcodeResult != null && (this._aamvaBarcodeResult = A1.fromJSON(this.json.aamvaBarcodeResult)), (t = this._aamvaBarcodeResult) != null ? t : null;
   }
   get argentinaIdBarcodeResult() {
     var t;
@@ -6008,15 +6017,15 @@ var F = class {
   }
   get colombiaDlBarcodeResult() {
     var t;
-    return this._colombiaDlBarcodeResult == null && this.json.colombiaDlBarcodeResult != null && (this._colombiaDlBarcodeResult = p1.fromJSON(this.json.colombiaDlBarcodeResult)), (t = this._colombiaDlBarcodeResult) != null ? t : null;
+    return this._colombiaDlBarcodeResult == null && this.json.colombiaDlBarcodeResult != null && (this._colombiaDlBarcodeResult = m1.fromJSON(this.json.colombiaDlBarcodeResult)), (t = this._colombiaDlBarcodeResult) != null ? t : null;
   }
   get mrzResult() {
     var t;
-    return this._mrzResult == null && this.json.mrzResult != null && (this._mrzResult = A1.fromJSON(this.json.mrzResult)), (t = this._mrzResult) != null ? t : null;
+    return this._mrzResult == null && this.json.mrzResult != null && (this._mrzResult = N1.fromJSON(this.json.mrzResult)), (t = this._mrzResult) != null ? t : null;
   }
   get southAfricaIdBarcodeResult() {
     var t;
-    return this._southAfricaIdBarcodeResult == null && this.json.southAfricaIdBarcodeResult != null && (this._southAfricaIdBarcodeResult = m1.fromJSON(this.json.southAfricaIdBarcodeResult)), (t = this._southAfricaIdBarcodeResult) != null ? t : null;
+    return this._southAfricaIdBarcodeResult == null && this.json.southAfricaIdBarcodeResult != null && (this._southAfricaIdBarcodeResult = C1.fromJSON(this.json.southAfricaIdBarcodeResult)), (t = this._southAfricaIdBarcodeResult) != null ? t : null;
   }
   get southAfricaDlBarcodeResult() {
     var t;
@@ -6025,8 +6034,8 @@ var F = class {
   get usUniformedServicesBarcodeResult() {
     var t;
     if (this._usUniformedServicesBarcodeResult == null && this.json.usUniformedServicesBarcodeResult != null) {
-      let i = N1.fromJSON;
-      this._usUniformedServicesBarcodeResult = i(this.json.usUniformedServicesBarcodeResult);
+      let r = p1.fromJSON;
+      this._usUniformedServicesBarcodeResult = r(this.json.usUniformedServicesBarcodeResult);
     }
     return (t = this._usUniformedServicesBarcodeResult) != null ? t : null;
   }
@@ -6039,21 +6048,21 @@ var F = class {
   }
   get imageInfo() {
     var t;
-    return this._imageInfo == null && this.json.imageInfo != null && (this._imageInfo = d1.fromJSON(this.json.imageInfo)), (t = this._imageInfo) != null ? t : null;
+    return this._imageInfo == null && this.json.imageInfo != null && (this._imageInfo = I1.fromJSON(this.json.imageInfo)), (t = this._imageInfo) != null ? t : null;
   }
   get documentType() {
-    var t, i;
-    return (i = (t = this.vizResult) == null ? void 0 : t.documentType) != null ? i : "none";
+    var t, r;
+    return (r = (t = this.vizResult) == null ? void 0 : t.documentType) != null ? r : "none";
   }
   static fromJSON(t) {
-    let i = new F();
-    return i.json = t, i;
+    let r = new F();
+    return r.json = t, r;
   }
   toJSONObject() {
     return { capturedResultTypes: this.capturedResultTypes, imageInfo: this.imageInfo ? this.imageInfo.toJSONObject() : null, aamvaBarcodeResult: this.aamvaBarcodeResult ? this.aamvaBarcodeResult.toJSONObject() : null, argentinaIdBarcodeResult: this.argentinaIdBarcodeResult ? this.argentinaIdBarcodeResult.toJSONObject() : null, chinaMainlandTravelPermitMrzResult: this.chinaMainlandTravelPermitMrzResult ? this.chinaMainlandTravelPermitMrzResult.toJSONObject() : null, chinaExitEntryPermitMrzResult: this.chinaExitEntryPermitMrzResult ? this.chinaExitEntryPermitMrzResult.toJSONObject() : null, colombiaIdBarcodeResult: this.colombiaIdBarcodeResult ? this.colombiaIdBarcodeResult.toJSONObject() : null, colombiaDlBarcodeResult: this.colombiaDlBarcodeResult ? this.colombiaDlBarcodeResult.toJSONObject() : null, mrzResult: this.mrzResult ? this.mrzResult.toJSONObject() : null, southAfricaDlBarcodeResult: this.southAfricaDlBarcodeResult ? this.southAfricaDlBarcodeResult.toJSONObject() : null, southAfricaIdBarcodeResult: this.southAfricaIdBarcodeResult ? this.southAfricaIdBarcodeResult.toJSONObject() : null, usUniformedServicesBarcodeResult: this.usUniformedServicesBarcodeResult ? this.usUniformedServicesBarcodeResult.toJSONObject() : null, vizResult: this.vizResult ? this.vizResult.toJSONObject() : null };
   }
 };
-var d1 = class {
+var I1 = class {
   constructor() {
     n(this, "json");
   }
@@ -6067,14 +6076,14 @@ var d1 = class {
     return this.json.idFront;
   }
   static fromJSON(t) {
-    let i = new d1();
-    return i.json = t, i;
+    let r = new I1();
+    return r.json = t, r;
   }
   toJSONObject() {
     return { face: this.face, idBack: this.idBack, idFront: this.idFront };
   }
 };
-var I1 = class extends _ {
+var A1 = class extends _ {
   get aamvaVersion() {
     return this.json.aamvaVersion;
   }
@@ -6151,7 +6160,7 @@ var I1 = class extends _ {
     return this.json.weightLbs;
   }
   get cardRevisionDate() {
-    return S.fromJSON(this.json.cardRevisionDate);
+    return p.fromJSON(this.json.cardRevisionDate);
   }
   get documentDiscriminatorNumber() {
     return this.json.documentDiscriminatorNumber;
@@ -6159,15 +6168,15 @@ var I1 = class extends _ {
   get barcodeDataElements() {
     return this.json.barcodeDataElements;
   }
-  static fromJSON(i) {
-    let r = new I1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new A1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { aamvaVersion: this.aamvaVersion, aliasFamilyName: this.aliasFamilyName, aliasGivenName: this.aliasGivenName, aliasSuffixName: this.aliasSuffixName, cardRevisionDate: this.cardRevisionDate ? this.cardRevisionDate.toJSONObject() : null, documentDiscriminatorNumber: this.documentDiscriminatorNumber, driverNamePrefix: this.driverNamePrefix, driverNameSuffix: this.driverNameSuffix, endorsementsCode: this.endorsementsCode, eyeColor: this.eyeColor, firstNameTruncation: this.firstNameTruncation, hairColor: this.hairColor, heightCm: this.heightCm, heightInch: this.heightInch, iin: this.iIN, issuingJurisdiction: this.issuingJurisdiction, issuingJurisdictionIso: this.issuingJurisdictionIso, jurisdictionVersion: this.jurisdictionVersion, lastNameTruncation: this.lastNameTruncation, middleName: this.middleName, middleNameTruncation: this.middleNameTruncation, placeOfBirth: this.placeOfBirth, race: this.race, restrictionsCode: this.restrictionsCode, vehicleClass: this.vehicleClass, weightKg: this.weightKg, weightLbs: this.weightLbs, barcodeDataElements: this.barcodeDataElements });
+    return h(S({}, super.toJSONObject()), { aamvaVersion: this.aamvaVersion, aliasFamilyName: this.aliasFamilyName, aliasGivenName: this.aliasGivenName, aliasSuffixName: this.aliasSuffixName, cardRevisionDate: this.cardRevisionDate ? this.cardRevisionDate.toJSONObject() : null, documentDiscriminatorNumber: this.documentDiscriminatorNumber, driverNamePrefix: this.driverNamePrefix, driverNameSuffix: this.driverNameSuffix, endorsementsCode: this.endorsementsCode, eyeColor: this.eyeColor, firstNameTruncation: this.firstNameTruncation, hairColor: this.hairColor, heightCm: this.heightCm, heightInch: this.heightInch, iin: this.iIN, issuingJurisdiction: this.issuingJurisdiction, issuingJurisdictionIso: this.issuingJurisdictionIso, jurisdictionVersion: this.jurisdictionVersion, lastNameTruncation: this.lastNameTruncation, middleName: this.middleName, middleNameTruncation: this.middleNameTruncation, placeOfBirth: this.placeOfBirth, race: this.race, restrictionsCode: this.restrictionsCode, vehicleClass: this.vehicleClass, weightKg: this.weightKg, weightLbs: this.weightLbs, barcodeDataElements: this.barcodeDataElements });
   }
 };
-var A1 = class extends _ {
+var N1 = class extends _ {
   get documentCode() {
     return this.json.documentCode;
   }
@@ -6183,15 +6192,15 @@ var A1 = class extends _ {
   get capturedMrz() {
     return this.json.capturedMrz;
   }
-  static fromJSON(i) {
-    let r = new A1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new N1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { documentCode: this.documentCode, namesAreTruncated: this.namesAreTruncated, optional: this.optional, optional1: this.optional1, capturedMrz: this.capturedMrz });
+    return h(S({}, super.toJSONObject()), { documentCode: this.documentCode, namesAreTruncated: this.namesAreTruncated, optional: this.optional, optional1: this.optional1, capturedMrz: this.capturedMrz });
   }
 };
-var N1 = class extends _ {
+var p1 = class extends _ {
   get bloodType() {
     return this.json.bloodType;
   }
@@ -6199,10 +6208,10 @@ var N1 = class extends _ {
     return this.json.branchOfService;
   }
   get champusEffectiveDate() {
-    return S.fromJSON(this.json.champusEffectiveDate);
+    return p.fromJSON(this.json.champusEffectiveDate);
   }
   get champusExpiryDate() {
-    return S.fromJSON(this.json.champusExpiryDate);
+    return p.fromJSON(this.json.champusExpiryDate);
   }
   get civilianHealthCareFlagCode() {
     return this.json.civilianHealthCareFlagCode;
@@ -6303,13 +6312,13 @@ var N1 = class extends _ {
   get weight() {
     return this.json.weight;
   }
-  static fromJSON(i) {
-    let r = new N1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new p1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    var i;
-    return O2(h({}, super.toJSONObject()), { bloodType: this.bloodType, branchOfService: this.branchOfService, champusEffectiveDate: this.champusEffectiveDate ? this.champusEffectiveDate.toJSONObject() : null, champusExpiryDate: this.champusExpiryDate ? this.champusExpiryDate.toJSONObject() : null, civilianHealthCareFlagCode: this.civilianHealthCareFlagCode, civilianHealthCareFlagDescription: this.civilianHealthCareFlagDescription, commissaryFlagCode: this.commissaryFlagCode, commissaryFlagDescription: this.commissaryFlagDescription, deersDependentSuffixCode: this.deersDependentSuffixCode, deersDependentSuffixDescription: this.deersDependentSuffixDescription, directCareFlagCode: this.directCareFlagCode, directCareFlagDescription: this.directCareFlagDescription, exchangeFlagCode: this.exchangeFlagCode, exchangeFlagDescription: this.exchangeFlagDescription, eyeColor: this.eyeColor, familySequenceNumber: this.familySequenceNumber, formNumber: this.formNumber, genevaConventionCategory: this.genevaConventionCategory, hairColor: this.hairColor, height: this.height, jpegData: (i = this.jpegData) != null ? i : "", mwrFlagCode: this.mwrFlagCode, mwrFlagDescription: this.mwrFlagDescription, payGrade: this.payGrade, personDesignatorDocument: this.personDesignatorDocument, rank: this.rank, relationshipCode: this.relationshipCode, relationshipDescription: this.relationshipDescription, securityCode: this.securityCode, serviceCode: this.serviceCode, sponsorFlag: this.sponsorFlag, sponsorPersonDesignatorIdentifier: this.sponsorPersonDesignatorIdentifier, sponsorName: this.sponsorName, statusCode: this.statusCode, statusCodeDescription: this.statusCodeDescription, version: this.version, weight: this.weight });
+    var r;
+    return h(S({}, super.toJSONObject()), { bloodType: this.bloodType, branchOfService: this.branchOfService, champusEffectiveDate: this.champusEffectiveDate ? this.champusEffectiveDate.toJSONObject() : null, champusExpiryDate: this.champusExpiryDate ? this.champusExpiryDate.toJSONObject() : null, civilianHealthCareFlagCode: this.civilianHealthCareFlagCode, civilianHealthCareFlagDescription: this.civilianHealthCareFlagDescription, commissaryFlagCode: this.commissaryFlagCode, commissaryFlagDescription: this.commissaryFlagDescription, deersDependentSuffixCode: this.deersDependentSuffixCode, deersDependentSuffixDescription: this.deersDependentSuffixDescription, directCareFlagCode: this.directCareFlagCode, directCareFlagDescription: this.directCareFlagDescription, exchangeFlagCode: this.exchangeFlagCode, exchangeFlagDescription: this.exchangeFlagDescription, eyeColor: this.eyeColor, familySequenceNumber: this.familySequenceNumber, formNumber: this.formNumber, genevaConventionCategory: this.genevaConventionCategory, hairColor: this.hairColor, height: this.height, jpegData: (r = this.jpegData) != null ? r : "", mwrFlagCode: this.mwrFlagCode, mwrFlagDescription: this.mwrFlagDescription, payGrade: this.payGrade, personDesignatorDocument: this.personDesignatorDocument, rank: this.rank, relationshipCode: this.relationshipCode, relationshipDescription: this.relationshipDescription, securityCode: this.securityCode, serviceCode: this.serviceCode, sponsorFlag: this.sponsorFlag, sponsorPersonDesignatorIdentifier: this.sponsorPersonDesignatorIdentifier, sponsorName: this.sponsorName, statusCode: this.statusCode, statusCodeDescription: this.statusCodeDescription, version: this.version, weight: this.weight });
   }
 };
 var R1 = class extends _ {
@@ -6361,12 +6370,12 @@ var R1 = class extends _ {
   get isBackSideCaptureSupported() {
     return this.json.isBackSideCaptureSupported;
   }
-  static fromJSON(i) {
-    let r = new R1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new R1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { additionalAddressInformation: this.additionalAddressInformation, additionalNameInformation: this.additionalNameInformation, documentAdditionalNumber: this.documentAdditionalNumber, employer: this.employer, issuingAuthority: this.issuingAuthority, issuingJurisdiction: this.issuingJurisdiction, issuingJurisdictionIso: this.issuingJurisdictionIso, maritalStatus: this.maritalStatus, personalIdNumber: this.personalIdNumber, placeOfBirth: this.placeOfBirth, profession: this.profession, race: this.race, religion: this.religion, residentialStatus: this.residentialStatus, capturedSides: this.capturedSides, isBackSideCaptureSupported: this.isBackSideCaptureSupported });
+    return h(S({}, super.toJSONObject()), { additionalAddressInformation: this.additionalAddressInformation, additionalNameInformation: this.additionalNameInformation, documentAdditionalNumber: this.documentAdditionalNumber, employer: this.employer, issuingAuthority: this.issuingAuthority, issuingJurisdiction: this.issuingJurisdiction, issuingJurisdictionIso: this.issuingJurisdictionIso, maritalStatus: this.maritalStatus, personalIdNumber: this.personalIdNumber, placeOfBirth: this.placeOfBirth, profession: this.profession, race: this.race, religion: this.religion, residentialStatus: this.residentialStatus, capturedSides: this.capturedSides, isBackSideCaptureSupported: this.isBackSideCaptureSupported });
   }
 };
 var S1 = class extends _ {
@@ -6376,12 +6385,12 @@ var S1 = class extends _ {
   get documentCopy() {
     return this.json.documentCopy;
   }
-  static fromJSON(i) {
-    let r = new S1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new S1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { documentCopy: this.documentCopy, personalIdNumber: this.personalIdNumber });
+    return h(S({}, super.toJSONObject()), { documentCopy: this.documentCopy, personalIdNumber: this.personalIdNumber });
   }
 };
 var h1 = class extends _ {
@@ -6407,15 +6416,15 @@ var h1 = class extends _ {
     return this.json.omittedNameCount;
   }
   get issuingAuthorityCode() {
-    var i;
-    return (i = this.json.issuingAuthorityCode) != null ? i : null;
+    var r;
+    return (r = this.json.issuingAuthorityCode) != null ? r : null;
   }
-  static fromJSON(i) {
-    let r = new h1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new h1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { documentCode: this.documentCode, capturedMrz: this.capturedMrz, personalIdNumber: this.personalIdNumber, renewalTimes: this.renewalTimes, gbkName: this.gbkName, omittedCharacterCountInGBKName: this.omittedCharacterCountInGBKName, omittedNameCount: this.omittedNameCount, issuingAuthorityCode: this.issuingAuthorityCode });
+    return h(S({}, super.toJSONObject()), { documentCode: this.documentCode, capturedMrz: this.capturedMrz, personalIdNumber: this.personalIdNumber, renewalTimes: this.renewalTimes, gbkName: this.gbkName, omittedCharacterCountInGBKName: this.omittedCharacterCountInGBKName, omittedNameCount: this.omittedNameCount, issuingAuthorityCode: this.issuingAuthorityCode });
   }
 };
 var O1 = class extends _ {
@@ -6425,42 +6434,42 @@ var O1 = class extends _ {
   get capturedMrz() {
     return this.json.capturedMrz;
   }
-  static fromJSON(i) {
-    let r = new O1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new O1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { documentCode: this.documentCode, capturedMrz: this.capturedMrz });
+    return h(S({}, super.toJSONObject()), { documentCode: this.documentCode, capturedMrz: this.capturedMrz });
   }
 };
 var E1 = class extends _ {
   get bloodType() {
     return this.json.bloodType;
   }
-  static fromJSON(i) {
-    let r = new E1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new E1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { bloodType: this.bloodType });
+    return h(S({}, super.toJSONObject()), { bloodType: this.bloodType });
   }
 };
-var p1 = class extends _ {
+var m1 = class extends _ {
   get categories() {
     return this.json.categories;
   }
   get identificationType() {
     return this.json.identificationType;
   }
-  static fromJSON(i) {
-    let r = new p1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new m1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { categories: this.categories, identificationType: this.identificationType });
+    return h(S({}, super.toJSONObject()), { categories: this.categories, identificationType: this.identificationType });
   }
 };
-var m1 = class extends _ {
+var C1 = class extends _ {
   get countryOfBirth() {
     return this.json.countryOfBirth;
   }
@@ -6473,12 +6482,12 @@ var m1 = class extends _ {
   get personalIdNumber() {
     return this.json.personalIdNumber;
   }
-  static fromJSON(i) {
-    let r = new m1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new C1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { countryOfBirth: this.countryOfBirth, countryOfBirthIso: this.countryOfBirthIso, citizenshipStatus: this.citizenshipStatus, personalIdNumber: this.personalIdNumber });
+    return h(S({}, super.toJSONObject()), { countryOfBirth: this.countryOfBirth, countryOfBirthIso: this.countryOfBirthIso, citizenshipStatus: this.citizenshipStatus, personalIdNumber: this.personalIdNumber });
   }
 };
 var _1 = class extends _ {
@@ -6501,17 +6510,17 @@ var _1 = class extends _ {
     return this.json.driverRestrictionCodes;
   }
   get professionalDrivingPermit() {
-    return u1.fromJSON(this.json.professionalDrivingPermit);
+    return d1.fromJSON(this.json.professionalDrivingPermit);
   }
   get vehicleRestrictions() {
-    return this.json.vehicleRestrictions.map((i) => c1.fromJSON(i)).filter((i) => i != null);
+    return this.json.vehicleRestrictions.map((r) => c1.fromJSON(r)).filter((r) => r != null);
   }
-  static fromJSON(i) {
-    let r = new _1();
-    return r.json = i, r;
+  static fromJSON(r) {
+    let i = new _1();
+    return i.json = r, i;
   }
   toJSONObject() {
-    return O2(h({}, super.toJSONObject()), { version: this.version, licenseCountryOfIssue: this.licenseCountryOfIssue, personalIdNumber: this.personalIdNumber, personalIdNumberType: this.personalIdNumberType, documentCopy: this.documentCopy, driverRestrictionCodes: this.driverRestrictionCodes, professionalDrivingPermit: this.professionalDrivingPermit ? this.professionalDrivingPermit.toJSONObject() : null, vehicleRestrictions: this.vehicleRestrictions.map((i) => i.toJSONObject()) });
+    return h(S({}, super.toJSONObject()), { version: this.version, licenseCountryOfIssue: this.licenseCountryOfIssue, personalIdNumber: this.personalIdNumber, personalIdNumberType: this.personalIdNumberType, documentCopy: this.documentCopy, driverRestrictionCodes: this.driverRestrictionCodes, professionalDrivingPermit: this.professionalDrivingPermit ? this.professionalDrivingPermit.toJSONObject() : null, vehicleRestrictions: this.vehicleRestrictions.map((r) => r.toJSONObject()) });
   }
 };
 var w = class {
@@ -6522,14 +6531,14 @@ var w = class {
     return this._location;
   }
   static fromJSON(t) {
-    let i = new w();
-    return t.location != null && (i._location = be.fromJSON(t.location)), i;
+    let r = new w();
+    return t.location != null && (r._location = be.fromJSON(t.location)), r;
   }
   toJSONObject() {
     return { location: this.location.toJSONObject() };
   }
 };
-var t1 = class {
+var r1 = class {
   constructor() {
     n(this, "_location");
   }
@@ -6537,23 +6546,21 @@ var t1 = class {
     return this._location;
   }
   static fromJSON(t) {
-    let i = new t1();
-    return t.location != null && (i._location = be.fromJSON(t.location)), i;
+    let r = new r1();
+    return t.location != null && (r._location = be.fromJSON(t.location)), r;
   }
   toJSONObject() {
     return { location: this.location.toJSONObject() };
   }
 };
-var Y0 = (e) => ({ IdCapture: { RecommendedCameraSettings: ne.fromJSON(e.IdCapture.RecommendedCameraSettings), IdCaptureOverlayDefaults: { defaultCapturedBrush: { fillColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.fillColor), strokeColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeColor), strokeWidth: e.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeWidth }, defaultLocalizedBrush: { fillColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.fillColor), strokeColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeColor), strokeWidth: e.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeWidth }, defaultRejectedBrush: { fillColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.fillColor), strokeColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeColor), strokeWidth: e.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeWidth } } } });
-var f = Y0({ IdCapture: { RecommendedCameraSettings: { zoomFactor: 1, zoomGestureZoomFactor: 2, focusGestureStrategy: "manualUntilCapture", preferredResolution: "fullHd" }, IdCaptureOverlayDefaults: { defaultCapturedBrush: { fillColor: "#00000000", strokeColor: "#FFFFFFFF", strokeWidth: 3 }, defaultLocalizedBrush: { fillColor: "#00000000", strokeColor: "#FFFFFFFF", strokeWidth: 3 }, defaultRejectedBrush: { fillColor: "#00000000", strokeColor: "#FFFFFFFF", strokeWidth: 3 } } } });
-var L = class {
+var Q0 = (e) => ({ IdCapture: { RecommendedCameraSettings: ne.fromJSON(e.IdCapture.RecommendedCameraSettings), IdCaptureOverlayDefaults: { defaultCapturedBrush: { fillColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.fillColor), strokeColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeColor), strokeWidth: e.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeWidth }, defaultLocalizedBrush: { fillColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.fillColor), strokeColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeColor), strokeWidth: e.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeWidth }, defaultRejectedBrush: { fillColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.fillColor), strokeColor: W.fromJSON(e.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeColor), strokeWidth: e.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeWidth } } } });
+var g2 = Q0({ IdCapture: { RecommendedCameraSettings: { zoomFactor: 1, zoomGestureZoomFactor: 2, focusGestureStrategy: "manualUntilCapture", preferredResolution: "fullHd" }, IdCaptureOverlayDefaults: { defaultCapturedBrush: { fillColor: "#00000000", strokeColor: "#FFFFFFFF", strokeWidth: 3 }, defaultLocalizedBrush: { fillColor: "#00000000", strokeColor: "#FFFFFFFF", strokeWidth: 3 }, defaultRejectedBrush: { fillColor: "#00000000", strokeColor: "#FFFFFFFF", strokeWidth: 3 } } } });
+var Q1 = ((r) => (r.Undefined = "Undefined", r.RecoveredAfterFailure = "RecoveredAfterFailure", r))(Q1 || {});
+var D = class extends Error {
   constructor() {
-    n(this, "_type");
-    n(this, "_message");
-  }
-  static create(t) {
-    let i = new L();
-    return t && (i._type = t.type, i._message = t.message), i;
+    super(...arguments);
+    n(this, "_type", "Undefined");
+    n(this, "_message", "");
   }
   get type() {
     return this._type;
@@ -6561,12 +6568,16 @@ var L = class {
   get message() {
     return this._message;
   }
-  static fromJSON(t) {
-    let i = new L();
-    return i._type = t.type, i._message = t.message, i;
+  static create(r) {
+    let i = new D();
+    return r && (i.name = r.type, i._type = r.type, i._message = r.message), i;
+  }
+  static fromJSON(r) {
+    let i = new D();
+    return i._type = r.type, i._message = r.message, i;
   }
 };
-var r1 = class {
+var a1 = class {
   constructor() {
     n(this, "_newlyCapturedId");
     n(this, "_frameSequenceId");
@@ -6587,26 +6598,26 @@ var r1 = class {
     return this._newlyRejectedId;
   }
   static fromJSON(t) {
-    let i = new r1();
-    return t.newlyCapturedId && (i._newlyCapturedId = F.fromJSON(t.newlyCapturedId)), t.localizedOnlyId && (i._localizedOnlyId = w.fromJSON(t.localizedOnlyId)), t.newlyRejectedId && (i._newlyRejectedId = t1.fromJSON(t.newlyRejectedId)), i._frameSequenceId = t.frameSequenceId, i._error = t.error != null ? L.fromJSON(t.error) : null, i;
+    let r = new a1();
+    return t.newlyCapturedId && (r._newlyCapturedId = F.fromJSON(t.newlyCapturedId)), t.localizedOnlyId && (r._localizedOnlyId = w.fromJSON(t.localizedOnlyId)), t.newlyRejectedId && (r._newlyRejectedId = r1.fromJSON(t.newlyRejectedId)), r._frameSequenceId = t.frameSequenceId, r._error = t.error != null ? D.fromJSON(t.error) : null, r;
   }
 };
-var Q0 = { [s.NONE]: null, [s.COUNT]: null, [s.AUSTRALIAN_CAPITAL_TERRITORY]: "Australian Capital Territory", [s.NEW_SOUTH_WALES]: "New South Wales", [s.NORTHERN_TERRITORY]: "Northern Territory", [s.QUEENSLAND]: "Queensland", [s.SOUTH_AUSTRALIA]: "South Australia", [s.TASMANIA]: "Tasmania", [s.WESTERN_AUSTRALIA]: "Western Australia", [s.VICTORIA]: "Victoria", [s.ALBERTA]: "Alberta", [s.BRITISH_COLUMBIA]: "British Columbia", [s.MANITOBA]: "Manitoba", [s.NEW_BRUNSWICK]: "New Brunswick", [s.NEWFOUNDLAND_AND_LABRADOR]: "Newfoundland and Labrador", [s.NOVA_SCOTIA]: "Nova Scotia", [s.QUEBEC]: "Quebec", [s.SASKATCHEWAN]: "Saskatchewan", [s.GUJARAT]: "Gujarat", [s.KARNATAKA]: "Karnataka", [s.KERALA]: "Kerala", [s.MADHYA_PRADESH]: "Madhya Pradesh", [s.MAHARASHTRA]: "Maharashtra", [s.PUNJAB]: "Punjab", [s.TAMIL_NADU]: "Tamil Nadu", [s.AGUASCALIENTES]: "Aguascalientes", [s.BAJA_CALIFORNIA]: "Baja California", [s.BAJA_CALIFORNIA_SUR]: "Baja California Sur", [s.CAMPECHE]: "Campeche", [s.CHIAPAS]: "Chiapas", [s.CHIHUAHUA]: "Chihuahua", [s.CIUDAD_DE_MEXICO]: "Mexico City", [s.COAHUILA]: "Coahuila", [s.COLIMA]: "Colima", [s.DURANGO]: "Durango", [s.GUANAJUATO]: "Guanajuato", [s.GUERRERO]: "Guerrero", [s.GUERRERO_COCULA]: "Cocula, Guerrero", [s.GUERRERO_JUCHITAN]: "Juchit\xE1n, Guerrero", [s.GUERRERO_TEPECOACUILCO]: "Tepecoacuilco de Trujano, Guerrero", [s.GUERRERO_TLACOAPA]: "Tlacoapa, Guerrero", [s.HIDALGO]: "Hidalgo", [s.JALISCO]: "Jalisco", [s.MEXICO]: "M\xE9xico", [s.MICHOACAN]: "Michoac\xE1n", [s.MORELOS]: "Morelos", [s.NAYARIT]: "Nayarit", [s.NUEVO_LEON]: "Nuevo Le\xF3n", [s.OAXACA]: "Oaxaca", [s.PUEBLA]: "Puebla", [s.UINTANA_ROO]: "Quintana Roo", [s.QUINTANA_ROO_BENITO_JUAREZ]: "Benito Ju\xE1rez, Quintana Roo", [s.QUINTANA_ROO_SOLIDARIDAD]: "Solidaridad, Quintana Roo", [s.QUINTANA_ROO_COZUMEL]: "Cozumel, Quintana Roo", [s.QUERETARO]: "Quer\xE9taro", [s.SAN_LUIS_POTOSI]: "San Luis Potos\xED", [s.SINALOA]: "Sinaloa", [s.SONORA]: "Sonora", [s.TABASCO]: "Tabasco", [s.TAMAULIPAS]: "Tamaulipas", [s.TLAXCALA]: "Tlaxcala", [s.VERACRUZ]: "Veracruz", [s.YUCATAN]: "Yucatan", [s.ZACATECAS]: "Zacatecas", [s.KHYBER_PAKHTUNKHWA]: "Khyber Pakhtunkhwa", [s.ALABAMA]: "Alabama", [s.ALASKA]: "Alaska", [s.ARIZONA]: "Arizona", [s.ARKANSAS]: "Arkansas", [s.CALIFORNIA]: "California", [s.COLORADO]: "Colorado", [s.CONNECTICUT]: "Connecticut", [s.DELAWARE]: "Delaware", [s.DISTRICT_OF_COLUMBIA]: "District of Columbia", [s.FLORIDA]: "Florida", [s.GEORGIA]: "Georgia", [s.HAWAII]: "Hawaii", [s.IDAHO]: "Idaho", [s.ILLINOIS]: "Illinois", [s.INDIANA]: "Indiana", [s.IOWA]: "Iowa", [s.KANSAS]: "Kansas", [s.KENTUCKY]: "Kentucky", [s.LOUISIANA]: "Louisiana", [s.MAINE]: "Maine", [s.MARYLAND]: "Maryland", [s.MASSACHUSETTS]: "Massachusetts", [s.MICHIGAN]: "Michigan", [s.MINNESOTA]: "Minnesota", [s.MISSISSIPPI]: "Mississippi", [s.MISSOURI]: "Missouri", [s.MONTANA]: "Montana", [s.NEBRASKA]: "Nebraska", [s.NEVADA]: "Nevada", [s.NEW_HAMPSHIRE]: "New Hampshire", [s.NEW_JERSEY]: "New Jersey", [s.NEW_MEXICO]: "New Mexico", [s.NEW_YORK]: "New York", [s.NEW_YORK_CITY]: "New York City", [s.NORTH_CAROLINA]: "North Carolina", [s.NORTH_DAKOTA]: "North Dakota", [s.OHIO]: "Ohio", [s.OKLAHOMA]: "Oklahoma", [s.ONTARIO]: "Ontario", [s.OREGON]: "Oregon", [s.PENNSYLVANIA]: "Pennsylvania", [s.RHODE_ISLAND]: "Rhode Island", [s.SOUTH_CAROLINA]: "South Carolina", [s.SOUTH_DAKOTA]: "South Dakota", [s.TENNESSEE]: "Tennessee", [s.TEXAS]: "Texas", [s.UTAH]: "Utah", [s.VERMONT]: "Vermont", [s.VIRGINIA]: "Virginia", [s.WASHINGTON]: "Washington", [s.WEST_VIRGINIA]: "West Virginia", [s.WISCONSIN]: "Wisconsin", [s.WYOMING]: "Wyoming", [s.YUKON]: "Yukon" };
-function g0(e) {
-  return Q0[e];
+var y0 = { [a.NONE]: null, [a.COUNT]: null, [a.AUSTRALIAN_CAPITAL_TERRITORY]: "Australian Capital Territory", [a.NEW_SOUTH_WALES]: "New South Wales", [a.NORTHERN_TERRITORY]: "Northern Territory", [a.QUEENSLAND]: "Queensland", [a.SOUTH_AUSTRALIA]: "South Australia", [a.TASMANIA]: "Tasmania", [a.WESTERN_AUSTRALIA]: "Western Australia", [a.VICTORIA]: "Victoria", [a.ALBERTA]: "Alberta", [a.BRITISH_COLUMBIA]: "British Columbia", [a.MANITOBA]: "Manitoba", [a.NEW_BRUNSWICK]: "New Brunswick", [a.NEWFOUNDLAND_AND_LABRADOR]: "Newfoundland and Labrador", [a.NOVA_SCOTIA]: "Nova Scotia", [a.QUEBEC]: "Quebec", [a.SASKATCHEWAN]: "Saskatchewan", [a.GUJARAT]: "Gujarat", [a.KARNATAKA]: "Karnataka", [a.KERALA]: "Kerala", [a.MADHYA_PRADESH]: "Madhya Pradesh", [a.MAHARASHTRA]: "Maharashtra", [a.PUNJAB]: "Punjab", [a.TAMIL_NADU]: "Tamil Nadu", [a.AGUASCALIENTES]: "Aguascalientes", [a.BAJA_CALIFORNIA]: "Baja California", [a.BAJA_CALIFORNIA_SUR]: "Baja California Sur", [a.CAMPECHE]: "Campeche", [a.CHIAPAS]: "Chiapas", [a.CHIHUAHUA]: "Chihuahua", [a.CIUDAD_DE_MEXICO]: "Mexico City", [a.COAHUILA]: "Coahuila", [a.COLIMA]: "Colima", [a.DURANGO]: "Durango", [a.GUANAJUATO]: "Guanajuato", [a.GUERRERO]: "Guerrero", [a.GUERRERO_COCULA]: "Cocula, Guerrero", [a.GUERRERO_JUCHITAN]: "Juchit\xE1n, Guerrero", [a.GUERRERO_TEPECOACUILCO]: "Tepecoacuilco de Trujano, Guerrero", [a.GUERRERO_TLACOAPA]: "Tlacoapa, Guerrero", [a.HIDALGO]: "Hidalgo", [a.JALISCO]: "Jalisco", [a.MEXICO]: "M\xE9xico", [a.MICHOACAN]: "Michoac\xE1n", [a.MORELOS]: "Morelos", [a.NAYARIT]: "Nayarit", [a.NUEVO_LEON]: "Nuevo Le\xF3n", [a.OAXACA]: "Oaxaca", [a.PUEBLA]: "Puebla", [a.UINTANA_ROO]: "Quintana Roo", [a.QUINTANA_ROO_BENITO_JUAREZ]: "Benito Ju\xE1rez, Quintana Roo", [a.QUINTANA_ROO_SOLIDARIDAD]: "Solidaridad, Quintana Roo", [a.QUINTANA_ROO_COZUMEL]: "Cozumel, Quintana Roo", [a.QUERETARO]: "Quer\xE9taro", [a.SAN_LUIS_POTOSI]: "San Luis Potos\xED", [a.SINALOA]: "Sinaloa", [a.SONORA]: "Sonora", [a.TABASCO]: "Tabasco", [a.TAMAULIPAS]: "Tamaulipas", [a.TLAXCALA]: "Tlaxcala", [a.VERACRUZ]: "Veracruz", [a.YUCATAN]: "Yucatan", [a.ZACATECAS]: "Zacatecas", [a.KHYBER_PAKHTUNKHWA]: "Khyber Pakhtunkhwa", [a.ALABAMA]: "Alabama", [a.ALASKA]: "Alaska", [a.ARIZONA]: "Arizona", [a.ARKANSAS]: "Arkansas", [a.CALIFORNIA]: "California", [a.COLORADO]: "Colorado", [a.CONNECTICUT]: "Connecticut", [a.DELAWARE]: "Delaware", [a.DISTRICT_OF_COLUMBIA]: "District of Columbia", [a.FLORIDA]: "Florida", [a.GEORGIA]: "Georgia", [a.HAWAII]: "Hawaii", [a.IDAHO]: "Idaho", [a.ILLINOIS]: "Illinois", [a.INDIANA]: "Indiana", [a.IOWA]: "Iowa", [a.KANSAS]: "Kansas", [a.KENTUCKY]: "Kentucky", [a.LOUISIANA]: "Louisiana", [a.MAINE]: "Maine", [a.MARYLAND]: "Maryland", [a.MASSACHUSETTS]: "Massachusetts", [a.MICHIGAN]: "Michigan", [a.MINNESOTA]: "Minnesota", [a.MISSISSIPPI]: "Mississippi", [a.MISSOURI]: "Missouri", [a.MONTANA]: "Montana", [a.NEBRASKA]: "Nebraska", [a.NEVADA]: "Nevada", [a.NEW_HAMPSHIRE]: "New Hampshire", [a.NEW_JERSEY]: "New Jersey", [a.NEW_MEXICO]: "New Mexico", [a.NEW_YORK]: "New York", [a.NEW_YORK_CITY]: "New York City", [a.NORTH_CAROLINA]: "North Carolina", [a.NORTH_DAKOTA]: "North Dakota", [a.OHIO]: "Ohio", [a.OKLAHOMA]: "Oklahoma", [a.ONTARIO]: "Ontario", [a.OREGON]: "Oregon", [a.PENNSYLVANIA]: "Pennsylvania", [a.RHODE_ISLAND]: "Rhode Island", [a.SOUTH_CAROLINA]: "South Carolina", [a.SOUTH_DAKOTA]: "South Dakota", [a.TENNESSEE]: "Tennessee", [a.TEXAS]: "Texas", [a.UTAH]: "Utah", [a.VERMONT]: "Vermont", [a.VIRGINIA]: "Virginia", [a.WASHINGTON]: "Washington", [a.WEST_VIRGINIA]: "West Virginia", [a.WISCONSIN]: "Wisconsin", [a.WYOMING]: "Wyoming", [a.YUKON]: "Yukon" };
+function L0(e) {
+  return y0[e];
 }
-var C = class {
+var b = class {
   static convertResultFromSimpleRecognizer(t) {
-    return new Y1().convertResult(t);
+    return new y1().convertResult(t);
   }
   static convertResultFromCombinedRecognizer(t) {
-    return new Q1().convertResult(t);
+    return new X1().convertResult(t);
   }
   convertResult(t) {
-    return t == null || t.state === b.Empty ? null : F.fromJSON({ capturedResultTypes: [], mrzResult: null, vizResult: this.getVizData(t), aamvaBarcodeResult: null, argentinaIdBarcodeResult: null, chinaMainlandTravelPermitMrzResult: null, chinaExitEntryPermitMrzResult: null, colombiaIdBarcodeResult: null, colombiaDlBarcodeResult: null, southAfricaDlBarcodeResult: null, southAfricaIdBarcodeResult: null, usUniformedServicesBarcodeResult: null, imageInfo: this.getImageData(t) });
+    return t == null || t.state === M.Empty ? null : F.fromJSON({ capturedResultTypes: [], mrzResult: null, vizResult: this.getVizData(t), aamvaBarcodeResult: null, argentinaIdBarcodeResult: null, chinaMainlandTravelPermitMrzResult: null, chinaExitEntryPermitMrzResult: null, colombiaIdBarcodeResult: null, colombiaDlBarcodeResult: null, southAfricaDlBarcodeResult: null, southAfricaIdBarcodeResult: null, usUniformedServicesBarcodeResult: null, imageInfo: this.getImageData(t) });
   }
   convertDate(t) {
-    return t.successfullyParsed ? S.fromJSON({ day: t.day, month: t.month, year: t.year }) : null;
+    return t.successfullyParsed ? p.fromJSON({ day: t.day, month: t.month, year: t.year }) : null;
   }
   centaurusDocumentTypeToIdCaptureDocumentType(t) {
     switch (t) {
@@ -6717,45 +6728,45 @@ var C = class {
         return "diplomaticPassport";
     }
   }
-  extractVizData(t, i) {
-    var r, a;
-    return { firstName: i.firstName, lastName: i.lastName, fullName: i.fullName, sex: i.sex, dateOfBirth: this.convertDate(i.dateOfBirth), nationality: i.nationality, address: i.address, documentType: this.centaurusDocumentTypeToIdCaptureDocumentType(t.documentType), issuingCountryIso: (r = t.isoAlpha3CountryCode) != null ? r : null, issuingCountry: (a = t.countryName) != null ? a : null, documentNumber: i.documentNumber, dateOfExpiry: this.convertDate(i.dateOfExpiry), dateOfIssue: this.convertDate(i.dateOfIssue), additionalAddressInformation: i.additionalAddressInformation, additionalNameInformation: i.additionalNameInformation, documentAdditionalNumber: i.documentAdditionalNumber, employer: i.employer, issuingAuthority: i.issuingAuthority, maritalStatus: i.maritalStatus, personalIdNumber: i.personalIdNumber, placeOfBirth: i.placeOfBirth, profession: i.profession, race: i.race, religion: i.religion, residentialStatus: i.residentialStatus, issuingJurisdiction: g0(t.region), issuingJurisdictionIso: null };
+  extractVizData(t, r) {
+    var i, s;
+    return { firstName: r.firstName, lastName: r.lastName, fullName: r.fullName, sex: r.sex, dateOfBirth: this.convertDate(r.dateOfBirth), nationality: r.nationality, address: r.address, documentType: this.centaurusDocumentTypeToIdCaptureDocumentType(t.documentType), issuingCountryIso: (i = t.isoAlpha3CountryCode) != null ? i : null, issuingCountry: (s = t.countryName) != null ? s : null, documentNumber: r.documentNumber, dateOfExpiry: this.convertDate(r.dateOfExpiry), dateOfIssue: this.convertDate(r.dateOfIssue), additionalAddressInformation: r.additionalAddressInformation, additionalNameInformation: r.additionalNameInformation, documentAdditionalNumber: r.documentAdditionalNumber, employer: r.employer, issuingAuthority: r.issuingAuthority, maritalStatus: r.maritalStatus, personalIdNumber: r.personalIdNumber, placeOfBirth: r.placeOfBirth, profession: r.profession, race: r.race, religion: r.religion, residentialStatus: r.residentialStatus, issuingJurisdiction: L0(t.region), issuingJurisdictionIso: null };
   }
-  static concatenateReducer(t, i) {
-    return t + String.fromCharCode(i);
+  static concatenateReducer(t, r) {
+    return t + String.fromCharCode(r);
   }
 };
-var Y1 = class extends C {
+var y1 = class extends b {
   getVizData(t) {
-    return O2(h({}, this.extractVizData(t.classInfo, t.viz)), { capturedSides: "frontOnly", isBackSideCaptureSupported: false });
+    return h(S({}, this.extractVizData(t.classInfo, t.viz)), { capturedSides: "frontOnly", isBackSideCaptureSupported: false });
   }
   getImageData(t) {
-    return { face: t.faceImage.encodedImage ? btoa(t.faceImage.encodedImage.reduce(C.concatenateReducer, "")) : null, idFront: t.fullDocumentImage.encodedImage ? btoa(t.fullDocumentImage.encodedImage.reduce(C.concatenateReducer, "")) : null, idBack: null };
+    return { face: t.faceImage.encodedImage ? btoa(t.faceImage.encodedImage.reduce(b.concatenateReducer, "")) : null, idFront: t.fullDocumentImage.encodedImage ? btoa(t.fullDocumentImage.encodedImage.reduce(b.concatenateReducer, "")) : null, idBack: null };
   }
 };
-var Q1 = class extends C {
+var X1 = class extends b {
   isAamvaDrivingLicense(t) {
     if (t == null)
       return false;
-    let i = t.documentType === "drivingLicense", r = typeof t.issuingCountryIso == "string" && ["USA", "MEX", "CAN"].includes(t.issuingCountryIso);
-    return i && r;
+    let r = t.documentType === "drivingLicense", i = typeof t.issuingCountryIso == "string" && ["USA", "MEX", "CAN"].includes(t.issuingCountryIso);
+    return r && i;
   }
   getVizData(t) {
-    let i = this.extractVizData(t.classInfo, t.frontViz), r = "backViz" in t && !t.backViz.empty, a = t.state === b.StageValid && t.scanningFirstSideDone || !t.backViz.empty, o = t.state === b.Valid && t.scanningFirstSideDone ? "frontAndBack" : "frontOnly", d = O2(h({}, i), { capturedSides: o, isBackSideCaptureSupported: a });
-    if (!r)
-      return d;
+    let r = this.extractVizData(t.classInfo, t.frontViz), i = "backViz" in t && !t.backViz.empty, s = t.state === M.StageValid && t.scanningFirstSideDone || !t.backViz.empty, o = t.state === M.Valid && t.scanningFirstSideDone ? "frontAndBack" : "frontOnly", c2 = h(S({}, r), { capturedSides: o, isBackSideCaptureSupported: s });
+    if (!i)
+      return c2;
     let R2 = ["firstName", "lastName", "fullName", "sex", "nationality", "address", "documentNumber", "additionalAddressInformation", "additionalNameInformation", "documentAdditionalNumber", "employer", "issuingAuthority", "maritalStatus", "personalIdNumber", "placeOfBirth", "profession", "race", "religion", "residentialStatus"], A = t.backViz;
     for (let N of R2) {
-      let E = d[N] == null || d[N] === "", M0 = N in A && typeof A[N] == "string" && A[N].length > 0;
-      E && M0 && (d[N] = A[N]);
+      let O2 = c2[N] == null || c2[N] === "", v0 = N in A && typeof A[N] == "string" && A[N].length > 0;
+      O2 && v0 && (c2[N] = A[N]);
     }
-    let U2 = ["dateOfBirth", "dateOfExpiry", "dateOfIssue"];
-    for (let N of U2)
-      d[N] instanceof S || (d[N] = this.convertDate(A[N]));
-    return d;
+    let L = ["dateOfBirth", "dateOfExpiry", "dateOfIssue"];
+    for (let N of L)
+      c2[N] instanceof p || (c2[N] = this.convertDate(A[N]));
+    return c2;
   }
   getImageData(t) {
-    return { face: t.faceImage.encodedImage ? btoa(t.faceImage.encodedImage.reduce(C.concatenateReducer, "")) : null, idFront: t.fullDocumentFrontImage.encodedImage ? btoa(t.fullDocumentFrontImage.encodedImage.reduce(C.concatenateReducer, "")) : null, idBack: t.fullDocumentBackImage.encodedImage ? btoa(t.fullDocumentBackImage.encodedImage.reduce(C.concatenateReducer, "")) : null };
+    return { face: t.faceImage.encodedImage ? btoa(t.faceImage.encodedImage.reduce(b.concatenateReducer, "")) : null, idFront: t.fullDocumentFrontImage.encodedImage ? btoa(t.fullDocumentFrontImage.encodedImage.reduce(b.concatenateReducer, "")) : null, idBack: t.fullDocumentBackImage.encodedImage ? btoa(t.fullDocumentBackImage.encodedImage.reduce(b.concatenateReducer, "")) : null };
   }
 };
 var P1 = class {
@@ -6766,24 +6777,24 @@ var P1 = class {
 };
 var F1 = class extends P1 {
   async processResult(t) {
-    if (t === b.Valid) {
-      let i = await this.recognizer.getResult();
-      return C.convertResultFromSimpleRecognizer(i);
+    if (t === M.Valid) {
+      let r = await this.recognizer.getResult();
+      return b.convertResultFromSimpleRecognizer(r);
     }
     return null;
   }
 };
 var w1 = class extends P1 {
   async processResult(t) {
-    if (t === b.Valid || t === b.StageValid) {
-      let i = await this.recognizer.getResult();
-      return C.convertResultFromCombinedRecognizer(i);
+    if (t === M.Valid || t === M.StageValid) {
+      let r = await this.recognizer.getResult();
+      return b.convertResultFromCombinedRecognizer(r);
     }
     return null;
   }
 };
-var v = class {
-  constructor(t, i) {
+var f = class {
+  constructor(t, r) {
     n(this, "idCapture");
     n(this, "idCaptureSettings");
     n(this, "centaurusWasmSDK");
@@ -6794,101 +6805,133 @@ var v = class {
     n(this, "recognizer");
     n(this, "resultProcessor");
     n(this, "isDocumentInFrame", false);
-    this.idCapture = t, this.centaurusWasmSDK = i;
-  }
-  async dispose() {
-    var t;
-    (t = v.recognizerRunner) == null || t.delete(), v.recognizerRunner = void 0, await this.recognizer.delete();
-  }
-  async configureRecognizers(t) {
-    if (v.recognizerRunner != null)
-      throw new J({ name: "MULTIPLE_RECOGNIZER_RUNNER", message: "A RecognizerRunner already exists, but it must be a singleton" });
-    return this.configuringRecognizersPromise || (this.configuringRecognizersPromise = this.doConfigureRecognizers(t)), this.configuringRecognizersPromise;
-  }
-  async doConfigureRecognizers(t) {
-    this.recognizer = await (t.supportedSides === "frontAndBack" ? E0(this.centaurusWasmSDK) : O0(this.centaurusWasmSDK));
-    let i = await this.recognizer.currentSettings();
-    i.returnFullDocumentImage = t.getShouldPassImageTypeToResult("idFront"), i.returnEncodedFullDocumentImage = t.getShouldPassImageTypeToResult("idFront"), i.returnFaceImage = t.getShouldPassImageTypeToResult("face"), i.returnEncodedFaceImage = t.getShouldPassImageTypeToResult("face");
-    let r = new M1();
-    r.enableMrzId = false, r.enableMrzPassport = false, r.enableMrzVisa = false, r.enablePhotoId = false, r.enableBarcodeId = false, r.enableFullDocumentRecognition = true, i.recognitionModeFilter = r;
-    try {
-      await this.recognizer.updateSettings(i);
-    } catch (a) {
-      g.log(g.Level.Warn, `Error while applying new settings on recognizer object, some features might not work. (error text: ${a == null ? void 0 : a.toString()})`);
-    }
-    v.recognizerRunner = await h0(this.centaurusWasmSDK, [this.recognizer], false, this), this.resultProcessor = t.supportedSides === "frontAndBack" ? new w1(this.recognizer) : new F1(this.recognizer);
-  }
-  onQuadDetection(t) {
-    if (t.detectionStatus === L1.Success) {
-      this.isDocumentInFrame = true;
-      let i = w.fromJSON({ location: t });
-      this.idCapture.reportLastLocalizedId(i);
-    } else
-      this.isDocumentInFrame = false, this.idCapture.reportLastLocalizedId(null);
-  }
-  set lastError(t) {
-    t !== this._lastError && this.idCapture.reportLastError(t), this._lastError = t;
-  }
-  getLastError() {
-    return this._lastError;
-  }
-  set lastResult(t) {
-    this._lastResult = t, this.idCapture.reportLastResult(t);
+    this.idCapture = t, this.centaurusWasmSDK = r;
   }
   get lastResult() {
     return this._lastResult;
   }
+  set lastResult(t) {
+    this._lastResult = t, this.idCapture.reportLastResult(t);
+  }
+  get lastError() {
+    return this._lastError;
+  }
+  set lastError(t) {
+    t !== this._lastError && this.idCapture.reportLastError(t), this._lastError = t;
+  }
+  static hasRecognizerRunnerCrashed(t) {
+    return t instanceof C && t.code === d.WORKER_IMAGE_PROCESS_FAILURE;
+  }
+  static updatePassedRecognizerSettings(t, r) {
+    r.returnFullDocumentImage = t.getShouldPassImageTypeToResult("idFront"), r.returnEncodedFullDocumentImage = t.getShouldPassImageTypeToResult("idFront"), r.returnFaceImage = t.getShouldPassImageTypeToResult("face"), r.returnEncodedFaceImage = t.getShouldPassImageTypeToResult("face");
+    let i = new v1();
+    i.enableMrzId = false, i.enableMrzPassport = false, i.enableMrzVisa = false, i.enablePhotoId = false, i.enableBarcodeId = false, i.enableFullDocumentRecognition = true, r.recognitionModeFilter = i;
+  }
+  async dispose() {
+    var t;
+    (t = f.recognizerRunner) == null || t.delete(), f.recognizerRunner = void 0, await this.recognizer.delete();
+  }
+  async configure(t) {
+    if (f.recognizerRunner != null)
+      throw new J({ name: "MULTIPLE_RECOGNIZER_RUNNER", message: "A RecognizerRunner already exists, but it must be a singleton" });
+    return this.idCaptureSettings = t, this.configuringRecognizersPromise || (this.configuringRecognizersPromise = this.configureRecognizersForSettings(t)), this.configuringRecognizersPromise;
+  }
+  onQuadDetection(t) {
+    if (t.detectionStatus === T1.Success) {
+      this.isDocumentInFrame = true;
+      let r = w.fromJSON({ location: t });
+      this.idCapture.reportLastLocalizedId(r);
+    } else
+      this.isDocumentInFrame = false, this.idCapture.reportLastLocalizedId(null);
+  }
   async reset() {
     var t;
-    await ((t = v.recognizerRunner) == null ? void 0 : t.resetRecognizers(true)), this._lastResult = null, this._lastError = null;
+    await ((t = f.recognizerRunner) == null ? void 0 : t.resetRecognizers(true)), this._lastResult = null, this._lastError = null;
   }
   async processFrame(t) {
-    if (!(this.isProcessing || v.recognizerRunner == null)) {
+    if (!(this.isProcessing || f.recognizerRunner == null)) {
       this.isProcessing = true, await this.configuringRecognizersPromise;
       try {
-        await this.recognize(t), this.lastError = null;
+        await this.recognize(t);
       } finally {
         this.isProcessing = false;
       }
     }
   }
-  async recognize(t) {
-    let i = new b1(O2(h({}, t), { colorSpace: "srgb" }), g1.NoRotation, false), r;
+  async configureRecognizersForSettings(t) {
+    await this.configureCentaurusRecognizers(t), this.resultProcessor = t.supportedSides === "frontAndBack" ? new w1(this.recognizer) : new F1(this.recognizer);
+  }
+  async configureCentaurusRecognizers(t) {
+    let r = t.supportedSides === "frontAndBack";
     try {
-      r = await v.recognizerRunner.processImage(i);
-    } catch (o) {
-      let d = o instanceof D ? `Processing frame failed: ${o.message} (code=${o.code})` : `Processing frame failed: ${o instanceof Error ? o.message : "unknown error"}`;
-      throw this.lastError = { type: "undefined", message: d }, L.create(this.getLastError());
+      let i;
+      if (r) {
+        i = await C0(this.centaurusWasmSDK);
+        let s = await i.currentSettings();
+        f.updatePassedRecognizerSettings(t, s), await i.updateSettings(s);
+      } else {
+        i = await m0(this.centaurusWasmSDK);
+        let s = await i.currentSettings();
+        f.updatePassedRecognizerSettings(t, s), await i.updateSettings(s);
+      }
+      this.recognizer = i;
+    } catch (i) {
+      g.log(g.Level.Warn, "Error while applying new settings on recognizer object, some features might not work.", i);
     }
-    let a = await this.resultProcessor.processResult(r);
-    this.lastResult = this.isDocumentInFrame && a != null ? a : null;
+    f.recognizerRunner = await E0(this.centaurusWasmSDK, [this.recognizer], false, this);
+  }
+  async recognize(t) {
+    let r = new L1(h(S({}, t), { colorSpace: "srgb" }), b1.NoRotation, false), i;
+    try {
+      i = await f.recognizerRunner.processImage(r);
+    } catch (o) {
+      if (this.lastResult = null, f.hasRecognizerRunnerCrashed(o)) {
+        await this.resetRecognizerRunner(), this.notifyRecoveryAfterError();
+        return;
+      }
+      let c2 = o instanceof C ? `Processing frame failed: ${o.message} (code=${o.code})` : `Processing frame failed: ${o instanceof Error ? o.message : "unknown error"}`;
+      throw this.lastError = { type: "Undefined", message: c2 }, D.create({ type: "Undefined", message: c2 });
+    }
+    this.lastError = null;
+    let s = await this.resultProcessor.processResult(i);
+    this.lastResult = this.isDocumentInFrame && s != null ? s : null;
+  }
+  async resetRecognizerRunner() {
+    var t;
+    return await ((t = f.recognizerRunner) == null ? void 0 : t.delete()), await this.recognizer.delete(), g.log(g.Level.Debug, "Recreating Centaurus recognizer"), this.configuringRecognizersPromise = this.configureRecognizersForSettings(this.idCaptureSettings), this.configuringRecognizersPromise;
+  }
+  notifyRecoveryAfterError() {
+    this.idCapture.notifyRecoveryAfterCrash();
   }
 };
-var s1 = v;
+var s1 = f;
 n(s1, "recognizerRunner");
-var k1 = class {
+var G1 = class {
   constructor() {
     n(this, "type", "idCapture");
     n(this, "_isEnabled", true);
     n(this, "settings");
     n(this, "_context", null);
     n(this, "listeners", []);
-    n(this, "_centaurusConnector", new s1(this, k2.wasmSDK));
+    n(this, "_centaurusConnector", new s1(this, G2.wasmSDK));
     n(this, "workerMessageListener", this.onWorkerMessage.bind(this));
-    if (k2 != null)
-      this._centaurusConnector = new s1(this, k2.wasmSDK);
+    if (G2 != null)
+      this._centaurusConnector = new s1(this, G2.wasmSDK);
     else
       throw new J({ name: "Misconfiguration error", message: 'Attempted to instantiate IdCapture but the idCaptureLoader has not been called. Did you forget to call it in "configure()"?' });
   }
-  static async forContext(t, i) {
-    let r = new k1();
-    r.settings = i;
+  static get recommendedCameraSettings() {
+    return new ne(g2.IdCapture.RecommendedCameraSettings);
+  }
+  static async forContext(t, r) {
+    let i = new G1();
+    i.settings = r;
     try {
-      await r._centaurusConnector.configureRecognizers(r.settings);
-    } catch (a) {
-      throw a instanceof J && a.name === "MULTIPLE_RECOGNIZER_RUNNER" && g.log(g.Level.Error, "The newly created IdCapture mode is invalid, an existing IdCapture mode is still attached to the context and must be removed first."), a;
+      await i._centaurusConnector.configure(i.settings);
+    } catch (s) {
+      throw s instanceof J && s.name === "MULTIPLE_RECOGNIZER_RUNNER" && g.log(g.Level.Error, "The newly created IdCapture mode is invalid, an existing IdCapture mode is still attached to the context and must be removed first."), s;
     }
-    return t && await t.addMode(r), r;
+    return t && await t.addMode(i), i;
   }
   addListener(t) {
     this.listeners.includes(t) || this.listeners.push(t);
@@ -6905,11 +6948,15 @@ var k1 = class {
   get context() {
     return this._context;
   }
-  static get recommendedCameraSettings() {
-    return new ne(f.IdCapture.RecommendedCameraSettings);
-  }
   async reset() {
     this.context && (await this._centaurusConnector.reset(), await this.context.workerCommand("idCaptureReset", {}));
+  }
+  toJSONObject() {
+    return { enabled: this._isEnabled, type: this.type, settings: this.settings.toJSONObject() };
+  }
+  runWorkerCommand(...t) {
+    var r;
+    (r = this.context) == null || r.workerCommand(...t);
   }
   attachedToContext(t) {
     this._context = t, this._context.subscribeToWorkerMessages(this.workerMessageListener);
@@ -6926,15 +6973,9 @@ var k1 = class {
       return this.context.update();
   }
   async onWorkerMessage(t) {
-    var i;
     switch (t.type) {
       case "idCaptureForwardFrame":
-        try {
-          await this._centaurusConnector.processFrame(t.payload);
-        } catch (r) {
-          r instanceof L ? (g.log(g.Level.Debug, r.message), this.triggerErrorListener(r)) : (g.log(g.Level.Debug, "Error while processing incoming frame from SDC", r), this.triggerErrorListener(L.create({ type: "undefined", message: "Error while processing a frame" })));
-        }
-        (i = this.context) == null || i.workerCommand("idCaptureFrameProcessed", {});
+        this.processFrameWithCentaurus(t.payload);
         break;
       case "idCaptureDidCaptureId":
         this.triggerListenersForResult("didCaptureId", t.payload);
@@ -6947,33 +6988,52 @@ var k1 = class {
         break;
     }
   }
+  async processFrameWithCentaurus(t) {
+    try {
+      await this._centaurusConnector.processFrame(t);
+    } catch (r) {
+      r instanceof D ? (g.log(g.Level.Debug, r.message), this.triggerErrorListener(r)) : (g.log(g.Level.Debug, "Error while processing incoming frame from SDC", r), this.triggerErrorListener(D.create({ type: "Undefined", message: "Error while processing a frame" })));
+    } finally {
+      this.runWorkerCommand("idCaptureFrameProcessed", {});
+    }
+  }
   sendClearFrameDataRequest(t) {
     setTimeout(() => {
-      var i;
-      (i = this.context) == null || i.workerCommand("deleteFrameData", { frameId: t });
+      this.runWorkerCommand("deleteFrameData", { frameId: t });
     }, 0);
   }
-  async triggerListenersForResult(t, i) {
-    let { frameData: r } = i;
+  async triggerListenersForResult(t, r) {
+    let { frameData: i } = r;
     if (!this._isEnabled) {
-      this.sendClearFrameDataRequest(r.frameId);
+      this.sendClearFrameDataRequest(i.frameId);
       return;
     }
-    let a = r1.fromJSON(i.session);
+    let s = a1.fromJSON(r.session);
     try {
       for (let o of this.listeners)
         if (typeof o[t] == "function") {
-          let d = o[t](this, a, xo(r, this.context));
-          d instanceof Promise && await d;
+          let c2 = o[t](this, s, Do(i, this.context));
+          c2 instanceof Promise && await c2;
         }
     } finally {
-      this.sendClearFrameDataRequest(r.frameId);
+      this.sendClearFrameDataRequest(i.frameId);
     }
+  }
+  notifyRecoveryAfterCrash() {
+    if (!this._isEnabled)
+      return;
+    let t = false;
+    for (let r of this.listeners)
+      typeof r.didFailWithError == "function" && (r.didFailWithError(this, D.create({ type: "RecoveredAfterFailure", message: "Last image processing failed but SDK could recover. Please reset scanning process." })), t = true);
+    !t && this.settings.supportedSides === "frontAndBack" && g.log(g.Level.Warn, `A process responsible to scan images malfunctioned and was restarted. No listener for "didFailWithError" was
+        found: this may result in unexpected behaviour in your application. Please define the listener
+        "didFailWithError" and handle the error "IdCaptureErrorCode.RecoveredAfterFailure". Informing the user to
+        start over and calling "idCapture.reset()" in this case is recommended.`);
   }
   triggerErrorListener(t) {
     if (!!this._isEnabled)
-      for (let i of this.listeners)
-        typeof i.didFailWithError == "function" && i.didFailWithError(this, t, null);
+      for (let r of this.listeners)
+        typeof r.didFailWithError == "function" && r.didFailWithError(this, t);
   }
   reportLastResult(t) {
     this.context && this.context.workerCommand("idCaptureSetLastResult", { result: t != null ? JSON.stringify(t.toJSONObject()) : "" });
@@ -6984,9 +7044,6 @@ var k1 = class {
   reportLastLocalizedId(t) {
     this.context && this.context.workerCommand("idCaptureSetLastLocalizedId", { localizedId: t != null ? JSON.stringify(t.toJSONObject()) : "" });
   }
-  toJSONObject() {
-    return { enabled: this._isEnabled, type: this.type, settings: this.settings.toJSONObject() };
-  }
 };
 var D1 = class {
   constructor() {
@@ -6994,9 +7051,9 @@ var D1 = class {
     n(this, "idCapture");
     n(this, "_idLayout", "auto");
     n(this, "_idLayoutStyle", "rounded");
-    n(this, "_defaultCapturedBrush", new mt(f.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.fillColor, f.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeColor, f.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeWidth));
-    n(this, "_defaultLocalizedBrush", new mt(f.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.fillColor, f.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeColor, f.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeWidth));
-    n(this, "_defaultRejectedBrush", new mt(f.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.fillColor, f.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeColor, f.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeWidth));
+    n(this, "_defaultCapturedBrush", new mt(g2.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.fillColor, g2.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeColor, g2.IdCapture.IdCaptureOverlayDefaults.defaultCapturedBrush.strokeWidth));
+    n(this, "_defaultLocalizedBrush", new mt(g2.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.fillColor, g2.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeColor, g2.IdCapture.IdCaptureOverlayDefaults.defaultLocalizedBrush.strokeWidth));
+    n(this, "_defaultRejectedBrush", new mt(g2.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.fillColor, g2.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeColor, g2.IdCapture.IdCaptureOverlayDefaults.defaultRejectedBrush.strokeWidth));
     n(this, "_capturedBrush", this._defaultCapturedBrush);
     n(this, "_localizedBrush", this._defaultLocalizedBrush);
     n(this, "_rejectedBrush", this._defaultRejectedBrush);
@@ -7005,9 +7062,9 @@ var D1 = class {
   static withIdCapture(t) {
     return D1.withIdCaptureForView(t, null);
   }
-  static async withIdCaptureForView(t, i) {
-    let r = new D1();
-    return r.idCapture = t, await r.setCapturedBrush(r.defaultCapturedBrush), await r.setLocalizedBrush(r.defaultLocalizedBrush), await r.setRejectedBrush(r.defaultRejectedBrush), i && await i.addOverlay(r), r;
+  static async withIdCaptureForView(t, r) {
+    let i = new D1();
+    return i.idCapture = t, await i.setCapturedBrush(i.defaultCapturedBrush), await i.setLocalizedBrush(i.defaultLocalizedBrush), await i.setRejectedBrush(i.defaultRejectedBrush), r && await r.addOverlay(i), i;
   }
   setIdLayout(t) {
     this._idLayout = t, this.idCapture.didChange();
@@ -7055,38 +7112,38 @@ var D1 = class {
     return { type: this.type, idLayout: this._idLayout, idLayoutStyle: this.idLayoutStyle, idLayoutLineStyle: this.idLayoutLineStyle, capturedBrush: this._capturedBrush.toJSONObject(), localizedBrush: this._localizedBrush.toJSONObject(), rejectedBrush: this._rejectedBrush.toJSONObject() };
   }
 };
-var T0 = class {
+var M0 = class {
   constructor() {
     n(this, "properties", {});
     n(this, "imageToResult", {});
     n(this, "supportedDocuments", []);
     n(this, "supportedSides", "frontOnly");
   }
-  setProperty(t, i) {
-    this.properties[t] = i;
+  setProperty(t, r) {
+    this.properties[t] = r;
   }
   getProperty(t) {
     return this.properties[t];
   }
-  setShouldPassImageTypeToResult(t, i) {
-    this.imageToResult[t] = i;
+  setShouldPassImageTypeToResult(t, r) {
+    this.imageToResult[t] = r;
   }
   getShouldPassImageTypeToResult(t) {
-    var i;
-    return (i = this.imageToResult[t]) != null ? i : false;
+    var r;
+    return (r = this.imageToResult[t]) != null ? r : false;
   }
   toJSONObject() {
     var t;
-    return { licenseKey: (t = k2.licenseKey) != null ? t : "", licensee: "", supportedDocuments: this.supportedDocuments, imageToResult: this.imageToResult, supportedSides: this.supportedSides, properties: this.properties };
+    return { licenseKey: (t = G2.licenseKey) != null ? t : "", licensee: "", supportedDocuments: this.supportedDocuments, imageToResult: this.imageToResult, supportedSides: this.supportedSides, properties: this.properties };
   }
 };
-var k2;
-function ut() {
+var G2;
+function Rt2() {
   return { moduleName: "BarcodeCapture", load: async (e) => {
-    var i;
-    n1 = await e1.create(e);
+    var r;
+    n1 = await V.create(e);
     let t = await n1.workerCommand("extractCentaurusLicense", { licenseKey: e.licenseKey });
-    return k2 = await B.load({ libraryLocation: `${e.libraryLocation}idcapture/`, licenseKey: t.centaurus.licenseKey, logLevel: (i = e.logLevel) != null ? i : g.Level.Debug }), n1;
+    return G2 = await B.load({ libraryLocation: `${e.libraryLocation}idcapture/`, licenseKey: t.centaurus.licenseKey, logLevel: (r = e.logLevel) != null ? r : g.Level.Debug }), n1;
   } };
 }
 var n1;
@@ -7139,13 +7196,13 @@ function showResult(capturedId) {
     if (value == null || value === "") {
       return "<i>empty</i>";
     }
-    if (value instanceof S) {
+    if (value instanceof p) {
       if (value.day && value.month && value.year) {
         return `${value.year}-${value.month}-${value.day}`;
       }
       return "<i>empty</i>";
     }
-    if (value instanceof u1) {
+    if (value instanceof d1) {
       return `<div>
           <p class="label">Codes</p><p>${f2(value.codes)}</p>
           <p class="label">Date of Expiry</p><p>${f2(value.dateOfExpiry)}</p>
@@ -7180,9 +7237,9 @@ function showResult(capturedId) {
     result += `<p class="label">Date of Expiry</p><p>${f2(data.dateOfExpiry)}</p>`;
     result += `<p class="label">Date of Issue</p><p>${f2(data.dateOfIssue)}</p>`;
   }
-  if (capturedId.idImageOfType(m0.Face) != null) {
+  if (capturedId.idImageOfType(_0.Face) != null) {
     result += `<p class="label">Face</p>`;
-    result += `<img src="data:image/png;base64,${(_a = capturedId.idImageOfType(m0.Face)) != null ? _a : ""}" />`;
+    result += `<img src="data:image/png;base64,${(_a = capturedId.idImageOfType(_0.Face)) != null ? _a : ""}" />`;
   }
   if (capturedId.aamvaBarcodeResult) {
     header = "Aamva Barcode Result";
@@ -7363,34 +7420,34 @@ var camera;
 var currentMode;
 var supportedDocumentsByMode = {
   barcode: [
-    x0.AAMVABarcode,
-    x0.ColombiaIdBarcode,
-    x0.ColombiaDlBarcode,
-    x0.USUSIdBarcode,
-    x0.ArgentinaIdBarcode,
-    x0.SouthAfricaDlBarcode,
-    x0.SouthAfricaIdBarcode
+    H0.AAMVABarcode,
+    H0.ColombiaIdBarcode,
+    H0.ColombiaDlBarcode,
+    H0.USUSIdBarcode,
+    H0.ArgentinaIdBarcode,
+    H0.SouthAfricaDlBarcode,
+    H0.SouthAfricaIdBarcode
   ],
   mrz: [
-    x0.VisaMRZ,
-    x0.PassportMRZ,
-    x0.SwissDLMRZ,
-    x0.IdCardMRZ,
-    x0.ChinaMainlandTravelPermitMRZ,
-    x0.ChinaExitEntryPermitMRZ
+    H0.VisaMRZ,
+    H0.PassportMRZ,
+    H0.SwissDLMRZ,
+    H0.IdCardMRZ,
+    H0.ChinaMainlandTravelPermitMRZ,
+    H0.ChinaExitEntryPermitMRZ
   ],
-  viz: [x0.DLVIZ, x0.IdCardVIZ]
+  viz: [H0.DLVIZ, H0.IdCardVIZ]
 };
 async function applyNewMode(mode) {
   currentMode = mode;
   await context.removeMode(idCapture);
-  const settings = new T0();
+  const settings = new M0();
   settings.supportedDocuments = supportedDocumentsByMode[mode];
   if (mode === "viz") {
-    settings.supportedSides = v1.FrontAndBack;
-    settings.setShouldPassImageTypeToResult(m0.Face, true);
+    settings.supportedSides = u1.FrontAndBack;
+    settings.setShouldPassImageTypeToResult(_0.Face, true);
   }
-  idCapture = await k1.forContext(context, settings);
+  idCapture = await G1.forContext(context, settings);
   idCapture.addListener({
     didCaptureId: async (idCaptureInstance, session) => {
       var _a;
@@ -7400,7 +7457,7 @@ async function applyNewMode(mode) {
         return;
       }
       if (((_a = capturedId.vizResult) == null ? void 0 : _a.isBackSideCaptureSupported) === true) {
-        if (capturedId.vizResult.capturedSides === v1.FrontAndBack) {
+        if (capturedId.vizResult.capturedSides === u1.FrontAndBack) {
           showResult(capturedId);
           void idCapture.reset();
         } else {
@@ -7414,20 +7471,26 @@ async function applyNewMode(mode) {
     didRejectId: async () => {
       await idCapture.setEnabled(false);
       showWarning("Document type not supported.");
+    },
+    didFailWithError: (_2, error) => {
+      if (error.type === Q1.RecoveredAfterFailure) {
+        showWarning("Oops, something went wrong. Please start over by scanning the front-side of your document.");
+        void idCapture.reset();
+      }
     }
   });
   await view.removeOverlay(overlay);
   overlay = await D1.withIdCaptureForView(idCapture, view);
 }
 async function run() {
-  await Cs({
+  await ys({
     licenseKey: LICENSE_KEY,
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
-    moduleLoaders: [ut()]
+    moduleLoaders: [Rt2()]
   });
   context = await Tt.create();
   camera = pe.default;
-  const settings = k1.recommendedCameraSettings;
+  const settings = G1.recommendedCameraSettings;
   await camera.applySettings(settings);
   await context.setFrameSource(camera);
   view = await O.forContext(context);
@@ -7505,7 +7568,7 @@ run().catch((error) => {
  * Released under the MIT license
  */
 /*! ****************************************************************************
-Copyright (c) Microblink. All rights reserved.
+Copyright (c) Scandit. All rights reserved.
 
 THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
