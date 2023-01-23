@@ -4,6 +4,7 @@ import * as SDCBarcode from "scandit-web-datacapture-barcode";
 // Main DOM elements in the page.
 const pageElements = {
   input: document.getElementById("input") as HTMLInputElement,
+  button: document.getElementById("scan") as HTMLInputElement,
   modal: document.getElementById("modal") as HTMLInputElement,
   overlay: document.querySelector("#modal .overlay")!,
   captureHost: document.getElementById("data-capture-view")!,
@@ -68,31 +69,42 @@ async function run(): Promise<void> {
     view.addControl(new SDCCore.CameraSwitchControl());
   }
 
-  // Open our modal and start the camera to scan a barcode.
+  // Close the modal and switch off the camera.
+  async function closeModal(): Promise<void> {
+    pageElements.modal.classList.remove("open");
+    await wait(300);
+    pageElements.modal.classList.add("hidden");
+    await context.frameSource!.switchToDesiredState(SDCCore.FrameSourceState.Off);
+    pageElements.button.disabled = false;
+    pageElements.button.textContent = "Click to Scan";
+  }
+
   async function openModal(): Promise<void> {
     pageElements.modal.classList.remove("hidden");
+    await wait(300);
     // This is just to allow a nice CSS transition when opening the modal.
-    await wait(1);
     pageElements.modal.classList.add("open");
+  }
+
+  // Open our modal and start the camera to scan a barcode.
+  async function onOpenModal(): Promise<void> {
+    pageElements.input.blur();
     // Start the camera. This can potentially fail, so we use try/catch.
     try {
+      pageElements.button.textContent = "Loading...";
+      pageElements.button.disabled = true;
       await context.frameSource!.switchToDesiredState(SDCCore.FrameSourceState.On);
       await barcodeCapture.setEnabled(true);
+      await openModal();
     } catch (error: unknown) {
       const reason: string =
         typeof error === "object" && error != null && typeof error["toString"] === "function"
           ? error.toString()
           : "unknown error";
       alert(`Could not start camera: ${reason}`);
-      closeModal();
+      pageElements.input.placeholder = reason;
+      await closeModal();
     }
-  }
-
-  // Close the modal and switch off the camera.
-  function closeModal(): void {
-    pageElements.modal.classList.remove("open");
-    pageElements.modal.classList.add("hidden");
-    void context.frameSource!.switchToDesiredState(SDCCore.FrameSourceState.Off);
   }
 
   // When a scan happened, we populate the input and close the modal.
@@ -100,11 +112,10 @@ async function run(): Promise<void> {
     barcodeCaptureMode: SDCBarcode.BarcodeCapture,
     session: SDCBarcode.BarcodeCaptureSession
   ): Promise<void> {
-    const barcode: SDCBarcode.Barcode = session.newlyRecognizedBarcodes[0];
     await barcodeCapture.setEnabled(false);
+    const barcode: SDCBarcode.Barcode = session.newlyRecognizedBarcodes[0];
+    await closeModal();
     pageElements.input.value = barcode.data ?? "";
-    pageElements.input.select();
-    closeModal();
   }
 
   // Wait for X milliseconds
@@ -116,14 +127,19 @@ async function run(): Promise<void> {
 
   // Load the library as soon as possible. This will make the user experience faster.
   await loadAndPrepareLibrary();
+  pageElements.button.disabled = false;
+  pageElements.input.disabled = false;
+  pageElements.input.placeholder = "Barcodes will appear here";
 
   // At this point the library was loaded, set up the UI elements (progressive enhancement).
-  pageElements.input.placeholder = "Click to scan";
-  pageElements.input.addEventListener("click", openModal);
+  pageElements.button.addEventListener("click", onOpenModal);
   pageElements.overlay.addEventListener("click", closeModal);
-  document.addEventListener("keydown", (event: KeyboardEvent) => {
+  pageElements.input.addEventListener("focus", () => {
+    pageElements.input.setSelectionRange(0, pageElements.input.value.length);
+  });
+  document.addEventListener("keydown", async (event: KeyboardEvent) => {
     if (event.key === "Escape") {
-      closeModal();
+      await closeModal();
     }
   });
 }
@@ -131,5 +147,6 @@ async function run(): Promise<void> {
 run().catch((error) => {
   console.error(error);
   alert(error);
+  pageElements.input.disabled = false;
   pageElements.input.placeholder = "Enter code manually";
 });

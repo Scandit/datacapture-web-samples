@@ -5,16 +5,15 @@
   "author": "Scandit",
   "description": "Examples of how to integrate ID Capture into your application.",
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "serve": "http-server . -c-1 -p 8888 -m '{\"application/wasm\": [\"wasm\"]}'",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js && tsc --noEmit",
     "lint": "eslint ."
   },
   "dependencies": {
     "dompurify": "^2.3.9",
-    "scandit-web-datacapture-core": "6.15.1",
-    "scandit-web-datacapture-id": "6.15.1"
+    "scandit-web-datacapture-core": "6.16.0",
+    "scandit-web-datacapture-id": "6.16.0"
   },
   "devDependencies": {
     "@types/dompurify": "^2.3.3",

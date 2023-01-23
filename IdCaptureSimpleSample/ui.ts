@@ -31,6 +31,9 @@ export function showResult(capturedId: SDCId.CapturedId): void {
     if (value == null || value === "") {
       return "<i>empty</i>";
     }
+    if (typeof value === "boolean") {
+      return value ? "yes" : "no";
+    }
     if (value instanceof SDCId.DateResult) {
       if (typeof value.day === "number" && typeof value.month === "number" && typeof value.year === "number") {
         return `${value.year}-${value.month}-${value.day}`;
@@ -53,6 +56,11 @@ export function showResult(capturedId: SDCId.CapturedId): void {
     if (Array.isArray(value)) {
       return value.map((element) => f(element)).join("<br>");
     }
+    if (typeof value === "string") {
+      // DOM purify will remove some parts if fed with an MRZ string like "<<<<hello<<<there", so we replace them
+      // before sanitization
+      return sanitize(value.replace(/</g, "&lt;"));
+    }
     return sanitize(value as string);
   }
 
@@ -60,10 +68,12 @@ export function showResult(capturedId: SDCId.CapturedId): void {
   let header = "";
 
   type CommonFields = Pick<
-    SDCId.VIZResult,
+    SDCId.CapturedId,
     | "address"
     | "dateOfBirth"
+    | "age"
     | "dateOfExpiry"
+    | "isExpired"
     | "dateOfIssue"
     | "documentNumber"
     | "documentType"
@@ -82,6 +92,7 @@ export function showResult(capturedId: SDCId.CapturedId): void {
     result += `<p class="label">Full Name</p><p>${f(data.fullName)}</p>`;
     result += `<p class="label">Sex</p><p>${f(data.sex)}</p>`;
     result += `<p class="label">Date of Birth</p><p>${f(data.dateOfBirth)}</p>`;
+    result += `<p class="label">Age</p><p>${f(data.age)}</p>`;
     result += `<p class="label">Nationality</p><p>${f(data.nationality)}</p>`;
     result += `<p class="label">Address</p><p>${f(data.address)}</p>`;
     result += `<p class="label">Document Type</p><p>${f(data.documentType)}</p>`;
@@ -89,6 +100,7 @@ export function showResult(capturedId: SDCId.CapturedId): void {
     result += `<p class="label">Issuing Country</p><p>${f(data.issuingCountry)}</p>`;
     result += `<p class="label">Document Number</p><p>${f(data.documentNumber)}</p>`;
     result += `<p class="label">Date of Expiry</p><p>${f(data.dateOfExpiry)}</p>`;
+    result += `<p class="label">Is Expired</p><p>${f(data.isExpired)}</p>`;
     result += `<p class="label">Date of Issue</p><p>${f(data.dateOfIssue)}</p>`;
   }
 
@@ -97,9 +109,9 @@ export function showResult(capturedId: SDCId.CapturedId): void {
     result += `<img src="data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face)!}" />`;
   }
 
+  commonFields(capturedId);
   if (capturedId.vizResult) {
     header = "VIZ Result";
-    commonFields(capturedId.vizResult);
     result += `<p class="label">Additional Address Information</p><p>${f(
       capturedId.vizResult.additionalAddressInformation
     )}</p>`;

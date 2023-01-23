@@ -5,15 +5,14 @@
   "author": "Scandit",
   "description": "Simple examples of how to integrate a barcode scanner into your application.",
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "serve": "http-server . -c-1 -p 8888 -m '{\"application/wasm\": [\"wasm\"]}'",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js && tsc --noEmit",
     "lint": "eslint ."
   },
   "dependencies": {
-    "scandit-web-datacapture-barcode": "6.15.1",
-    "scandit-web-datacapture-core": "6.15.1"
+    "scandit-web-datacapture-barcode": "6.16.0",
+    "scandit-web-datacapture-core": "6.16.0"
   },
   "devDependencies": {
     "esbuild": "^0.14.48",
