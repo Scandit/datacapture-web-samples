@@ -22,6 +22,8 @@ async function run(): Promise<void> {
   // Try to use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
   // default and must be turned on to start streaming frames to the data capture context for recognition.
   const camera: SDCCore.Camera = SDCCore.Camera.default;
+  const cameraSettings = SDCBarcode.BarcodeCapture.recommendedCameraSettings;
+  await camera.applySettings(cameraSettings);
   await context.setFrameSource(camera);
 
   // The barcode capturing process is configured through barcode capture settings,

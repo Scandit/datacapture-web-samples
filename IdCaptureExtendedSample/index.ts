@@ -99,7 +99,7 @@ async function run(): Promise<void> {
   await SDCCore.configure({
     licenseKey: LICENSE_KEY,
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
-    moduleLoaders: [SDCId.idCaptureLoader()],
+    moduleLoaders: [SDCId.idCaptureLoader({ enableVIZDocuments: true })],
   });
 
   // Create the context (it will use the license key passed to configure by default)
