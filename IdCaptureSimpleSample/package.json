@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "dompurify": "^2.3.9",
-    "scandit-web-datacapture-core": "6.16.1",
-    "scandit-web-datacapture-id": "6.16.1"
+    "scandit-web-datacapture-core": "6.16.2",
+    "scandit-web-datacapture-id": "6.16.2"
   },
   "devDependencies": {
     "@types/dompurify": "^2.3.3",
