@@ -8,16 +8,36 @@ declare global {
 }
 
 async function run(): Promise<void> {
+  // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
+  const view = new SDCCore.DataCaptureView();
+
+  // Connect the data capture view to the HTML element.
+  view.connectToElement(document.getElementById("data-capture-view")!);
+
+  // Set the progress bar message
+  view.setProgressBarMessage("Loading...");
+
+  // Show the loading layer
+  view.showProgressBar();
+
   // Configure and load the library using your license key. The passed parameter represents the location of the wasm
   // file, which will be fetched asynchronously. You must `await` the returned promise to be able to continue.
   await SDCCore.configure({
     licenseKey: "YOUR_LICENSE_KEY_HERE",
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
-    moduleLoaders: [SDCBarcode.barcodeCaptureLoader({ highEndBlurryRecognition: false })],
+    moduleLoaders: [SDCBarcode.barcodeCaptureLoader()],
   });
+
+  // Set the progress bar to be in an indeterminate state
+  view.setProgressBarPercentage(null);
+  view.setProgressBarMessage("Accessing Camera...");
 
   // Create the data capture context.
   const context: SDCCore.DataCaptureContext = await SDCCore.DataCaptureContext.create();
+
+  // To visualize the ongoing barcode capturing process on screen, attach the data capture view that renders the
+  // camera preview. The view must be connected to the data capture context.
+  await view.setContext(context);
 
   // Try to use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
   // default and must be turned on to start streaming frames to the data capture context for recognition.
@@ -66,16 +86,9 @@ async function run(): Promise<void> {
       await barcodeCapture.setEnabled(false);
       const barcode: SDCBarcode.Barcode = session.newlyRecognizedBarcodes[0];
       const symbology: SDCBarcode.SymbologyDescription = new SDCBarcode.SymbologyDescription(barcode.symbology);
-      showResult(`Scanned: ${barcode.data ?? ""} (${symbology.readableName})`);
+      showResult(`Scanned: ${barcode.data ?? ""}\n(${symbology.readableName})`);
     },
   });
-
-  // To visualize the ongoing barcode capturing process on screen, set up a data capture view that renders the
-  // camera preview. The view must be connected to the data capture context.
-  const view = await SDCCore.DataCaptureView.forContext(context);
-
-  // Connect the data capture view to the HTML element.
-  view.connectToElement(document.getElementById("data-capture-view")!);
 
   // Add a control to be able to switch cameras.
   view.addControl(new SDCCore.CameraSwitchControl());
@@ -99,11 +112,16 @@ async function run(): Promise<void> {
   await camera.switchToDesiredState(SDCCore.FrameSourceState.On);
   await barcodeCapture.setEnabled(true);
 
+  // The progress bar layer could be also hidden right after the configure phase
+  view.hideProgressBar();
   function showResult(result: string): void {
     const resultElement = document.createElement("div");
     resultElement.className = "result";
-    resultElement.innerHTML = `<p class="result-text"></p><button onclick="continueScanning()">OK</button>`;
-    resultElement.querySelector(".result-text")!.textContent = result;
+    // eslint-disable-next-line no-unsanitized/property
+    resultElement.innerHTML = `
+      <p class="result-text">${result}</p>
+      <button onclick="continueScanning()">OK</button>
+    `;
     document.querySelector("#data-capture-view")!.append(resultElement);
   }
 

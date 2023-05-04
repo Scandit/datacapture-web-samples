@@ -2,6 +2,11 @@
 
 Simple example of how to integrate ID capture into your application.
 
+## Prerequisites
+
+Before proceeding, you will need a valid Scandit DataCapture SDK license key.
+You can retrieve it by signing into your account at https://ssl.scandit.com.
+
 ## Installation
 
 Install dependencies:
@@ -12,7 +17,11 @@ npm install
 
 ## How to run
 
-Insert your license key in `index.ts`, replacing the placeholder `YOUR_LICENSE_KEY_HERE` with your license key.
+Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+
+- running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build`
+- placing your license key in a .env file at the root of the sample directory
+- or by inserting your license key into `index.ts`, replacing the placeholder `YOUR_LICENSE_KEY_HERE` with the key.
 
 Build and serve the application:
 

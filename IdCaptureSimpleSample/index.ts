@@ -14,12 +14,27 @@ let camera: SDCCore.Camera;
 const supportedDocuments: SDCId.IdDocumentType[] = [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ];
 
 async function run(): Promise<void> {
+  // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
+  view = new SDCCore.DataCaptureView();
+
+  // Connect the data capture view to the HTML element.
+  view.connectToElement(UI.elements.dataCaptureView);
+
+  // Show the progress bar
+  view.showProgressBar();
+
+  // Set the progress bar message
+  view.setProgressBarMessage("Loading...");
+
   // Configure the library
   await SDCCore.configure({
     licenseKey: LICENSE_KEY,
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
     moduleLoaders: [SDCId.idCaptureLoader({ enableVIZDocuments: true })],
   });
+
+  // Hide the progress bar
+  view.hideProgressBar();
 
   // Create the context (it will use the license key passed to configure by default)
   context = await SDCCore.DataCaptureContext.create();
@@ -30,9 +45,8 @@ async function run(): Promise<void> {
   await camera.applySettings(SDCId.IdCapture.recommendedCameraSettings);
   await context.setFrameSource(camera);
 
-  // Create the view and connect it to the DOM
-  view = await SDCCore.DataCaptureView.forContext(context);
-  view.connectToElement(UI.elements.dataCaptureView);
+  await view.setContext(context);
+
   view.addControl(new SDCCore.CameraSwitchControl());
 
   // Create the IdCapture settings needed for the selected mode

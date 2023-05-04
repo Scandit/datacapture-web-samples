@@ -31,6 +31,9 @@ const supportedDocumentsByMode: { [key in Mode]: SDCId.IdDocumentType[] } = {
     SDCId.IdDocumentType.IdCardMRZ,
     SDCId.IdDocumentType.ChinaMainlandTravelPermitMRZ,
     SDCId.IdDocumentType.ChinaExitEntryPermitMRZ,
+    SDCId.IdDocumentType.ChinaOneWayPermitFrontMRZ,
+    SDCId.IdDocumentType.ChinaOneWayPermitBackMRZ,
+    SDCId.IdDocumentType.ApecBusinessTravelCardMRZ,
   ],
   viz: [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ],
 };
@@ -55,7 +58,7 @@ async function applyNewMode(mode: Mode): Promise<void> {
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: async (idCaptureInstance: SDCId.IdCapture, session) => {
+    didCaptureId: async (idCaptureInstance: SDCId.IdCapture, session: SDCId.IdCaptureSession) => {
       // Disable the IdCapture mode to handle the current result
       await idCapture.setEnabled(false);
 
@@ -80,7 +83,7 @@ async function applyNewMode(mode: Mode): Promise<void> {
       await idCapture.setEnabled(false);
       UI.showWarning("Document type not supported.");
     },
-    didFailWithError: (_, error: SDCId.IdCaptureError) => {
+    didFailWithError: (_: SDCId.IdCapture, error: SDCId.IdCaptureError) => {
       // If an error occured and the SDK recovered from it, we need to inform the user and reset the process.
       if (error.type === SDCId.IdCaptureErrorCode.RecoveredAfterFailure) {
         UI.showWarning("Oops, something went wrong. Please start over by scanning the front-side of your document.");
@@ -95,6 +98,18 @@ async function applyNewMode(mode: Mode): Promise<void> {
 }
 
 async function run(): Promise<void> {
+  // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
+  view = new SDCCore.DataCaptureView();
+
+  // Connect the data capture view to the HTML element.
+  view.connectToElement(UI.elements.dataCaptureView);
+
+  // Show the progress bar
+  view.showProgressBar();
+
+  // Set the progress bar message
+  view.setProgressBarMessage("Loading...");
+
   // Configure the library
   await SDCCore.configure({
     licenseKey: LICENSE_KEY,
@@ -102,8 +117,13 @@ async function run(): Promise<void> {
     moduleLoaders: [SDCId.idCaptureLoader({ enableVIZDocuments: true })],
   });
 
+  // Hide progress bar
+  view.hideProgressBar();
+
   // Create the context (it will use the license key passed to configure by default)
   context = await SDCCore.DataCaptureContext.create();
+
+  await view.setContext(context);
 
   // Set the default camera as frame source. Apply the recommended settings from the IdCapture mode.
   camera = SDCCore.Camera.default;
@@ -113,9 +133,6 @@ async function run(): Promise<void> {
   await camera.applySettings(settings);
   await context.setFrameSource(camera);
 
-  // Create the view and connect it to the DOM
-  view = await SDCCore.DataCaptureView.forContext(context);
-  view.connectToElement(UI.elements.dataCaptureView);
   view.addControl(new SDCCore.CameraSwitchControl());
 
   // Enable the mode selected by default

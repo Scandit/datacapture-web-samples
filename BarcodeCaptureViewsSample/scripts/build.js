@@ -1,6 +1,9 @@
 import esbuild from "esbuild";
 import fs from "fs-extra";
 import path from "path";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const LIBRARY_LOCATION = "./library";
 const FILE_LIST = [

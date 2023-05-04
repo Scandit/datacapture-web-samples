@@ -1,4 +1,4 @@
-import { sanitize } from "dompurify";
+import * as DOMPurify from "dompurify";
 import * as SDCId from "scandit-web-datacapture-id";
 
 export enum Action {
@@ -44,9 +44,8 @@ export function confirmScanningBackside(capturedId: SDCId.CapturedId): void {
 }
 
 export function showWarning(text: string): void {
-  /* eslint-disable-next-line no-unsanitized/property */
   elements.alert.innerHTML = `
-    <p>${sanitize(text)}</p>
+    <p>${DOMPurify.sanitize(text)}</p>
     <div class="single">
       <button onclick="window.dispatchAction('CLOSE_WARNING')">Close</button>
     </div>
@@ -54,344 +53,308 @@ export function showWarning(text: string): void {
   elements.alert.removeAttribute("hidden");
 }
 
+function formatValue(value: unknown): string {
+  if (value == null || value === "") {
+    return "<i>empty</i>";
+  }
+  if (typeof value === "boolean") {
+    return value ? "yes" : "no";
+  }
+  if (value instanceof SDCId.DateResult) {
+    if (typeof value.day === "number" && typeof value.month === "number" && typeof value.year === "number") {
+      const d = new Date(value.year, value.month - 1, value.day);
+      return d.toLocaleDateString();
+    }
+    return "<i>empty</i>";
+  }
+  if (value instanceof SDCId.ProfessionalDrivingPermit) {
+    return `
+      <div>
+        ${getMarkupForLabelAndValue("Codes", value.codes)}
+        ${getMarkupForLabelAndValue("Date of Expiry", value.dateOfExpiry)}
+      </div>
+    `;
+  }
+  if (value instanceof SDCId.VehicleRestriction) {
+    return `
+      <div>
+        ${getMarkupForLabelAndValue("Vehicle Code", value.vehicleCode)}
+        ${getMarkupForLabelAndValue("Vehicle Restriction", value.vehicleRestriction)}
+        ${getMarkupForLabelAndValue("Date of Issue", value.dateOfIssue)}
+      </div>
+    `;
+  }
+  if (Array.isArray(value)) {
+    return value.map((element) => formatValue(element)).join("<br>");
+  }
+  if (typeof value === "string") {
+    // DOM purify will remove some parts if fed with an MRZ string like "<<<<hello<<<there", so we replace them
+    // before sanitization
+    return DOMPurify.sanitize(value.replace(/</g, "&lt;"));
+  }
+  return DOMPurify.sanitize(value as string);
+}
+
+function getMarkupForLabel(labelText: string): string {
+  return `<p class="label">${labelText}</p>`;
+}
+
+function getMarkupForLabelAndValue(labelText: string, value: unknown): string {
+  return `
+    ${getMarkupForLabel(labelText)}
+    <p>${formatValue(value)}</p>
+  `;
+}
+
+function getMarkupForFields(fields: [string, unknown][]): string {
+  return fields.reduce(
+    (markup, nameAndValue) => markup + getMarkupForLabelAndValue(nameAndValue[0], nameAndValue[1]),
+    ""
+  );
+}
+
 export function showResult(capturedId: SDCId.CapturedId): void {
-  function f(value: unknown): string {
-    if (value == null || value === "") {
-      return "<i>empty</i>";
-    }
-    if (typeof value === "boolean") {
-      return value ? "yes" : "no";
-    }
-    if (value instanceof SDCId.DateResult) {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (value.day && value.month && value.year) {
-        return `${value.year}-${value.month}-${value.day}`;
-      }
-      return "<i>empty</i>";
-    }
-    if (value instanceof SDCId.ProfessionalDrivingPermit) {
-      return `<div>
-          <p class="label">Codes</p><p>${f(value.codes)}</p>
-          <p class="label">Date of Expiry</p><p>${f(value.dateOfExpiry)}</p>
-        </div>`;
-    }
-    if (value instanceof SDCId.VehicleRestriction) {
-      return `<div>
-          <p class="label">Vehicle Code</p><p>${f(value.vehicleCode)}</p>
-          <p class="label">Vehicle Restriction</p><p>${f(value.vehicleRestriction)}</p>
-          <p class="label">Date of Issue</p><p>${f(value.dateOfIssue)}</p>
-        </div>`;
-    }
-    if (Array.isArray(value)) {
-      return value.map((element) => f(element)).join("<br>");
-    }
-    if (typeof value === "string") {
-      // DOM purify will remove some parts if fed with an MRZ string like "<<<<hello<<<there", so we replace them
-      // before sanitization
-      return sanitize(value.replace(/</g, "&lt;"));
-    }
-    return sanitize(value as string);
-  }
-
-  let result = "";
   let header = "";
-
-  type CommonFields = Pick<
-    SDCId.CapturedId,
-    | "address"
-    | "dateOfBirth"
-    | "age"
-    | "dateOfExpiry"
-    | "isExpired"
-    | "dateOfIssue"
-    | "documentNumber"
-    | "documentType"
-    | "firstName"
-    | "fullName"
-    | "issuingCountry"
-    | "issuingCountryIso"
-    | "lastName"
-    | "nationality"
-    | "sex"
-  >;
-
-  function commonFields(data: CommonFields): void {
-    result += `<p class="label">First Name</p><p>${f(data.firstName)}</p>`;
-    result += `<p class="label">Last Name</p><p>${f(data.lastName)}</p>`;
-    result += `<p class="label">Full Name</p><p>${f(data.fullName)}</p>`;
-    result += `<p class="label">Sex</p><p>${f(data.sex)}</p>`;
-    result += `<p class="label">Date of Birth</p><p>${f(data.dateOfBirth)}</p>`;
-    result += `<p class="label">Age</p><p>${f(data.age)}</p>`;
-    result += `<p class="label">Nationality</p><p>${f(data.nationality)}</p>`;
-    result += `<p class="label">Address</p><p>${f(data.address)}</p>`;
-    result += `<p class="label">Document Type</p><p>${f(data.documentType)}</p>`;
-    result += `<p class="label">Issuing Country ISO</p><p>${f(data.issuingCountryIso)}</p>`;
-    result += `<p class="label">Issuing Country</p><p>${f(data.issuingCountry)}</p>`;
-    result += `<p class="label">Document Number</p><p>${f(data.documentNumber)}</p>`;
-    result += `<p class="label">Date of Expiry</p><p>${f(data.dateOfExpiry)}</p>`;
-    result += `<p class="label">Is Expired</p><p>${f(data.isExpired)}</p>`;
-    result += `<p class="label">Date of Issue</p><p>${f(data.dateOfIssue)}</p>`;
-  }
+  let result = "";
 
   if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
-    result += `<p class="label">Face</p>`;
+    result += getMarkupForLabel("Face");
     result += `<img src="data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face) ?? ""}" />`;
   }
 
-  commonFields(capturedId);
+  // Common fields
+  result += getMarkupForFields([
+    ["First Name", capturedId.firstName],
+    ["Last Name", capturedId.lastName],
+    ["Full Name", capturedId.fullName],
+    ["Sex", capturedId.sex],
+    ["Date of Birth", capturedId.dateOfBirth],
+    ["Age", capturedId.age],
+    ["Nationality", capturedId.nationality],
+    ["Address", capturedId.address],
+    ["Document Type", capturedId.documentType],
+    ["Issuing Country ISO", capturedId.issuingCountryIso],
+    ["Issuing Country", capturedId.issuingCountry],
+    ["Document Number", capturedId.documentNumber],
+    ["Date of Expiry", capturedId.dateOfExpiry],
+    ["Is Expired", capturedId.isExpired],
+    ["Date of Issue", capturedId.dateOfIssue],
+  ]);
 
   if (capturedId.aamvaBarcodeResult) {
     header = "Aamva Barcode Result";
-    result += `<p class="label">AAMVA Version</p><p>${f(capturedId.aamvaBarcodeResult.aamvaVersion)}</p>`;
-    result += `<p class="label">Is Real ID</p><p>${f(capturedId.aamvaBarcodeResult.isRealId)}</p>`;
-    result += `<p class="label">Alias Family Name</p><p>${f(capturedId.aamvaBarcodeResult.aliasFamilyName)}</p>`;
-    result += `<p class="label">Alias Given Name</p><p>${f(capturedId.aamvaBarcodeResult.aliasGivenName)}</p>`;
-    result += `<p class="label">Alias Suffix Name</p><p>${f(capturedId.aamvaBarcodeResult.aliasSuffixName)}</p>`;
-    result += `<p class="label">Driver Name Prefix</p><p>${f(capturedId.aamvaBarcodeResult.driverNamePrefix)}</p>`;
-    result += `<p class="label">Driver Name Suffix</p><p>${f(capturedId.aamvaBarcodeResult.driverNameSuffix)}</p>`;
-    result += `<p class="label">Endorsements Code</p><p>${f(capturedId.aamvaBarcodeResult.endorsementsCode)}</p>`;
-    result += `<p class="label">Eye Color</p><p>${f(capturedId.aamvaBarcodeResult.eyeColor)}</p>`;
-    result += `<p class="label">First Name Truncation</p><p>${f(
-      capturedId.aamvaBarcodeResult.firstNameTruncation
-    )}</p>`;
-    result += `<p class="label">Hair Color</p><p>${f(capturedId.aamvaBarcodeResult.hairColor)}</p>`;
-    result += `<p class="label">Height CM</p><p>${f(capturedId.aamvaBarcodeResult.heightCm)}</p>`;
-    result += `<p class="label">Height Inch</p><p>${f(capturedId.aamvaBarcodeResult.heightInch)}</p>`;
-    result += `<p class="label">IIN</p><p>${f(capturedId.aamvaBarcodeResult.IIN)}</p>`;
-    result += `<p class="label">Issuing Jurisdiction</p><p>${f(capturedId.aamvaBarcodeResult.issuingJurisdiction)}</p>`;
-    result += `<p class="label">Issuing Jurisdiction ISO</p><p>${f(
-      capturedId.aamvaBarcodeResult.issuingJurisdictionIso
-    )}</p>`;
-    result += `<p class="label">Jurisdiction Version</p><p>${f(capturedId.aamvaBarcodeResult.jurisdictionVersion)}</p>`;
-    result += `<p class="label">Last Name Truncation</p><p>${f(capturedId.aamvaBarcodeResult.lastNameTruncation)}</p>`;
-    result += `<p class="label">Middle Name</p><p>${f(capturedId.aamvaBarcodeResult.middleName)}</p>`;
-    result += `<p class="label">Middle Name Truncation</p><p>${f(
-      capturedId.aamvaBarcodeResult.middleNameTruncation
-    )}</p>`;
-    result += `<p class="label">Place Of Birth</p><p>${f(capturedId.aamvaBarcodeResult.placeOfBirth)}</p>`;
-    result += `<p class="label">Race</p><p>${f(capturedId.aamvaBarcodeResult.race)}</p>`;
-    result += `<p class="label">Restrictions Code</p><p>${f(capturedId.aamvaBarcodeResult.restrictionsCode)}</p>`;
-    result += `<p class="label">Vehicle Class</p><p>${f(capturedId.aamvaBarcodeResult.vehicleClass)}</p>`;
-    result += `<p class="label">Weight Kg</p><p>${f(capturedId.aamvaBarcodeResult.weightKg)}</p>`;
-    result += `<p class="label">Weight Lbs</p><p>${f(capturedId.aamvaBarcodeResult.weightLbs)}</p>`;
-    result += `<p class="label">Card Revision Date</p><p>${f(capturedId.aamvaBarcodeResult.cardRevisionDate)}</p>`;
-    result += `<p class="label">Document Discriminator Number</p><p>${f(
-      capturedId.aamvaBarcodeResult.documentDiscriminatorNumber
-    )}</p>`;
-    result += `<p class="label">Barcode Data Elements</p><p>${f(
-      capturedId.aamvaBarcodeResult.barcodeDataElements
-    )}</p>`;
+    const data = capturedId.aamvaBarcodeResult;
+    result += getMarkupForFields([
+      ["AAMVA Version", data.aamvaVersion],
+      ["Is Real ID", data.isRealId],
+      ["Alias Family Name", data.aliasFamilyName],
+      ["Alias Given Name", data.aliasGivenName],
+      ["Alias Suffix Name", data.aliasSuffixName],
+      ["Driver Name Prefix", data.driverNamePrefix],
+      ["Driver Name Suffix", data.driverNameSuffix],
+      ["Endorsements Code", data.endorsementsCode],
+      ["Eye Color", data.eyeColor],
+      ["First Name Truncation", data.firstNameTruncation],
+      ["Hair Color", data.hairColor],
+      ["Height CM", data.heightCm],
+      ["Height Inch", data.heightInch],
+      ["IIN", data.IIN],
+      ["Issuing Jurisdiction", data.issuingJurisdiction],
+      ["Issuing Jurisdiction ISO", data.issuingJurisdictionIso],
+      ["Jurisdiction Version", data.jurisdictionVersion],
+      ["Last Name Truncation", data.lastNameTruncation],
+      ["Middle Name", data.middleName],
+      ["Middle Name Truncation", data.middleNameTruncation],
+      ["Place Of Birth", data.placeOfBirth],
+      ["Race", data.race],
+      ["Restrictions Code", data.restrictionsCode],
+      ["Vehicle Class", data.vehicleClass],
+      ["Weight Kg", data.weightKg],
+      ["Weight Lbs", data.weightLbs],
+      ["Card Revision Date", data.cardRevisionDate],
+      ["Document Discriminator Number", data.documentDiscriminatorNumber],
+      ["Barcode Data Elements", data.barcodeDataElements],
+    ]);
   }
 
   if (capturedId.argentinaIdBarcodeResult) {
     header = "Argentinian ID Barcode Result";
-    result += `<p class="label">Personal Id Number</p><p>${f(
-      capturedId.argentinaIdBarcodeResult.personalIdNumber
-    )}</p>`;
-    result += `<p class="label">Document Copy</p><p>${f(capturedId.argentinaIdBarcodeResult.documentCopy)}</p>`;
+    result += getMarkupForFields([
+      ["Personal Id Number", capturedId.argentinaIdBarcodeResult.personalIdNumber],
+      ["Document Copy", capturedId.argentinaIdBarcodeResult.documentCopy],
+    ]);
+  }
+
+  if (capturedId.apecBusinessTravelCardMrzResult) {
+    header = "APEC Business Travel Card MRZ Result";
+    const data = capturedId.apecBusinessTravelCardMrzResult;
+    result += getMarkupForFields([
+      ["Document Code", data.documentCode],
+      ["Captured MRZ", data.capturedMrz],
+      ["Passport Number", data.passportNumber],
+      ["Passport Issuer ISO", data.passportIssuerIso],
+      ["Passport Date of Expiry", data.passportDateOfExpiry],
+    ]);
   }
 
   if (capturedId.chinaMainlandTravelPermitMrzResult) {
     header = "China Mainland Travel Permit MRZ Result";
-    result += `<p class="label">Document Code</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.documentCode
-    )}</p>`;
-    result += `<p class="label">Captured MRZ</p><p>${f(capturedId.chinaMainlandTravelPermitMrzResult.capturedMrz)}</p>`;
-    result += `<p class="label">Personal ID Number</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.personalIdNumber
-    )}</p>`;
-    result += `<p class="label">Renewal times</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.renewalTimes
-    )}</p>`;
-    result += `<p class="label">Full Name Simplified Chinese</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.fullNameSimplifiedChinese
-    )}</p>`;
-    result += `<p class="label">Omitted Character Count In GBK Name</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.omittedCharacterCountInGBKName
-    )}</p>`;
-    result += `<p class="label">Omitted Name Count</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.omittedNameCount
-    )}</p>`;
-    result += `<p class="label">Issuing Authority Code</p><p>${f(
-      capturedId.chinaMainlandTravelPermitMrzResult.issuingAuthorityCode
-    )}</p>`;
+    const data = capturedId.chinaMainlandTravelPermitMrzResult;
+    result += getMarkupForFields([
+      ["Document Code", data.documentCode],
+      ["Captured MRZ", data.capturedMrz],
+      ["Personal ID Number", data.personalIdNumber],
+      ["Renewal times", data.renewalTimes],
+      ["Full Name Simplified Chinese", data.fullNameSimplifiedChinese],
+      ["Omitted Character Count In GBK Name", data.omittedCharacterCountInGBKName],
+      ["Omitted Name Count", data.omittedNameCount],
+      ["Issuing Authority Code", data.issuingAuthorityCode],
+    ]);
   }
 
   if (capturedId.chinaExitEntryPermitMrzResult) {
     header = "China Exit-Entry Permit MRZ Result";
-    result += `<p class="label">Document Code</p><p>${f(capturedId.chinaExitEntryPermitMrzResult.documentCode)}</p>`;
-    result += `<p class="label">Captured MRZ</p><p>${f(capturedId.chinaExitEntryPermitMrzResult.capturedMrz)}</p>`;
+    result += getMarkupForFields([
+      ["Document Code", capturedId.chinaExitEntryPermitMrzResult.documentCode],
+      ["Captured MRZ", capturedId.chinaExitEntryPermitMrzResult.capturedMrz],
+    ]);
+  }
+
+  if (capturedId.chinaOneWayPermitFrontMrzResult) {
+    header = "China One-Way Permit Front MRZ Result";
+    const data = capturedId.chinaOneWayPermitFrontMrzResult;
+    result += getMarkupForFields([
+      ["Document Code", data.documentCode],
+      ["Full Name in Simplified Chinese", data.fullNameSimplifiedChinese],
+      ["Captured MRZ", data.capturedMrz],
+    ]);
+  }
+
+  if (capturedId.chinaOneWayPermitBackMrzResult) {
+    header = "China One-Way Permit Back MRZ Result";
+    const data = capturedId.chinaOneWayPermitBackMrzResult;
+    result += getMarkupForFields([
+      ["Document Code", data.documentCode],
+      ["Names Are Truncated", data.namesAreTruncated],
+      ["Captured MRZ", data.capturedMrz],
+    ]);
   }
 
   if (capturedId.colombiaIdBarcodeResult) {
     header = "Columbian ID Barcode Result";
-    result += `<p class="label">Blood Type</p><p>${f(capturedId.colombiaIdBarcodeResult.bloodType)}</p>`;
+    result += getMarkupForFields([["Blood Type", capturedId.colombiaIdBarcodeResult.bloodType]]);
   }
 
   if (capturedId.colombiaDlBarcodeResult) {
     header = "Columbian Driver License Barcode Result";
-    result += `
-      <p class="label">Identification Type</p>
-      <p>${f(capturedId.colombiaDlBarcodeResult.identificationType)}</p>
-    `;
-    result += `<p class="label">Categories</p><p>${f(capturedId.colombiaDlBarcodeResult.categories)}</p>`;
+    result += getMarkupForFields([
+      ["Identification Type", capturedId.colombiaDlBarcodeResult.identificationType],
+      ["Categories", capturedId.colombiaDlBarcodeResult.categories],
+    ]);
   }
 
   if (capturedId.mrzResult) {
     header = "MRZ Result";
-    result += `<p class="label">Document Code</p><p>${f(capturedId.mrzResult.documentCode)}</p>`;
-    result += `<p class="label">Names Are Truncated</p><p>${f(capturedId.mrzResult.namesAreTruncated)}</p>`;
-    result += `<p class="label">Optional</p><p>${f(capturedId.mrzResult.optional)}</p>`;
-    result += `<p class="label">Optional1</p><p>${f(capturedId.mrzResult.optional1)}</p>`;
-    result += `<p class="label">Captured Mrz</p><p>${f(capturedId.mrzResult.capturedMrz)}</p>`;
+    const data = capturedId.mrzResult;
+    result += getMarkupForFields([
+      ["Document Code", data.documentCode],
+      ["Names Are Truncated", data.namesAreTruncated],
+      ["Optional", data.optional],
+      ["Optional1", data.optional1],
+      ["Captured Mrz", data.capturedMrz],
+    ]);
   }
 
   if (capturedId.southAfricaIdBarcodeResult) {
     header = "South African ID Barcode Result";
-    result += `<p class="label">Country Of Birth</p><p>${f(capturedId.southAfricaIdBarcodeResult.countryOfBirth)}</p>`;
-    result += `<p class="label">Country Of Birth Iso</p><p>${f(
-      capturedId.southAfricaIdBarcodeResult.countryOfBirthIso
-    )}</p>`;
-    result += `<p class="label">Citizenship Status</p><p>${f(
-      capturedId.southAfricaIdBarcodeResult.citizenshipStatus
-    )}</p>`;
-    result += `<p class="label">Personal Id Number</p><p>${f(
-      capturedId.southAfricaIdBarcodeResult.personalIdNumber
-    )}</p>`;
+    const data = capturedId.southAfricaIdBarcodeResult;
+    result += getMarkupForFields([
+      ["Country Of Birth", data.countryOfBirth],
+      ["Country Of Birth Iso", data.countryOfBirthIso],
+      ["Citizenship Status", data.citizenshipStatus],
+      ["Personal Id Number", data.personalIdNumber],
+    ]);
   }
 
   if (capturedId.southAfricaDlBarcodeResult) {
     header = "South African Driver License Barcode Result";
-    result += `<p class="label">Version</p><p>${f(capturedId.southAfricaDlBarcodeResult.version)}</p>`;
-    result += `<p class="label">License Country Of Issue</p><p>${f(
-      capturedId.southAfricaDlBarcodeResult.licenseCountryOfIssue
-    )}</p>`;
-    result += `<p class="label">Personal Id Number</p><p>${f(
-      capturedId.southAfricaDlBarcodeResult.personalIdNumber
-    )}</p>`;
-    result += `<p class="label">Personal Id Number Type</p><p>${f(
-      capturedId.southAfricaDlBarcodeResult.personalIdNumberType
-    )}</p>`;
-    result += `<p class="label">Document Copy</p><p>${f(capturedId.southAfricaDlBarcodeResult.documentCopy)}</p>`;
-    result += `<p class="label">Driver Restriction Codes</p><p>${f(
-      capturedId.southAfricaDlBarcodeResult.driverRestrictionCodes
-    )}</p>`;
-    result += `<p class="label">Professional Driving Permit</p><p>${f(
-      capturedId.southAfricaDlBarcodeResult.professionalDrivingPermit
-    )}</p>`;
-    result += `<p class="label">Vehicle Restrictions</p><p>${f(
-      capturedId.southAfricaDlBarcodeResult.vehicleRestrictions
-    )}</p>`;
+    const data = capturedId.southAfricaDlBarcodeResult;
+    result += getMarkupForFields([
+      ["Version", data.version],
+      ["License Country Of Issue", data.licenseCountryOfIssue],
+      ["Personal Id Number", data.personalIdNumber],
+      ["Personal Id Number Type", data.personalIdNumberType],
+      ["Document Copy", data.documentCopy],
+      ["Driver Restriction Codes", data.driverRestrictionCodes],
+      ["Professional Driving Permit", data.professionalDrivingPermit],
+      ["Vehicle Restrictions", data.vehicleRestrictions],
+    ]);
   }
 
   if (capturedId.usUniformedServicesBarcodeResult) {
     header = "US Uniformed Services Barcode Result";
-    result += `<p class="label">Blood Type</p><p>${f(capturedId.usUniformedServicesBarcodeResult.bloodType)}</p>`;
-    result += `<p class="label">Branch Of Service</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.branchOfService
-    )}</p>`;
-    result += `<p class="label">Champus Effective Date</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.champusEffectiveDate
-    )}</p>`;
-    result += `<p class="label">Champus Expiry Date</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.champusExpiryDate
-    )}</p>`;
-    result += `<p class="label">Civilian Health Care Flag Code</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.civilianHealthCareFlagCode
-    )}</p>`;
-    result += `<p class="label">Civilian Health Care Flag Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.civilianHealthCareFlagDescription
-    )}</p>`;
-    result += `<p class="label">Commissary Flag Code</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.commissaryFlagCode
-    )}</p>`;
-    result += `<p class="label">Commissary Flag Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.commissaryFlagDescription
-    )}</p>`;
-    result += `<p class="label">Deers Dependent Suffix Code</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.deersDependentSuffixCode
-    )}</p>`;
-    result += `<p class="label">Deers Dependent Suffix Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.deersDependentSuffixDescription
-    )}</p>`;
-    result += `<p class="label">Direct Care Flag Code</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.directCareFlagCode
-    )}</p>`;
-    result += `<p class="label">Direct Care Flag Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.directCareFlagDescription
-    )}</p>`;
-    result += `<p class="label">Exchange Flag Code</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.exchangeFlagCode
-    )}</p>`;
-    result += `<p class="label">Exchange Flag Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.exchangeFlagDescription
-    )}</p>`;
-    result += `<p class="label">Eye Color</p><p>${f(capturedId.usUniformedServicesBarcodeResult.eyeColor)}</p>`;
-    result += `<p class="label">Family Sequence Number</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.familySequenceNumber
-    )}</p>`;
-    result += `<p class="label">Form Number</p><p>${f(capturedId.usUniformedServicesBarcodeResult.formNumber)}</p>`;
-    result += `<p class="label">Geneva Convention Category</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.genevaConventionCategory
-    )}</p>`;
-    result += `<p class="label">Hair Color</p><p>${f(capturedId.usUniformedServicesBarcodeResult.hairColor)}</p>`;
-    result += `<p class="label">Height</p><p>${f(capturedId.usUniformedServicesBarcodeResult.height)}</p>`;
-    result += `<p class="label">Jpeg Data</p><p>${f(capturedId.usUniformedServicesBarcodeResult.jpegData)}</p>`;
-    result += `<p class="label">Mwr Flag Code</p><p>${f(capturedId.usUniformedServicesBarcodeResult.mwrFlagCode)}</p>`;
-    result += `<p class="label">Mwr Flag Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.mwrFlagDescription
-    )}</p>`;
-    result += `<p class="label">Pay Grade</p><p>${f(capturedId.usUniformedServicesBarcodeResult.payGrade)}</p>`;
-    result += `<p class="label">Person Designator Document</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.personDesignatorDocument
-    )}</p>`;
-    result += `<p class="label">Rank</p><p>${f(capturedId.usUniformedServicesBarcodeResult.rank)}</p>`;
-    result += `<p class="label">Relationship Code</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.relationshipCode
-    )}</p>`;
-    result += `<p class="label">Relationship Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.relationshipDescription
-    )}</p>`;
-    result += `<p class="label">Security Code</p><p>${f(capturedId.usUniformedServicesBarcodeResult.securityCode)}</p>`;
-    result += `<p class="label">Service Code</p><p>${f(capturedId.usUniformedServicesBarcodeResult.serviceCode)}</p>`;
-    result += `<p class="label">Sponsor Flag</p><p>${f(capturedId.usUniformedServicesBarcodeResult.sponsorFlag)}</p>`;
-    result += `<p class="label">Sponsor Name</p><p>${f(capturedId.usUniformedServicesBarcodeResult.sponsorName)}</p>`;
-    result += `<p class="label">Sponsor Person Designator Identifier</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.sponsorPersonDesignatorIdentifier
-    )}</p>`;
-    result += `<p class="label">Status Code</p><p>${f(capturedId.usUniformedServicesBarcodeResult.statusCode)}</p>`;
-    result += `<p class="label">Status Code Description</p><p>${f(
-      capturedId.usUniformedServicesBarcodeResult.statusCodeDescription
-    )}</p>`;
-    result += `<p class="label">Version</p><p>${f(capturedId.usUniformedServicesBarcodeResult.version)}</p>`;
-    result += `<p class="label">Weight</p><p>${f(capturedId.usUniformedServicesBarcodeResult.weight)}</p>`;
+    const data = capturedId.usUniformedServicesBarcodeResult;
+    result += getMarkupForFields([
+      ["Blood Type", data.bloodType],
+      ["Branch Of Service", data.branchOfService],
+      ["Champus Effective Date", data.champusEffectiveDate],
+      ["Champus Expiry Date", data.champusExpiryDate],
+      ["Civilian Health Care Flag Code", data.civilianHealthCareFlagCode],
+      ["Civilian Health Care Flag Description", data.civilianHealthCareFlagDescription],
+      ["Commissary Flag Code", data.commissaryFlagCode],
+      ["Commissary Flag Description", data.commissaryFlagDescription],
+      ["Deers Dependent Suffix Code", data.deersDependentSuffixCode],
+      ["Deers Dependent Suffix Description", data.deersDependentSuffixDescription],
+      ["Direct Care Flag Code", data.directCareFlagCode],
+      ["Direct Care Flag Description", data.directCareFlagDescription],
+      ["Exchange Flag Code", data.exchangeFlagCode],
+      ["Exchange Flag Description", data.exchangeFlagDescription],
+      ["Eye Color", data.eyeColor],
+      ["Family Sequence Number", data.familySequenceNumber],
+      ["Form Number", data.formNumber],
+      ["Geneva Convention Category", data.genevaConventionCategory],
+      ["Hair Color", data.hairColor],
+      ["Height", data.height],
+      ["Jpeg Data", data.jpegData],
+      ["Mwr Flag Code", data.mwrFlagCode],
+      ["Mwr Flag Description", data.mwrFlagDescription],
+      ["Pay Grade", data.payGrade],
+      ["Person Designator Document", data.personDesignatorDocument],
+      ["Rank", data.rank],
+      ["Relationship Code", data.relationshipCode],
+      ["Relationship Description", data.relationshipDescription],
+      ["Security Code", data.securityCode],
+      ["Service Code", data.serviceCode],
+      ["Sponsor Flag", data.sponsorFlag],
+      ["Sponsor Name", data.sponsorName],
+      ["Sponsor Person Designator Identifier", data.sponsorPersonDesignatorIdentifier],
+      ["Status Code", data.statusCode],
+      ["Status Code Description", data.statusCodeDescription],
+      ["Version", data.version],
+      ["Weight", data.weight],
+    ]);
   }
 
   if (capturedId.vizResult) {
     header = "VIZ Result";
-    result += `<p class="label">Additional Address Information</p><p>${f(
-      capturedId.vizResult.additionalAddressInformation
-    )}</p>`;
-    result += `<p class="label">Additional Name Information</p><p>${f(
-      capturedId.vizResult.additionalNameInformation
-    )}</p>`;
-    result += `<p class="label">Document Additional Number</p><p>${f(
-      capturedId.vizResult.documentAdditionalNumber
-    )}</p>`;
-    result += `<p class="label">Employer</p><p>${f(capturedId.vizResult.employer)}</p>`;
-    result += `<p class="label">Issuing Authority</p><p>${f(capturedId.vizResult.issuingAuthority)}</p>`;
-    result += `<p class="label">Issuing Jurisdiction</p><p>${f(capturedId.vizResult.issuingJurisdiction)}</p>`;
-    result += `<p class="label">Marital Status</p><p>${f(capturedId.vizResult.maritalStatus)}</p>`;
-    result += `<p class="label">Personal Id Number</p><p>${f(capturedId.vizResult.personalIdNumber)}</p>`;
-    result += `<p class="label">Place Of Birth</p><p>${f(capturedId.vizResult.placeOfBirth)}</p>`;
-    result += `<p class="label">Profession</p><p>${f(capturedId.vizResult.profession)}</p>`;
-    result += `<p class="label">Race</p><p>${f(capturedId.vizResult.race)}</p>`;
-    result += `<p class="label">Religion</p><p>${f(capturedId.vizResult.religion)}</p>`;
-    result += `<p class="label">Residential Status</p><p>${f(capturedId.vizResult.residentialStatus)}</p>`;
-    result += `<p class="label">Captured Sides</p><p>${f(capturedId.vizResult.capturedSides)}</p>`;
-    result += `<p class="label">Is Back Side Capture Supported</p><p>${f(
-      capturedId.vizResult.isBackSideCaptureSupported
-    )}</p>`;
+    const data = capturedId.vizResult;
+    result += getMarkupForFields([
+      ["Additional Address Information", data.additionalAddressInformation],
+      ["Additional Name Information", data.additionalNameInformation],
+      ["Document Additional Number", data.documentAdditionalNumber],
+      ["Employer", data.employer],
+      ["Issuing Authority", data.issuingAuthority],
+      ["Issuing Jurisdiction", data.issuingJurisdiction],
+      ["Marital Status", data.maritalStatus],
+      ["Personal Id Number", data.personalIdNumber],
+      ["Place Of Birth", data.placeOfBirth],
+      ["Profession", data.profession],
+      ["Race", data.race],
+      ["Religion", data.religion],
+      ["Residential Status", data.residentialStatus],
+      ["Captured Sides", data.capturedSides],
+      ["Is Back Side Capture Supported", data.isBackSideCaptureSupported],
+    ]);
   }
 
   /* eslint-disable-next-line no-unsanitized/property */

@@ -6,6 +6,11 @@
   display: none !important;
 }
 
+html {
+  /* prevent iOS from increasing font-size on device orientation change */
+  -webkit-text-size-adjust: 100%;
+}
+
 html,
 body {
   margin: 0;

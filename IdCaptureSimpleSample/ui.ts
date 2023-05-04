@@ -1,4 +1,4 @@
-import { sanitize } from "dompurify";
+import * as DOMPurify from "dompurify";
 import * as SDCId from "scandit-web-datacapture-id";
 
 export enum Action {
@@ -16,9 +16,8 @@ export const elements = {
 };
 
 export function showWarning(text: string): void {
-  /* eslint-disable-next-line no-unsanitized/property */
   elements.alert.innerHTML = `
-    <p>${sanitize(text)}</p>
+    <p>${DOMPurify.sanitize(text)}</p>
     <div class="single">
       <button onclick="window.dispatchAction('CLOSE_WARNING')">Close</button>
     </div>
@@ -26,115 +25,114 @@ export function showWarning(text: string): void {
   elements.alert.removeAttribute("hidden");
 }
 
+function formatValue(value: unknown): string {
+  if (value == null || value === "") {
+    return "<i>empty</i>";
+  }
+  if (typeof value === "boolean") {
+    return value ? "yes" : "no";
+  }
+  if (value instanceof SDCId.DateResult) {
+    if (typeof value.day === "number" && typeof value.month === "number" && typeof value.year === "number") {
+      const d = new Date(value.year, value.month - 1, value.day);
+      return d.toLocaleDateString();
+    }
+    return "<i>empty</i>";
+  }
+  if (value instanceof SDCId.ProfessionalDrivingPermit) {
+    return `
+      <div>
+        ${getMarkupForLabelAndValue("Codes", value.codes)}
+        ${getMarkupForLabelAndValue("Date of Expiry", value.dateOfExpiry)}
+      </div>
+    `;
+  }
+  if (value instanceof SDCId.VehicleRestriction) {
+    return `
+      <div>
+        ${getMarkupForLabelAndValue("Vehicle Code", value.vehicleCode)}
+        ${getMarkupForLabelAndValue("Vehicle Restriction", value.vehicleRestriction)}
+        ${getMarkupForLabelAndValue("Date of Issue", value.dateOfIssue)}
+      </div>
+    `;
+  }
+  if (Array.isArray(value)) {
+    return value.map((element) => formatValue(element)).join("<br>");
+  }
+  if (typeof value === "string") {
+    // DOM purify will remove some parts if fed with an MRZ string like "<<<<hello<<<there", so we replace them
+    // before sanitization
+    return DOMPurify.sanitize(value.replace(/</g, "&lt;"));
+  }
+  return DOMPurify.sanitize(value as string);
+}
+
+function getMarkupForLabel(labelText: string): string {
+  return `<p class="label">${labelText}</p>`;
+}
+
+function getMarkupForLabelAndValue(labelText: string, value: unknown): string {
+  return `
+    ${getMarkupForLabel(labelText)}
+    <p>${formatValue(value)}</p>
+  `;
+}
+
+function getMarkupForFields(fields: [string, unknown][]): string {
+  return fields.reduce(
+    (markup, nameAndValue) => markup + getMarkupForLabelAndValue(nameAndValue[0], nameAndValue[1]),
+    ""
+  );
+}
+
 export function showResult(capturedId: SDCId.CapturedId): void {
-  function f(value: unknown): string {
-    if (value == null || value === "") {
-      return "<i>empty</i>";
-    }
-    if (typeof value === "boolean") {
-      return value ? "yes" : "no";
-    }
-    if (value instanceof SDCId.DateResult) {
-      if (typeof value.day === "number" && typeof value.month === "number" && typeof value.year === "number") {
-        return `${value.year}-${value.month}-${value.day}`;
-      }
-      return "<i>empty</i>";
-    }
-    if (value instanceof SDCId.ProfessionalDrivingPermit) {
-      return `<div>
-          <p class="label">Codes</p><p>${f(value.codes)}</p>
-          <p class="label">Date of Expiry</p><p>${f(value.dateOfExpiry)}</p>
-        </div>`;
-    }
-    if (value instanceof SDCId.VehicleRestriction) {
-      return `<div>
-          <p class="label">Vehicle Code</p><p>${f(value.vehicleCode)}</p>
-          <p class="label">Vehicle Restriction</p><p>${f(value.vehicleRestriction)}</p>
-          <p class="label">Date of Issue</p><p>${f(value.dateOfIssue)}</p>
-        </div>`;
-    }
-    if (Array.isArray(value)) {
-      return value.map((element) => f(element)).join("<br>");
-    }
-    if (typeof value === "string") {
-      // DOM purify will remove some parts if fed with an MRZ string like "<<<<hello<<<there", so we replace them
-      // before sanitization
-      return sanitize(value.replace(/</g, "&lt;"));
-    }
-    return sanitize(value as string);
-  }
-
-  let result = "";
   let header = "";
-
-  type CommonFields = Pick<
-    SDCId.CapturedId,
-    | "address"
-    | "dateOfBirth"
-    | "age"
-    | "dateOfExpiry"
-    | "isExpired"
-    | "dateOfIssue"
-    | "documentNumber"
-    | "documentType"
-    | "firstName"
-    | "fullName"
-    | "issuingCountry"
-    | "issuingCountryIso"
-    | "lastName"
-    | "nationality"
-    | "sex"
-  >;
-
-  function commonFields(data: CommonFields): void {
-    result += `<p class="label">First Name</p><p>${f(data.firstName)}</p>`;
-    result += `<p class="label">Last Name</p><p>${f(data.lastName)}</p>`;
-    result += `<p class="label">Full Name</p><p>${f(data.fullName)}</p>`;
-    result += `<p class="label">Sex</p><p>${f(data.sex)}</p>`;
-    result += `<p class="label">Date of Birth</p><p>${f(data.dateOfBirth)}</p>`;
-    result += `<p class="label">Age</p><p>${f(data.age)}</p>`;
-    result += `<p class="label">Nationality</p><p>${f(data.nationality)}</p>`;
-    result += `<p class="label">Address</p><p>${f(data.address)}</p>`;
-    result += `<p class="label">Document Type</p><p>${f(data.documentType)}</p>`;
-    result += `<p class="label">Issuing Country ISO</p><p>${f(data.issuingCountryIso)}</p>`;
-    result += `<p class="label">Issuing Country</p><p>${f(data.issuingCountry)}</p>`;
-    result += `<p class="label">Document Number</p><p>${f(data.documentNumber)}</p>`;
-    result += `<p class="label">Date of Expiry</p><p>${f(data.dateOfExpiry)}</p>`;
-    result += `<p class="label">Is Expired</p><p>${f(data.isExpired)}</p>`;
-    result += `<p class="label">Date of Issue</p><p>${f(data.dateOfIssue)}</p>`;
-  }
+  let result = "";
 
   if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
-    result += `<p class="label">Face</p>`;
+    result += getMarkupForLabel("Face");
     result += `<img src="data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face)!}" />`;
   }
 
-  commonFields(capturedId);
+  // Common fields
+  result += getMarkupForFields([
+    ["First Name", capturedId.firstName],
+    ["Last Name", capturedId.lastName],
+    ["Full Name", capturedId.fullName],
+    ["Sex", capturedId.sex],
+    ["Date of Birth", capturedId.dateOfBirth],
+    ["Age", capturedId.age],
+    ["Nationality", capturedId.nationality],
+    ["Address", capturedId.address],
+    ["Document Type", capturedId.documentType],
+    ["Issuing Country ISO", capturedId.issuingCountryIso],
+    ["Issuing Country", capturedId.issuingCountry],
+    ["Document Number", capturedId.documentNumber],
+    ["Date of Expiry", capturedId.dateOfExpiry],
+    ["Is Expired", capturedId.isExpired],
+    ["Date of Issue", capturedId.dateOfIssue],
+  ]);
+
   if (capturedId.vizResult) {
     header = "VIZ Result";
-    result += `<p class="label">Additional Address Information</p><p>${f(
-      capturedId.vizResult.additionalAddressInformation
-    )}</p>`;
-    result += `<p class="label">Additional Name Information</p><p>${f(
-      capturedId.vizResult.additionalNameInformation
-    )}</p>`;
-    result += `<p class="label">Document Additional Number</p><p>${f(
-      capturedId.vizResult.documentAdditionalNumber
-    )}</p>`;
-    result += `<p class="label">Employer</p><p>${f(capturedId.vizResult.employer)}</p>`;
-    result += `<p class="label">Issuing Authority</p><p>${f(capturedId.vizResult.issuingAuthority)}</p>`;
-    result += `<p class="label">Issuing Jurisdiction</p><p>${f(capturedId.vizResult.issuingJurisdiction)}</p>`;
-    result += `<p class="label">Marital Status</p><p>${f(capturedId.vizResult.maritalStatus)}</p>`;
-    result += `<p class="label">Personal Id Number</p><p>${f(capturedId.vizResult.personalIdNumber)}</p>`;
-    result += `<p class="label">Place Of Birth</p><p>${f(capturedId.vizResult.placeOfBirth)}</p>`;
-    result += `<p class="label">Profession</p><p>${f(capturedId.vizResult.profession)}</p>`;
-    result += `<p class="label">Race</p><p>${f(capturedId.vizResult.race)}</p>`;
-    result += `<p class="label">Religion</p><p>${f(capturedId.vizResult.religion)}</p>`;
-    result += `<p class="label">Residential Status</p><p>${f(capturedId.vizResult.residentialStatus)}</p>`;
-    result += `<p class="label">Captured Sides</p><p>${f(capturedId.vizResult.capturedSides)}</p>`;
-    result += `<p class="label">Is Back Side Capture Supported</p><p>${f(
-      capturedId.vizResult.isBackSideCaptureSupported
-    )}</p>`;
+    const vizData = capturedId.vizResult;
+    result += getMarkupForFields([
+      ["Additional Address Information", vizData.additionalAddressInformation],
+      ["Additional Name Information", vizData.additionalNameInformation],
+      ["Document Additional Number", vizData.documentAdditionalNumber],
+      ["Employer", vizData.employer],
+      ["Issuing Authority", vizData.issuingAuthority],
+      ["Issuing Jurisdiction", vizData.issuingJurisdiction],
+      ["Marital Status", vizData.maritalStatus],
+      ["Personal Id Number", vizData.personalIdNumber],
+      ["Place Of Birth", vizData.placeOfBirth],
+      ["Profession", vizData.profession],
+      ["Race", vizData.race],
+      ["Religion", vizData.religion],
+      ["Residential Status", vizData.residentialStatus],
+      ["Captured Sides", vizData.capturedSides],
+      ["Is Back Side Capture Supported", vizData.isBackSideCaptureSupported],
+    ]);
   }
 
   /* eslint-disable-next-line no-unsanitized/property */

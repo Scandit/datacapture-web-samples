@@ -1,5 +1,6 @@
 import * as SDCCore from "scandit-web-datacapture-core";
 import * as SDCBarcode from "scandit-web-datacapture-barcode";
+import type { LoadingStatusSubscriber, ProgressInfo } from "scandit-web-datacapture-core";
 
 // Main DOM elements in the page.
 const pageElements = {
@@ -16,14 +17,29 @@ async function run(): Promise<void> {
   // Keep a reference to the barcode capture mode object.
   let barcodeCapture: SDCBarcode.BarcodeCapture;
 
+  const updateUIWithProgress: LoadingStatusSubscriber = (info: ProgressInfo) => {
+    if (info.percentage != null) {
+      pageElements.input.value = `Loading... ${info.percentage}%`;
+    }
+    if (info.percentage === 100) {
+      pageElements.input.value = ``;
+    }
+  };
+
   async function loadAndPrepareLibrary(): Promise<void> {
+    // Subscribe to the loading status and update UI accordingly
+    SDCCore.loadingStatus.subscribe(updateUIWithProgress);
+
     // Configure and load the library using your license key. The passed parameter represents the location of the wasm
     // file, which will be fetched asynchronously. You must `await` the returned promise to be able to continue.
     await SDCCore.configure({
       licenseKey: "YOUR_LICENSE_KEY_HERE",
       libraryLocation: new URL("../../library/engine/", document.baseURI).toString(),
-      moduleLoaders: [SDCBarcode.barcodeCaptureLoader({ highEndBlurryRecognition: false })],
+      moduleLoaders: [SDCBarcode.barcodeCaptureLoader()],
     });
+
+    // Unsubscribe to the loading status updates
+    SDCCore.loadingStatus.unsubscribe(updateUIWithProgress);
 
     // Create the data capture context.
     context = await SDCCore.DataCaptureContext.create();
@@ -94,8 +110,8 @@ async function run(): Promise<void> {
       pageElements.button.textContent = "Loading...";
       pageElements.button.disabled = true;
       await context.frameSource!.switchToDesiredState(SDCCore.FrameSourceState.On);
-      await barcodeCapture.setEnabled(true);
       await openModal();
+      await barcodeCapture.setEnabled(true);
     } catch (error: unknown) {
       const reason: string =
         typeof error === "object" && error != null && typeof error["toString"] === "function"
