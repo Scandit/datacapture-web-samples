@@ -1,4 +1,3 @@
-import * as DOMPurify from "dompurify";
 import * as SDCId from "scandit-web-datacapture-id";
 
 export enum Action {
@@ -17,128 +16,151 @@ export const elements = {
 
 export function showWarning(text: string): void {
   elements.alert.innerHTML = `
-    <p>${DOMPurify.sanitize(text)}</p>
+    <p></p>
     <div class="single">
       <button onclick="window.dispatchAction('CLOSE_WARNING')">Close</button>
     </div>
   `;
+  elements.alert.querySelector("p")!.textContent = text;
   elements.alert.removeAttribute("hidden");
 }
 
-function formatValue(value: unknown): string {
+function getDOMOfFormattedValue(value: unknown): HTMLElement {
+  const paragraph = document.createElement("p");
+  const emptyElement = document.createElement("i");
+  emptyElement.textContent = "empty";
+
   if (value == null || value === "") {
-    return "<i>empty</i>";
+    paragraph.append(emptyElement);
+    return paragraph;
   }
+
   if (typeof value === "boolean") {
-    return value ? "yes" : "no";
+    paragraph.textContent = value ? "yes" : "no";
+    return paragraph;
   }
+
   if (value instanceof SDCId.DateResult) {
     if (typeof value.day === "number" && typeof value.month === "number" && typeof value.year === "number") {
       const d = new Date(value.year, value.month - 1, value.day);
-      return d.toLocaleDateString();
+      paragraph.textContent = d.toLocaleDateString();
+      return paragraph;
     }
-    return "<i>empty</i>";
+    paragraph.append(emptyElement);
+    return paragraph;
   }
+
   if (value instanceof SDCId.ProfessionalDrivingPermit) {
-    return `
-      <div>
-        ${getMarkupForLabelAndValue("Codes", value.codes)}
-        ${getMarkupForLabelAndValue("Date of Expiry", value.dateOfExpiry)}
-      </div>
-    `;
+    const div = document.createElement("div");
+    div.append(getFragmentForLabelAndValue("Codes", value.codes));
+    div.append(getFragmentForLabelAndValue("Date of Expiry", value.dateOfExpiry));
+    return div;
   }
+
   if (value instanceof SDCId.VehicleRestriction) {
-    return `
-      <div>
-        ${getMarkupForLabelAndValue("Vehicle Code", value.vehicleCode)}
-        ${getMarkupForLabelAndValue("Vehicle Restriction", value.vehicleRestriction)}
-        ${getMarkupForLabelAndValue("Date of Issue", value.dateOfIssue)}
-      </div>
-    `;
+    const div = document.createElement("div");
+    div.append(getFragmentForLabelAndValue("Vehicle Code", value.vehicleCode));
+    div.append(getFragmentForLabelAndValue("Vehicle Restriction", value.vehicleRestriction));
+    div.append(getFragmentForLabelAndValue("Date of Issue", value.dateOfIssue));
+
+    return div;
   }
+
   if (Array.isArray(value)) {
-    return value.map((element) => formatValue(element)).join("<br>");
+    for (const element of value) {
+      paragraph.append(getDOMOfFormattedValue(element));
+    }
+    return paragraph;
   }
-  if (typeof value === "string") {
-    // DOM purify will remove some parts if fed with an MRZ string like "<<<<hello<<<there", so we replace them
-    // before sanitization
-    return DOMPurify.sanitize(value.replace(/</g, "&lt;"));
+
+  paragraph.textContent = value as string;
+
+  return paragraph;
+}
+
+function getDOMForLabel(labelText: string): HTMLParagraphElement {
+  const paragraph = document.createElement("p");
+  paragraph.className = "label";
+  paragraph.textContent = labelText;
+
+  return paragraph;
+}
+
+function getFragmentForLabelAndValue(labelText: string, value: unknown): DocumentFragment {
+  const fragment = document.createDocumentFragment();
+  fragment.append(getDOMForLabel(labelText));
+  fragment.append(getDOMOfFormattedValue(value));
+
+  return fragment;
+}
+
+function getFragmentForFields(fields: [string, unknown][]): DocumentFragment {
+  const fragment = document.createDocumentFragment();
+  for (const [label, value] of fields) {
+    fragment.append(getFragmentForLabelAndValue(label, value));
   }
-  return DOMPurify.sanitize(value as string);
-}
-
-function getMarkupForLabel(labelText: string): string {
-  return `<p class="label">${labelText}</p>`;
-}
-
-function getMarkupForLabelAndValue(labelText: string, value: unknown): string {
-  return `
-    ${getMarkupForLabel(labelText)}
-    <p>${formatValue(value)}</p>
-  `;
-}
-
-function getMarkupForFields(fields: [string, unknown][]): string {
-  return fields.reduce(
-    (markup, nameAndValue) => markup + getMarkupForLabelAndValue(nameAndValue[0], nameAndValue[1]),
-    ""
-  );
+  return fragment;
 }
 
 export function showResult(capturedId: SDCId.CapturedId): void {
   let header = "";
-  let result = "";
+  const result = document.createDocumentFragment();
 
   if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
-    result += getMarkupForLabel("Face");
-    result += `<img src="data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face)!}" />`;
+    result.append(getDOMForLabel("Face"));
+    const faceImage = new Image();
+    faceImage.src = `data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face) ?? ""}`;
+    result.append(faceImage);
   }
 
   // Common fields
-  result += getMarkupForFields([
-    ["First Name", capturedId.firstName],
-    ["Last Name", capturedId.lastName],
-    ["Full Name", capturedId.fullName],
-    ["Sex", capturedId.sex],
-    ["Date of Birth", capturedId.dateOfBirth],
-    ["Age", capturedId.age],
-    ["Nationality", capturedId.nationality],
-    ["Address", capturedId.address],
-    ["Document Type", capturedId.documentType],
-    ["Issuing Country ISO", capturedId.issuingCountryIso],
-    ["Issuing Country", capturedId.issuingCountry],
-    ["Document Number", capturedId.documentNumber],
-    ["Date of Expiry", capturedId.dateOfExpiry],
-    ["Is Expired", capturedId.isExpired],
-    ["Date of Issue", capturedId.dateOfIssue],
-  ]);
+  result.append(
+    getFragmentForFields([
+      ["First Name", capturedId.firstName],
+      ["Last Name", capturedId.lastName],
+      ["Full Name", capturedId.fullName],
+      ["Sex", capturedId.sex],
+      ["Date of Birth", capturedId.dateOfBirth],
+      ["Age", capturedId.age],
+      ["Nationality", capturedId.nationality],
+      ["Address", capturedId.address],
+      ["Document Type", capturedId.documentType],
+      ["Issuing Country ISO", capturedId.issuingCountryIso],
+      ["Issuing Country", capturedId.issuingCountry],
+      ["Document Number", capturedId.documentNumber],
+      ["Date of Expiry", capturedId.dateOfExpiry],
+      ["Is Expired", capturedId.isExpired],
+      ["Date of Issue", capturedId.dateOfIssue],
+    ])
+  );
 
   if (capturedId.vizResult) {
     header = "VIZ Result";
     const vizData = capturedId.vizResult;
-    result += getMarkupForFields([
-      ["Additional Address Information", vizData.additionalAddressInformation],
-      ["Additional Name Information", vizData.additionalNameInformation],
-      ["Document Additional Number", vizData.documentAdditionalNumber],
-      ["Employer", vizData.employer],
-      ["Issuing Authority", vizData.issuingAuthority],
-      ["Issuing Jurisdiction", vizData.issuingJurisdiction],
-      ["Marital Status", vizData.maritalStatus],
-      ["Personal Id Number", vizData.personalIdNumber],
-      ["Place Of Birth", vizData.placeOfBirth],
-      ["Profession", vizData.profession],
-      ["Race", vizData.race],
-      ["Religion", vizData.religion],
-      ["Residential Status", vizData.residentialStatus],
-      ["Captured Sides", vizData.capturedSides],
-      ["Is Back Side Capture Supported", vizData.isBackSideCaptureSupported],
-    ]);
+    result.append(
+      getFragmentForFields([
+        ["Additional Address Information", vizData.additionalAddressInformation],
+        ["Additional Name Information", vizData.additionalNameInformation],
+        ["Document Additional Number", vizData.documentAdditionalNumber],
+        ["Employer", vizData.employer],
+        ["Issuing Authority", vizData.issuingAuthority],
+        ["Issuing Jurisdiction", vizData.issuingJurisdiction],
+        ["Marital Status", vizData.maritalStatus],
+        ["Personal Id Number", vizData.personalIdNumber],
+        ["Place Of Birth", vizData.placeOfBirth],
+        ["Profession", vizData.profession],
+        ["Race", vizData.race],
+        ["Religion", vizData.religion],
+        ["Residential Status", vizData.residentialStatus],
+        ["Captured Sides", vizData.capturedSides],
+        ["Is Back Side Capture Supported", vizData.isBackSideCaptureSupported],
+      ])
+    );
   }
 
-  /* eslint-disable-next-line no-unsanitized/property */
-  elements.resultContent.innerHTML = result;
-  /* eslint-disable-next-line no-unsanitized/property */
-  elements.resultHeader.innerHTML = header;
+  elements.resultHeader.textContent = header;
+  elements.resultContent.textContent = "";
+  elements.resultContent.append(result);
   elements.result.removeAttribute("hidden");
   elements.resultContent.scrollTop = 0;
 }

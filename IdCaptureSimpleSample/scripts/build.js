@@ -14,7 +14,7 @@ async function copyScanditLibrary(moduleName) {
 async function replaceLicenseKey(path, license) {
   if (typeof license === "string") {
     let content = await fs.promises.readFile(path, "utf8");
-    content = content.replaceAll("YOUR_LICENSE_KEY_HERE", license);
+    content = content.replaceAll("-- ENTER YOUR SCANDIT LICENSE KEY HERE --", license);
     await fs.writeFile(path, content, "utf8");
   }
 }

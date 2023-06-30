@@ -2,7 +2,7 @@ import * as SDCCore from "scandit-web-datacapture-core";
 import * as SDCId from "scandit-web-datacapture-id";
 import * as UI from "./ui";
 
-const LICENSE_KEY = "YOUR_LICENSE_KEY_HERE";
+const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 
 type Mode = "barcode" | "mrz" | "viz";
 
@@ -23,6 +23,7 @@ const supportedDocumentsByMode: { [key in Mode]: SDCId.IdDocumentType[] } = {
     SDCId.IdDocumentType.ArgentinaIdBarcode,
     SDCId.IdDocumentType.SouthAfricaDlBarcode,
     SDCId.IdDocumentType.SouthAfricaIdBarcode,
+    SDCId.IdDocumentType.CommonAccessCardBarcode,
   ],
   mrz: [
     SDCId.IdDocumentType.VisaMRZ,
@@ -35,17 +36,10 @@ const supportedDocumentsByMode: { [key in Mode]: SDCId.IdDocumentType[] } = {
     SDCId.IdDocumentType.ChinaOneWayPermitBackMRZ,
     SDCId.IdDocumentType.ApecBusinessTravelCardMRZ,
   ],
-  viz: [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ],
+  viz: [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ, SDCId.IdDocumentType.USVisaVIZ],
 };
 
-// Apply the newly selected mode.
-// eslint-disable-next-line sonarjs/cognitive-complexity
-async function applyNewMode(mode: Mode): Promise<void> {
-  currentMode = mode;
-  // We need to remove the current idCapture mode, as it is immutable
-  await context.removeMode(idCapture);
-
-  // Create the IdCapture settings needed for the selected mode
+function createIdCaptureSettingsFor(mode: Mode): SDCId.IdCaptureSettings {
   const settings = new SDCId.IdCaptureSettings();
   settings.supportedDocuments = supportedDocumentsByMode[mode];
   // For VIZ documents, we enable scanning both sides and want to get the ID image
@@ -53,7 +47,13 @@ async function applyNewMode(mode: Mode): Promise<void> {
     settings.supportedSides = SDCId.SupportedSides.FrontAndBack;
     settings.setShouldPassImageTypeToResult(SDCId.IdImageType.Face, true);
   }
-  // Create the IdCapture mode with the new settings
+
+  return settings;
+}
+
+// Apply the newly selected mode.
+// eslint-disable-next-line sonarjs/cognitive-complexity
+async function createIdCapture(settings: SDCId.IdCaptureSettings): Promise<void> {
   idCapture = await SDCId.IdCapture.forContext(context, settings);
 
   // Setup the listener to get notified about results
@@ -82,6 +82,7 @@ async function applyNewMode(mode: Mode): Promise<void> {
     didRejectId: async () => {
       await idCapture.setEnabled(false);
       UI.showWarning("Document type not supported.");
+      void idCapture.reset();
     },
     didFailWithError: (_: SDCId.IdCapture, error: SDCId.IdCaptureError) => {
       // If an error occured and the SDK recovered from it, we need to inform the user and reset the process.
@@ -138,7 +139,7 @@ async function run(): Promise<void> {
   // Enable the mode selected by default
   currentMode = UI.getSelectedMode() as Mode;
 
-  await applyNewMode(currentMode);
+  await createIdCapture(createIdCaptureSettingsFor(currentMode));
   // Disable the IdCapture mode until the camera is accessed
   await idCapture.setEnabled(false);
 
@@ -157,7 +158,8 @@ window.dispatchAction = async (...arguments_) => {
           return;
         }
         UI.onModeSwitched(buttonElement);
-        await applyNewMode(mode);
+        currentMode = mode;
+        await idCapture.applySettings(createIdCaptureSettingsFor(currentMode));
       }
       break;
     case UI.Action.CLOSE_RESULT:

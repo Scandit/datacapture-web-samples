@@ -11,12 +11,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "dompurify": "^2.3.9",
-    "scandit-web-datacapture-core": "file:../../scandit-web-datacapture-core-6.17.2.tgz",
-    "scandit-web-datacapture-id": "file:../../scandit-web-datacapture-id-6.17.2.tgz"
+    "scandit-web-datacapture-core": "6.18.0",
+    "scandit-web-datacapture-id": "6.18.0"
   },
   "devDependencies": {
-    "@types/dompurify": "^2.3.3",
     "dotenv": "^16.0.3",
     "esbuild": "~0.15.18",
     "eslint": "^8.19.0",

@@ -3,13 +3,13 @@ import * as SDCCore from "scandit-web-datacapture-core";
 import * as SDCId from "scandit-web-datacapture-id";
 import * as UI from "./ui";
 
-const LICENSE_KEY = "YOUR_LICENSE_KEY_HERE";
+const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 
 let context: SDCCore.DataCaptureContext;
 let idCapture: SDCId.IdCapture;
 let view: SDCCore.DataCaptureView;
 let camera: SDCCore.Camera;
-//
+
 // Array of enabled document types
 const supportedDocuments: SDCId.IdDocumentType[] = [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ];
 
@@ -52,6 +52,7 @@ async function run(): Promise<void> {
   // Create the IdCapture settings needed for the selected mode
   const settings = new SDCId.IdCaptureSettings();
   settings.supportedDocuments = supportedDocuments;
+  settings.setShouldPassImageTypeToResult(SDCId.IdImageType.Face, true);
 
   // Create the IdCapture mode with the new settings
   idCapture = await SDCId.IdCapture.forContext(context, settings);
