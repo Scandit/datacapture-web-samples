@@ -11,8 +11,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "scandit-web-datacapture-barcode": "6.18.0",
-    "scandit-web-datacapture-core": "6.18.0"
+    "scandit-web-datacapture-barcode": "6.18.1",
+    "scandit-web-datacapture-core": "6.18.1"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
