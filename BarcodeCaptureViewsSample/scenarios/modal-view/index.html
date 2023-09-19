@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barcode Capture Views Sample</title>
-    <script data-id="scandit-main" src="index.js" type="module"></script>
+    <script type="module" src="index.ts"></script>
     <style>
       * {
         box-sizing: border-box;
@@ -21,12 +21,6 @@
 
       body {
         font-family: Helvetica, sans-serif;
-      }
-
-      .hidden {
-        display: none !important;
-        opacity: 0;
-        transition: opacity 300ms;
       }
 
       .wrapper {
@@ -60,18 +54,13 @@
       #modal {
         display: grid;
         position: fixed;
-        top: 0;
-        left: 0;
+        inset: 0;
         width: 100vw;
+        height: 100dvh;
         height: 100vh;
         justify-content: center;
         align-items: center;
-        opacity: 0;
-        transition: all 300ms;
-      }
-
-      #modal.open {
-        opacity: 1;
+        pointer-events: none;
       }
 
       @supports (-webkit-touch-callout: none) {
@@ -80,28 +69,35 @@
         }
       }
 
-      #modal .overlay {
+      #modal .backdrop {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset: 0;
         background-color: rgba(0, 0, 0, 0.3);
+        transition: opacity .3s ease-in-out;
+        opacity: 0;
+      }
+
+      #modal.open {
+        pointer-events: auto;
+      }
+
+      #modal.open .backdrop {
+        opacity: 1;
       }
 
       #modal .modal-inner {
         padding: 24px;
-        width: 0;
-        height: 0;
+        width: 80vw;
+        height: 80vh;
         background-color: white;
         box-shadow: 3px 4px 12px 4px #919191;
         z-index: 2;
-        transition: all 300ms;
+        transition: transform .3s ease-in-out;
+        transform: scale(0);
       }
 
       #modal.open .modal-inner {
-        width: 80vw;
-        height: 80vh;
+        transform: scale(1);
       }
 
       @media only screen and (max-width: 900px) {
@@ -124,8 +120,8 @@
         <button id="scan" disabled>Click to Scan</button>
       </div>
     </div>
-    <div id="modal" class="hidden">
-      <div class="overlay"></div>
+    <div id="modal" aria-modal="true" role="dialog">
+      <div class="backdrop"></div>
       <div class="modal-inner">
         <div id="data-capture-view"></div>
       </div>

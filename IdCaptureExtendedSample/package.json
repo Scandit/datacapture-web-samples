@@ -6,13 +6,15 @@
   "description": "Examples of how to integrate ID Capture into your application.",
   "type": "module",
   "scripts": {
-    "serve": "http-server . -c-1 -p 8888 -m '{\"application/wasm\": [\"wasm\"]}'",
-    "build": "node scripts/build.js && tsc --noEmit",
-    "lint": "eslint ."
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "fast-build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --fix ."
   },
   "dependencies": {
-    "scandit-web-datacapture-core": "6.18.2",
-    "scandit-web-datacapture-id": "6.18.2"
+    "scandit-web-datacapture-core": "6.19.0",
+    "scandit-web-datacapture-id": "6.19.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
@@ -41,6 +43,8 @@
     "fs-extra": "^10.1.0",
     "http-server": "^14.1.1",
     "npm-packlist": "^5.1.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vite": "^4.3.9",
+    "vite-plugin-static-copy": "^0.16.0"
   }
 }

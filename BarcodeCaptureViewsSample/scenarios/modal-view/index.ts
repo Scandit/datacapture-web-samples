@@ -6,8 +6,9 @@ import type { LoadingStatusSubscriber, ProgressInfo } from "scandit-web-datacapt
 const pageElements = {
   input: document.getElementById("input") as HTMLInputElement,
   button: document.getElementById("scan") as HTMLInputElement,
-  modal: document.getElementById("modal") as HTMLInputElement,
-  overlay: document.querySelector("#modal .overlay")!,
+  modalContainer: document.getElementById("modal") as HTMLInputElement,
+  modal: document.querySelector("#modal .modal-inner") as HTMLInputElement,
+  backdrop: document.querySelector("#modal .backdrop")!,
   captureHost: document.getElementById("data-capture-view")!,
 };
 
@@ -36,7 +37,7 @@ async function run(): Promise<void> {
     // The passed parameter represents the location of the wasm file, which will be fetched asynchronously.
     // You must `await` the returned promise to be able to continue.
     await SDCCore.configure({
-      licenseKey: "AQIzpSC5AyYeKA6KZgjthjEmMbJBFJEpiUUjkCJu72AUVSWyGjN0xNt0OVgASxKO6FwLejYDRFGraFReiUwL8wp3a8mgX0elHhmx0JhY/QYrbQHJjGIhQAhjcW1cYr+ogWCDUmhM2KuWPlJXBkSGmbwinMAqKusC5zQHGoY6JDKJXbzv97CRhGdjlfgjhTZErgfs+P/fLp0cCCAmP+TTZ6jiyA/my9Ojy7ugt7DKay2ZAkezAO8OwAtnl0GUIflPz6KI68hRPaAV18wwS030+riqfDIcFQ+3BAfqRMpJxrYfKZOvvwyTAbC+5ZzgFmwd9YR0vbFToSmHDemEyRVufdMw0s+jqCHsCY5ox8jBfV1RkmDQxCckkJoS3rhPmLgEyiTm+gI0y30swn2orZ4aaml+aoA55vhN4jY+ZAkMkmhipAXK/TMzyHo4iUDA4/v3TgiJbodw27iI/+f6YxIpA+/nAEItRH7C3vuxAdo8lmk5q0QeCkc6QA0FhQa6S/cu8yrehTi+Lb8khFmt3gkwEubowGdg3cg8KoBsDgY59lAKWy55rmVznq7REv6ugw1KwgW724K4s5ILfgQ2NcV/jFgeTReaTSVYUWKZGXdJmDrteX7tgmdfkpjaCrijgSGwYRaATxVKitCYIPyfuipsSHdC0iLqCoJ8CIc2UclvimPXDzDLk83uIRFjgspykVm+eIsKiMuxrW6OlB7o7NWPcJtEcyO74Mq6scB8+bWP5eJFIPazUcZEtxG2u3UpWz7+EoBADwbUI9G63HcTwt2bi8JZo16pfGxsWti3DJ1HWooGSIVvyZ2jePvhBcuu+EbtOucgdPDvDTCTpm/V",
+      licenseKey: "AYjTKgwFKLhZGtmHmyNAawklGVUpLfmaJ2JN39hPFcbHRdb8Sh3UX45m7PRkJtORsQzsAeBZw7aAZ/VBZlp5ykVZZOOYUI8ZAxAsZ3tOrh5HXX2CzFyh2yNzGtUXQuR5eFHqhXNx8+mfbsvN2zErPt0+TW4TESKXSx4764U8HnIF/01crbTR4/qxeWvIgdmGJkoV2YZc4wfZjpQI2Uvd3/J2jFcv/WrVHgWZ/VAC2lHTzC3JdwtTNJKxxDpsqKp1sDlARxGjw4hlebrAUbft3aWMjbtpVn2T4D+tBN3GVuwlD9Uo7MN3Sto17fSVSD1JLymYPHP7zxsnByy9mCBhKqTf3YKCh8DughdNJpIIWaaoY6t6OTof+TxY25XAboYM1Ii3FdaK1MjK2x9bVujInqaIYzPRYRwQj6lPyVaYSiRRJTsR6l3RLXyorSeqM6Mjyspyb9Gl3ht1grXe8TzMwVUFLYwBlV1zYcKfCVxHIaPo8irO1X7+sImu0166pNeK962FxzUx+rJMsvEIhy8mzF//yRI8WBLZvuBS5AH8EJHBb5p6DcdLgNVf3AwQWw6S5ENIw1Nu+eS2p+nm7msRRWP5jbqo8TfwgoellmtHaljlvmQ47kXfZvo9feDd7qZtGvWuX22yZkb+3k0OEfNKZaBKLrfzKU6X5TlmMvyhU7mF6mMdkBwex+NuKhRl1fYVjzD1hk75j70/QgXyjMv9nJpSEIXEt//AVHZTG4lGvAT0l3hPOie/zS0ixEH11+LJvbzsZQXYngggsJ40oCbajRxnvrMEcJQ5Lcxnp/Ov8qTmApOqK+XmLAV/s+MdeeIatFNTk6o9xGar+cB8",
       libraryLocation: new URL("../../library/engine/", document.baseURI).toString(),
       moduleLoaders: [SDCBarcode.barcodeCaptureLoader()],
     });
@@ -88,21 +89,30 @@ async function run(): Promise<void> {
     view.addControl(new SDCCore.CameraSwitchControl());
   }
 
+  const waitTransition = async (element: HTMLElement): Promise<void> =>
+    new Promise<void>((resolve) => {
+      element.addEventListener(
+        "transitionend",
+        () => {
+          resolve();
+        },
+        { once: true }
+      );
+    });
+
   // Close the modal and switch off the camera.
   async function closeModal(): Promise<void> {
-    pageElements.modal.classList.remove("open");
-    await wait(300);
-    pageElements.modal.classList.add("hidden");
+    pageElements.modalContainer.classList.remove("open");
+    await waitTransition(pageElements.modal);
     await context.frameSource!.switchToDesiredState(SDCCore.FrameSourceState.Off);
     pageElements.button.disabled = false;
     pageElements.button.textContent = "Click to Scan";
   }
 
   async function openModal(): Promise<void> {
-    pageElements.modal.classList.remove("hidden");
-    await wait(300);
-    // This is just to allow a nice CSS transition when opening the modal.
-    pageElements.modal.classList.add("open");
+    pageElements.modalContainer.classList.add("open");
+
+    await waitTransition(pageElements.modal);
   }
 
   // Open our modal and start the camera to scan a barcode.
@@ -137,13 +147,6 @@ async function run(): Promise<void> {
     pageElements.input.value = barcode.data ?? "";
   }
 
-  // Wait for X milliseconds
-  async function wait(ms: number): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
-  }
-
   // Load the library as soon as possible. This will make the user experience faster.
   await loadAndPrepareLibrary();
   pageElements.button.disabled = false;
@@ -152,7 +155,7 @@ async function run(): Promise<void> {
 
   // At this point the library was loaded, set up the UI elements (progressive enhancement).
   pageElements.button.addEventListener("click", onOpenModal);
-  pageElements.overlay.addEventListener("click", closeModal);
+  pageElements.backdrop.addEventListener("click", closeModal);
   pageElements.input.addEventListener("focus", () => {
     pageElements.input.setSelectionRange(0, pageElements.input.value.length);
   });
@@ -165,7 +168,7 @@ async function run(): Promise<void> {
 
 run().catch((error) => {
   console.error(error);
-  alert(error);
+  alert(JSON.stringify(error, null, 2));
   pageElements.input.disabled = false;
   pageElements.input.placeholder = "Enter code manually";
 });

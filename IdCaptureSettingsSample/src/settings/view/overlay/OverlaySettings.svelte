@@ -1,0 +1,90 @@
+<script lang="ts">
+  import SelectSetting from "@/components/molecules/SelectSetting.svelte";
+  import { valueFromInput } from "@/helper";
+  import { camelCaseToTitleCase } from "@/helpers";
+  import { sdkManager } from "@/sdkManager/sdkManager";
+  import SidebarRoute from "@/settings/SidebarRoute.svelte";
+  import {
+    layout,
+    layoutLineStyle,
+    layoutStyle,
+    layoutCapturedBrush,
+    BrushType,
+    layoutLocalizedBrush,
+  } from "@/settings/view/overlay/store";
+  import { IdLayout, IdLayoutLineStyle, IdLayoutStyle } from "scandit-web-datacapture-id";
+</script>
+
+<SidebarRoute backRoute="/settings/view">
+  <svelte:fragment slot="header">
+    <h2 class="font-bold">Overlay</h2>
+  </svelte:fragment>
+  <svelte:fragment slot="content">
+    <div class="bg-white">
+      <SelectSetting
+        id="layout"
+        value={$layout}
+        on:change={(e) => sdkManager.view.updateOverlayLayout(valueFromInput(e))}
+      >
+        Type
+        <svelte:fragment slot="options">
+          {#each Object.values(IdLayout) as type}
+            <option value={type}>{camelCaseToTitleCase(type)}</option>
+          {/each}
+        </svelte:fragment>
+      </SelectSetting>
+
+      <SelectSetting
+        id="layoutStyle"
+        value={$layoutStyle}
+        on:change={(e) => sdkManager.view.updateOverlayLayoutStyle(valueFromInput(e))}
+      >
+        Corner style
+        <svelte:fragment slot="options">
+          {#each Object.values(IdLayoutStyle) as style}
+            <option value={style}>{camelCaseToTitleCase(style)}</option>
+          {/each}
+        </svelte:fragment>
+      </SelectSetting>
+
+      <SelectSetting
+        id="layoutLineStyle"
+        value={$layoutLineStyle}
+        on:change={(e) => sdkManager.view.updateOverlayLayoutLineStyle(valueFromInput(e))}
+      >
+        Line style
+        <svelte:fragment slot="options">
+          {#each Object.values(IdLayoutLineStyle) as style}
+            <option value={style}>{camelCaseToTitleCase(style)}</option>
+          {/each}
+        </svelte:fragment>
+      </SelectSetting>
+
+      <SelectSetting
+        id="capturedBrush"
+        value={$layoutCapturedBrush}
+        on:change={(e) => sdkManager.view.updateCapturedBrush(valueFromInput(e))}
+      >
+        Captured brush style
+        <svelte:fragment slot="options">
+          {#each Object.values(BrushType) as brush}
+            <option value={brush}>{camelCaseToTitleCase(brush)}</option>
+          {/each}
+        </svelte:fragment>
+      </SelectSetting>
+
+      <SelectSetting
+        id="localizedBrush"
+        value={$layoutLocalizedBrush}
+        on:change={(e) => sdkManager.view.updateLocalizedBrush(valueFromInput(e))}
+      >
+        Localized brush style
+        <svelte:fragment slot="options">
+          {#each Object.values(BrushType) as brush}
+            <option value={brush}>{camelCaseToTitleCase(brush)}</option>
+          {/each}
+        </svelte:fragment>
+      </SelectSetting>
+    </div>
+  </svelte:fragment>
+</SidebarRoute>
