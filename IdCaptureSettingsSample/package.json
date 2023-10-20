@@ -62,9 +62,9 @@
   },
   "dependencies": {
     "history": "^5.3.0",
-    "scandit-web-datacapture-barcode": "6.19.2",
-    "scandit-web-datacapture-core": "6.19.2",
-    "scandit-web-datacapture-id": "6.19.2",
+    "scandit-web-datacapture-barcode": "6.19.3",
+    "scandit-web-datacapture-core": "6.19.3",
+    "scandit-web-datacapture-id": "6.19.3",
     "svelte-navigator": "^3.2.2"
   }
 }
