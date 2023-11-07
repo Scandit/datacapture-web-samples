@@ -17,7 +17,7 @@ a {
 
 .scandit-container .scandit-paintboard .scandit-controls {
   top: var(--navbar-height);
-  height: calc(100vh - var(--navbar-height));
+  max-height: calc(100dvh - var(--navbar-height));
 }
 
 input {

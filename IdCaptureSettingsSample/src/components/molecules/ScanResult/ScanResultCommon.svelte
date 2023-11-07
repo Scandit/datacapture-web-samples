@@ -18,6 +18,7 @@
     issuingCountryIso: "Issuing Country ISO",
     issuingCountry: "Issuing Country",
     documentNumber: "Document Number",
+    documentAdditionalNumber: "Document Additional Number",
     dateOfExpiry: "Date of Expiry",
     isExpired: "Is Expired",
     dateOfIssue: "Date of Issue",

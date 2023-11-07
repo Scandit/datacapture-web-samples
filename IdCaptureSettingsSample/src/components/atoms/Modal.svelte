@@ -19,7 +19,9 @@
   class:opacity-0={!show}
   class:pointer-events-none={!show}
 >
-  <div class="h-[90dvh] w-full max-w-[768px] m-auto p-4 bg-white rounded shadow z-20 flex flex-col">
+  <div
+    class="h-[100dvh] sm-xy:h-[90dvh] w-full sm-xy:w-[90vw] max-w-[768px] m-auto p-4 bg-white rounded shadow z-20 flex flex-col"
+  >
     <header>
       <slot name="header" />
     </header>
