@@ -181,7 +181,7 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
         if (barcodeVerificationResult.error != null) {
           barcodeVerificationResultBlock = getPanel(
             "warn",
-            "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits barcode verification."
+            "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits AMVAA verification."
           );
         } else if (barcodeVerificationResult.allChecksPassed) {
           barcodeVerificationResultBlock = getPanel("passed", "Verifications checks passed.");

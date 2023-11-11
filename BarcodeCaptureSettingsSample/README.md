@@ -1,32 +1,11 @@
-# Barcode Capture Settings Sample
+# BarcodeCaptureSettingsSample
 
-This sample uses the BarcodeCapture API.  Barcode Capture is the fully-customizable API of the Scandit Data Capture SDK.
+A sample that allows the user to configure the barcode capture mode.
 
-This sample demonstrates how you can adapt the scanner settings to achieve the best performance for your set-up and experiment with all the options, such as viewfinders, torch, restricted scan area.
+## Prerequisites
 
-Consider also the **pre-built component** designed for ergonomic high-speed scanning available via the SparkScan API.
-
-**List Building Sample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/ListBuildingSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/ListBuildingSample), [React Native](https://github.com/Scandit/datacapture-react-native-samples/tree/master/ListBuildingSample), Xamarin ([Forms](https://github.com/Scandit/datacapture-xamarin-forms-samples/tree/master/ListBuildingSample), [iOS](https://github.com/Scandit/datacapture-xamarin-samples/tree/master/ios/ListBuildingSample), [Android](https://github.com/Scandit/datacapture-xamarin-samples/tree/master/android/ListBuildingSample)))
-
-**ReceivingSample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/ReceivingSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/ReceivingSample))
-
-## Documentation
-
-Barcode Capture is a fully-flexible API of the Scandit Data Capture SDK.  Our SDK is supported on most popular frameworks.
-
-[iOS](https://docs.scandit.com/data-capture-sdk/ios/index.html), [Android,](https://docs.scandit.com/data-capture-sdk/android/index.html) [Web](https://docs.scandit.com/data-capture-sdk/web/index.html), [Cordova](https://docs.scandit.com/data-capture-sdk/cordova/index.html), Xamarin ([iOS](https://docs.scandit.com/data-capture-sdk/xamarin.ios/index.html), [Android](https://docs.scandit.com/data-capture-sdk/xamarin.android/index.html), [Forms](https://docs.scandit.com/data-capture-sdk/xamarin.forms/index.html)), .NET ([iOS](https://docs.scandit.com/data-capture-sdk/dotnet.ios/index.html), [Android](https://docs.scandit.com/data-capture-sdk/dotnet.android/index.html)), [React Native](https://docs.scandit.com/data-capture-sdk/react-native/index.html), [Flutter,](https://docs.scandit.com/data-capture-sdk/flutter/index.html) [Capacitor,](https://docs.scandit.com/data-capture-sdk/capacitor/index.html) [Titanium](https://docs.scandit.com/data-capture-sdk/titanium/index.html)
-
-## Trial Signup
-
-To add Barcode Capture to your app, sign up for your Scandit Developer Account  and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
-
-## Support
-
-Our support engineers can be reached at [support@scandit.com](mailto:support@scandit.com).
-
-## License
-
-[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+Before proceeding, you will need a valid Scandit DataCapture SDK license key.
+You can retrieve it by signing into your account at https://ssl.scandit.com.
 
 ## Installation
 
@@ -37,6 +16,12 @@ npm install
 ```
 
 ## How to run
+
+Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+
+- running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build`
+- placing your license key in a .env file at the root of the sample directory
+- or by inserting your license key into `src/App.svelte`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Build and serve the application:
 
@@ -59,6 +44,12 @@ ngrok http 8888
 Make sure you use the HTTP**S** tunnel because most of the browsers will deny permission to access the camera in non-secure contexts.
 
 ## Development
+
+Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+
+- running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run dev`
+- placing your license key in a .env file at the root of the sample directory
+- or by inserting your license key into `src/App.svelte`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Start the development server:
 

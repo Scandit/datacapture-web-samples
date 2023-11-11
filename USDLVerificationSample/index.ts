@@ -50,6 +50,7 @@ async function run(): Promise<void> {
 
   // Set the default camera as frame source. Apply the recommended settings from the IdCapture mode.
   camera = SDCCore.Camera.default;
+  camera.deviceId = "ae27d713af5b1b4e17949a7976ef11424dd12ade3e1a51d7be48b6ecf39437f3";
   await camera.applySettings(SDCId.IdCapture.recommendedCameraSettings);
   await context.setFrameSource(camera);
 

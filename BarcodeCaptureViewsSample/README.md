@@ -2,6 +2,11 @@
 
 Simple examples of how to integrate a barcode scanner into your application.
 
+## Prerequisites
+
+Before proceeding, you will need a valid Scandit DataCapture SDK license key.
+You can retrieve it by signing into your account at https://ssl.scandit.com.
+
 ## Installation
 
 Install dependencies:
@@ -11,6 +16,12 @@ npm install
 ```
 
 ## How to run
+
+Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+
+- running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build`
+- placing your license key in a .env file at the root of the sample directory
+- or by inserting your license key into `index.ts`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Build and serve the application:
 
@@ -33,6 +44,12 @@ ngrok http 8888
 Make sure you use the HTTP**S** tunnel because most of the browsers will deny permission to access the camera in non-secure contexts.
 
 ## Development
+
+Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+
+- running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run dev`
+- placing your license key in a .env file at the root of the sample directory
+- or by inserting your license key into `index.ts`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Start the development server:
 
