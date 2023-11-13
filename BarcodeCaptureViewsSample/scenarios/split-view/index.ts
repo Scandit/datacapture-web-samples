@@ -176,5 +176,5 @@ async function run(): Promise<void> {
 
 run().catch((error) => {
   console.error(error);
-  alert(JSON.stringify(error, null, 2));
+  alert(error);
 });

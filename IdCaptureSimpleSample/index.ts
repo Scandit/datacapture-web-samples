@@ -99,7 +99,7 @@ window.dispatchAction = async (action: UI.Action) => {
 
 run().catch((error) => {
   console.error(error);
-  alert(JSON.stringify(error, null, 2));
+  alert(error);
 });
 
 declare global {

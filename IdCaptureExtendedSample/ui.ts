@@ -156,7 +156,6 @@ export function showResult(capturedId: SDCId.CapturedId): void {
       ["Issuing Country ISO", capturedId.issuingCountryIso],
       ["Issuing Country", capturedId.issuingCountry],
       ["Document Number", capturedId.documentNumber],
-      ["Document Additional Number", capturedId.documentAdditionalNumber],
       ["Date of Expiry", capturedId.dateOfExpiry],
       ["Is Expired", capturedId.isExpired],
       ["Date of Issue", capturedId.dateOfIssue],

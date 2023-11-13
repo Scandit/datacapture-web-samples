@@ -6,9 +6,8 @@ import type { LoadingStatusSubscriber, ProgressInfo } from "scandit-web-datacapt
 const pageElements = {
   input: document.getElementById("input") as HTMLInputElement,
   button: document.getElementById("scan") as HTMLInputElement,
-  modalContainer: document.getElementById("modal") as HTMLInputElement,
-  modal: document.querySelector("#modal .modal-inner") as HTMLInputElement,
-  backdrop: document.querySelector("#modal .backdrop")!,
+  modal: document.getElementById("modal") as HTMLInputElement,
+  overlay: document.querySelector("#modal .overlay")!,
   captureHost: document.getElementById("data-capture-view")!,
 };
 
@@ -89,30 +88,21 @@ async function run(): Promise<void> {
     view.addControl(new SDCCore.CameraSwitchControl());
   }
 
-  const waitTransition = async (element: HTMLElement): Promise<void> =>
-    new Promise<void>((resolve) => {
-      element.addEventListener(
-        "transitionend",
-        () => {
-          resolve();
-        },
-        { once: true }
-      );
-    });
-
   // Close the modal and switch off the camera.
   async function closeModal(): Promise<void> {
-    pageElements.modalContainer.classList.remove("open");
-    await waitTransition(pageElements.modal);
+    pageElements.modal.classList.remove("open");
+    await wait(300);
+    pageElements.modal.classList.add("hidden");
     await context.frameSource!.switchToDesiredState(SDCCore.FrameSourceState.Off);
     pageElements.button.disabled = false;
     pageElements.button.textContent = "Click to Scan";
   }
 
   async function openModal(): Promise<void> {
-    pageElements.modalContainer.classList.add("open");
-
-    await waitTransition(pageElements.modal);
+    pageElements.modal.classList.remove("hidden");
+    await wait(300);
+    // This is just to allow a nice CSS transition when opening the modal.
+    pageElements.modal.classList.add("open");
   }
 
   // Open our modal and start the camera to scan a barcode.
@@ -147,6 +137,13 @@ async function run(): Promise<void> {
     pageElements.input.value = barcode.data ?? "";
   }
 
+  // Wait for X milliseconds
+  async function wait(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+
   // Load the library as soon as possible. This will make the user experience faster.
   await loadAndPrepareLibrary();
   pageElements.button.disabled = false;
@@ -155,7 +152,7 @@ async function run(): Promise<void> {
 
   // At this point the library was loaded, set up the UI elements (progressive enhancement).
   pageElements.button.addEventListener("click", onOpenModal);
-  pageElements.backdrop.addEventListener("click", closeModal);
+  pageElements.overlay.addEventListener("click", closeModal);
   pageElements.input.addEventListener("focus", () => {
     pageElements.input.setSelectionRange(0, pageElements.input.value.length);
   });
@@ -168,7 +165,7 @@ async function run(): Promise<void> {
 
 run().catch((error) => {
   console.error(error);
-  alert(JSON.stringify(error, null, 2));
+  alert(error);
   pageElements.input.disabled = false;
   pageElements.input.placeholder = "Enter code manually";
 });
