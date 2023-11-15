@@ -80,6 +80,18 @@ async function run(): Promise<void> {
   // Disable the barcode capture mode until the camera is accessed.
   await barcodeCapture.setEnabled(false);
 
+  // Add a control to be able to switch cameras.
+  view.addControl(new SDCCore.CameraSwitchControl());
+
+  // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
+  // the video preview. This is optional, but recommended for better visual feedback.
+  const barcodeCaptureOverlay: SDCBarcode.BarcodeCaptureOverlay =
+    await SDCBarcode.BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+      barcodeCapture,
+      view,
+      SDCBarcode.BarcodeCaptureOverlayStyle.Frame
+    );
+
   // Register a listener to get informed whenever a new barcode got recognized.
   barcodeCapture.addListener({
     didScan: async (barcodeCaptureMode: SDCBarcode.BarcodeCapture, session: SDCBarcode.BarcodeCaptureSession) => {
@@ -93,18 +105,7 @@ async function run(): Promise<void> {
     },
   });
 
-  // Add a control to be able to switch cameras.
-  view.addControl(new SDCCore.CameraSwitchControl());
-
-  // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
-  // the video preview. This is optional, but recommended for better visual feedback.
-  const barcodeCaptureOverlay: SDCBarcode.BarcodeCaptureOverlay =
-    await SDCBarcode.BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
-      barcodeCapture,
-      view,
-      SDCBarcode.BarcodeCaptureOverlayStyle.Frame
-    );
-  const viewfinder: SDCCore.Viewfinder = new SDCCore.RectangularViewfinder(
+  const viewfinder: SDCCore.RectangularViewfinder = new SDCCore.RectangularViewfinder(
     SDCCore.RectangularViewfinderStyle.Square,
     SDCCore.RectangularViewfinderLineStyle.Light
   );
@@ -138,5 +139,5 @@ async function run(): Promise<void> {
 
 run().catch((error: unknown) => {
   console.error(error);
-  alert(error);
+  alert(JSON.stringify(error, null, 2));
 });

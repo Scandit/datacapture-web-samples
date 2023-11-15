@@ -36,7 +36,7 @@ const supportedDocumentsByMode: { [key in Mode]: SDCId.IdDocumentType[] } = {
     SDCId.IdDocumentType.ChinaOneWayPermitBackMRZ,
     SDCId.IdDocumentType.ApecBusinessTravelCardMRZ,
   ],
-  viz: [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ, SDCId.IdDocumentType.USVisaVIZ],
+  viz: [SDCId.IdDocumentType.DLVIZ, SDCId.IdDocumentType.IdCardVIZ],
 };
 
 function createIdCaptureSettingsFor(mode: Mode): SDCId.IdCaptureSettings {
@@ -186,7 +186,7 @@ window.dispatchAction = async (...arguments_) => {
 
 run().catch((error) => {
   console.error(error);
-  alert(error);
+  alert(JSON.stringify(error, null, 2));
 });
 
 type ActionParameters<A extends UI.Action> = A extends UI.Action.SWITCH_MODE
