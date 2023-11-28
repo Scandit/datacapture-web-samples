@@ -7,7 +7,9 @@ import {
   TorchState,
   FocusGestureStrategy,
   VideoResolution,
+  DataCaptureContext,
 } from "scandit-web-datacapture-core";
+import type { FrameSource } from "scandit-web-datacapture-core";
 import { get, writable } from "svelte/store";
 
 export const cameraLabel = writable("");
@@ -118,6 +120,12 @@ export async function setupCameraStore(): Promise<void> {
     const cameraSettings = getCurrentCameraSettings();
     cameraSettings.focusGestureStrategy = $focusGestureStrategy;
     await currentCamera.applySettings(cameraSettings);
+  });
+
+  $dataCaptureContext.addListener({
+    didChangeFrameSource: (_: DataCaptureContext, frameSource: FrameSource) => {
+      cameraLabel.set((frameSource as Camera).label);
+    },
   });
 }
 

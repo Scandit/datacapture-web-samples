@@ -1,0 +1,50 @@
+{
+  "name": "web-barcode-capture-simple-pwa-sample",
+  "displayName": "WebBarcodeCaptureSimplePwaSample",
+  "version": "1.0.0",
+  "author": "Scandit",
+  "description": "BarcodeCaptureSimpleSample for the Web as Pwa",
+  "type": "module",
+  "scripts": {
+    "update-pwa-assets": "npx pwa-asset-generator assets/pwa/fullscreen.svg -m manifest_icons_template.json -i ./index.html -f --path-override './pwa' assets/pwa",
+    "dev": "vite",
+    "build": "tsc && vite build --mode production",
+    "fast-build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --fix ."
+  },
+  "dependencies": {
+    "scandit-web-datacapture-barcode": "6.20.1",
+    "scandit-web-datacapture-core": "6.20.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^16.1.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-typescript": "^2.7.0",
+    "eslint-plugin-diff": "^1.0.12",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.2",
+    "eslint-plugin-jest-dom": "^4.0.3",
+    "eslint-plugin-jest-formatting": "^3.1.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-no-unsanitized": "^4.0.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-regexp": "^1.11.0",
+    "eslint-plugin-security": "^1.5.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sonarjs": "^0.17.0",
+    "eslint-plugin-unicorn": "^41.0.1",
+    "npm-packlist": "^5.1.1",
+    "pwa-asset-generator": "^6.3.1",
+    "typescript": "^4.8.4",
+    "vite": "^4.3.9",
+    "vite-plugin-pwa": "^0.16.4",
+    "vite-plugin-static-copy": "^0.16.0"
+  }
+}

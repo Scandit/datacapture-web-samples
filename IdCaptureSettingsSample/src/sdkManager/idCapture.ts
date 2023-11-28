@@ -104,6 +104,10 @@ export class SDKIdCaptureManager {
     return this.idCapture.setEnabled(enabled);
   }
 
+  public async reset(): Promise<void> {
+    return this.idCapture.reset();
+  }
+
   public async setIdCapturedFeedback(feedback: string): Promise<void> {
     const defaultVibration = IdCaptureFeedback.defaultFeedback.idCaptured.vibration;
     const defaultSound = IdCaptureFeedback.defaultFeedback.idCaptured.sound;
@@ -112,14 +116,14 @@ export class SDKIdCaptureManager {
   }
 
   public async setIdRejectedFeedback(feedback: string): Promise<void> {
-    const defaultVibration = Vibration.defaultVibration;
+    const { defaultVibration } = Vibration;
     const defaultSound = IdCaptureFeedback.defaultFailureSound;
     this.idCapture.feedback.idRejected = fromFeedbackType(feedback as FeedbackType, defaultVibration, defaultSound);
     return this.idCapture.setFeedback(this.idCapture.feedback);
   }
 
   public async setIdCaptureTimeoutFeedback(feedback: string): Promise<void> {
-    const defaultVibration = Vibration.defaultVibration;
+    const { defaultVibration } = Vibration;
     const defaultSound = IdCaptureFeedback.defaultFailureSound;
     this.idCapture.feedback.idCaptureTimeout = fromFeedbackType(
       feedback as FeedbackType,

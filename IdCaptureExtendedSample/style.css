@@ -112,23 +112,17 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 100vh;
+  height: 100dvh;
   background: rgba(0, 0, 0, 0.4);
   padding: 3rem;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 
-@media screen and (max-height: 500px) {
+@media screen and (max-height: 500px), (max-width: 500px) {
   #result {
-    display: block;
-    overflow: auto;
-    padding: 1rem;
-  }
-}
-@media screen and (max-width: 500px) {
-  #result {
-    padding: 1rem;
+    padding: 0;
   }
 }
 
@@ -174,7 +168,7 @@ body {
   transition: background-color 300ms;
 }
 
-#result-footer button:hover {
+#result-footer button:active {
   background-color: #000;
   color: white;
 }

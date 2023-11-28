@@ -40,7 +40,7 @@
     );
   }
 
-  function onModalClose() {
+  async function onModalClose() {
     $scannedDocument = null;
     $showScanResults = false;
 
@@ -48,6 +48,7 @@
       return;
     }
 
+    await sdkManager.idCapture.reset();
     void sdkManager.idCapture.setEnabled(true);
   }
 </script>
