@@ -1,24 +1,48 @@
-import * as SDCCore from "scandit-web-datacapture-core";
-import * as SDCId from "scandit-web-datacapture-id";
+import {
+  Camera,
+  CameraSwitchControl,
+  DataCaptureContext,
+  DataCaptureView,
+  FrameSourceState,
+  configure,
+} from "scandit-web-datacapture-core";
+import type {
+  AamvaBarcodeVerificationResult,
+  AamvaVizBarcodeComparisonResult,
+  CapturedId,
+  IdCaptureSession,
+} from "scandit-web-datacapture-id";
+import {
+  AamvaBarcodeVerifier,
+  AamvaVizBarcodeComparisonVerifier,
+  IdCapture,
+  IdCaptureOverlay,
+  IdCaptureSettings,
+  IdDocumentType,
+  IdImageType,
+  SupportedSides,
+  idCaptureLoader,
+  DocumentType,
+} from "scandit-web-datacapture-id";
 
 import * as UI from "./ui";
 
 const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 
-let context: SDCCore.DataCaptureContext;
-let idCapture: SDCId.IdCapture;
-let view: SDCCore.DataCaptureView;
-let camera: SDCCore.Camera;
+let context: DataCaptureContext;
+let idCapture: IdCapture;
+let view: DataCaptureView;
+let camera: Camera;
 
 export interface VerificationResult {
   isExpired: boolean;
-  aamvaVizBarcodeComparisonResult: SDCId.AamvaVizBarcodeComparisonResult | null;
-  aamvaBarcodeVerificationResult: Promise<SDCId.AamvaBarcodeVerificationResult>;
+  aamvaVizBarcodeComparisonResult: AamvaVizBarcodeComparisonResult | null;
+  aamvaBarcodeVerificationResult: Promise<AamvaBarcodeVerificationResult>;
 }
 
 async function run(): Promise<void> {
   // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
-  view = new SDCCore.DataCaptureView();
+  view = new DataCaptureView();
 
   // Connect the data capture view to the HTML element.
   view.connectToElement(UI.elements.dataCaptureView);
@@ -26,51 +50,48 @@ async function run(): Promise<void> {
   // Show the progress bar
   view.showProgressBar();
 
-  // Set the progress bar message
-  view.setProgressBarMessage("Loading...");
-
   // Configure the library
-  await SDCCore.configure({
+  await configure({
     licenseKey: LICENSE_KEY,
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
-    moduleLoaders: [SDCId.idCaptureLoader({ enableVIZDocuments: true })],
+    moduleLoaders: [idCaptureLoader({ enableVIZDocuments: true })],
   });
 
   // Hide the progress bar
   view.hideProgressBar();
 
   // Create the context (it will use the license key passed to configure by default)
-  context = await SDCCore.DataCaptureContext.create();
+  context = await DataCaptureContext.create();
 
   // connect the view with the newly created context
   await view.setContext(context);
 
   // Add a camera switcher icon to the view
-  view.addControl(new SDCCore.CameraSwitchControl());
+  view.addControl(new CameraSwitchControl());
 
   // Set the default camera as frame source. Apply the recommended settings from the IdCapture mode.
-  camera = SDCCore.Camera.default;
-  await camera.applySettings(SDCId.IdCapture.recommendedCameraSettings);
+  camera = Camera.default;
+  await camera.applySettings(IdCapture.recommendedCameraSettings);
   await context.setFrameSource(camera);
 
   // Create the IdCapture mode with the required settings
-  const settings = new SDCId.IdCaptureSettings();
-  settings.supportedDocuments = [SDCId.IdDocumentType.DLVIZ];
-  settings.supportedSides = SDCId.SupportedSides.FrontAndBack;
-  settings.setShouldPassImageTypeToResult(SDCId.IdImageType.Face, true);
-  idCapture = await SDCId.IdCapture.forContext(context, settings);
+  const settings = new IdCaptureSettings();
+  settings.supportedDocuments = [IdDocumentType.DLVIZ];
+  settings.supportedSides = SupportedSides.FrontAndBack;
+  settings.setShouldPassImageTypeToResult(IdImageType.Face, true);
+  idCapture = await IdCapture.forContext(context, settings);
 
   // Disable the mode until the camera is accessed
   await idCapture.setEnabled(false);
 
   // Add the ID Capture overlay
-  await SDCId.IdCaptureOverlay.withIdCaptureForView(idCapture, view);
+  await IdCaptureOverlay.withIdCaptureForView(idCapture, view);
 
   // Create an instance of the verifier, to be used later when a document has been scanned
-  const comparisonVerifier = SDCId.AamvaVizBarcodeComparisonVerifier.create();
-  const barcodeVerifier = await SDCId.AamvaBarcodeVerifier.create(context);
+  const comparisonVerifier = AamvaVizBarcodeComparisonVerifier.create();
+  const barcodeVerifier = await AamvaBarcodeVerifier.create(context);
 
-  async function verifyDriverLicense(capturedId: SDCId.CapturedId): Promise<VerificationResult> {
+  async function verifyDriverLicense(capturedId: CapturedId): Promise<VerificationResult> {
     const capturedDateOfExpiry = capturedId.dateOfExpiry;
     let isExpired: boolean;
     if (capturedDateOfExpiry) {
@@ -90,7 +111,7 @@ async function run(): Promise<void> {
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: async (idCaptureInstance: SDCId.IdCapture, session: SDCId.IdCaptureSession) => {
+    didCaptureId: async (idCaptureInstance: IdCapture, session: IdCaptureSession) => {
       // Disable the IdCapture mode to handle the current result
       await idCapture.setEnabled(false);
 
@@ -99,13 +120,13 @@ async function run(): Promise<void> {
         return;
       }
 
-      if (capturedId.documentType !== SDCId.DocumentType.DrivingLicense || capturedId.issuingCountryIso !== "USA") {
+      if (capturedId.documentType !== DocumentType.DrivingLicense || capturedId.issuingCountryIso !== "USA") {
         await idCapture.reset();
         UI.showWarning("Document is not a US driver's license.");
         return;
       }
 
-      if (capturedId.vizResult?.capturedSides === SDCId.SupportedSides.FrontAndBack) {
+      if (capturedId.vizResult?.capturedSides === SupportedSides.FrontAndBack) {
         const verificationResult = await verifyDriverLicense(capturedId);
         UI.showResult(capturedId, verificationResult);
         await idCapture.reset();
@@ -121,7 +142,7 @@ async function run(): Promise<void> {
   });
 
   // Finally, switch on the camera and enable the ID Capture mode
-  await camera.switchToDesiredState(SDCCore.FrameSourceState.On);
+  await camera.switchToDesiredState(FrameSourceState.On);
   await idCapture.setEnabled(true);
 }
 
