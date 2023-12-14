@@ -24,7 +24,6 @@
     issuingJurisdictionIso: "Issuing Jurisdiction ISO",
     jurisdictionVersion: "Jurisdiction Version",
     lastNameTruncation: "Last Name Truncation",
-    firstNameWithoutMiddleName: "First Name Without Middle Name",
     middleName: "Middle Name",
     middleNameTruncation: "Middle Name Truncation",
     placeOfBirth: "Place Of Birth",
