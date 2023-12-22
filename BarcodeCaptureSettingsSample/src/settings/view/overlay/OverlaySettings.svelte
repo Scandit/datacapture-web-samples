@@ -1,8 +1,9 @@
 <script lang="ts">
+  import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import { camelCaseToTitleCase } from "@/helpers/camelCaseToTitleCase";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { BrushType, brushType } from "@/settings/view/overlay/store";
+  import { BrushType, brushType, shouldRemoveLocationsAfterScan } from "@/settings/view/overlay/store";
 </script>
 
 <SidebarRoute backRoute="/settings/view">
@@ -21,5 +22,8 @@
         </svelte:fragment>
       </SelectSetting>
     </div>
+    <CheckboxSetting id="shouldRemoveLocationsAfterScan" bind:checked={$shouldRemoveLocationsAfterScan}>
+      Remove locations after scan
+    </CheckboxSetting>
   </svelte:fragment>
 </SidebarRoute>

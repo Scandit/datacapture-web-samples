@@ -44,7 +44,6 @@ export class SDKManager {
     this.dataCaptureView = new DataCaptureView();
     this.dataCaptureView.connectToElement(htmlElement);
     this.dataCaptureView.showProgressBar();
-    this.dataCaptureView.setProgressBarMessage("Loading...");
 
     await configure({
       licenseKey,

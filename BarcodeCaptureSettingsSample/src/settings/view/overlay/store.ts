@@ -27,14 +27,25 @@ export const brush = derived(brushType, (value) => {
   }
 });
 
+export const shouldRemoveLocationsAfterScan = writable(true);
+
 export async function setBrush(newBrush: Brush): Promise<void> {
   const $barcodeCaptureOverlay = get(barcodeCaptureOverlay);
   await $barcodeCaptureOverlay.setBrush(newBrush);
 }
 
+export async function setShouldRemoveLocationsAfterScan(value: boolean): Promise<void> {
+  const $barcodeCaptureOverlay = get(barcodeCaptureOverlay);
+  await $barcodeCaptureOverlay.setShouldRemoveLocationsAfterScan(value);
+}
+
 export function setupOverlayStore(): void {
   brush.subscribe((value) => {
     void setBrush(value);
+  });
+
+  shouldRemoveLocationsAfterScan.subscribe((value) => {
+    void setShouldRemoveLocationsAfterScan(value);
   });
 }
 
