@@ -254,6 +254,7 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
         ["Issuing Jurisdiction ISO", data.issuingJurisdictionIso],
         ["Jurisdiction Version", data.jurisdictionVersion],
         ["Last Name Truncation", data.lastNameTruncation],
+        ["First Name Without Middle Name", data.firstNameWithoutMiddleName],
         ["Middle Name", data.middleName],
         ["Middle Name Truncation", data.middleNameTruncation],
         ["Place Of Birth", data.placeOfBirth],

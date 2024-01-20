@@ -27,18 +27,20 @@ export interface StoreProviderProps {
 }
 
 export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
-  const { loading, sdk } = useSDK();
+  const { sdk, loaded } = useSDK();
   const [barcode, setBarcode] = useState<Barcode | undefined>();
   const [keepCameraOn, setKeepCameraOn] = useState(true);
   const [symbologies, setSymbologies] = useState<Partial<Record<Symbology, boolean>>>({});
 
   useEffect(() => {
-    if (!loading) {
-      const enabledSymbologyEntries = sdk.getEnabledSymbologies().map((symbology) => [symbology, true] as const);
-      const enabledSymbologies = Object.fromEntries(enabledSymbologyEntries);
-      setSymbologies(enabledSymbologies);
+    if (loaded) {
+      const enabledSymbologyEntries = sdk.getEnabledSymbologies()?.map((symbology) => [symbology, true] as const);
+      if (enabledSymbologyEntries) {
+        const enabledSymbologies = Object.fromEntries(enabledSymbologyEntries);
+        setSymbologies(enabledSymbologies);
+      }
     }
-  }, [loading, sdk]);
+  }, [loaded, sdk]);
 
   return (
     <StoreContext.Provider

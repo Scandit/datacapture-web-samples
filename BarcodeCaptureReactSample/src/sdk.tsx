@@ -27,23 +27,24 @@ export interface SDK {
   enableScanning: (enabled: boolean) => Promise<void>;
   enableSymbology: (symbology: Symbology, enabled: boolean) => Promise<void>;
   onScan: (callback: NonNullable<BarcodeCaptureListener["didScan"]>) => void;
-  getEnabledSymbologies: () => Symbology[];
+  getEnabledSymbologies: () => Symbology[] | undefined;
 }
 
 export interface SDKWithLoadingStatus {
   loading: boolean;
+  loaded: boolean;
   sdk: SDK;
 }
 
 export function createSDKFacade(): SDK {
   let context: DataCaptureContext | undefined;
-  let view: DataCaptureView;
-  let camera: Camera;
-  let settings: BarcodeCaptureSettings;
-  let barcodeCapture: BarcodeCapture;
-  let overlay: BarcodeCaptureOverlay;
-  let host: HTMLElement;
-  let barcodeCaptureListener: BarcodeCaptureListener;
+  let view: DataCaptureView | undefined;
+  let camera: Camera | undefined;
+  let settings: BarcodeCaptureSettings | undefined;
+  let barcodeCapture: BarcodeCapture | undefined;
+  let overlay: BarcodeCaptureOverlay | undefined;
+  let host: HTMLElement | undefined;
+  let barcodeCaptureListener: BarcodeCaptureListener | undefined;
 
   return {
     async initialize() {
@@ -56,7 +57,6 @@ export function createSDKFacade(): SDK {
         licenseKey: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
         moduleLoaders: [barcodeCaptureLoader()],
       });
-
       context = await DataCaptureContext.create();
       view = await DataCaptureView.forContext(context);
       settings = new BarcodeCaptureSettings();
@@ -81,61 +81,66 @@ export function createSDKFacade(): SDK {
       camera = Camera.default;
       await camera.applySettings(BarcodeCapture.recommendedCameraSettings);
       await context.setFrameSource(camera);
-
-      // ============================================================================================================
-      // NOTE:
-      // The following is a workaround to keep the scanner working correctly with React.
-      // The DataCaptureView requires the host element to remain the same throughout its lifecycle.
-      // Unfortunately, between re-renders, React doesn't keep the same nodes alive, but creates new ones each time.
-      // This means that, between re-renders, the DataCaptureView might stop rendering overlays, viewfinders etc...
-      // To fix this, we connect the DataCaptureView to a hidden element, then append it to a React component.
-      // This allows us to keep the node alive, and the DataCaptureView rendering correctly.
-      // When mounting the scanner component, we show the hidden node, then hide it when unmounting the scanner.
-      // See also the `connectToElement` and `detachFromElement` facade methods for further context.
-      // ============================================================================================================
-      host = document.createElement("div");
-      host.style.display = "none";
-      host.style.width = "100%";
-      host.style.height = "100%";
-      document.body.append(host);
-      view.connectToElement(host);
-      view.addControl(new CameraSwitchControl());
     },
     async cleanup() {
-      await camera.switchToDesiredState(FrameSourceState.Off);
+      await camera?.switchToDesiredState(FrameSourceState.Off);
       await context?.dispose();
       await context?.removeAllModes();
-      await view.removeOverlay(overlay);
-      barcodeCapture.removeListener(barcodeCaptureListener);
-      view.detachFromElement();
+      if (overlay) {
+        await view?.removeOverlay(overlay);
+      }
+      barcodeCapture?.removeListener(barcodeCaptureListener!);
+      view?.detachFromElement();
     },
     connectToElement(element: HTMLElement) {
+      if (!host) {
+        // ============================================================================================================
+        // NOTE:
+        // The following is a workaround to keep the scanner working correctly with React.
+        // The DataCaptureView requires the host element to remain the same throughout its lifecycle.
+        // Unfortunately, between re-renders, React doesn't keep the same nodes alive, but creates new ones each time.
+        // This means that, between re-renders, the DataCaptureView might stop rendering overlays, viewfinders etc...
+        // To fix this, we connect the DataCaptureView to a hidden element, then append it to a React component.
+        // This allows us to keep the node alive, and the DataCaptureView rendering correctly.
+        // When mounting the scanner component, we show the hidden node, then hide it when unmounting the scanner.
+        // See also the `connectToElement` and `detachFromElement` facade methods for further context.
+        // ============================================================================================================
+        host = document.createElement("div");
+        host.style.display = "none";
+        host.style.width = "100%";
+        host.style.height = "100%";
+        document.body.append(host);
+      }
       host.style.display = "block";
       element.append(host);
+      view?.connectToElement(host);
+      view?.addControl(new CameraSwitchControl());
     },
     detachFromElement() {
-      host.style.display = "none";
-      document.body.append(host);
+      if (host) {
+        host.style.display = "none";
+        document.body.append(host);
+      }
     },
     async enableCamera(enabled: boolean) {
       camera = context?.frameSource as Camera;
       await camera.switchToDesiredState(enabled ? FrameSourceState.On : FrameSourceState.Off);
     },
     async enableScanning(enabled: boolean) {
-      await barcodeCapture.setEnabled(enabled);
+      await barcodeCapture?.setEnabled(enabled);
     },
     async enableSymbology(symbology: Symbology, enabled: boolean) {
-      settings.enableSymbology(symbology, enabled);
-      await barcodeCapture.applySettings(settings);
+      settings?.enableSymbology(symbology, enabled);
+      await barcodeCapture?.applySettings(settings!);
     },
     onScan(callback: NonNullable<BarcodeCaptureListener["didScan"]>) {
       barcodeCaptureListener = {
         didScan: callback,
       };
-      barcodeCapture.addListener(barcodeCaptureListener);
+      barcodeCapture?.addListener(barcodeCaptureListener);
     },
     getEnabledSymbologies() {
-      return settings.enabledSymbologies;
+      return settings?.enabledSymbologies;
     },
   };
 }
@@ -143,6 +148,7 @@ export function createSDKFacade(): SDK {
 export const sdk = createSDKFacade();
 
 export const SDKContext = createContext({
+  loaded: false,
   loading: false,
   sdk,
 });
@@ -152,13 +158,16 @@ export interface SDKProviderProps {
 }
 
 export default function SDKProvider({ children }: SDKProviderProps): JSX.Element {
-  const [loading, setLoading] = useState(true);
-  const providerValue = useMemo(() => ({ loading, sdk }), [loading]);
+  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const providerValue = useMemo(() => ({ loading, loaded, sdk }), [loading, loaded]);
 
   useEffect(() => {
     async function start(): Promise<void> {
+      setLoading(true);
       await sdk.initialize();
       setLoading(false);
+      setLoaded(true);
     }
     void start();
     return () => {
