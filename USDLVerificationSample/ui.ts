@@ -157,15 +157,23 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
   const { isExpired, aamvaVizBarcodeComparisonResult, aamvaBarcodeVerificationResult } = verificationResult;
 
   // Comparison verification result
-  let comparisonVerificationResultBlock: DocumentFragment;
   if (aamvaVizBarcodeComparisonResult === null) {
-    comparisonVerificationResultBlock = getPanel("warn", "No result for verification.");
+    result.append(getPanel("warn", "No result for verification."));
   } else if (aamvaVizBarcodeComparisonResult.checksPassed) {
-    comparisonVerificationResultBlock = getPanel("passed", "Information on front and back match.");
+    result.append(getPanel("passed", "Information on front and back matches."));
   } else {
-    comparisonVerificationResultBlock = getPanel("warn", "Information on front and back do not match.");
+    result.append(getPanel("warn", "Information on front and back does not match."));
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (aamvaVizBarcodeComparisonResult.frontMismatchImage !== "") {
+      result.append(getDOMForLabel("Mismatches"));
+      const mismatchImage = new Image();
+      mismatchImage.className = "id-mismatch-image";
+      mismatchImage.src = aamvaVizBarcodeComparisonResult.frontMismatchImage;
+      result.append(mismatchImage);
+    } else if (capturedId.aamvaBarcodeResult != null) {
+      result.append(getPanel("warn", "Your license does not support highlighting discrepancies."));
+    }
   }
-  result.append(comparisonVerificationResultBlock);
 
   result.append(isExpired ? getPanel("warn", "Document is expired.") : getPanel("passed", "Document is not expired."));
 
@@ -189,7 +197,9 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
           barcodeVerificationResultBlock = getPanel("warn", "Verification checks failed.");
         }
         // eslint-disable-next-line no-unsanitized/property
-        document.querySelector(`[data-js-id="barcode-verification-result"]`)!.replaceWith(barcodeVerificationResultBlock);
+        document
+          .querySelector(`[data-js-id="barcode-verification-result"]`)!
+          .replaceWith(barcodeVerificationResultBlock);
       })
       .catch(() => {
         // eslint-disable-next-line no-unsanitized/property

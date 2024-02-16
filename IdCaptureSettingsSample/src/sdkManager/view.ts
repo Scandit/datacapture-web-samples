@@ -17,6 +17,7 @@ import {
   layoutLineStyle,
   layoutLocalizedBrush,
   layoutStyle,
+  showTextHints
 } from "@/settings/view/overlay/store";
 import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
 import { cameraSwitchControlEnabled, torchSwitchControlEnabled } from "@/settings/view/controls/store";
@@ -93,6 +94,11 @@ export class SDKViewManager {
     layoutLineStyle.set(style as IdLayoutLineStyle);
   }
 
+  public updateOverlayShowTextHints(show: boolean): void {
+    this.sdkManager.idCaptureOverlay.showTextHints = show;
+    showTextHints.set(show);
+  }
+
   public async updateCapturedBrush(style: string): Promise<void> {
     const newBrush = SDKViewManager.getBrushFromBrushType(style as BrushType);
     await this.sdkManager.idCaptureOverlay.setCapturedBrush(newBrush);
@@ -136,5 +142,9 @@ export class SDKViewManager {
       this.sdkManager.dataCaptureView.removeControl(SDKViewManager.torchSwitchControl);
     }
     torchSwitchControlEnabled.set(enabled);
+  }
+
+  public async allowPictureInPicture(allow: boolean): Promise<void> {
+    await this.sdkManager.dataCaptureView.allowPictureInPicture(allow);
   }
 }

@@ -10,8 +10,8 @@
 
   const selectedImageTypesCount = [
     $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.Face),
-    $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.IdBack),
-    $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.IdFront),
+    true,
+    true,
   ].filter(Boolean).length;
 </script>
 

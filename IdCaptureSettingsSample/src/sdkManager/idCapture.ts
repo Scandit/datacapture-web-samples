@@ -86,8 +86,9 @@ export class SDKIdCaptureManager {
     scannedDocumentBackImage.set(capturedId.idImageOfType(IdImageType.IdBack));
     scannedDocumentFaceImage.set(capturedId.idImageOfType(IdImageType.Face));
 
-    if (isVIZDocument && this.idCaptureSettings.supportedSides === SupportedSides.FrontAndBack) {
-      if (capturedId[CapturedResultType.VIZResult]?.capturedSides === SupportedSides.FrontAndBack) {
+    if (isVIZDocument) {
+      if (capturedId[CapturedResultType.VIZResult]?.capturedSides === this.idCaptureSettings.supportedSides ||
+          capturedId[CapturedResultType.VIZResult]?.isBackSideCaptureSupported === false) {
         void this.setEnabled(false);
         scannedDocument.set(capturedId);
         showScanResults.set(true);
@@ -182,10 +183,12 @@ export class SDKIdCaptureManager {
         idLayout: get(layout),
         idLayoutStyle: this.sdkManager.idCaptureOverlay.idLayoutStyle,
         idLayoutLineStyle: this.sdkManager.idCaptureOverlay.idLayoutLineStyle,
+        showTextHints: this.sdkManager.idCaptureOverlay.showTextHints,
       };
       newOverlay.setIdLayout(oldOverlaySettings.idLayout);
       newOverlay.idLayoutStyle = oldOverlaySettings.idLayoutStyle;
       newOverlay.idLayoutLineStyle = oldOverlaySettings.idLayoutLineStyle;
+      newOverlay.showTextHints = oldOverlaySettings.showTextHints;
       await newOverlay.setCapturedBrush(oldOverlaySettings.capturedBrush);
     }
     this.sdkManager.idCaptureOverlay = newOverlay;

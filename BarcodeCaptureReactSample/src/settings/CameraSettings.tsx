@@ -1,18 +1,18 @@
-import { useEffect } from "react";
+import { useCallback } from "react";
 
 import CameraIcon from "../icons/CameraIcon";
-import { useSDK } from "../sdk";
 import { useStore } from "../store";
 
 export default function CameraSettings(): JSX.Element {
   const { keepCameraOn, setKeepCameraOn } = useStore();
-  const { loading, sdk } = useSDK();
 
-  useEffect(() => {
-    if (!loading) {
-      void sdk.enableCamera(keepCameraOn);
-    }
-  }, [loading, sdk, keepCameraOn]);
+  const onChange = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      const input = event.target as HTMLInputElement;
+      setKeepCameraOn(input.checked);
+    },
+    [setKeepCameraOn]
+  );
 
   return (
     <section className="flex flex-col gap-6">
@@ -22,15 +22,7 @@ export default function CameraSettings(): JSX.Element {
       </div>
       <label htmlFor="keepCameraOn" className="p-4 flex justify-between">
         Keep on when closing the scanner
-        <input
-          type="checkbox"
-          id="keepCameraOn"
-          checked={keepCameraOn}
-          onChange={(event) => {
-            const input = event.target as HTMLInputElement;
-            setKeepCameraOn(input.checked);
-          }}
-        />
+        <input type="checkbox" id="keepCameraOn" checked={keepCameraOn} onChange={onChange} />
       </label>
     </section>
   );

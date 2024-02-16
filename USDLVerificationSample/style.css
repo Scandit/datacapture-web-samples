@@ -180,3 +180,9 @@ body {
   margin-right: 0.5rem;
   flex-shrink: 0;
 }
+
+.id-mismatch-image {
+  display: block;
+  max-width: 100%;
+  padding: 10px;
+}

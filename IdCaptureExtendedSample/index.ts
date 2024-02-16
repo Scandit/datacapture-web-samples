@@ -40,7 +40,8 @@ let currentMode: Mode;
 // Here is how to update some translations
 Localization.getInstance().update<IdTranslations | CoreTranslations>({
   "core.view.loading": "Loading ID Capture...",
-  "id.idCaptureOverlay.scanFrontSideHint": "Show front of document",
+  // "id.idCaptureOverlay.scanFrontSideHint": "Custom text for front of document",
+  // "id.idCaptureOverlay.scanBackSideHint": "Custom text for back of document",
 });
 
 // A map defining which document types we enable depending on the selected mode.

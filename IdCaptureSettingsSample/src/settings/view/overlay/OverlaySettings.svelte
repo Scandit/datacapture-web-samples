@@ -1,6 +1,6 @@
 <script lang="ts">
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
-  import { valueFromInput } from "@/helper";
+  import {valueFromCheckbox, valueFromInput} from "@/helper";
   import { camelCaseToTitleCase } from "@/helpers";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
@@ -11,8 +11,11 @@
     layoutCapturedBrush,
     BrushType,
     layoutLocalizedBrush,
+    showTextHints
   } from "@/settings/view/overlay/store";
   import { IdLayout, IdLayoutLineStyle, IdLayoutStyle } from "scandit-web-datacapture-id";
+  import {idCaptureApplyingSettingStore, idCaptureSettingsStore} from "@/settings/id-capture/store";
+  import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
 </script>
 
 <SidebarRoute backRoute="/settings/view">
@@ -59,6 +62,12 @@
           {/each}
         </svelte:fragment>
       </SelectSetting>
+
+      <CheckboxSetting
+              id=showTextHints
+              checked={$showTextHints}
+              on:change={(e) => sdkManager.view.updateOverlayShowTextHints(valueFromCheckbox(e))}>Show Text Hints</CheckboxSetting
+      >
 
       <SelectSetting
         id="capturedBrush"

@@ -2,7 +2,7 @@
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { isTorchAvailable } from "@/settings/camera/store";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { enableCameraButton, enableTorchButton, enableCameraFOVSwitchControl, isIOSDeviceWithExtendedCameraAccess } from "@/settings/view/controls/store";
+  import { enableCameraButton, enableTorchButton, enableCameraFOVSwitchControl, isIOSDeviceWithExtendedCameraAccess, allowPictureInPicture } from "@/settings/view/controls/store";
 </script>
 
 <SidebarRoute backRoute="/settings/view">
@@ -15,5 +15,6 @@
     </CheckboxSetting>
     <CheckboxSetting id="cameraSwitchButton" bind:checked={$enableCameraButton}>Camera Switch Button</CheckboxSetting>
     <CheckboxSetting id="cameraFOVSwitchControl" disabled={!$isIOSDeviceWithExtendedCameraAccess} bind:checked={$enableCameraFOVSwitchControl}>Camera FOV Switch Control</CheckboxSetting>
+    <CheckboxSetting id="allowPictureInPicture" bind:checked={$allowPictureInPicture}>Allow Picture-in-Picture</CheckboxSetting>
   </svelte:fragment>
 </SidebarRoute>

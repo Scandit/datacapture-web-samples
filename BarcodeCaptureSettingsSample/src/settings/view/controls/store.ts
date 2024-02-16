@@ -17,6 +17,7 @@ export const enableCameraButton = writable(false);
 
 export const enableCameraFOVSwitchControl = writable(false);
 export const isIOSDeviceWithExtendedCameraAccess = writable(BrowserHelper.isIOSDeviceWithExtendedCameraAccess());
+export const allowPictureInPicture = writable(true);
 
 export function enableControl(control: Control, enabled: boolean): void {
   const $dataCaptureView = get(dataCaptureView);
@@ -38,6 +39,11 @@ export function setupControlsStore(): void {
 
   enableCameraFOVSwitchControl.subscribe((value) => {
     enableControl(cameraFOVSwitchControl, value);
+  });
+
+  allowPictureInPicture.subscribe(async (value) => {
+    const $dataCaptureView = get(dataCaptureView);
+    await $dataCaptureView.allowPictureInPicture(value);
   });
 }
 

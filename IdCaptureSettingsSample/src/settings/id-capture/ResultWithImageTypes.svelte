@@ -9,8 +9,8 @@
   async function onTypeToggled(docType: string, enabled: boolean) {
     const currentValues = {
       [IdImageType.Face]: $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.Face),
-      [IdImageType.IdBack]: $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.IdBack),
-      [IdImageType.IdFront]: $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.IdFront),
+      [IdImageType.IdBack]: true,
+      [IdImageType.IdFront]: true,
     };
     sdkManager.idCapture.updateResultWithImageTypes({ ...currentValues, [docType as IdImageType]: enabled });
   }
@@ -25,8 +25,8 @@
       <section class="flex flex-col">
         <CheckboxSetting
           id={imageType}
-          checked={$idCaptureSettingsStore?.getShouldPassImageTypeToResult(imageType)}
-          disabled={$idCaptureApplyingSettingStore}
+          checked={imageType == IdImageType.Face ? $idCaptureSettingsStore?.getShouldPassImageTypeToResult(imageType) : true}
+          disabled={imageType == IdImageType.Face ? $idCaptureApplyingSettingStore : true}
           on:change={(e) => onTypeToggled(imageType, valueFromCheckbox(e))}>{imageType}</CheckboxSetting
         >
       </section>

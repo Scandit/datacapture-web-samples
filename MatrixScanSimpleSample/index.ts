@@ -1,41 +1,45 @@
 import {
-  DataCaptureView,
   Camera,
-  DataCaptureContext,
-  configure,
   CameraSwitchControl,
-  RectangularViewfinder,
-  RectangularViewfinderStyle,
-  RectangularViewfinderLineStyle,
+  DataCaptureContext,
+  DataCaptureView,
   FrameSourceState,
+  configure,
 } from "scandit-web-datacapture-core";
-import type { SymbologySettings, Barcode, BarcodeCaptureSession } from "scandit-web-datacapture-barcode";
+import type { BarcodeTrackingSession, SymbologySettings, TrackedBarcode } from "scandit-web-datacapture-barcode";
 import {
-  barcodeCaptureLoader,
-  BarcodeCapture,
-  BarcodeCaptureSettings,
+  BarcodeTracking,
+  BarcodeTrackingBasicOverlay,
+  BarcodeTrackingBasicOverlayStyle,
+  BarcodeTrackingScenario,
+  BarcodeTrackingSettings,
   Symbology,
-  BarcodeCaptureOverlay,
-  BarcodeCaptureOverlayStyle,
   SymbologyDescription,
+  barcodeCaptureLoader,
 } from "scandit-web-datacapture-barcode";
 
-declare global {
-  interface Window {
-    continueScanning: () => Promise<void>;
-  }
-}
+import { SdcUiButton } from "./components/sdcUiButton";
+import { SdcUiDrawerBottom } from "./components/sdcUiDrawerBottom";
+import { SdcUiBarcodeList, SdcUiBarcodeListItem } from "./components/sdcUiBarcodeList";
+import { define, removeAllChildNodes } from "./utils";
 
 async function run(): Promise<void> {
+  define({
+    "sdc-ui-button": SdcUiButton,
+    "sdc-ui-drawer-bottom": SdcUiDrawerBottom,
+    "sdc-ui-barcode-list": SdcUiBarcodeList,
+    "sdc-ui-barcode-list-item": SdcUiBarcodeListItem,
+  });
+  document.body.classList.add("componentsDefined");
+
   // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
-  const view = new DataCaptureView();
+  const view: DataCaptureView = new DataCaptureView();
 
   // Connect the data capture view to the HTML element.
   view.connectToElement(document.getElementById("data-capture-view")!);
 
   // Show the loading layer
   view.showProgressBar();
-
   // There is a Scandit sample license key set below here.
   // This license key is enabled for sample evaluation only.
   // If you want to build your own application, get your license key by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
@@ -44,7 +48,7 @@ async function run(): Promise<void> {
   await configure({
     licenseKey: "AfUkdmKlRiP5FdlOFQnOhu4V3j5LFKttPGTWXFd7CkuRaTAstDqq78RrBm2ZG9LRu1T8CNgP6oLScGrUoEwfmP1TUXonIGCl2g9Fo5NYtmK/aEV8FX/YcdRKfWS5bJrTcWGDHdcsJxT6Me5C3RMdWZkdqeR5GEjDzT6dO4ZPWOBbNLjpkgZ0/MjtYQPKqSV+bSZC7+ekFaXovSKWfXV89BXtta/6sZHFJOMKxyvzh6zw5yA+NDR67OXoWKCrrNq4AOuBlt1ZelIHCqjQgTy/SZG110eJr5e4pth38Bx0fXE8FGX92BoxwJr1EG+P5CEJF8EFMy2zf87aJQYuzHmg0nM7czcNqLUd9F23uxntZYjKlwgWmmSzev/ozaumEvbW9RVW1bUQmV8pQ1SWILBuzQPeAw8iWOWgnTH18tH7cT+fUJumvM2rn7LWx9JYLAKBKRuwe2sDh3l5eqobZKdarIRsKVgXa4pw+gkYKuplzTo+Bzh70rbmtgq3IJ8hSpdoZITzfUQSwXkrgdQa5Cmrpxz9gXManBRt01h3eFXG7znZU9w0+uzzV/b5e6MQcPncODrCQOq0kfEBYgRoLAwVCOKnxyWQkqRbUpsTN2wy2MTg10flYhR/zf1eXdiUjgPUhWj8LtmgxJELYky7uMu46abfCkAw73e+12iJmlf9/tmTFk34La9ZQiF/BYps5h327ZW8qobay+Esx1i9dsaFKYt/nCN8jZdUYD/df+/vApyK4PMbph9EPRe5u0alg8BqpEExnkQsy1W7r85yngO/rxSXsY6rTMoTXb/87ul8uQnsrD41ZLtFdzo0OlbNTeNOI1mJz/E6/SOLbRRK",
     libraryLocation: new URL("library/engine/", document.baseURI).toString(),
-    moduleLoaders: [barcodeCaptureLoader()],
+    moduleLoaders: [barcodeCaptureLoader({ highEndBlurryRecognition: false })],
   });
 
   // Set the progress bar to be in an indeterminate state
@@ -54,20 +58,20 @@ async function run(): Promise<void> {
   // Create the data capture context.
   const context: DataCaptureContext = await DataCaptureContext.create();
 
-  // To visualize the ongoing barcode capturing process on screen, attach the data capture view that renders the
+  // To visualize the ongoing barcode capturing process on screen, set up a data capture view that renders the
   // camera preview. The view must be connected to the data capture context.
   await view.setContext(context);
 
   // Try to use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
   // default and must be turned on to start streaming frames to the data capture context for recognition.
   const camera: Camera = Camera.default;
-  const cameraSettings = BarcodeCapture.recommendedCameraSettings;
+  const cameraSettings = BarcodeTracking.recommendedCameraSettings;
   await camera.applySettings(cameraSettings);
   await context.setFrameSource(camera);
 
-  // The barcode capturing process is configured through barcode capture settings,
-  // they are then applied to the barcode capture instance that manages barcode recognition.
-  const settings: BarcodeCaptureSettings = new BarcodeCaptureSettings();
+  // The barcode tracking process is configured through barcode tracking settings,
+  // they are then applied to the barcode tracking instance that manages barcode recognition.
+  const settings: BarcodeTrackingSettings = BarcodeTrackingSettings.forScenario(BarcodeTrackingScenario.A);
 
   // The settings instance initially has all types of barcodes (symbologies) disabled. For the purpose of this
   // sample we enable a very generous set of symbologies. In your own app ensure that you only enable the
@@ -91,77 +95,78 @@ async function run(): Promise<void> {
   const symbologySettings: SymbologySettings = settings.settingsForSymbology(Symbology.Code39);
   symbologySettings.activeSymbolCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-  // Create a new barcode capture mode with the settings from above.
-  const barcodeCapture = await BarcodeCapture.forContext(context, settings);
-  // Disable the barcode capture mode until the camera is accessed.
-  await barcodeCapture.setEnabled(false);
+  // Create a new barcode tracking mode with the settings from above.
+  const barcodeTracking = await BarcodeTracking.forContext(context, settings);
+  // Disable the barcode tracking mode until the camera is accessed.
+  await barcodeTracking.setEnabled(true);
+
+  let trackedBarcodes: Record<string, TrackedBarcode>;
+  // Register a listener to get updates about tracked barcodes.
+  barcodeTracking.addListener({
+    didUpdateSession: (barcodeTrackingMode: BarcodeTracking, session: BarcodeTrackingSession) => {
+      trackedBarcodes = session.trackedBarcodes;
+    },
+  });
 
   // Add a control to be able to switch cameras.
   view.addControl(new CameraSwitchControl());
 
-  // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
+  // Add a barcode tracking overlay to the data capture view to render the location of tracked barcodes on top of
   // the video preview. This is optional, but recommended for better visual feedback.
-  const barcodeCaptureOverlay: BarcodeCaptureOverlay = await BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
-    barcodeCapture,
+  await BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
+    barcodeTracking,
     view,
-    BarcodeCaptureOverlayStyle.Frame
+    BarcodeTrackingBasicOverlayStyle.Frame
   );
-
-  // Register a listener to get informed whenever a new barcode got recognized.
-  barcodeCapture.addListener({
-    didScan: async (barcodeCaptureMode: BarcodeCapture, session: BarcodeCaptureSession) => {
-      // Hide the viewfinder.
-      await barcodeCaptureOverlay.setViewfinder(null);
-      // Disable the capture of barcodes until the user closes the displayed result.
-      await barcodeCapture.setEnabled(false);
-      const barcode: Barcode = session.newlyRecognizedBarcodes[0];
-      const symbology: SymbologyDescription = new SymbologyDescription(barcode.symbology);
-      showResult(`Scanned: ${barcode.data ?? ""}\n(${symbology.readableName})`);
-    },
-  });
-
-  const viewfinder: RectangularViewfinder = new RectangularViewfinder(
-    RectangularViewfinderStyle.Square,
-    RectangularViewfinderLineStyle.Light
-  );
-  await barcodeCaptureOverlay.setViewfinder(viewfinder);
 
   // Switch the camera on to start streaming frames.
   // The camera is started asynchronously and will take some time to completely turn on.
   await camera.switchToDesiredState(FrameSourceState.On);
-  await barcodeCapture.setEnabled(true);
-
-  // The progress bar layer could be also hidden right after the configure phase
+  await barcodeTracking.setEnabled(true);
   view.hideProgressBar();
 
-  async function continueScanning(): Promise<void> {
-    for (const r of document.querySelectorAll(".result")!) {
-      r.querySelector("button")?.removeEventListener("click", continueScanning);
-      r.remove();
+  const doneButton = document.querySelector<SdcUiButton>("sdc-ui-button")!;
+  const drawer = document.querySelector<SdcUiDrawerBottom>("sdc-ui-drawer-bottom")!;
+  const continueButton = drawer.querySelector("sdc-ui-button")!;
+  const list = drawer.querySelector("sdc-ui-barcode-list")!;
+
+  function addBarcodesToList(listElement: SdcUiBarcodeList, barcodes: TrackedBarcode[]): void {
+    removeAllChildNodes(listElement);
+    const fragment = document.createDocumentFragment();
+    for (const trackedBarcode of barcodes) {
+      const { barcode } = trackedBarcode;
+      const symbology: SymbologyDescription = new SymbologyDescription(barcode.symbology);
+      const li = document.createElement("sdc-ui-barcode-list-item");
+      const value = document.createElement("div");
+      const type = document.createElement("div");
+      value.slot = "value";
+      type.slot = "type";
+      value.textContent = barcode.data ?? "???";
+      type.textContent = symbology.readableName;
+      li.append(value, type);
+      fragment.append(li);
     }
-    await barcodeCapture.setEnabled(true);
-    // Restore the viewfinder.
-    await barcodeCaptureOverlay.setViewfinder(viewfinder);
+    list.append(fragment);
   }
 
-  function showResult(result: string): void {
-    const resultElement = document.createElement("div");
-    resultElement.className = "result";
+  doneButton.addEventListener("click", async () => {
+    await barcodeTracking.setEnabled(false);
+    addBarcodesToList(list, Object.values(trackedBarcodes));
+    drawer.open = true;
+    document.getElementById("data-capture-view")!.classList.add("scaled");
+  });
 
-    const paragraph = document.createElement("p");
-    paragraph.classList.add("result-text");
-
-    const button = document.createElement("button");
-    button.textContent = "OK";
-    button.addEventListener("click", continueScanning, { once: true });
-
-    resultElement.append(paragraph, button);
-    resultElement.querySelector(".result-text")!.textContent = result;
-    document.querySelector("#data-capture-view")!.append(resultElement);
-  }
+  const onContinue = async (): Promise<void> => {
+    await barcodeTracking.setEnabled(true);
+    drawer.open = false;
+    document.getElementById("data-capture-view")!.classList.remove("scaled");
+  };
+  continueButton.addEventListener("click", onContinue);
+  drawer.addEventListener("onbackdropclick", onContinue);
 }
 
 run().catch((error: unknown) => {
+  // eslint-disable-next-line no-console
   console.error(error);
   alert(JSON.stringify(error, null, 2));
 });

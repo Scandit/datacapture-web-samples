@@ -1,20 +1,10 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import BackIcon from "../icons/BackIcon";
-import { useSDK } from "../sdk";
 import CameraSettings from "./CameraSettings";
 import SymbologySettings from "./SymbologySettings";
 
 export default function SettingsPage(): JSX.Element {
-  const { loading, sdk } = useSDK();
-
-  useEffect(() => {
-    if (!loading) {
-      void sdk.enableScanning(false);
-    }
-  }, [loading, sdk]);
-
   return (
     <main className="w-screen h-[100dvh] flex flex-col gap-4 lg:max-w-[800px] lg:mx-auto">
       <nav className="sticky py-4 top-0 bg-white border-b lg:p-4">

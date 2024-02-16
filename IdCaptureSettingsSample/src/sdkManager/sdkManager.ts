@@ -7,6 +7,7 @@ import {
   layoutLineStyle,
   layoutLocalizedBrush,
   layoutStyle,
+  showTextHints,
 } from "@/settings/view/overlay/store";
 import { pointOfInterest } from "@/settings/view/point-of-interest/store";
 import { scanAreaMargins } from "@/settings/view/scan-area/store";
@@ -87,6 +88,7 @@ export class SDKManager {
     layoutLineStyle.set(this.idCaptureOverlay.idLayoutLineStyle);
     layoutCapturedBrush.set(BrushType.Default);
     layoutLocalizedBrush.set(BrushType.Default);
+    showTextHints.set(true);
 
     logoStyle.set(this.dataCaptureView.logoStyle);
     logoAnchor.set(this.dataCaptureView.logoAnchor);

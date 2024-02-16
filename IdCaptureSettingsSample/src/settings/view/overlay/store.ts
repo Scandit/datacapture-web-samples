@@ -9,6 +9,7 @@ export enum BrushType {
 
 export const layout = writable<IdLayout>();
 export const layoutStyle = writable<IdLayoutStyle>();
+export const showTextHints = writable<boolean>();
 export const layoutLineStyle = writable<IdLayoutLineStyle>();
 export const layoutCapturedBrush = writable<BrushType>();
 export const layoutLocalizedBrush = writable<BrushType>();
