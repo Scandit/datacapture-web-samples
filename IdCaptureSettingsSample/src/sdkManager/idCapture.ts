@@ -1,9 +1,8 @@
-import type { IdDocumentType, IdCaptureSession, IdAnonymizationMode } from "scandit-web-datacapture-id";
+import type { IdDocumentType, IdCaptureSession, IdAnonymizationMode, SupportedSides } from "scandit-web-datacapture-id";
 import {
   IdCapture,
   IdCaptureSettings,
   IdImageType,
-  SupportedSides,
   IdCaptureOverlay,
   IdCaptureFeedback,
   CapturedResultType,
@@ -87,8 +86,10 @@ export class SDKIdCaptureManager {
     scannedDocumentFaceImage.set(capturedId.idImageOfType(IdImageType.Face));
 
     if (isVIZDocument) {
-      if (capturedId[CapturedResultType.VIZResult]?.capturedSides === this.idCaptureSettings.supportedSides ||
-          capturedId[CapturedResultType.VIZResult]?.isBackSideCaptureSupported === false) {
+      if (
+        capturedId[CapturedResultType.VIZResult]?.capturedSides === this.idCaptureSettings.supportedSides ||
+        capturedId[CapturedResultType.VIZResult]?.isBackSideCaptureSupported === false
+      ) {
         void this.setEnabled(false);
         scannedDocument.set(capturedId);
         showScanResults.set(true);
@@ -162,8 +163,8 @@ export class SDKIdCaptureManager {
 
   public async applyIdCaptureSettings(newSettings: IdCaptureSettings): Promise<void> {
     idCaptureApplyingSettingStore.set(true);
-    await this.sdkManager.context.removeAllModes();
-    await this.createIdCaptureInstance(newSettings);
+    await this.idCapture.applySettings(newSettings);
+    this.idCaptureSettings = newSettings;
     idCaptureSettingsStore.set(newSettings);
     idCaptureApplyingSettingStore.set(false);
   }
