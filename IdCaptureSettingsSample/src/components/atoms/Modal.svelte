@@ -1,7 +1,7 @@
 <script lang="ts">
   export let show = false;
 
-  export function portal(node, host: HTMLElement = document.body) {
+  export function portal(node: HTMLElement, host: HTMLElement = document.body) {
     host.appendChild(node);
 
     return {

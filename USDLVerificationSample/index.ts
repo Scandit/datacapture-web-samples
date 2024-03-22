@@ -95,7 +95,11 @@ async function run(): Promise<void> {
     const capturedDateOfExpiry = capturedId.dateOfExpiry;
     let isExpired: boolean;
     if (capturedDateOfExpiry) {
-      const expiryDate = new Date(capturedDateOfExpiry.year, capturedDateOfExpiry.month, capturedDateOfExpiry.day);
+      const expiryDate = new Date(
+        capturedDateOfExpiry.year,
+        capturedDateOfExpiry.month ?? 0,
+        capturedDateOfExpiry.day ?? 1
+      );
       isExpired = expiryDate < new Date();
     } else {
       // Suspicious absence of expiration date in capture, we declare it as expired.

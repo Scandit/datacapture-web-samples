@@ -58,9 +58,20 @@ const createPwaOptions = ({ mode }): Partial<VitePWAOptions> => {
       globPatterns: ["**/*.{css,html,ico,png,svg}", "**/*.{wasm,js}"],
       maximumFileSizeToCacheInBytes: 6.5 * 1024 * 1024, // up to 6mb because of wasm files
       ignoreURLParametersMatching: [/^v/], // without this the wasm file are not matched in the cache
+      runtimeCaching: [{
+        urlPattern: ({url}) => url.origin === "https://*.scandit.com/*.js",
+        handler: "CacheFirst",
+        options: {
+          cacheName: "scandit.com",
+          expiration: {
+            // Adjust the number of entries to keep as needed.
+            maxEntries: 2,
+          },
+        }
+      }],
     },
     manifest: {
-      name: "BarcodeCaptureSimpleSamplePwa",
+      name: "BarcodeCaptureSimplePWASample",
       short_name: "Barcode PWA",
       description:
         "Enterprise barcode scanning performance in your browser via JavaScript and WebAssembly. Use cameras and let users easily scan barcodes in your web app.",

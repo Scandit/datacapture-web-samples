@@ -17,7 +17,7 @@ import {
   layoutLineStyle,
   layoutLocalizedBrush,
   layoutStyle,
-  showTextHints
+  showTextHints,
 } from "@/settings/view/overlay/store";
 import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
 import { cameraSwitchControlEnabled, torchSwitchControlEnabled } from "@/settings/view/controls/store";

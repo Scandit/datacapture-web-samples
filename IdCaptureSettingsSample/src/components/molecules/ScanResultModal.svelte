@@ -34,8 +34,8 @@
     birthDate = new Intl.DateTimeFormat([], { timeZone: "UTC" }).format(
       Date.UTC(
         $scannedDocument.dateOfBirth.year,
-        $scannedDocument.dateOfBirth.month - 1,
-        $scannedDocument.dateOfBirth.day
+        ($scannedDocument.dateOfBirth.month ?? 1) - 1,
+        $scannedDocument.dateOfBirth.day ?? 1
       )
     );
   }
