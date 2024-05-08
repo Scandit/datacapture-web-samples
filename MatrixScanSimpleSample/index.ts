@@ -6,7 +6,7 @@ import {
   FrameSourceState,
   configure,
 } from "scandit-web-datacapture-core";
-import type { BarcodeTrackingSession, SymbologySettings, TrackedBarcode } from "scandit-web-datacapture-barcode";
+import type { BarcodeTrackingSession, TrackedBarcode } from "scandit-web-datacapture-barcode";
 import {
   BarcodeTracking,
   BarcodeTrackingBasicOverlay,
@@ -18,10 +18,10 @@ import {
   barcodeCaptureLoader,
 } from "scandit-web-datacapture-barcode";
 
-import { SdcUiButton } from "./components/sdcUiButton";
-import { SdcUiDrawerBottom } from "./components/sdcUiDrawerBottom";
-import { SdcUiBarcodeList, SdcUiBarcodeListItem } from "./components/sdcUiBarcodeList";
-import { define, removeAllChildNodes } from "./utils";
+import { SdcUiButton } from "./components/sdcUiButton.js";
+import { SdcUiDrawerBottom } from "./components/sdcUiDrawerBottom.js";
+import { SdcUiBarcodeList, SdcUiBarcodeListItem } from "./components/sdcUiBarcodeList.js";
+import { define, removeAllChildNodes } from "./utils.js";
 
 async function run(): Promise<void> {
   define({
@@ -80,20 +80,9 @@ async function run(): Promise<void> {
     Symbology.EAN13UPCA,
     Symbology.EAN8,
     Symbology.UPCE,
-    Symbology.QR,
-    Symbology.DataMatrix,
     Symbology.Code39,
     Symbology.Code128,
-    Symbology.InterleavedTwoOfFive,
   ]);
-
-  // Some linear/1D barcode symbologies allow you to encode variable-length data. By default, the Scandit
-  // Data Capture SDK only scans barcodes in a certain length range. If your application requires scanning of one
-  // of these symbologies, and the length is falling outside the default range, you may need to adjust the "active
-  // symbol counts" for this symbology. This is shown in the following few lines of code for one of the
-  // variable-length symbologies.
-  const symbologySettings: SymbologySettings = settings.settingsForSymbology(Symbology.Code39);
-  symbologySettings.activeSymbolCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
   // Create a new barcode tracking mode with the settings from above.
   const barcodeTracking = await BarcodeTracking.forContext(context, settings);
@@ -121,7 +110,7 @@ async function run(): Promise<void> {
 
   // Switch the camera on to start streaming frames.
   // The camera is started asynchronously and will take some time to completely turn on.
-  await camera.switchToDesiredState(FrameSourceState.On);
+  await context.frameSource?.switchToDesiredState(FrameSourceState.On);
   await barcodeTracking.setEnabled(true);
   view.hideProgressBar();
 

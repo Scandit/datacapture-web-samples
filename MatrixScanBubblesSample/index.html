@@ -22,7 +22,7 @@
         font-family: Helvetica, sans-serif;
       }
 
-      body:not(.componentsDefined) .fixed-bottom, body:not(.componentsDefined) sdc-ui-drawer-bottom {
+      body:not(.componentsDefined) .fixed-bottom, body:not(.componentsDefined) sdc-ui-button {
         display: none;
       }
 
@@ -33,10 +33,6 @@
         width: 100vw;
         height: 100svh;
         transition: transform 200ms ease-in-out;
-      }
-
-      #data-capture-view.scaled {
-        transform: scale(0.95);
       }
 
       .fixed-bottom {
@@ -52,13 +48,7 @@
   <body>
     <div id="data-capture-view"></div>
     <div class="fixed-bottom">
-      <sdc-ui-button>Done</sdc-ui-button>
+      <sdc-ui-button></sdc-ui-button>
     </div>
-    <sdc-ui-drawer-bottom>
-     <sdc-ui-barcode-list slot="body"></sdc-ui-barcode-list>
-      <sdc-ui-button slot="footer">
-        Scan again
-      </sdc-ui-button>
-    </sdc-ui-drawer-bottom>
   </body>
 </html>

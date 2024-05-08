@@ -110,10 +110,10 @@ async function run(): Promise<void> {
   // Register a listener to get informed whenever a new barcode got recognized.
   barcodeCapture.addListener({
     didScan: async (barcodeCaptureMode: BarcodeCapture, session: BarcodeCaptureSession) => {
+      // Disable the mode to avoid unwanted scan until the user closes the displayed result.
+      await barcodeCapture.setEnabled(false);
       // Hide the viewfinder.
       await barcodeCaptureOverlay.setViewfinder(null);
-      // Disable the capture of barcodes until the user closes the displayed result.
-      await barcodeCapture.setEnabled(false);
       const barcode: Barcode = session.newlyRecognizedBarcodes[0];
       const symbology: SymbologyDescription = new SymbologyDescription(barcode.symbology);
       showResult(`Scanned: ${barcode.data ?? ""}\n(${symbology.readableName})`);
@@ -157,7 +157,7 @@ async function run(): Promise<void> {
 
     resultElement.append(paragraph, button);
     resultElement.querySelector(".result-text")!.textContent = result;
-    document.querySelector("#data-capture-view")!.append(resultElement);
+    document.body.append(resultElement);
   }
 }
 

@@ -8,6 +8,7 @@
   const fieldNameByKey = {
     firstName: "First Name",
     lastName: "Last Name",
+    secondaryLastName: "Secondary Last Name",
     fullName: "Full Name",
     sex: "Sex",
     dateOfBirth: "Date of Birth",

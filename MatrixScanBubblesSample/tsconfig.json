@@ -1,16 +1,16 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "module": "NodeNext",
+    "module": "esnext",
     "target": "esnext",
     "lib": ["DOM", "ES2020"],
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
   },
   "include": ["*.ts"],
   "exclude": ["node_modules"]

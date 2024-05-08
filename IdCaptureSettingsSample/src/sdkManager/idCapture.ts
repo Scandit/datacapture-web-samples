@@ -65,6 +65,7 @@ export class SDKIdCaptureManager {
       IdImageType.IdFront,
       settings.getShouldPassImageTypeToResult(IdImageType.IdFront)
     );
+    newSettings.rejectVoidedIds = settings.rejectVoidedIds;
     return newSettings;
   }
 
@@ -158,6 +159,12 @@ export class SDKIdCaptureManager {
   public async updateAnonymizationMode(mode: string): Promise<void> {
     const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings);
     newSettings.anonymizationMode = mode as IdAnonymizationMode;
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectVoidedIds(rejectVoidedIds: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings);
+    newSettings.rejectVoidedIds = rejectVoidedIds;
     await this.applyIdCaptureSettings(newSettings);
   }
 

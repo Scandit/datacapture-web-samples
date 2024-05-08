@@ -3,8 +3,9 @@
   import SettingsEntry from "@/settings/SettingsEntry.svelte";
   import { idCaptureApplyingSettingStore, idCaptureSettingsStore } from "./store";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
+  import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
-  import { valueFromInput } from "@/helper";
+  import { valueFromInput, valueFromCheckbox } from "@/helper";
   import { IdAnonymizationMode, IdImageType, SupportedSides } from "scandit-web-datacapture-id";
   import Spinner from "@/components/atoms/Spinner.svelte";
 
@@ -66,5 +67,10 @@
         <div>Feedbacks</div>
       </div>
     </SettingsEntry>
+    <CheckboxSetting
+        id="rejectVoidedIds"
+        checked={$idCaptureSettingsStore.rejectVoidedIds}
+        disabled={$idCaptureApplyingSettingStore}
+        on:change={(e) => sdkManager.idCapture.updateRejectVoidedIds(valueFromCheckbox(e))}>Reject Voided IDs</CheckboxSetting>
   </svelte:fragment>
 </SidebarRoute>
