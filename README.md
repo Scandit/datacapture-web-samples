@@ -14,4 +14,6 @@ You can also try them directly in StackBlitz by following the links below.
 
 - MatrixScanSimpleSample [![MatrixScanSimpleSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/MatrixScanSimpleSample?file=index.html)
 
+- ListBuildingSample [![ListBuildingSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/ListBuildingSample)
+
 If you want to learn more about the SDK, check out the complete documentation and getting started guides [here](https://docs.scandit.com/data-capture-sdk/web/).

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, width=device-width, viewport-fit=cover, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.icon" />
+    <title>List Building Sample</title>
+    <style>
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+    </style>
+    <script type="module" src="src/main.ts"></script>
+  </head>
+  <body class="relative w-dvw h-dvh overscroll-none touch-none">
+    <div
+      id="loadingOverlay"
+      class="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-white pointer-events-none transition font-bold z-50"
+    >
+      Loading: 0%
+    </div>
+    <div class="p-4 flex justify-between items-center max-h-[56px]">
+      <p id="scannedItemsText" class="font-bold">0 items scanned</p>
+      <button id="clearListButton" class="text-red-600 uppercase">Clear list</button>
+    </div>
+    <ul id="scannedItemsList" class="divide-y-2 h-[calc(100dvh-56px)] overflow-y-scroll"></ul>
+  </body>
+</html>

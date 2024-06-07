@@ -34,9 +34,9 @@ import type {
   TrackedBarcodeViewOptions,
 } from "scandit-web-datacapture-barcode";
 
-import { SdcUiButton } from "./components/sdcUiButton";
-import { BubbleComponent } from "./BubbleComponent";
-import { define } from "./utils";
+import { SdcUiButton } from "./components/sdcUiButton.js";
+import { BubbleComponent } from "./BubbleComponent.js";
+import { define } from "./utils.js";
 
 async function run(): Promise<void> {
   let state: "freeze" | "unfreeze" = "unfreeze";

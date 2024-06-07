@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import { ConfigEnv, Plugin, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-
 import type { IncomingMessage, OutgoingMessage } from "node:http";
+
 dotenv.config();
 
 interface VitePluginScanditOptions {

@@ -1,0 +1,51 @@
+{
+  "name": "web-list-building-sample",
+  "displayName": "WebLisBuildingSample",
+  "author": "Scandit",
+  "description": "This sample demonstrates the functionality of the SparkScan API.",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "fast-build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --fix 'src/**/*.ts'",
+    "format": "prettier --write './src/**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.2",
+    "autoprefixer": "^10.4.15",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jest": "^27.4.0",
+    "eslint-plugin-jest-dom": "^5.1.0",
+    "eslint-plugin-jest-formatting": "^3.1.0",
+    "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-no-unsanitized": "^4.0.2",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-regexp": "^1.15.0",
+    "eslint-plugin-security": "^1.7.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sonarjs": "^0.21.0",
+    "eslint-plugin-unicorn": "^48.0.1",
+    "postcss": "^8.4.29",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-static-copy": "^0.17.0"
+  },
+  "dependencies": {
+    "@preact/signals": "^1.2.3",
+    "scandit-web-datacapture-barcode": "6.24.1",
+    "scandit-web-datacapture-core": "6.24.1"
+  }
+}
