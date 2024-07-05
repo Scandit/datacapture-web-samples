@@ -2,14 +2,10 @@
 
 Example of how to use the US driver license verification with ID Capture into your application.
 
-# ID Capture Simple Sample
-
-Simple example of how to integrate ID capture into your application.
-
 ## Prerequisites
 
 Before proceeding, you will need a valid Scandit DataCapture SDK license key.
-You can retrieve it by signing into your account at https://ssl.scandit.com.
+You can retrieve it by signing into your account at <https://ssl.scandit.com>.
 
 ## Installation
 
@@ -25,7 +21,7 @@ Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
 
 - running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build`
 - placing your license key in a .env file at the root of the sample directory
-- or by inserting your license key into `src/data-capture/DataCapture.svelte`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
+- or by inserting your license key into `index.ts`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Build and serve the application:
 
@@ -34,7 +30,7 @@ npm run build
 npm run serve
 ```
 
-Open http://localhost:8888 and start scanning.
+Open <http://localhost:8888> and start scanning.
 
 ## How to test the sample from any device
 
@@ -53,7 +49,7 @@ Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
 
 - running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run dev`
 - placing your license key in a .env file at the root of the sample directory
-- or by inserting your license key into `src/data-capture/DataCapture.svelte`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
+- or by inserting your license key into `index.ts`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Start the development server:
 
@@ -61,4 +57,4 @@ Start the development server:
 npm run dev
 ```
 
-Open http://localhost:8888 and start scanning.
+Open <http://localhost:8888> and start scanning.

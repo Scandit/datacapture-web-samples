@@ -72,9 +72,8 @@ export function createSDKFacade(): SDK {
 
   return {
     async initialize() {
-      // There is a Scandit sample license key set below here.
-      // This license key is enabled for sample evaluation only.
-      // If you want to build your own application, get your license key by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
+      // Enter your Scandit License key here.
+      // Your Scandit License key is available via your Scandit SDK web account.
       // The library location option represents the location of the wasm file, which will be fetched asynchronously.
       await configure({
         libraryLocation: new URL("library/engine", document.baseURI).toString(),

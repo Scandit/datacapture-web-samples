@@ -1,0 +1,9 @@
+{
+  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "include": ["src/renderer/**/*.ts", "env.d.ts", "src/preload/*.d.ts"],
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2020",
+    "lib": ["es2020", "dom", "dom.iterable"]
+  }
+}

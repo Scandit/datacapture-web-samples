@@ -23,6 +23,8 @@
     race: "Race",
     religion: "Religion",
     residentialStatus: "Residential Status",
+    mothersName: "Mother's Name",
+    fathersName: "Father's Name",
   };
 </script>
 

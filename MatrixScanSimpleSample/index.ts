@@ -40,9 +40,8 @@ async function run(): Promise<void> {
 
   // Show the loading layer
   view.showProgressBar();
-  // There is a Scandit sample license key set below here.
-  // This license key is enabled for sample evaluation only.
-  // If you want to build your own application, get your license key by signing up for a trial at https://ssl.scandit.com/dashboard/sign-up?p=test
+  // Enter your Scandit License key here.
+  // Your Scandit License key is available via your Scandit SDK web account.
   // The passed parameter represents the location of the wasm file, which will be fetched asynchronously.
   // You must `await` the returned promise to be able to continue.
   await configure({
@@ -119,7 +118,7 @@ async function run(): Promise<void> {
   const continueButton = drawer.querySelector("sdc-ui-button")!;
   const list = drawer.querySelector("sdc-ui-barcode-list")!;
 
-  function addBarcodesToList(listElement: SdcUiBarcodeList, barcodes: TrackedBarcode[]): void {
+  function addBarcodesToList(listElement: SdcUiBarcodeList, barcodes: IterableIterator<TrackedBarcode>): void {
     removeAllChildNodes(listElement);
     const fragment = document.createDocumentFragment();
     for (const trackedBarcode of barcodes) {
@@ -140,7 +139,15 @@ async function run(): Promise<void> {
 
   doneButton.addEventListener("click", async () => {
     await barcodeTracking.setEnabled(false);
-    addBarcodesToList(list, Object.values(trackedBarcodes));
+    const noDuplicated = new Map<string, TrackedBarcode>();
+    for (const trackedBarcode of Object.values(trackedBarcodes)) {
+      const { data, symbology } = trackedBarcode.barcode;
+      const key = `${symbology}${data ?? "??"}`;
+      if (!noDuplicated.has(key)) {
+        noDuplicated.set(key, trackedBarcode);
+      }
+    }
+    addBarcodesToList(list, noDuplicated.values());
     drawer.open = true;
     document.getElementById("data-capture-view")!.classList.add("scaled");
   });
@@ -157,5 +164,5 @@ async function run(): Promise<void> {
 run().catch((error: unknown) => {
   // eslint-disable-next-line no-console
   console.error(error);
-  alert(JSON.stringify(error, null, 2));
+  alert((error as Error).toString());
 });

@@ -164,9 +164,10 @@ window.dispatchAction = async (...arguments_) => {
   }
 };
 
-run().catch((error) => {
+run().catch((error: unknown) => {
+  // eslint-disable-next-line no-console
   console.error(error);
-  alert(JSON.stringify(error, null, 2));
+  alert((error as Error).toString());
 });
 
 declare global {

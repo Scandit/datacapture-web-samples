@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob:; connect-src 'self' *.scandit.com; img-src 'self' data: android-webview-video-poster: blob:; font-src 'self' data:; script-src 'self' blob: data: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src 'self' data: blob:; frame-src 'self'; child-src 'self' blob:; worker-src 'self' blob:; object-src 'none'">
+
+    <title>Electron Barcode Capture Simple Sample</title>
+  </head>
+  <body>
+    <div id="data-capture-view"></div>
+    <script type="module" src="./src/renderer.ts"></script>
+  </body>
+</html>

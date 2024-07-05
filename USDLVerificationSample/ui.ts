@@ -170,7 +170,8 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
       mismatchImage.className = "id-mismatch-image";
       mismatchImage.src = aamvaVizBarcodeComparisonResult.frontMismatchImage;
       result.append(mismatchImage);
-    } else if (capturedId.aamvaBarcodeResult != null) {
+    }
+    if (!aamvaVizBarcodeComparisonResult.mismatchHighlightingEnabled) {
       result.append(getPanel("warn", "Your license does not support highlighting discrepancies."));
     }
   }
