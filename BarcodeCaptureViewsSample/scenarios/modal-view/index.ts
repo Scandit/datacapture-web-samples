@@ -152,7 +152,10 @@ async function run(): Promise<void> {
   // When a scan happened, we populate the input and close the modal.
   async function didScan(barcodeCaptureMode: BarcodeCapture, session: BarcodeCaptureSession): Promise<void> {
     await barcodeCapture.setEnabled(false);
-    const barcode: Barcode = session.newlyRecognizedBarcodes[0];
+    const barcode: Barcode | null = session.newlyRecognizedBarcode;
+    if (!barcode) {
+      return;
+    }
     await closeModal();
     pageElements.input.value = barcode.data ?? "";
   }

@@ -113,7 +113,10 @@ async function run(): Promise<void> {
       await barcodeCapture.setEnabled(false);
       // Hide the viewfinder.
       await barcodeCaptureOverlay.setViewfinder(null);
-      const barcode: Barcode = session.newlyRecognizedBarcodes[0];
+      const barcode: Barcode | null = session.newlyRecognizedBarcode;
+      if (!barcode) {
+        return;
+      }
       const symbology: SymbologyDescription = new SymbologyDescription(barcode.symbology);
       showResult(`Scanned: ${barcode.data ?? ""}\n(${symbology.readableName})`);
     },

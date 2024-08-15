@@ -4,7 +4,6 @@
   import { ViewfinderType, viewfinderType } from "@/settings/view/viewfinder/store";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import RectangularViewfinderSettings from "@/settings/view/viewfinder/RectangularViewfinderSettings.svelte";
-  import LaserlineViewfinderSettings from "@/settings/view/viewfinder/LaserlineViewfinderSettings.svelte";
   import AimerViewfinderSettings from "@/settings/view/viewfinder/AimerViewfinderSettings.svelte";
 </script>
 
@@ -23,8 +22,6 @@
     </SelectSetting>
     {#if $viewfinderType === ViewfinderType.Rectangular}
       <RectangularViewfinderSettings />
-    {:else if $viewfinderType === ViewfinderType.Laserline}
-      <LaserlineViewfinderSettings />
     {:else if $viewfinderType === ViewfinderType.Aimer}
       <AimerViewfinderSettings />
     {/if}

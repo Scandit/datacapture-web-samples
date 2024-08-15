@@ -16,11 +16,6 @@ a {
   text-decoration: none;
 }
 
-.scandit-container .scandit-paintboard .scandit-controls {
-  top: var(--navbar-height);
-  height: calc(100vh - var(--navbar-height));
-}
-
 input {
   @apply w-2/4 px-2 py-1 border border-gray-300 transition;
   @apply focus:border-gray-400;

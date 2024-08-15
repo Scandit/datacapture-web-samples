@@ -40,5 +40,14 @@
 </script>
 
 {#each Object.entries(fieldNameByKey) as [key, name]}
-  <ResultField {name} value={data[key]} />
+  {#if key === "barcodeDataElements" && data[key] != null}
+    {#if data.barcodeDataElements != null}
+      <div class="font-bold">{name}</div>
+      {#each Object.entries(data.barcodeDataElements) as [title, content]}
+        <ResultField name={`${title}: `} value={content} />
+      {/each}
+    {/if}
+  {:else}
+    <ResultField {name} value={data[key]} />
+  {/if}
 {/each}

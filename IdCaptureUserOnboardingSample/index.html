@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>ID Capture shutter button sample</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="index.ts"></script>
+  </head>
+  <body style="--scroll: 0">
+    <div id="wrapper" class="h-full">
+      <div id="data-capture-view"></div>
+    </div>
+    <div id="review" hidden>
+      <div class="review__arrow">
+        <img src="./arrow-down.svg" alt="" title="scroll to see all images" />
+      </div>
+      <div>
+        <div class="review__title">Review images</div>
+      </div>
+      <div class="review__images">
+        <div class="review__image-inner"></div>
+        <div class="review__image-inner"></div>
+      </div>
+      <p>By submitting these images, you confirm that they are well-lit, unobstructed and free from glare.</p>
+      <div class="review__cta">
+        <button id="review-ok" class="review__button review__button--primary">Submit images</button>
+        <button id="review-fail" class="review__button">Start over</button>
+      </div>
+    </div>
+    <div id="thanks" hidden>
+      <div>
+        <p>Thank you</p>
+      </div>
+    </div>
+    <div id="timeout" hidden>
+      <div class="panel">
+        <div>
+          <span
+            ><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12ZM22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 7C11.4477 7 11 7.44772 11 8V13C11 13.5523 11.4477 14 12 14C12.5523 14 13 13.5523 13 13V8C13 7.44772 12.5523 7 12 7ZM12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z"
+                fill="white"
+              />
+            </svg>
+          </span>
+          <span>Could not scan ID. Try again or upload documents manually.</span>
+        </div>
+      </div>
+      <div class="timeout__buttons">
+        <button class="cta-button cta-button--primary" id="timeout-try-again">Try again</button>
+        <button class="cta-button cta-button--secondary" id="timeout-manual-upload">Upload document images</button>
+      </div>
+    </div>
+    <div id="backdrop" hidden></div>
+    <div id="loader" hidden><div></div></div>
+    <div id="alert" hidden></div>
+  </body>
+</html>

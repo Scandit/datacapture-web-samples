@@ -11,7 +11,6 @@ import {
   BarcodeTracking,
   BarcodeTrackingBasicOverlay,
   BarcodeTrackingBasicOverlayStyle,
-  BarcodeTrackingScenario,
   BarcodeTrackingSettings,
   Symbology,
   SymbologyDescription,
@@ -70,7 +69,7 @@ async function run(): Promise<void> {
 
   // The barcode tracking process is configured through barcode tracking settings,
   // they are then applied to the barcode tracking instance that manages barcode recognition.
-  const settings: BarcodeTrackingSettings = BarcodeTrackingSettings.forScenario(BarcodeTrackingScenario.A);
+  const settings: BarcodeTrackingSettings = new BarcodeTrackingSettings();
 
   // The settings instance initially has all types of barcodes (symbologies) disabled. For the purpose of this
   // sample we enable a very generous set of symbologies. In your own app ensure that you only enable the

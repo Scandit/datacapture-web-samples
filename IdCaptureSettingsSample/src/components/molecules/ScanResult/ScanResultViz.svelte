@@ -23,11 +23,29 @@
     race: "Race",
     religion: "Religion",
     residentialStatus: "Residential Status",
+    firstName: "VIZ First Name",
+    fullName: "VIZ Full Name",
+    lastName: "VIZ Last Name",
+    secondaryLastName: "VIZ Secondary Last Name",
     mothersName: "Mother's Name",
     fathersName: "Father's Name",
+    drivingLicenseDetails: "Driving License Details",
   };
 </script>
 
 {#each Object.entries(fieldNameByKey) as [key, name]}
-  <ResultField {name} value={data[key]} />
+  {#if key === "drivingLicenseDetails" && data[key] != null}
+    {#if data.drivingLicenseDetails != null}
+      {#each data.drivingLicenseDetails.drivingLicenseCategories as category, index}
+        <ResultField name={`Driving License Details ${index + 1} -  code`} value={category.code} />
+        <ResultField name={`Driving License Details ${index + 1} -  date of issue`} value={category.dateOfIssue} />
+        <ResultField name={`Driving License Details ${index + 1} -  date of expiry`} value={category.dateOfExpiry} />
+      {/each}
+
+      <ResultField name={`Driving License Details - Restrictions`} value={data.drivingLicenseDetails.restrictions} />
+      <ResultField name={`Driving License Details - Endorsements`} value={data.drivingLicenseDetails.endorsements} />
+    {/if}
+  {:else}
+    <ResultField {name} value={data[key]} />
+  {/if}
 {/each}

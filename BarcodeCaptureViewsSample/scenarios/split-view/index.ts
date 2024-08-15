@@ -1,15 +1,11 @@
 import type { Viewfinder } from "scandit-web-datacapture-core";
 import {
+  AimerViewfinder,
   Camera,
   CameraSwitchControl,
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
-  LaserlineViewfinder,
-  LaserlineViewfinderStyle,
-  MarginsWithUnit,
-  MeasureUnit,
-  NumberWithUnit,
   configure,
 } from "scandit-web-datacapture-core";
 import type { Barcode, BarcodeCaptureSession } from "scandit-web-datacapture-barcode";
@@ -102,7 +98,10 @@ async function run(): Promise<void> {
     didScan: (barcodeCaptureMode: BarcodeCapture, session: BarcodeCaptureSession) => {
       // Restart the timer when activity is detected.
       startTimer();
-      const barcode: Barcode = session.newlyRecognizedBarcodes[0];
+      const barcode: Barcode | null = session.newlyRecognizedBarcode;
+      if (!barcode) {
+        return;
+      }
       const symbology: SymbologyDescription = new SymbologyDescription(barcode.symbology);
       showResult(barcode.data!, symbology.readableName);
     },
@@ -118,19 +117,8 @@ async function run(): Promise<void> {
     view,
     BarcodeCaptureOverlayStyle.Frame
   );
-  const viewfinder: Viewfinder = new LaserlineViewfinder(LaserlineViewfinderStyle.Animated);
+  const viewfinder: Viewfinder = new AimerViewfinder();
   await barcodeCaptureOverlay.setViewfinder(viewfinder);
-
-  // Restrict the active scan area to the laser's area.
-  // Note: you could visualize the scan area for debug purpose by setting the "shouldShowScanAreaGuides" property
-  // on the overlay to true.
-  const margins = new MarginsWithUnit(
-    new NumberWithUnit(0, MeasureUnit.Fraction),
-    new NumberWithUnit(0.4, MeasureUnit.Fraction),
-    new NumberWithUnit(0, MeasureUnit.Fraction),
-    new NumberWithUnit(0.4, MeasureUnit.Fraction)
-  );
-  view.scanAreaMargins = margins;
 
   // Switch the camera on to start streaming frames.
   await switchCameraOn();

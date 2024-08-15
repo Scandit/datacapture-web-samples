@@ -1,4 +1,10 @@
-import type { IdDocumentType, IdCaptureSession, IdAnonymizationMode, SupportedSides } from "scandit-web-datacapture-id";
+import type {
+  IdDocumentType,
+  IdCaptureSession,
+  IdAnonymizationMode,
+  IdCaptureTrigger,
+  SupportedSides,
+} from "scandit-web-datacapture-id";
 import {
   IdCapture,
   IdCaptureSettings,
@@ -53,6 +59,7 @@ export class SDKIdCaptureManager {
     newSettings.supportedSides = settings.supportedSides;
     newSettings.supportedDocuments = [...settings.supportedDocuments];
     newSettings.anonymizationMode = settings.anonymizationMode;
+    newSettings.captureTrigger = settings.captureTrigger;
     newSettings.setShouldPassImageTypeToResult(
       IdImageType.Face,
       settings.getShouldPassImageTypeToResult(IdImageType.Face)
@@ -66,6 +73,7 @@ export class SDKIdCaptureManager {
       settings.getShouldPassImageTypeToResult(IdImageType.IdFront)
     );
     newSettings.rejectVoidedIds = settings.rejectVoidedIds;
+    newSettings.decodeBackOfEuropeanDrivingLicense = settings.decodeBackOfEuropeanDrivingLicense;
     return newSettings;
   }
 
@@ -162,9 +170,21 @@ export class SDKIdCaptureManager {
     await this.applyIdCaptureSettings(newSettings);
   }
 
+  public async updateCaptureTrigger(trigger: string): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings);
+    newSettings.captureTrigger = trigger as IdCaptureTrigger;
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
   public async updateRejectVoidedIds(rejectVoidedIds: boolean): Promise<void> {
     const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings);
     newSettings.rejectVoidedIds = rejectVoidedIds;
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateDecodeBackOfEuropeanDrivingLicense(decodeBackOfEuropeanDrivingLicense: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings);
+    newSettings.decodeBackOfEuropeanDrivingLicense = decodeBackOfEuropeanDrivingLicense;
     await this.applyIdCaptureSettings(newSettings);
   }
 

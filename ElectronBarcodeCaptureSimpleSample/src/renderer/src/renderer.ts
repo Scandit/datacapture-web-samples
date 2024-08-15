@@ -111,7 +111,10 @@ async function run(): Promise<void> {
       await barcodeCaptureOverlay.setViewfinder(null)
       // Disable the capture of barcodes until the user closes the displayed result.
       await barcodeCapture.setEnabled(false)
-      const barcode: Barcode = session.newlyRecognizedBarcodes[0]
+      const barcode: Barcode | null = session.newlyRecognizedBarcode
+      if (!barcode) {
+        return
+      }
       const symbology: SymbologyDescription = new SymbologyDescription(barcode.symbology)
       showResult(`Scanned: ${barcode.data ?? ''}\n(${symbology.readableName})`)
     }
@@ -160,6 +163,6 @@ async function run(): Promise<void> {
 
 run().catch((error: unknown) => {
   // eslint-disable-next-line no-console
-  console.error(error);
-  alert((error as Error).toString());
-});
+  console.error(error)
+  alert((error as Error).toString())
+})

@@ -1,5 +1,4 @@
 import { setAimerViewfinder } from "@/settings/view/viewfinder/aimerViewfinderStore";
-import { setLaserlineViewfinder } from "@/settings/view/viewfinder/laserlineViewfinderStore";
 import { setRectangularViewfinder } from "@/settings/view/viewfinder/rectangularViewfinderStore";
 import { barcodeCaptureOverlay, isSdkConfigured } from "@/store";
 import { get, writable } from "svelte/store";
@@ -7,7 +6,6 @@ import { get, writable } from "svelte/store";
 export enum ViewfinderType {
   None = "None",
   Rectangular = "Rectangular",
-  Laserline = "Laserline",
   Aimer = "Aimer",
 }
 
@@ -22,10 +20,6 @@ export function setupViewfinderStore(): void {
     }
     if ($viewfinderType === ViewfinderType.Rectangular) {
       await setRectangularViewfinder();
-      return;
-    }
-    if ($viewfinderType === ViewfinderType.Laserline) {
-      await setLaserlineViewfinder();
       return;
     }
     await setAimerViewfinder();

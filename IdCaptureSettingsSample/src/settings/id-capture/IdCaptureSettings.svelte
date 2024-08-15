@@ -6,7 +6,7 @@
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import { valueFromInput, valueFromCheckbox } from "@/helper";
-  import { IdAnonymizationMode, IdImageType, SupportedSides } from "scandit-web-datacapture-id";
+  import { IdAnonymizationMode, IdCaptureTrigger, IdImageType, SupportedSides } from "scandit-web-datacapture-id";
   import Spinner from "@/components/atoms/Spinner.svelte";
 
   const selectedImageTypesCount = [
@@ -62,15 +62,37 @@
         {/each}
       </svelte:fragment>
     </SelectSetting>
+    <SelectSetting
+      id="captureTrigger"
+      bind:value={$idCaptureSettingsStore.captureTrigger}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateCaptureTrigger(valueFromInput(e))}
+    >
+      Capture trigger
+      <svelte:fragment slot="options">
+        {#each Object.values(IdCaptureTrigger) as trigger}
+          <option value={trigger}>{trigger}</option>
+        {/each}
+      </svelte:fragment>
+    </SelectSetting>
     <SettingsEntry to="/settings/id-capture/feedback">
       <div class="w-full flex">
         <div>Feedbacks</div>
       </div>
     </SettingsEntry>
     <CheckboxSetting
-        id="rejectVoidedIds"
-        checked={$idCaptureSettingsStore.rejectVoidedIds}
-        disabled={$idCaptureApplyingSettingStore}
-        on:change={(e) => sdkManager.idCapture.updateRejectVoidedIds(valueFromCheckbox(e))}>Reject Voided IDs</CheckboxSetting>
+      id="rejectVoidedIds"
+      checked={$idCaptureSettingsStore.rejectVoidedIds}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateRejectVoidedIds(valueFromCheckbox(e))}
+      >Reject Voided IDs</CheckboxSetting
+    >
+    <CheckboxSetting
+      id="decodeBackOfEuropeanDrivingLicense"
+      checked={$idCaptureSettingsStore.decodeBackOfEuropeanDrivingLicense}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateDecodeBackOfEuropeanDrivingLicense(valueFromCheckbox(e))}
+      >Decode Back of European Driver's License</CheckboxSetting
+    >
   </svelte:fragment>
 </SidebarRoute>
