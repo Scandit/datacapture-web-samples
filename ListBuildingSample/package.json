@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@preact/signals": "^1.2.3",
-    "scandit-web-datacapture-barcode": "6.26.0",
-    "scandit-web-datacapture-core": "6.26.0"
+    "scandit-web-datacapture-barcode": "6.27.0",
+    "scandit-web-datacapture-core": "6.27.0"
   }
 }
