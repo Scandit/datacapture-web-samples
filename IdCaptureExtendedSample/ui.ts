@@ -432,6 +432,8 @@ export function showResult(capturedId: SDCId.CapturedId): void {
         ["Race", data.race],
         ["Religion", data.religion],
         ["Residential Status", data.residentialStatus],
+        ["Blood Type", data.bloodType],
+        ["Sponsor", data.sponsor],
         ["Captured Sides", data.capturedSides],
         ["Is Back Side Capture Supported", data.isBackSideCaptureSupported],
       ])

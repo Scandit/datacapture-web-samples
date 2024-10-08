@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Camera,
   CameraSwitchControl,
   DataCaptureContext,
@@ -36,6 +37,8 @@ async function run(): Promise<void> {
 
   // Connect the data capture view to the HTML element.
   view.connectToElement(document.getElementById("data-capture-view")!);
+
+  view.logoAnchor = Anchor.TopRight;
 
   // Show the loading layer
   view.showProgressBar();

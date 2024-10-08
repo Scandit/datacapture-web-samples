@@ -30,6 +30,8 @@
     mothersName: "Mother's Name",
     fathersName: "Father's Name",
     drivingLicenseDetails: "Driving License Details",
+    bloodType: "Blood Type",
+    sponsor: "Sponsor",
   };
 </script>
 

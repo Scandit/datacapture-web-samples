@@ -13,7 +13,6 @@ import {
 } from "scandit-web-datacapture-core";
 import type { IdCaptureError, IdCaptureListener, IdCaptureSession, CapturedId } from "scandit-web-datacapture-id";
 import {
-  DocumentType,
   IdCapture,
   IdCaptureErrorCode,
   IdCaptureOverlay,
@@ -30,8 +29,8 @@ const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
 let context: DataCaptureContext;
 let idCapture: IdCapture;
 let view: DataCaptureView;
-let blobFrontSide: Blob | null | undefined = null;
-let blobBackSide: Blob | null | undefined = null;
+let frontSideData: string | null | undefined = null;
+let backSideData: string | null | undefined = null;
 let lastCameraFrameSource: FrameSource | null = null;
 let singleImageFrameSource: SingleImageUploader | null = null;
 let finalCapturedId: CapturedId | null = null;
@@ -45,6 +44,24 @@ const idCaptureCameraListener: IdCaptureListener = {
 const idCaptureManualUploadListener: IdCaptureListener = {
   didUpdateSession: onManualUploadDidUpdateSession,
 };
+
+async function blobToDataUrl(blob: Blob): Promise<string | null> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("error", (error) => {
+      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
+      reject(error);
+    });
+    reader.addEventListener("load", () => {
+      if (reader.result === null) {
+        resolve(null);
+      } else {
+        resolve(reader.result as string);
+      }
+    });
+    reader.readAsDataURL(blob);
+  });
+}
 
 // Load and initialize all the components
 async function initScanner(): Promise<void> {
@@ -95,14 +112,14 @@ async function onCapturedId(_idCapture: IdCapture, session: IdCaptureSession, fr
   await idCapture.setEnabled(false);
   const capturedId = session.newlyCapturedId;
   if (capturedId.vizResult?.capturedSides === SupportedSides.FrontAndBack) {
-    blobBackSide = await saveImage(frameData);
-    if (blobFrontSide && blobBackSide) {
+    backSideData = await saveImage(frameData);
+    if (frontSideData != null && backSideData != null) {
       showImagesForReview();
       finalCapturedId = capturedId;
     }
   } else {
     finalCapturedId = capturedId;
-    blobFrontSide = await saveImage(frameData);
+    frontSideData = await saveImage(frameData);
     // freeze the camera for a short while to let the user better understand that the front-side has been scanned
     await context.frameSource?.switchToDesiredState(FrameSourceState.Standby);
     await new Promise((resolve) => {
@@ -113,26 +130,27 @@ async function onCapturedId(_idCapture: IdCapture, session: IdCaptureSession, fr
   }
 }
 
-async function saveImage(frameData: FrameData): Promise<Blob | null> {
+async function saveImage(frameData: FrameData): Promise<string | null> {
   const blob = await frameData.toBlob("image/jpeg", 100);
   if (blob == null) {
     await UI.showDialog("Error", "Could not get the image from the captured document. Please start over.", [
       { id: "close", label: "close" },
     ]);
     await startScanner(true);
+    return null;
   }
-  return blob;
+  return blobToDataUrl(blob);
 }
 
 function showImagesForReview(): void {
   const imgFront = new Image();
-  imgFront.src = URL.createObjectURL(blobFrontSide!);
+  imgFront.src = frontSideData!;
   const imagePlaceholders = UI.elements.review.querySelectorAll(".review__image-inner");
   imagePlaceholders[0].innerHTML = "";
   imagePlaceholders[0].append(imgFront);
 
   const imgBack = new Image();
-  imgBack.src = URL.createObjectURL(blobBackSide!);
+  imgBack.src = backSideData!;
   imagePlaceholders[1].innerHTML = "";
   imagePlaceholders[1].append(imgBack);
 
@@ -168,22 +186,22 @@ async function onManualUploadDidUpdateSession(
   session: IdCaptureSession,
   frameData: FrameData
 ): Promise<void> {
-  if (blobFrontSide == null) {
-    blobFrontSide = await saveImage(frameData);
+  if (frontSideData == null) {
+    frontSideData = await saveImage(frameData);
     void UI.showDialog("Success", "Front side image saved", [{ id: "ok", label: "Proceed with back side" }]);
     void showManualUpload();
     return;
   }
 
-  if (blobBackSide == null) {
-    blobBackSide = await saveImage(frameData);
+  if (backSideData == null) {
+    backSideData = await saveImage(frameData);
   }
   showImagesForReview();
 }
 
 async function showManualUpload(): Promise<void> {
   Localization.getInstance().update({
-    "core.singleImageUploader.title": `Take a picture of the ${blobFrontSide ? "BACK" : "FRONT"} side of your ID`,
+    "core.singleImageUploader.title": `Take a picture of the ${frontSideData == null ? "FRONT" : "BACK"} side of your ID`,
     "core.singleImageUploader.button": `Take picture`,
   });
   const { settings } = singleImageFrameSource!;
@@ -213,7 +231,7 @@ function initUIElements(): void {
     UI.closeLoader();
   });
   UI.elements.reviewOkButton.addEventListener("click", () => {
-    // the images are in variables blobFrontSide and blobBackSide
+    // the images are in variables frontSideData and backSideData
     // the captured data is in variable "finalCapturedId"
     alert("Rest of your workflow...");
   });
@@ -240,8 +258,8 @@ async function startScanner(reset: boolean = false): Promise<void> {
   if (reset) {
     await idCapture.reset();
     finalCapturedId = null;
-    blobFrontSide = null;
-    blobBackSide = null;
+    frontSideData = null;
+    backSideData = null;
   }
   idCapture.removeListener(idCaptureManualUploadListener);
   idCapture.addListener(idCaptureCameraListener);

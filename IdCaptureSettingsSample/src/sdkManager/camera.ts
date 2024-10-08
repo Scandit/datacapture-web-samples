@@ -22,11 +22,14 @@ export class SDKCameraManager {
   public async updateFrameSource(deviceId: string): Promise<void> {
     const camera = get(availableCameras).find((cam) => cam.deviceId === deviceId);
     if (camera) {
+      await this.sdkManager.context.frameSource?.switchToDesiredState(FrameSourceState.Off);
       const newCameraSettings = new CameraSettings(get(cameraSettings));
       await camera.applySettings(newCameraSettings);
       await this.sdkManager.context.setFrameSource(camera);
-      await camera.switchToDesiredState(FrameSourceState.On);
-      currentCamera.set(camera);
+      await this.sdkManager.context.frameSource?.switchToDesiredState(FrameSourceState.On);
+      if (this.sdkManager.context.frameSource != null) {
+        currentCamera.set(this.sdkManager.context.frameSource as Camera);
+      }
     }
   }
 
