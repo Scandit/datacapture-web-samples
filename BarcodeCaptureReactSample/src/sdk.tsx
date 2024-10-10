@@ -77,7 +77,7 @@ export function createSDKFacade(): SDK {
       // The library location option represents the location of the wasm file, which will be fetched asynchronously.
       await configure({
         libraryLocation: new URL("library/engine", document.baseURI).toString(),
-        licenseKey: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
+        licenseKey: "AYHjpgNtJozKH6pPSC9h3+EVYaapJ/mrxnS0QFZhsgQkd39yf0Q308dukkywW7emLE2PzkBuHIIxHO9qtBfWJpN2onYwPUKps1N+IAknHv6+P3GOalrUBLBTZSUMQOZBj3lJo40JjVffLO8WDBu8nEwGDGjFIr1VgUgJimcfIGGxbQClwHQATfdkvPom/vzjORbRKGIcFvQVeSUv1nH7CZYuHOmse3YWMaLyfD2Fx1ocWl81NVOS07J5RbxNly5CtFxi6mqruqhLFDbV30QNMTgXoNRlDhapTg659n9m+gIhLokUQQEexIQmfq9/Ahl5TiO3821e90HthQUlMgevkJhJqQnQHOj4VKIpCKTS3htTkGpCs+NiBb5MVBujYUEVeut22ioGTUGTLCZPSQHbqyzpUQ0DEvazP7pFUmJe1R4Lj2tqFR6VK7APe57JRfsRptlonGjow/Hm7aKpHBeCvH759XNMQceU2C5/dq2iSPBzc/AwC+3QMTbMFGFfb3jijvayFwu6lQ7gpmLN8x9acPYWkrNd5+ApOOBgVwyyh1nLrVuf5OTUNXnYLjCzNQS4nbXxzx53rDbSRevdVRIMFuuOfiSV4KoSFSQ9kCkma8f402ORhBIX7snSLsQZ2MfzDPDel9sjJ/oubJ+DRgi3cP4xBhi11zqotOjHZZyp5pNLpaqbKhm/9CW4B/QKtJjDQmncNKBVh7a56l7ykrR02+sBBDl7UKD9g+mjpCN2BpuZPLbPjMD4YaWcoSuQDxx0YjXatYY879cifMNfWADANmNJZ6s4lG3Tu9vo3M/jJqMB+vugjqn21uJ4wQzKk8z2qkdN",
         moduleLoaders: [barcodeCaptureLoader()],
       });
       context = await DataCaptureContext.create();
