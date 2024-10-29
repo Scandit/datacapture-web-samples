@@ -30,7 +30,7 @@ export class DrawerBottom extends HTMLElement {
         </div>
       </dialog>
     `;
-    shadowRoot.prepend(DrawerBottom.css);
+    shadowRoot.prepend(DrawerBottom.css.cloneNode(true));
   }
 
   public static get css(): HTMLStyleElement {

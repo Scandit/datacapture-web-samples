@@ -20,7 +20,7 @@ dotenv.config()
  * @returns {undefined}
  */
 async function createLicenseAndPublicKey() {
-  const license = process.env.WEBSDK6_LICENSE_KEY_ELECTRON
+  const license = process.env.UNIVERSAL_SAMPLE_LICENSE_KEY
 
   if (license == null || license === '') {
     throw new Error('Could not encrypt empty or null string')

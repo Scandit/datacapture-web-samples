@@ -5,10 +5,10 @@ export class BarcodeListItem extends HTMLElement {
     super();
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `<li>
-      <slot name="value"></slot>
+      <slot name="text"></slot>
       <slot name="right"></slot>
     </li>`;
-    shadowRoot.prepend(BarcodeListItem.css);
+    shadowRoot.prepend(BarcodeListItem.css.cloneNode(true));
   }
 
   public static get css(): HTMLStyleElement {
@@ -23,6 +23,15 @@ export class BarcodeListItem extends HTMLElement {
         align-items: center;
         font-weight: 600;
         margin: 1rem 0rem;
+        gap: 0.5rem;
+      }
+
+      ::slotted([slot="text"]) {
+        text-align: left;
+        overflow-x: auto;
+        -webkit-mask-image: linear-gradient(90deg, #000 95%, transparent);
+        mask-image: linear-gradient(90deg, #000 95%, transparent);
+        padding-right: 0.5rem;
       }
     `;
     return styleElement;

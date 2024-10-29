@@ -99,7 +99,8 @@ export class ListView extends HTMLElement {
   private renderBarcodesList(barcodes: Barcode[]): void {
     const fragment = document.createDocumentFragment();
     for (const barcode of barcodes) {
-      const id = `${barcode.symbology}-${barcode.data ?? ""}`;
+      const text: string = barcode.data ?? barcode.rawData;
+      const id = `${barcode.symbology}-${text}`;
       if (this.barcodeList.querySelector(`[id="${id}"]`)) {
         // eslint-disable-next-line no-continue
         continue;
@@ -107,12 +108,12 @@ export class ListView extends HTMLElement {
       const value = document.createElement("div");
       const icon = SearchIconButton.create();
       const barcodeListItem = BarcodeListItem.create();
-      barcodeListItem.id = `${barcode.symbology}-${barcode.data ?? ""}`;
+      barcodeListItem.id = `${barcode.symbology}-${text}`;
       barcodeListItem.dataset.symbology = barcode.symbology;
-      barcodeListItem.dataset.data = barcode.data ?? "???";
-      value.slot = "value";
+      barcodeListItem.dataset.data = text;
+      value.slot = "text";
       icon.slot = "right";
-      value.textContent = barcode.data ?? "???";
+      value.textContent = text;
       barcodeListItem.append(value, icon);
       fragment.append(barcodeListItem);
     }

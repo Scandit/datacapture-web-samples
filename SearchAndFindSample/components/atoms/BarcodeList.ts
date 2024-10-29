@@ -6,7 +6,7 @@ export class BarcodeList extends HTMLElement {
 
     const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `<ul><slot></slot></ul>`;
-    shadowRoot.prepend(BarcodeList.css);
+    shadowRoot.prepend(BarcodeList.css.cloneNode(true));
   }
 
   public static get css(): HTMLStyleElement {
