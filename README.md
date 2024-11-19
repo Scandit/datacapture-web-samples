@@ -14,7 +14,7 @@ You can also try them directly in StackBlitz by following the links below.
 
 - MatrixScanSimpleSample [![MatrixScanSimpleSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/MatrixScanSimpleSample?file=index.html)
 
-<!-- - SearchAndFindSample [![SearchAndFindSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/SearchAndFindSample?file=index.html) -->
+ - SearchAndFindSample [![SearchAndFindSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/SearchAndFindSample?file=index.html)
 
 - ListBuildingSample [![ListBuildingSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/ListBuildingSample)
 
