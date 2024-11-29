@@ -3,7 +3,7 @@
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import { FeedbackType } from "./FeedbackType";
-  import { idCapturedFeedbackStore, idRejectedFeedbackStore, idCaptureTimeoutFeedbackStore } from "./store";
+  import { idCapturedFeedbackStore, idRejectedFeedbackStore } from "./store";
   import { valueFromInput } from "@/helper";
 </script>
 
@@ -30,18 +30,6 @@
       on:change={(e) => sdkManager.idCapture.setIdRejectedFeedback(valueFromInput(e))}
     >
       ID rejected feedback
-      <svelte:fragment slot="options">
-        {#each Object.values(FeedbackType) as type}
-          <option value={type}>{type}</option>
-        {/each}
-      </svelte:fragment>
-    </SelectSetting>
-    <SelectSetting
-      id="idCaptureTimeoutFeedback"
-      bind:value={$idCaptureTimeoutFeedbackStore}
-      on:change={(e) => sdkManager.idCapture.setIdCaptureTimeoutFeedback(valueFromInput(e))}
-    >
-      ID capture timeout feedback
       <svelte:fragment slot="options">
         {#each Object.values(FeedbackType) as type}
           <option value={type}>{type}</option>

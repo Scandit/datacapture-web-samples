@@ -17,6 +17,7 @@
   import SymbologySettingsPage from "@/settings/barcode-capture/symbologies/symbology/SymbologySettings.svelte";
   import { onMount } from "svelte";
   import ScanResultModal from "@/components/molecules/ScanResultModal.svelte";
+  import LicenseModal from "@/components/molecules/LicenseModal.svelte";
   import { continuousScanning } from "@/settings/result/store";
   import ScanResultToast from "@/components/molecules/ScanResultToast.svelte";
   import ScanAreaSettingsPage from "@/settings/view/scan-area/ScanAreaSettings.svelte";
@@ -26,12 +27,14 @@
     BarcodeCaptureOverlay,
     BarcodeCaptureOverlayStyle,
     BarcodeCaptureSettings,
-  } from "scandit-web-datacapture-barcode";
+  } from "@scandit/web-datacapture-barcode";
   import OverlaySettingsPage from "@/settings/view/overlay/OverlaySettings.svelte";
   import ViewfinderSettingsPage from "@/settings/view/viewfinder/ViewfinderSettings.svelte";
   import LogoSettingsPage from "@/settings/view/logo/LogoSettings.svelte";
   import ControlsSettingsPage from "@/settings/view/controls/ControlsSettings.svelte";
   import PointOfInterestSettingsPage from "@/settings/view/point-of-interest/PointOfInterestSettings.svelte";
+  import ScanIntentionSettingsPage from "@/settings/barcode-capture/scan-intention/ScanIntention.svelte";
+
   import {
     barcodeCapture,
     barcodeCaptureOverlay,
@@ -42,23 +45,42 @@
     scannedBarcode,
     showScanResults,
   } from "@/store";
+  import { showLicense } from "@/store";
   import {
     Camera,
     configure,
     DataCaptureContext,
     DataCaptureView,
     FrameSourceState,
-  } from "scandit-web-datacapture-core";
+  } from "@scandit/web-datacapture-core";
 
   onMount(async () => {
     // Enter your Scandit License key here.
     // Your Scandit License key is available via your Scandit SDK web account.
     // The library location option represents the location of the wasm file, which will be fetched asynchronously.
-    await configure({
-      licenseKey: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
-      libraryLocation: new URL("library/engine/", window.location.href.replace(/index\.html.*/, "")).toString(),
-      moduleLoaders: [barcodeCaptureLoader()],
-    });
+    try {
+      await configure({
+        licenseKey: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
+        libraryLocation: new URL("library/engine/", window.location.href.replace(/index\.html.*/, "")).toString(),
+        moduleLoaders: [barcodeCaptureLoader()],
+      });
+    } catch(error: unknown) {
+      const handledError = error as Error;
+      let errorMessage = handledError.toString();
+      if (handledError.name === "NoLicenseKeyError") {
+        errorMessage = `
+          NoLicenseKeyError:
+
+          Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+          - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+          - placing your license key in a \`.env\` file at the root of the sample directory
+          — or by inserting your license key into \`App.svelte\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+        `;
+      }
+      // eslint-disable-next-line no-console
+      console.error(error);
+      alert(errorMessage);
+    }
 
     // Create a new data capture context which will be used for data-capture related tasks.
     $dataCaptureContext = await DataCaptureContext.create();
@@ -105,9 +127,9 @@
     $barcodeCapture.addListener({
       didScan: async (_, barcodeCaptureSession) => {
         // Obtain the newly scanned barcode.
-        $scannedBarcode = barcodeCaptureSession.newlyRecognizedBarcodes[0];
+        $scannedBarcode = barcodeCaptureSession.newlyRecognizedBarcode ?? undefined;
 
-        if ($scannedBarcode.data == null) {
+        if ($scannedBarcode?.data == null) {
           return;
         }
 
@@ -157,6 +179,9 @@
     <Route path="/settings/barcode-capture/location-selection">
       <LocationSelectionSettingsPage />
     </Route>
+    <Route path="/settings/barcode-capture/scan-intention">
+      <ScanIntentionSettingsPage />
+    </Route>
     <Route path="/settings/barcode-capture/feedback">
       <FeedbackSettingsPage />
     </Route>
@@ -193,4 +218,8 @@
   {:else}
     <ScanResultModal />
   {/if}
+{/if}
+
+{#if $showLicense}
+   <LicenseModal />
 {/if}

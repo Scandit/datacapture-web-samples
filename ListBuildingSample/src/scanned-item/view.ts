@@ -1,4 +1,4 @@
-import { SymbologyDescription } from "scandit-web-datacapture-barcode";
+import { SymbologyDescription } from "@scandit/web-datacapture-barcode";
 import type { ScannedItemModel } from "./model";
 
 export class ScannedItemView {

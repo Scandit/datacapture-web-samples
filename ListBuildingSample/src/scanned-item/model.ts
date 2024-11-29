@@ -1,4 +1,4 @@
-import type { Barcode } from "scandit-web-datacapture-barcode";
+import type { Barcode } from "@scandit/web-datacapture-barcode";
 
 export class ScannedItemModel {
   public barcode: Barcode;

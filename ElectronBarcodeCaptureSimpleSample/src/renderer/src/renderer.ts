@@ -10,8 +10,8 @@ import {
   RectangularViewfinderStyle,
   RectangularViewfinderLineStyle,
   FrameSourceState
-} from 'scandit-web-datacapture-core'
-import type { Barcode, BarcodeCaptureSession } from 'scandit-web-datacapture-barcode'
+} from '@scandit/web-datacapture-core'
+import type { Barcode, BarcodeCaptureSession } from '@scandit/web-datacapture-barcode'
 import {
   barcodeCaptureLoader,
   BarcodeCapture,
@@ -20,7 +20,7 @@ import {
   BarcodeCaptureOverlay,
   BarcodeCaptureOverlayStyle,
   SymbologyDescription
-} from 'scandit-web-datacapture-barcode'
+} from '@scandit/web-datacapture-barcode'
 
 declare global {
   interface Window {
@@ -42,14 +42,31 @@ async function run(): Promise<void> {
   // Your Scandit License key is available via your Scandit SDK web account.
   // The passed parameter represents the location of the wasm file, which will be fetched asynchronously.
   // You must `await` the returned promise to be able to continue.
-  await configure({
-    licenseKey: '',
-    // in Electron context, the license would be retrieved through sdc-license.data file internally
-    // the path of the file is path.join(app.getAppPath(), licenseDataPath)
-    licenseDataPath: './out/renderer/data/sdc-license.data',
-    libraryLocation: new URL('library/engine/', document.baseURI).toString(),
-    moduleLoaders: [barcodeCaptureLoader()]
-  })
+  const licenseDataPath = './out/renderer/data/sdc-license.data';
+  try {
+    await configure({
+      licenseKey: '',
+      // in Electron context, the license would be retrieved through sdc-license.data file internally
+      // the path of the file is path.join(app.getAppPath(), licenseDataPath)
+      licenseDataPath,
+      libraryLocation: new URL('library/engine/', document.baseURI).toString(),
+      moduleLoaders: [barcodeCaptureLoader()]
+    })
+  } catch(error: unknown) {
+    let errorMessage = (error as Error).toString();
+    if (error instanceof Error && error.name === "NoLicenseKeyError") {
+      errorMessage = `
+        NoLicenseKeyError:
+
+        Cannot find or decrypt license at path.join(app.getAppPath(), ${licenseDataPath})
+        Make sure license file is correctly encrypted and present in this folder ${licenseDataPath}.
+    `;
+    }
+    // eslint-disable-next-line no-console
+    console.error(error);
+    alert(errorMessage);
+  }
+
 
   // Set the progress bar to be in an indeterminate state
   view.setProgressBarPercentage(null)

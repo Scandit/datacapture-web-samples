@@ -1,6 +1,6 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import type { Barcode, Symbology } from "scandit-web-datacapture-barcode";
+import type { Barcode, Symbology } from "@scandit/web-datacapture-barcode";
 
 import { useSDK } from "./sdk";
 

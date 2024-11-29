@@ -4,7 +4,7 @@
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import { scanAreaMargins } from "@/settings/view/scan-area/store";
-  import type { MarginsWithUnit, NumberWithUnit } from "scandit-web-datacapture-core";
+  import type { MarginsWithUnit, NumberWithUnit } from "@scandit/web-datacapture-core";
 
   function onChange(marginSide: keyof MarginsWithUnit, numberWithUnit: Pick<NumberWithUnit, "unit" | "value">) {
     sdkManager.view.updateScanArea(marginSide, numberWithUnit);

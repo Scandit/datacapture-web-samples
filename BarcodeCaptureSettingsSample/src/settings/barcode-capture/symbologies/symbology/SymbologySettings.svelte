@@ -3,7 +3,7 @@
   import { range } from "@/helpers/range";
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { useParams } from "svelte-navigator";
-  import type { Symbology } from "scandit-web-datacapture-barcode";
+  import type { Symbology } from "@scandit/web-datacapture-barcode";
   import { useSymbologyStore } from "@/settings/barcode-capture/symbologies/symbology/store";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import { onMount } from "svelte";

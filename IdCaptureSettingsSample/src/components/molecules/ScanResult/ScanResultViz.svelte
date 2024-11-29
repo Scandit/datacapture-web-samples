@@ -1,6 +1,6 @@
 <script lang="ts">
   import ResultField from "@/components/atoms/ResultField.svelte";
-  import type { VIZResult } from "scandit-web-datacapture-id";
+  import type { VIZResult } from "@scandit/web-datacapture-id";
 
   type MainType = VIZResult;
   export let data: MainType;
@@ -32,6 +32,8 @@
     drivingLicenseDetails: "Driving License Details",
     bloodType: "Blood Type",
     sponsor: "Sponsor",
+    visaNumber: "Visa Number",
+    passportNumber: "Passport Number",
   };
 </script>
 

@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import type { SDKManager } from "./sdkManager";
-import type { TorchState, VideoResolution } from "scandit-web-datacapture-core";
-import { CameraSettings, FrameSourceState, Camera, CameraAccess } from "scandit-web-datacapture-core";
+import type { TorchState, VideoResolution } from "@scandit/web-datacapture-core";
+import { CameraSettings, FrameSourceState, Camera, CameraAccess } from "@scandit/web-datacapture-core";
 import { get } from "svelte/store";
 import { availableCameras, cameraSettings, currentCamera } from "../settings/camera/store";
 

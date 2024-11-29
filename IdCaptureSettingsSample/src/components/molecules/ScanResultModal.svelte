@@ -4,41 +4,20 @@
   import {
     isSidebarOpen,
     scannedDocument,
+    scannedDocumentBackFrameImage,
     scannedDocumentBackImage,
     scannedDocumentFaceImage,
+    scannedDocumentFrontFrameImage,
     scannedDocumentFrontImage,
     showScanResults,
   } from "@/store";
   import ScanResultViz from "./ScanResult/ScanResultViz.svelte";
-  import ScanResultAamvaBarcode from "./ScanResult/ScanResultAamvaBarcode.svelte";
+  import ScanResultBarcode from "./ScanResult/ScanResultBarcode.svelte";
   import ScanResultCommon from "./ScanResult/ScanResultCommon.svelte";
-  import ScanResultArgentinaIdBarcode from "./ScanResult/ScanResultArgentinaIdBarcode.svelte";
-  import ScanResultApecBusinessTravelCardMrz from "./ScanResult/ScanResultApecBusinessTravelCardMrz.svelte";
-  import ScanResultChinaExitEntryPermitMrz from "./ScanResult/ScanResultChinaExitEntryPermitMrz.svelte";
-  import ScanResultChinaMainlandTravelPermitMrz from "./ScanResult/ScanResultChinaMainlandTravelPermitMrz.svelte";
-  import ScanResultChinaOneWayPermitBackMrz from "./ScanResult/ScanResultChinaOneWayPermitBackMrz.svelte";
-  import ScanResultChinaOneWayPermitFrontMrz from "./ScanResult/ScanResultChinaOneWayPermitFrontMrz.svelte";
-  import ScanResultColombiaDlBarcode from "./ScanResult/ScanResultColombiaDlBarcode.svelte";
-  import ScanResultColombiaIdBarcode from "./ScanResult/ScanResultColombiaIdBarcode.svelte";
-  import ScanResultCommonAccessCardBarcode from "./ScanResult/ScanResultCommonAccessCardBarcode.svelte";
   import ScanResultMrz from "./ScanResult/ScanResultMrz.svelte";
-  import ScanResultSouthAfricaDlBarcode from "./ScanResult/ScanResultSouthAfricaDlBarcode.svelte";
-  import ScanResultSouthAfricaIdBarcode from "./ScanResult/ScanResultSouthAfricaIdBarcode.svelte";
-  import ScanResultUsUniformedServicesBarcode from "./ScanResult/ScanResultUsUniformedServicesBarcode.svelte";
-  import ScanResultUsVisaViz from "./ScanResult/ScanResultUsVisaViz.svelte";
-  import ResultField from "../atoms/ResultField.svelte";
+  import ResultField from "@/components/atoms/ResultField.svelte"
   import { get } from "svelte/store";
 
-  let birthDate: string;
-  if ($scannedDocument?.dateOfBirth) {
-    birthDate = new Intl.DateTimeFormat([], { timeZone: "UTC" }).format(
-      Date.UTC(
-        $scannedDocument.dateOfBirth.year,
-        ($scannedDocument.dateOfBirth.month ?? 1) - 1,
-        $scannedDocument.dateOfBirth.day ?? 1
-      )
-    );
-  }
 
   async function onModalClose() {
     $scannedDocument = null;
@@ -57,7 +36,7 @@
   <h2 slot="header" class="font-bold text-center">Recognized document</h2>
   <div slot="content" class="flex flex-col gap-2">
     {#if $scannedDocument}
-      {#if $scannedDocumentFaceImage || $scannedDocumentFrontImage || $scannedDocumentBackImage}
+      {#if $scannedDocumentFaceImage || $scannedDocumentFrontImage || $scannedDocumentBackImage || $scannedDocumentFrontFrameImage || $scannedDocumentBackFrameImage}
         <div class="font-bold">Images</div>
         {#if $scannedDocumentFaceImage}
           <div>
@@ -86,60 +65,38 @@
             />
           </div>
         {/if}
+        {#if $scannedDocumentFrontFrameImage}
+          <div>
+            <img
+              class="doc-image"
+              src={`data:image/png;base64,${get(scannedDocumentFrontFrameImage)}`}
+              alt="frame's front side"
+            />
+          </div>
+        {/if}
+        {#if $scannedDocumentBackFrameImage}
+          <div>
+            <img
+              class="doc-image"
+              src={`data:image/png;base64,${get(scannedDocumentBackFrameImage)}`}
+              alt="frame's back side"
+            />
+          </div>
+        {/if}
       {/if}
-      <ResultField name="Result types" value={$scannedDocument.capturedResultTypes} />
       <ScanResultCommon data={$scannedDocument} />
       {#if $scannedDocument.vizResult}
         <ScanResultViz data={$scannedDocument.vizResult} />
       {/if}
-      {#if $scannedDocument.aamvaBarcodeResult}
-        <ScanResultAamvaBarcode data={$scannedDocument.aamvaBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.apecBusinessTravelCardMrzResult}
-        <ScanResultApecBusinessTravelCardMrz data={$scannedDocument.apecBusinessTravelCardMrzResult} />
-      {/if}
-      {#if $scannedDocument.argentinaIdBarcodeResult}
-        <ScanResultArgentinaIdBarcode data={$scannedDocument.argentinaIdBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.chinaExitEntryPermitMrzResult}
-        <ScanResultChinaExitEntryPermitMrz data={$scannedDocument.chinaExitEntryPermitMrzResult} />
-      {/if}
-      {#if $scannedDocument.chinaMainlandTravelPermitMrzResult}
-        <ScanResultChinaMainlandTravelPermitMrz data={$scannedDocument.chinaMainlandTravelPermitMrzResult} />
-      {/if}
-      {#if $scannedDocument.chinaOneWayPermitFrontMrzResult}
-        <ScanResultChinaOneWayPermitFrontMrz data={$scannedDocument.chinaOneWayPermitFrontMrzResult} />
-      {/if}
-      {#if $scannedDocument.chinaOneWayPermitBackMrzResult}
-        <ScanResultChinaOneWayPermitBackMrz data={$scannedDocument.chinaOneWayPermitBackMrzResult} />
-      {/if}
-      {#if $scannedDocument.colombiaDlBarcodeResult}
-        <ScanResultColombiaDlBarcode data={$scannedDocument.colombiaDlBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.colombiaIdBarcodeResult}
-        <ScanResultColombiaIdBarcode data={$scannedDocument.colombiaIdBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.commonAccessCardBarcodeResult}
-        <ScanResultCommonAccessCardBarcode data={$scannedDocument.commonAccessCardBarcodeResult} />
+      {#if $scannedDocument.barcode}
+        <ScanResultBarcode data={$scannedDocument.barcode} />
       {/if}
       {#if $scannedDocument.mrzResult != null}
         <ScanResultMrz data={$scannedDocument.mrzResult} />
       {/if}
-      {#if $scannedDocument.southAfricaDlBarcodeResult}
-        <ScanResultSouthAfricaDlBarcode data={$scannedDocument.southAfricaDlBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.southAfricaIdBarcodeResult}
-        <ScanResultSouthAfricaIdBarcode data={$scannedDocument.southAfricaIdBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.usUniformedServicesBarcodeResult}
-        <ScanResultUsUniformedServicesBarcode data={$scannedDocument.usUniformedServicesBarcodeResult} />
-      {/if}
-      {#if $scannedDocument.usVisaVIZResult}
-        <ScanResultUsVisaViz data={$scannedDocument.usVisaVIZResult} />
-      {/if}
     {/if}
   </div>
-  <button slot="footer" class="w-full cta cta--primary" on:click={onModalClose}>Ok</button>
+  <button slot="footer" class="w-full cta cta--primary" on:click={onModalClose}>OK</button>
 </Modal>
 
 <style>

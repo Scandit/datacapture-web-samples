@@ -1,5 +1,5 @@
 import { dataCaptureView, isSdkConfigured } from "@/store";
-import { Anchor, LogoStyle, MeasureUnit, NumberWithUnit, PointWithUnit } from "scandit-web-datacapture-core";
+import { Anchor, LogoStyle, MeasureUnit, NumberWithUnit, PointWithUnit } from "@scandit/web-datacapture-core";
 import { derived, get, writable } from "svelte/store";
 
 export const logoStyles = Object.values(LogoStyle);

@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import type { BarcodeCaptureListener } from "scandit-web-datacapture-barcode";
+import type { BarcodeCaptureListener } from "@scandit/web-datacapture-barcode";
 import {
   BarcodeCapture,
   barcodeCaptureLoader,
   BarcodeCaptureOverlay,
   BarcodeCaptureSettings,
   Symbology,
-} from "scandit-web-datacapture-barcode";
+} from "@scandit/web-datacapture-barcode";
 import {
   Camera,
   CameraSwitchControl,
@@ -15,8 +15,7 @@ import {
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
-  LaserlineViewfinder,
-} from "scandit-web-datacapture-core";
+} from "@scandit/web-datacapture-core";
 
 export interface SDK {
   initialize: () => Promise<void>;
@@ -40,7 +39,6 @@ export interface SDKWithLoadingStatus {
 export function createSDKFacade(): SDK {
   let context: DataCaptureContext | undefined;
   let view: DataCaptureView | undefined;
-  let laserLineViewFinder: LaserlineViewfinder | undefined;
   let settings: BarcodeCaptureSettings | undefined;
   let barcodeCapture: BarcodeCapture | undefined;
   let overlay: BarcodeCaptureOverlay | undefined;
@@ -75,11 +73,30 @@ export function createSDKFacade(): SDK {
       // Enter your Scandit License key here.
       // Your Scandit License key is available via your Scandit SDK web account.
       // The library location option represents the location of the wasm file, which will be fetched asynchronously.
-      await configure({
-        libraryLocation: new URL("library/engine", document.baseURI).toString(),
-        licenseKey: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
-        moduleLoaders: [barcodeCaptureLoader()],
-      });
+      try {
+        await configure({
+          libraryLocation: new URL("library/engine", document.baseURI).toString(),
+          licenseKey: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
+          moduleLoaders: [barcodeCaptureLoader()],
+        });
+      } catch(error: unknown) {
+        const handledError = error as Error;
+        let errorMessage = handledError.toString();
+        if (handledError.name === "NoLicenseKeyError") {
+          errorMessage = `
+          NoLicenseKeyError:
+
+          Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+          - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+          - placing your license key in a \`.env\` file at the root of the sample directory
+          — or by inserting your license key into \`sdk.tsx\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+        `;
+        }
+        // eslint-disable-next-line no-console
+        console.error(error);
+        alert(errorMessage);
+      }
+
       context = await DataCaptureContext.create();
       settings = new BarcodeCaptureSettings();
       settings.enableSymbologies([
@@ -103,8 +120,6 @@ export function createSDKFacade(): SDK {
       await barcodeCapture.setEnabled(false);
 
       overlay = await BarcodeCaptureOverlay.withBarcodeCaptureForView(barcodeCapture, view);
-      laserLineViewFinder = new LaserlineViewfinder();
-      await overlay.setViewfinder(laserLineViewFinder);
       await view.addOverlay(overlay);
 
       camera = Camera.default;
@@ -124,7 +139,6 @@ export function createSDKFacade(): SDK {
         cameraSwitchControl = undefined;
       }
       view?.detachFromElement();
-      laserLineViewFinder = undefined;
       barcodeCapture = undefined;
       context = undefined;
       view = undefined;

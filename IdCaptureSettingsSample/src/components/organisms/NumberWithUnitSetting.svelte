@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { camelCaseToTitleCase } from "@/helpers";
-  import { MeasureUnit } from "scandit-web-datacapture-core";
+  import { camelCaseToTitleCase } from "@/helper";
+  import { MeasureUnit } from "@scandit/web-datacapture-core";
   import { createEventDispatcher } from "svelte";
 
   export let id: string = "";

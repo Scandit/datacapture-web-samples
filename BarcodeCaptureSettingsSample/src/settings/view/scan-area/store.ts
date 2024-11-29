@@ -1,5 +1,5 @@
 import { barcodeCaptureOverlay, dataCaptureView, isSdkConfigured } from "@/store";
-import { MarginsWithUnit, MeasureUnit, NumberWithUnit } from "scandit-web-datacapture-core";
+import { MarginsWithUnit, MeasureUnit, NumberWithUnit } from "@scandit/web-datacapture-core";
 import { derived, get, writable } from "svelte/store";
 
 export const marginTopValue = writable(0);

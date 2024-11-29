@@ -5,7 +5,7 @@ import {
   type Control,
   CameraFOVSwitchControl,
   BrowserHelper,
-} from "scandit-web-datacapture-core";
+} from "@scandit/web-datacapture-core";
 import { get, writable } from "svelte/store";
 
 export const torchSwitchControl = new TorchSwitchControl();

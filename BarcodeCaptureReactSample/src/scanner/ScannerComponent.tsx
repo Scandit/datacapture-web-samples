@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import type { BarcodeCapture, BarcodeCaptureListener, BarcodeCaptureSession } from "scandit-web-datacapture-barcode";
+import type { BarcodeCapture, BarcodeCaptureListener, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";
 
 import { useSDK } from "../sdk";
 import { useStore } from "../store";
@@ -20,10 +20,10 @@ export default function ScannerComponent(): JSX.Element {
   const onScan = useMemo<BarcodeCaptureListener>(
     () => ({
       didScan: async (_: BarcodeCapture, session: BarcodeCaptureSession) => {
-        if (session.newlyRecognizedBarcodes.length > 0) {
+        if (session.newlyRecognizedBarcode) {
           await sdk.enableScanning(false);
           await shouldKeepCameraOn();
-          setBarcode(session.newlyRecognizedBarcodes[0]);
+          setBarcode(session.newlyRecognizedBarcode);
           navigate("/result");
         }
       },

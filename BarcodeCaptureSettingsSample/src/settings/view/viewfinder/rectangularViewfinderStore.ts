@@ -9,7 +9,7 @@ import {
   RectangularViewfinderStyle,
   SizeWithUnit,
   SizingMode,
-} from "scandit-web-datacapture-core";
+} from "@scandit/web-datacapture-core";
 import { derived, get, writable } from "svelte/store";
 
 export enum RectangularViewfinderColorType {

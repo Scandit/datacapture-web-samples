@@ -1,4 +1,4 @@
-import * as SDCId from "scandit-web-datacapture-id";
+import * as SDCId from "@scandit/web-datacapture-id";
 import type { VerificationResult } from ".";
 
 export enum Action {
@@ -150,31 +150,11 @@ function getPanel(
   return fragment;
 }
 
-export function showResult(capturedId: SDCId.CapturedId, verificationResult: VerificationResult): void {
+export async function showResult(capturedId: SDCId.CapturedId, verificationResult: VerificationResult): Promise<void> {
   let header = "";
   const result = document.createDocumentFragment();
 
-  const { isExpired, aamvaVizBarcodeComparisonResult, aamvaBarcodeVerificationResult } = verificationResult;
-
-  // Comparison verification result
-  if (aamvaVizBarcodeComparisonResult === null) {
-    result.append(getPanel("warn", "No result for verification."));
-  } else if (aamvaVizBarcodeComparisonResult.checksPassed) {
-    result.append(getPanel("passed", "Information on front and back matches."));
-  } else {
-    result.append(getPanel("warn", "Information on front and back does not match."));
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (aamvaVizBarcodeComparisonResult.frontMismatchImage !== "") {
-      result.append(getDOMForLabel("Mismatches"));
-      const mismatchImage = new Image();
-      mismatchImage.className = "id-mismatch-image";
-      mismatchImage.src = aamvaVizBarcodeComparisonResult.frontMismatchImage;
-      result.append(mismatchImage);
-    }
-    if (!aamvaVizBarcodeComparisonResult.mismatchHighlightingEnabled) {
-      result.append(getPanel("warn", "Your license does not support highlighting discrepancies."));
-    }
-  }
+  const { isExpired, aamvaBarcodeVerificationResult } = verificationResult;
 
   result.append(isExpired ? getPanel("warn", "Document is expired.") : getPanel("passed", "Document is not expired."));
 
@@ -183,41 +163,40 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
     result.append(
       getPanel("timer", "Information verification in progress...", { "data-js-id": "barcode-verification-result" })
     );
-    aamvaBarcodeVerificationResult
-      .then((barcodeVerificationResult) => {
-        let barcodeVerificationResultBlock: DocumentFragment;
-        // eslint-disable-next-line promise/always-return
-        if (barcodeVerificationResult.error != null) {
-          barcodeVerificationResultBlock = getPanel(
-            "warn",
-            "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits barcode verification."
-          );
-        } else if (barcodeVerificationResult.allChecksPassed) {
-          barcodeVerificationResultBlock = getPanel("passed", "Verifications checks passed.");
-        } else {
-          barcodeVerificationResultBlock = getPanel("warn", "Verification checks failed.");
-        }
-        // eslint-disable-next-line no-unsanitized/property
-        document
-          .querySelector(`[data-js-id="barcode-verification-result"]`)!
-          .replaceWith(barcodeVerificationResultBlock);
-      })
-      .catch(() => {
-        // eslint-disable-next-line no-unsanitized/property
-        document
-          .querySelector(`[data-js-id="barcode-verification-result"]`)!
-          .replaceWith(getPanel("warn", "No result for barcode verification."));
-      });
+    try {
+      const barcodeVerificationResult = await aamvaBarcodeVerificationResult;
+
+      let barcodeVerificationResultBlock: DocumentFragment;
+      // eslint-disable-next-line promise/always-return
+      if (barcodeVerificationResult.error != null) {
+        barcodeVerificationResultBlock = getPanel(
+          "warn",
+          "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits barcode verification."
+        );
+      } else if (barcodeVerificationResult.allChecksPassed) {
+        barcodeVerificationResultBlock = getPanel("passed", "Verifications checks passed.");
+      } else {
+        barcodeVerificationResultBlock = getPanel("warn", "Verification checks failed.");
+      }
+      // eslint-disable-next-line no-unsanitized/property
+      result.querySelector(`[data-js-id="barcode-verification-result"]`)!.replaceWith(barcodeVerificationResultBlock);
+    } catch (error: unknown) {
+      console.log(error);
+      // eslint-disable-next-line no-unsanitized/property
+      result
+        .querySelector(`[data-js-id="barcode-verification-result"]`)!
+        .replaceWith(getPanel("warn", "No result for barcode verification."));
+    }
   }
 
-  if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
+  if (capturedId.images.face != null) {
     result.append(getDOMForLabel("Face"));
     const faceImage = new Image();
     faceImage.className = "id-face-image";
     faceImage.addEventListener("load", () => {
       faceImage.style.clipPath = `circle(${faceImage.width / 2}px)`;
     });
-    faceImage.src = `data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face) ?? ""}`;
+    faceImage.src = `data:image/png;base64,${capturedId.images.face}`;
     result.append(faceImage);
   }
 
@@ -232,7 +211,7 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
       ["Age", capturedId.age],
       ["Nationality", capturedId.nationality],
       ["Address", capturedId.address],
-      ["Document Type", capturedId.documentType],
+      ["Document Type", capturedId.document?.documentType],
       ["Issuing Country ISO", capturedId.issuingCountryIso],
       ["Issuing Country", capturedId.issuingCountry],
       ["Document Number", capturedId.documentNumber],
@@ -242,41 +221,94 @@ export function showResult(capturedId: SDCId.CapturedId, verificationResult: Ver
     ])
   );
 
-  if (capturedId.aamvaBarcodeResult) {
-    header = "Aamva Barcode Result";
-    const data = capturedId.aamvaBarcodeResult;
+  if (capturedId.barcode) {
+    header = "Barcode Result";
+    const data = capturedId.barcode;
     result.append(
       getFragmentForFields([
         ["AAMVA Version", data.aamvaVersion],
-        ["Is Real ID", data.isRealId],
         ["Alias Family Name", data.aliasFamilyName],
         ["Alias Given Name", data.aliasGivenName],
         ["Alias Suffix Name", data.aliasSuffixName],
+        ["Blood Type", data.bloodType],
+        ["Branch Of Service", data.branchOfService],
+        ["Card Instance Identifier", data.cardInstanceIdentifier],
+        ["Card Revision Date", data.cardRevisionDate],
+        ["Categories", data.categories],
+        ["Champus Effective Date", data.champusEffectiveDate],
+        ["Champus Expiry Date", data.champusExpiryDate],
+        ["Citizenship Status", data.citizenshipStatus],
+        ["Civilian Health Care Flag Code", data.civilianHealthCareFlagCode],
+        ["Civilian Health Care Flag Description", data.civilianHealthCareFlagDescription],
+        ["Commissary Flag Code", data.commissaryFlagCode],
+        ["Commissary Flag Description", data.commissaryFlagDescription],
+        ["Country Of Birth", data.countryOfBirth],
+        ["Country Of Birth Iso", data.countryOfBirthIso],
+        ["Deers Dependent Suffix Code", data.deersDependentSuffixCode],
+        ["Deers Dependent Suffix Description", data.deersDependentSuffixDescription],
+        ["Direct Care Flag Code", data.directCareFlagCode],
+        ["Direct Care Flag Description", data.directCareFlagDescription],
+        ["Document Copy", data.documentCopy],
+        ["Document Discriminator Number", data.documentDiscriminatorNumber],
         ["Driver Name Prefix", data.driverNamePrefix],
         ["Driver Name Suffix", data.driverNameSuffix],
+        ["Driver Restriction Codes", data.driverRestrictionCodes],
+        ["Edi Person Identifier", data.ediPersonIdentifier],
         ["Endorsements Code", data.endorsementsCode],
+        ["Exchange Flag Code", data.exchangeFlagCode],
+        ["Exchange Flag Description", data.exchangeFlagDescription],
         ["Eye Color", data.eyeColor],
+        ["Family Sequence Number", data.familySequenceNumber],
         ["First Name Truncation", data.firstNameTruncation],
+        ["First Name Without Middle Name", data.firstNameWithoutMiddleName],
+        ["Form Number", data.formNumber],
+        ["Geneva Convention Category", data.genevaConventionCategory],
         ["Hair Color", data.hairColor],
-        ["Height CM", data.heightCm],
+        ["Height Cm", data.heightCm],
         ["Height Inch", data.heightInch],
-        ["IIN", data.IIN],
+        ["Iin", data.IIN],
+        ["Identification Type", data.identificationType],
         ["Issuing Jurisdiction", data.issuingJurisdiction],
-        ["Issuing Jurisdiction ISO", data.issuingJurisdictionIso],
+        ["Issuing Jurisdiction Iso", data.issuingJurisdictionIso],
+        ["Jpeg Data", data.jpegData],
         ["Jurisdiction Version", data.jurisdictionVersion],
         ["Last Name Truncation", data.lastNameTruncation],
-        ["First Name Without Middle Name", data.firstNameWithoutMiddleName],
+        ["License Country Of Issue", data.licenseCountryOfIssue],
         ["Middle Name", data.middleName],
         ["Middle Name Truncation", data.middleNameTruncation],
+        ["Mwr Flag Code", data.mwrFlagCode],
+        ["Mwr Flag Description", data.mwrFlagDescription],
+        ["Pay Grade", data.payGrade],
+        ["Pay Plan Code", data.payPlanCode],
+        ["Pay Plan Grade Code", data.payPlanGradeCode],
+        ["Person Designator Document", data.personDesignatorDocument],
+        ["Person Designator Type Code", data.personDesignatorTypeCode],
+        ["Person Middle Initial", data.personMiddleInitial],
+        ["Personal Id Number", data.personalIdNumber],
+        ["Personal Id Number Type", data.personalIdNumberType],
+        ["Personnel Category Code", data.personnelCategoryCode],
+        ["Personnel Entitlement Condition Type", data.personnelEntitlementConditionType],
         ["Place Of Birth", data.placeOfBirth],
+        ["Professional Driving Permit", data.professionalDrivingPermit],
         ["Race", data.race],
+        ["Rank", data.rank],
+        ["Relationship Code", data.relationshipCode],
+        ["Relationship Description", data.relationshipDescription],
         ["Restrictions Code", data.restrictionsCode],
+        ["Security Code", data.securityCode],
+        ["Service Code", data.serviceCode],
+        ["Sponsor Flag", data.sponsorFlag],
+        ["Sponsor Name", data.sponsorName],
+        ["Sponsor Person Designator Identifier", data.sponsorPersonDesignatorIdentifier],
+        ["Status Code", data.statusCode],
+        ["Status Code Description", data.statusCodeDescription],
         ["Vehicle Class", data.vehicleClass],
+        ["Vehicle Restrictions", data.vehicleRestrictions],
+        ["Version", data.version],
         ["Weight Kg", data.weightKg],
         ["Weight Lbs", data.weightLbs],
-        ["Card Revision Date", data.cardRevisionDate],
-        ["Document Discriminator Number", data.documentDiscriminatorNumber],
-        ["Barcode Data Elements", data.barcodeDataElements],
+        ["Is Real Id", data.isRealId],
+        ["Dictionary", data.barcodeDataElements],
       ])
     );
   }

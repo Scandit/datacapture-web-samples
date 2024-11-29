@@ -1,6 +1,6 @@
 <script lang="ts">
   import ResultField from "@/components/atoms/ResultField.svelte";
-  import type { CapturedId } from "scandit-web-datacapture-id";
+  import type { RegionSpecific, CapturedId } from "@scandit/web-datacapture-id";
 
   type MainType = CapturedId;
   export let data: MainType;
@@ -15,7 +15,6 @@
     age: "Age",
     nationality: "Nationality",
     address: "Address",
-    documentType: "Document Type",
     issuingCountryIso: "Issuing Country ISO",
     issuingCountry: "Issuing Country",
     documentNumber: "Document Number",
@@ -24,8 +23,14 @@
     isExpired: "Is Expired",
     dateOfIssue: "Date of Issue",
   } satisfies Partial<Record<keyof MainType, string>>;
+
+  const documentAsRegionSpecific = data.document as RegionSpecific | undefined;
 </script>
 
+<ResultField name="Document type" value={data.document?.documentType ?? "unknown"} />
+{#if data.document?.isRegionSpecific()}
+  <ResultField name="Document subtype" value={documentAsRegionSpecific?.subtype} />
+{/if}
 {#each Object.entries(fieldNameByKey) as [key, name]}
   <ResultField {name} value={data[key]} />
 {/each}

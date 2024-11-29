@@ -4,7 +4,7 @@
   import RangeSetting from "@/components/molecules/RangeSetting.svelte";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import { valueFromCheckbox } from "@/helper";
-  import { camelCaseToTitleCase } from "@/helpers";
+  import { camelCaseToTitleCase } from "@/helper";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import {
     availableCameras,
@@ -16,7 +16,7 @@
   } from "@/settings/camera/store";
   desiredTorchState;
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { TorchState, VideoResolution } from "scandit-web-datacapture-core";
+  import { TorchState, VideoResolution } from "@scandit/web-datacapture-core";
 
   function valueFromInput(e: Event): string {
     return (e.target as HTMLInputElement).value;

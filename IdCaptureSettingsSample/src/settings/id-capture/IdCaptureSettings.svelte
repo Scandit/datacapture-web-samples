@@ -5,15 +5,9 @@
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
-  import { valueFromInput, valueFromCheckbox } from "@/helper";
-  import { IdAnonymizationMode, IdCaptureTrigger, IdImageType, SupportedSides } from "scandit-web-datacapture-id";
+  import { valueFromInput, valueFromCheckbox, camelCaseToTitleCase } from "@/helper";
+  import { IdAnonymizationMode, IdCaptureTrigger, IdCaptureScanner } from "@scandit/web-datacapture-id";
   import Spinner from "@/components/atoms/Spinner.svelte";
-
-  const selectedImageTypesCount = [
-    $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.Face),
-    true,
-    true,
-  ].filter(Boolean).length;
 </script>
 
 <SidebarRoute backRoute="/settings">
@@ -24,29 +18,49 @@
     </h2>
   </svelte:fragment>
   <svelte:fragment slot="content">
-    <SettingsEntry to="/settings/id-capture/supported-documents">
+    <SettingsEntry to="/settings/id-capture/accepted-documents">
       <div class="w-full flex">
-        <div>Supported documents</div>
-        <div class="ml-auto">{$idCaptureSettingsStore.supportedDocuments.length} selected</div>
+        <div>Accepted documents</div>
+        <div class="ml-auto">
+          {#if $idCaptureSettingsStore.acceptedDocuments.length === 0}
+            None
+          {:else}
+            {$idCaptureSettingsStore.acceptedDocuments.length} selected
+          {/if}
+        </div>
       </div>
     </SettingsEntry>
-    <SelectSetting
-      id="supportedSides"
-      bind:value={$idCaptureSettingsStore.supportedSides}
-      disabled={$idCaptureApplyingSettingStore}
-      on:change={(e) => sdkManager.idCapture.updateSupportedSides(valueFromInput(e))}
-    >
-      Supported side
-      <svelte:fragment slot="options">
-        {#each Object.values(SupportedSides) as side}
-          <option value={side}>{side}</option>
-        {/each}
-      </svelte:fragment>
-    </SelectSetting>
+    <SettingsEntry to="/settings/id-capture/rejected-documents">
+      <div class="w-full flex">
+        <div>Rejected documents</div>
+        <div class="ml-auto">
+          {#if $idCaptureSettingsStore.rejectedDocuments.length === 0}
+            None
+          {:else}
+            {$idCaptureSettingsStore.rejectedDocuments.length} selected
+          {/if}
+        </div>
+      </div>
+    </SettingsEntry>
+    <SettingsEntry to="/settings/id-capture/scanner">
+      <div class="w-full flex">
+        <div>Scanner type</div>
+        <div class="ml-auto">
+          {IdCaptureScanner.isFullDocumentScanner($idCaptureSettingsStore.scannerType) ? "Full" : "Single side"}
+        </div>
+      </div>
+    </SettingsEntry>
     <SettingsEntry to="/settings/id-capture/result-with-image-types">
       <div class="w-full flex">
         <div>Result with image types</div>
-        <div class="ml-auto">{selectedImageTypesCount} selected</div>
+        <div class="ml-auto">
+          {Object.values($idCaptureSettingsStore.toJSONObject().imageToResult).filter(Boolean).length} selected
+        </div>
+      </div>
+    </SettingsEntry>
+    <SettingsEntry to="/settings/id-capture/feedback">
+      <div class="w-full flex">
+        <div>Feedbacks</div>
       </div>
     </SettingsEntry>
     <SelectSetting
@@ -71,15 +85,10 @@
       Capture trigger
       <svelte:fragment slot="options">
         {#each Object.values(IdCaptureTrigger) as trigger}
-          <option value={trigger}>{trigger}</option>
+          <option value={trigger}>{camelCaseToTitleCase(trigger)}</option>
         {/each}
       </svelte:fragment>
     </SelectSetting>
-    <SettingsEntry to="/settings/id-capture/feedback">
-      <div class="w-full flex">
-        <div>Feedbacks</div>
-      </div>
-    </SettingsEntry>
     <CheckboxSetting
       id="rejectVoidedIds"
       checked={$idCaptureSettingsStore.rejectVoidedIds}
@@ -92,7 +101,8 @@
       checked={$idCaptureSettingsStore.decodeBackOfEuropeanDrivingLicense}
       disabled={$idCaptureApplyingSettingStore}
       on:change={(e) => sdkManager.idCapture.updateDecodeBackOfEuropeanDrivingLicense(valueFromCheckbox(e))}
-      >Decode Back of European Driver's License</CheckboxSetting
     >
+      Capture back of European DL
+    </CheckboxSetting>
   </svelte:fragment>
 </SidebarRoute>

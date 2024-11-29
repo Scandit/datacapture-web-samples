@@ -1,11 +1,11 @@
 <script lang="ts">
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import { valueFromInput } from "@/helper";
-  import { camelCaseToTitleCase } from "@/helpers";
+  import { camelCaseToTitleCase } from "@/helper";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SettingsEntry from "@/settings/SettingsEntry.svelte";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { Anchor, LogoStyle } from "scandit-web-datacapture-core";
+  import { Anchor, LogoStyle } from "@scandit/web-datacapture-core";
   import { logoAnchor, logoStyle } from "./store";
 </script>
 

@@ -1,4 +1,4 @@
-import type { CapturedId } from "scandit-web-datacapture-id";
+import type { CapturedId } from "@scandit/web-datacapture-id";
 import { writable } from "svelte/store";
 
 export const isSdkConfigured = writable(false);
@@ -8,3 +8,8 @@ export const scannedDocument = writable<CapturedId | null>();
 export const scannedDocumentFrontImage = writable<string | null>();
 export const scannedDocumentBackImage = writable<string | null>();
 export const scannedDocumentFaceImage = writable<string | null>();
+export const scannedDocumentFrontFrameImage = writable<string | null>();
+export const scannedDocumentBackFrameImage = writable<string | null>();
+
+export const showLicenseText = writable<boolean>(false);
+export const licenseText = writable<string>("");

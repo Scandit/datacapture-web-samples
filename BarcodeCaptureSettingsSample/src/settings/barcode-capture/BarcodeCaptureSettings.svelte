@@ -13,5 +13,6 @@
     <SettingsEntry to="/settings/barcode-capture/location-selection">Location Selection</SettingsEntry>
     <SettingsEntry to="/settings/barcode-capture/feedback">Feedback</SettingsEntry>
     <SettingsEntry to="/settings/barcode-capture/code-duplicate-filter">Code Duplicate Filter</SettingsEntry>
+    <SettingsEntry to="/settings/barcode-capture/scan-intention">Scan Intention</SettingsEntry>
   </svelte:fragment>
 </SidebarRoute>

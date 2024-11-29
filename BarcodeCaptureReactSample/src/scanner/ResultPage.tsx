@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SymbologyDescription } from "scandit-web-datacapture-barcode";
+import { SymbologyDescription } from "@scandit/web-datacapture-barcode";
 
 import MenuButton from "../components/MenuButton";
 import HomeIcon from "../icons/HomeIcon";

@@ -8,7 +8,7 @@
     rectangularViewfinder,
     RectangularViewfinderColorType,
   } from "@/settings/view/viewfinder/rectangularViewfinderStore";
-  import { RectangularViewfinderLineStyle, RectangularViewfinderStyle } from "scandit-web-datacapture-core";
+  import { RectangularViewfinderLineStyle, RectangularViewfinderStyle } from "@scandit/web-datacapture-core";
 </script>
 
 <SelectSetting id="rectangularStyle" bind:value={$rectangularViewfinder.style}>

@@ -18,7 +18,7 @@ export default ({ mode }): ReturnType<typeof defineConfig> => {
             .map((module) => ({
               src: path.resolve(
                 __dirname,
-                `./node_modules/scandit-web-datacapture-${module}/build/engine/**/*`
+                `./node_modules/@scandit/web-datacapture-${module}/sdc-lib/**/*`
               ),
               dest: './library/engine'
             }))

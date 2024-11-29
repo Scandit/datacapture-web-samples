@@ -4,7 +4,7 @@
   import { camelCaseToTitleCase } from "@/helpers/camelCaseToTitleCase";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import { anchor, offsetXUnit, offsetXValue, offsetYUnit, offsetYValue, style } from "@/settings/view/logo/store";
-  import { Anchor, LogoStyle } from "scandit-web-datacapture-core";
+  import { Anchor, LogoStyle } from "@scandit/web-datacapture-core";
 </script>
 
 <SidebarRoute backRoute="/settings/view">

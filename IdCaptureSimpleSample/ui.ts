@@ -1,4 +1,4 @@
-import * as SDCId from "scandit-web-datacapture-id";
+import * as SDCId from "@scandit/web-datacapture-id";
 
 export enum Action {
   CLOSE_RESULT = "CLOSE_RESULT",
@@ -106,10 +106,10 @@ export function showResult(capturedId: SDCId.CapturedId): void {
   let header = "";
   const result = document.createDocumentFragment();
 
-  if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
+  if (capturedId.images.face != null) {
     result.append(getDOMForLabel("Face"));
     const faceImage = new Image();
-    faceImage.src = `data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face) ?? ""}`;
+    faceImage.src = `data:image/png;base64,${capturedId.images.face}`;
     result.append(faceImage);
   }
 
@@ -124,7 +124,7 @@ export function showResult(capturedId: SDCId.CapturedId): void {
       ["Age", capturedId.age],
       ["Nationality", capturedId.nationality],
       ["Address", capturedId.address],
-      ["Document Type", capturedId.documentType],
+      ["Document Type", capturedId.document?.documentType],
       ["Issuing Country ISO", capturedId.issuingCountryIso],
       ["Issuing Country", capturedId.issuingCountry],
       ["Document Number", capturedId.documentNumber],

@@ -1,7 +1,7 @@
 <script lang="ts">
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import SymbologySettingEntry from "@/settings/barcode-capture/symbologies/symbology/SymbologySettingEntry.svelte";
-  import { Symbology } from "scandit-web-datacapture-barcode";
+  import { Symbology } from "@scandit/web-datacapture-barcode";
   import { disableAllSymbologies, enableAllSymbologies } from "@/settings/barcode-capture/symbologies/symbology/store";
 </script>
 

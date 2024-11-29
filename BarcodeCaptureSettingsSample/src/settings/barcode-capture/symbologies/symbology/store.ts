@@ -1,6 +1,6 @@
 import { range } from "@/helpers/range";
 import { barcodeCapture, barcodeCaptureSettings } from "@/store";
-import { SymbologySettings, Symbology, Checksum, SymbologyDescription } from "scandit-web-datacapture-barcode";
+import { SymbologySettings, Symbology, Checksum, SymbologyDescription } from "@scandit/web-datacapture-barcode";
 import { derived, get, readable, writable, type Readable, type Writable } from "svelte/store";
 
 export type SymbologyWithOptionalChecksumSupport =

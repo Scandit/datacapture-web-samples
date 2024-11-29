@@ -1,5 +1,5 @@
 import { dataCaptureView, isSdkConfigured } from "@/store";
-import { MeasureUnit, NumberWithUnit, PointWithUnit } from "scandit-web-datacapture-core";
+import { MeasureUnit, NumberWithUnit, PointWithUnit } from "@scandit/web-datacapture-core";
 import { derived, get, writable } from "svelte/store";
 
 export const xValue = writable(0);

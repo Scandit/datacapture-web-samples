@@ -6,15 +6,21 @@ import {
   DataCaptureView,
   FrameSourceState,
   configure,
-} from "scandit-web-datacapture-core";
+} from "@scandit/web-datacapture-core";
+import type { CapturedId } from "@scandit/web-datacapture-id";
 import {
+  RejectionReason,
+  DriverLicense,
   IdCapture,
   IdCaptureOverlay,
   IdCaptureSettings,
-  IdDocumentType,
+  IdCard,
   IdImageType,
+  Passport,
+  Region,
   idCaptureLoader,
-} from "scandit-web-datacapture-id";
+  FullDocumentScanner,
+} from "@scandit/web-datacapture-id";
 import * as UI from "./ui";
 
 const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
@@ -23,9 +29,6 @@ let context: DataCaptureContext;
 let idCapture: IdCapture;
 let view: DataCaptureView;
 let camera: Camera;
-
-// Array of enabled document types
-const supportedDocuments: IdDocumentType[] = [IdDocumentType.DLVIZ, IdDocumentType.IdCardVIZ];
 
 async function run(): Promise<void> {
   // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
@@ -62,7 +65,8 @@ async function run(): Promise<void> {
 
   // Create the IdCapture settings needed for the selected mode
   const settings = new IdCaptureSettings();
-  settings.supportedDocuments = supportedDocuments;
+  settings.scannerType = new FullDocumentScanner();
+  settings.acceptedDocuments = [new IdCard(Region.Any), new Passport(Region.Any), new DriverLicense(Region.Any)];
   settings.setShouldPassImageTypeToResult(IdImageType.Face, true);
 
   // Create the IdCapture mode with the new settings
@@ -70,17 +74,21 @@ async function run(): Promise<void> {
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: async (idCaptureInstance: IdCapture, session) => {
+    didCaptureId: async (capturedId: CapturedId) => {
       // Disable the IdCapture mode to handle the current result
       await idCapture.setEnabled(false);
-
-      const capturedId = session.newlyCapturedId!;
       UI.showResult(capturedId);
       void idCapture.reset();
     },
-    didRejectId: async () => {
+    didRejectId: async (_capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);
-      UI.showWarning("Document type not supported.");
+      if (reason === RejectionReason.Timeout) {
+        UI.showWarning(
+          "Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document."
+        );
+        return;
+      }
+      UI.showWarning("Document not supported. Try scanning another document.");
     },
   });
 
@@ -109,9 +117,20 @@ window.dispatchAction = async (action: UI.Action) => {
 };
 
 run().catch((error: unknown) => {
+  let errorMessage = (error as Error).toString();
+  if (error instanceof Error && error.name === "NoLicenseKeyError") {
+    errorMessage = `
+        NoLicenseKeyError:
+        
+        Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+        - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+        - placing your license key in a \`.env\` file at the root of the sample directory 
+        — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+    `;
+  }
   // eslint-disable-next-line no-console
   console.error(error);
-  alert((error as Error).toString());
+  alert(errorMessage);
 });
 
 declare global {

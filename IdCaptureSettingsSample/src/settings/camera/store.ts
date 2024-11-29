@@ -1,5 +1,5 @@
-import type { TorchState, Camera, CameraSettings } from "scandit-web-datacapture-core";
-import { VideoResolution } from "scandit-web-datacapture-core";
+import type { TorchState, Camera, CameraSettings } from "@scandit/web-datacapture-core";
+import { VideoResolution } from "@scandit/web-datacapture-core";
 import { writable } from "svelte/store";
 
 export const availableCameras = writable<Camera[]>([]);

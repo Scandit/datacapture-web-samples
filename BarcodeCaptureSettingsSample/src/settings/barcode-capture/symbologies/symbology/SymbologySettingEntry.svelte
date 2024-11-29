@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Link } from "svelte-navigator";
   import { useSymbologyStore } from "@/settings/barcode-capture/symbologies/symbology/store";
-  import type { Symbology } from "scandit-web-datacapture-barcode";
+  import type { Symbology } from "@scandit/web-datacapture-barcode";
 
   export let symbology: Symbology;
   const { description, isEnabled } = useSymbologyStore(symbology);

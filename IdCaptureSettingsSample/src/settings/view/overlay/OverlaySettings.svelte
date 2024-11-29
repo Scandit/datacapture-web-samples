@@ -1,20 +1,17 @@
 <script lang="ts">
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
-  import {valueFromCheckbox, valueFromInput} from "@/helper";
-  import { camelCaseToTitleCase } from "@/helpers";
+  import { camelCaseToTitleCase, valueFromCheckbox, valueFromInput } from "@/helper";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import {
-    layout,
     layoutLineStyle,
     layoutStyle,
     layoutCapturedBrush,
     BrushType,
     layoutLocalizedBrush,
-    showTextHints
+    showTextHints,
   } from "@/settings/view/overlay/store";
-  import { IdLayout, IdLayoutLineStyle, IdLayoutStyle } from "scandit-web-datacapture-id";
-  import {idCaptureApplyingSettingStore, idCaptureSettingsStore} from "@/settings/id-capture/store";
+  import { IdLayoutLineStyle, IdLayoutStyle } from "@scandit/web-datacapture-id";
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
 </script>
 
@@ -24,19 +21,6 @@
   </svelte:fragment>
   <svelte:fragment slot="content">
     <div class="bg-white">
-      <SelectSetting
-        id="layout"
-        value={$layout}
-        on:change={(e) => sdkManager.view.updateOverlayLayout(valueFromInput(e))}
-      >
-        Type
-        <svelte:fragment slot="options">
-          {#each Object.values(IdLayout) as type}
-            <option value={type}>{camelCaseToTitleCase(type)}</option>
-          {/each}
-        </svelte:fragment>
-      </SelectSetting>
-
       <SelectSetting
         id="layoutStyle"
         value={$layoutStyle}
@@ -64,9 +48,10 @@
       </SelectSetting>
 
       <CheckboxSetting
-              id=showTextHints
-              checked={$showTextHints}
-              on:change={(e) => sdkManager.view.updateOverlayShowTextHints(valueFromCheckbox(e))}>Show Text Hints</CheckboxSetting
+        id="showTextHints"
+        checked={$showTextHints}
+        on:change={(e) => sdkManager.view.updateOverlayShowTextHints(valueFromCheckbox(e))}
+        >Show Text Hints</CheckboxSetting
       >
 
       <SelectSetting

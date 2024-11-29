@@ -1,4 +1,4 @@
-import * as SDCId from "scandit-web-datacapture-id";
+import * as SDCId from "@scandit/web-datacapture-id";
 
 export enum Action {
   SWITCH_MODE = "SWITCH_MODE",
@@ -25,21 +25,6 @@ export function getSelectedMode(): string {
 export function onModeSwitched(buttonElement: HTMLButtonElement): void {
   elements.selector.querySelector("button.active")?.classList.remove("active");
   buttonElement.classList.add("active");
-}
-
-export function confirmScanningBackside(capturedId: SDCId.CapturedId): void {
-  elements.alert.innerHTML = `
-    <p>This document has additional data on the back of the card.</p>
-    <div>
-      <button skip>Skip</button>
-      <button onclick="window.dispatchAction('SCAN_BACKSIDE')">Scan</button>
-    </div>
-  `;
-  const skipButton = elements.alert.querySelector("button[skip]")!;
-  skipButton.addEventListener("click", () => {
-    window.dispatchAction(Action.SKIP_BACKSIDE, capturedId);
-  });
-  elements.alert.removeAttribute("hidden");
 }
 
 export function showWarning(text: string): void {
@@ -134,10 +119,10 @@ export function showResult(capturedId: SDCId.CapturedId): void {
   let header = "";
   const result = document.createDocumentFragment();
 
-  if (capturedId.idImageOfType(SDCId.IdImageType.Face) != null) {
+  if (capturedId.images.face != null) {
     result.append(getDOMForLabel("Face"));
     const faceImage = new Image();
-    faceImage.src = `data:image/png;base64,${capturedId.idImageOfType(SDCId.IdImageType.Face) ?? ""}`;
+    faceImage.src = `data:image/png;base64,${capturedId.images.face}`;
     result.append(faceImage);
   }
 
@@ -152,7 +137,7 @@ export function showResult(capturedId: SDCId.CapturedId): void {
       ["Age", capturedId.age],
       ["Nationality", capturedId.nationality],
       ["Address", capturedId.address],
-      ["Document Type", capturedId.documentType],
+      ["Document Type", capturedId.document?.documentType],
       ["Issuing Country ISO", capturedId.issuingCountryIso],
       ["Issuing Country", capturedId.issuingCountry],
       ["Document Number", capturedId.documentNumber],
@@ -163,131 +148,94 @@ export function showResult(capturedId: SDCId.CapturedId): void {
     ])
   );
 
-  if (capturedId.aamvaBarcodeResult) {
-    header = "Aamva Barcode Result";
-    const data = capturedId.aamvaBarcodeResult;
+  if (capturedId.barcode) {
+    header = "Barcode Result";
+    const data = capturedId.barcode;
     result.append(
       getFragmentForFields([
         ["AAMVA Version", data.aamvaVersion],
-        ["Is Real ID", data.isRealId],
         ["Alias Family Name", data.aliasFamilyName],
         ["Alias Given Name", data.aliasGivenName],
         ["Alias Suffix Name", data.aliasSuffixName],
+        ["Blood Type", data.bloodType],
+        ["Branch Of Service", data.branchOfService],
+        ["Card Instance Identifier", data.cardInstanceIdentifier],
+        ["Card Revision Date", data.cardRevisionDate],
+        ["Categories", data.categories],
+        ["Champus Effective Date", data.champusEffectiveDate],
+        ["Champus Expiry Date", data.champusExpiryDate],
+        ["Citizenship Status", data.citizenshipStatus],
+        ["Civilian Health Care Flag Code", data.civilianHealthCareFlagCode],
+        ["Civilian Health Care Flag Description", data.civilianHealthCareFlagDescription],
+        ["Commissary Flag Code", data.commissaryFlagCode],
+        ["Commissary Flag Description", data.commissaryFlagDescription],
+        ["Country Of Birth", data.countryOfBirth],
+        ["Country Of Birth Iso", data.countryOfBirthIso],
+        ["Deers Dependent Suffix Code", data.deersDependentSuffixCode],
+        ["Deers Dependent Suffix Description", data.deersDependentSuffixDescription],
+        ["Direct Care Flag Code", data.directCareFlagCode],
+        ["Direct Care Flag Description", data.directCareFlagDescription],
+        ["Document Copy", data.documentCopy],
+        ["Document Discriminator Number", data.documentDiscriminatorNumber],
         ["Driver Name Prefix", data.driverNamePrefix],
         ["Driver Name Suffix", data.driverNameSuffix],
+        ["Driver Restriction Codes", data.driverRestrictionCodes],
+        ["Edi Person Identifier", data.ediPersonIdentifier],
         ["Endorsements Code", data.endorsementsCode],
+        ["Exchange Flag Code", data.exchangeFlagCode],
+        ["Exchange Flag Description", data.exchangeFlagDescription],
         ["Eye Color", data.eyeColor],
+        ["Family Sequence Number", data.familySequenceNumber],
         ["First Name Truncation", data.firstNameTruncation],
+        ["First Name Without Middle Name", data.firstNameWithoutMiddleName],
+        ["Form Number", data.formNumber],
+        ["Geneva Convention Category", data.genevaConventionCategory],
         ["Hair Color", data.hairColor],
-        ["Height CM", data.heightCm],
+        ["Height Cm", data.heightCm],
         ["Height Inch", data.heightInch],
-        ["IIN", data.IIN],
+        ["Iin", data.IIN],
+        ["Identification Type", data.identificationType],
         ["Issuing Jurisdiction", data.issuingJurisdiction],
-        ["Issuing Jurisdiction ISO", data.issuingJurisdictionIso],
+        ["Issuing Jurisdiction Iso", data.issuingJurisdictionIso],
+        ["Jpeg Data", data.jpegData],
         ["Jurisdiction Version", data.jurisdictionVersion],
         ["Last Name Truncation", data.lastNameTruncation],
-        ["First Name Without Middle Name", data.firstNameWithoutMiddleName],
+        ["License Country Of Issue", data.licenseCountryOfIssue],
         ["Middle Name", data.middleName],
         ["Middle Name Truncation", data.middleNameTruncation],
+        ["Mwr Flag Code", data.mwrFlagCode],
+        ["Mwr Flag Description", data.mwrFlagDescription],
+        ["Pay Grade", data.payGrade],
+        ["Pay Plan Code", data.payPlanCode],
+        ["Pay Plan Grade Code", data.payPlanGradeCode],
+        ["Person Designator Document", data.personDesignatorDocument],
+        ["Person Designator Type Code", data.personDesignatorTypeCode],
+        ["Person Middle Initial", data.personMiddleInitial],
+        ["Personal Id Number", data.personalIdNumber],
+        ["Personal Id Number Type", data.personalIdNumberType],
+        ["Personnel Category Code", data.personnelCategoryCode],
+        ["Personnel Entitlement Condition Type", data.personnelEntitlementConditionType],
         ["Place Of Birth", data.placeOfBirth],
+        ["Professional Driving Permit", data.professionalDrivingPermit],
         ["Race", data.race],
+        ["Rank", data.rank],
+        ["Relationship Code", data.relationshipCode],
+        ["Relationship Description", data.relationshipDescription],
         ["Restrictions Code", data.restrictionsCode],
+        ["Security Code", data.securityCode],
+        ["Service Code", data.serviceCode],
+        ["Sponsor Flag", data.sponsorFlag],
+        ["Sponsor Name", data.sponsorName],
+        ["Sponsor Person Designator Identifier", data.sponsorPersonDesignatorIdentifier],
+        ["Status Code", data.statusCode],
+        ["Status Code Description", data.statusCodeDescription],
         ["Vehicle Class", data.vehicleClass],
+        ["Vehicle Restrictions", data.vehicleRestrictions],
+        ["Version", data.version],
         ["Weight Kg", data.weightKg],
         ["Weight Lbs", data.weightLbs],
-        ["Card Revision Date", data.cardRevisionDate],
-        ["Document Discriminator Number", data.documentDiscriminatorNumber],
-        ["Barcode Data Elements", data.barcodeDataElements],
-      ])
-    );
-  }
-
-  if (capturedId.argentinaIdBarcodeResult) {
-    header = "Argentinian ID Barcode Result";
-    result.append(
-      getFragmentForFields([
-        ["Personal Id Number", capturedId.argentinaIdBarcodeResult.personalIdNumber],
-        ["Document Copy", capturedId.argentinaIdBarcodeResult.documentCopy],
-      ])
-    );
-  }
-
-  if (capturedId.apecBusinessTravelCardMrzResult) {
-    header = "APEC Business Travel Card MRZ Result";
-    const data = capturedId.apecBusinessTravelCardMrzResult;
-    result.append(
-      getFragmentForFields([
-        ["Document Code", data.documentCode],
-        ["Captured MRZ", data.capturedMrz],
-        ["Passport Number", data.passportNumber],
-        ["Passport Issuer ISO", data.passportIssuerIso],
-        ["Passport Date of Expiry", data.passportDateOfExpiry],
-      ])
-    );
-  }
-
-  if (capturedId.chinaMainlandTravelPermitMrzResult) {
-    header = "China Mainland Travel Permit MRZ Result";
-    const data = capturedId.chinaMainlandTravelPermitMrzResult;
-    result.append(
-      getFragmentForFields([
-        ["Document Code", data.documentCode],
-        ["Captured MRZ", data.capturedMrz],
-        ["Personal ID Number", data.personalIdNumber],
-        ["Renewal times", data.renewalTimes],
-        ["Full Name Simplified Chinese", data.fullNameSimplifiedChinese],
-        ["Omitted Character Count In GBK Name", data.omittedCharacterCountInGBKName],
-        ["Omitted Name Count", data.omittedNameCount],
-        ["Issuing Authority Code", data.issuingAuthorityCode],
-      ])
-    );
-  }
-
-  if (capturedId.chinaExitEntryPermitMrzResult) {
-    header = "China Exit-Entry Permit MRZ Result";
-    result.append(
-      getFragmentForFields([
-        ["Document Code", capturedId.chinaExitEntryPermitMrzResult.documentCode],
-        ["Captured MRZ", capturedId.chinaExitEntryPermitMrzResult.capturedMrz],
-      ])
-    );
-  }
-
-  if (capturedId.chinaOneWayPermitFrontMrzResult) {
-    header = "China One-Way Permit Front MRZ Result";
-    const data = capturedId.chinaOneWayPermitFrontMrzResult;
-    result.append(
-      getFragmentForFields([
-        ["Document Code", data.documentCode],
-        ["Full Name in Simplified Chinese", data.fullNameSimplifiedChinese],
-        ["Captured MRZ", data.capturedMrz],
-      ])
-    );
-  }
-
-  if (capturedId.chinaOneWayPermitBackMrzResult) {
-    header = "China One-Way Permit Back MRZ Result";
-    const data = capturedId.chinaOneWayPermitBackMrzResult;
-    result.append(
-      getFragmentForFields([
-        ["Document Code", data.documentCode],
-        ["Names Are Truncated", data.namesAreTruncated],
-        ["Captured MRZ", data.capturedMrz],
-      ])
-    );
-  }
-
-  if (capturedId.colombiaIdBarcodeResult) {
-    header = "Columbian ID Barcode Result";
-    result.append(getFragmentForFields([["Blood Type", capturedId.colombiaIdBarcodeResult.bloodType]]));
-  }
-
-  if (capturedId.colombiaDlBarcodeResult) {
-    header = "Columbian Driver License Barcode Result";
-    result.append(
-      getFragmentForFields([
-        ["Identification Type", capturedId.colombiaDlBarcodeResult.identificationType],
-        ["Categories", capturedId.colombiaDlBarcodeResult.categories],
+        ["Is Real Id", data.isRealId],
+        ["Dictionary", data.barcodeDataElements],
       ])
     );
   }
@@ -302,114 +250,15 @@ export function showResult(capturedId: SDCId.CapturedId): void {
         ["Optional", data.optional],
         ["Optional1", data.optional1],
         ["Captured Mrz", data.capturedMrz],
-      ])
-    );
-  }
-
-  if (capturedId.usVisaVIZResult) {
-    header = "US Visa VIZ Result";
-    const data = capturedId.usVisaVIZResult;
-    result.append(
-      getFragmentForFields([
-        ["Visa Number", data.visaNumber],
+        ["Personal ID Number", data.personalIdNumber],
+        ["Renewal times", data.renewalTimes],
+        ["Full Name Simplified Chinese", data.fullNameSimplifiedChinese],
+        ["Omitted Character Count In GBK Name", data.omittedCharacterCountInGbkName],
+        ["Omitted Name Count", data.omittedNameCount],
+        ["Issuing Authority Code", data.issuingAuthorityCode],
         ["Passport Number", data.passportNumber],
-      ])
-    );
-  }
-
-  if (capturedId.southAfricaIdBarcodeResult) {
-    header = "South African ID Barcode Result";
-    const data = capturedId.southAfricaIdBarcodeResult;
-    result.append(
-      getFragmentForFields([
-        ["Country Of Birth", data.countryOfBirth],
-        ["Country Of Birth Iso", data.countryOfBirthIso],
-        ["Citizenship Status", data.citizenshipStatus],
-        ["Personal Id Number", data.personalIdNumber],
-      ])
-    );
-  }
-
-  if (capturedId.southAfricaDlBarcodeResult) {
-    header = "South African Driver License Barcode Result";
-    const data = capturedId.southAfricaDlBarcodeResult;
-    result.append(
-      getFragmentForFields([
-        ["Version", data.version],
-        ["License Country Of Issue", data.licenseCountryOfIssue],
-        ["Personal Id Number", data.personalIdNumber],
-        ["Personal Id Number Type", data.personalIdNumberType],
-        ["Document Copy", data.documentCopy],
-        ["Driver Restriction Codes", data.driverRestrictionCodes],
-        ["Professional Driving Permit", data.professionalDrivingPermit],
-        ["Vehicle Restrictions", data.vehicleRestrictions],
-      ])
-    );
-  }
-
-  if (capturedId.usUniformedServicesBarcodeResult) {
-    header = "US Uniformed Services Barcode Result";
-    const data = capturedId.usUniformedServicesBarcodeResult;
-    result.append(
-      getFragmentForFields([
-        ["Blood Type", data.bloodType],
-        ["Branch Of Service", data.branchOfService],
-        ["Champus Effective Date", data.champusEffectiveDate],
-        ["Champus Expiry Date", data.champusExpiryDate],
-        ["Civilian Health Care Flag Code", data.civilianHealthCareFlagCode],
-        ["Civilian Health Care Flag Description", data.civilianHealthCareFlagDescription],
-        ["Commissary Flag Code", data.commissaryFlagCode],
-        ["Commissary Flag Description", data.commissaryFlagDescription],
-        ["Deers Dependent Suffix Code", data.deersDependentSuffixCode],
-        ["Deers Dependent Suffix Description", data.deersDependentSuffixDescription],
-        ["Direct Care Flag Code", data.directCareFlagCode],
-        ["Direct Care Flag Description", data.directCareFlagDescription],
-        ["Exchange Flag Code", data.exchangeFlagCode],
-        ["Exchange Flag Description", data.exchangeFlagDescription],
-        ["Eye Color", data.eyeColor],
-        ["Family Sequence Number", data.familySequenceNumber],
-        ["Form Number", data.formNumber],
-        ["Geneva Convention Category", data.genevaConventionCategory],
-        ["Hair Color", data.hairColor],
-        ["Height", data.height],
-        ["Jpeg Data", data.jpegData],
-        ["Mwr Flag Code", data.mwrFlagCode],
-        ["Mwr Flag Description", data.mwrFlagDescription],
-        ["Pay Grade", data.payGrade],
-        ["Person Designator Document", data.personDesignatorDocument],
-        ["Rank", data.rank],
-        ["Relationship Code", data.relationshipCode],
-        ["Relationship Description", data.relationshipDescription],
-        ["Security Code", data.securityCode],
-        ["Service Code", data.serviceCode],
-        ["Sponsor Flag", data.sponsorFlag],
-        ["Sponsor Name", data.sponsorName],
-        ["Sponsor Person Designator Identifier", data.sponsorPersonDesignatorIdentifier],
-        ["Status Code", data.statusCode],
-        ["Status Code Description", data.statusCodeDescription],
-        ["Version", data.version],
-        ["Weight", data.weight],
-      ])
-    );
-  }
-
-  if (capturedId.commonAccessCardBarcodeResult) {
-    header = "Common Access Card Barcode Result";
-    const data = capturedId.commonAccessCardBarcodeResult;
-    result.append(
-      getFragmentForFields([
-        ["version", data.version],
-        ["person designator document", data.personDesignatorDocument],
-        ["person designator type code", data.personDesignatorTypeCode],
-        ["edi person identifier", data.ediPersonIdentifier],
-        ["personnel category code", data.personnelCategoryCode],
-        ["branch of service", data.branchOfService],
-        ["personnel entitlement condition type", data.personnelEntitlementConditionType],
-        ["rank", data.rank],
-        ["play pan code", data.payPlanCode],
-        ["play pan grade code", data.payPlanGradeCode],
-        ["card instance identifier", data.cardInstanceIdentifier],
-        ["person middle initial", data.personMiddleInitial],
+        ["Passport Issuer ISO", data.passportIssuerIso],
+        ["Passport Date of Expiry", data.passportDateOfExpiry],
       ])
     );
   }
@@ -436,6 +285,8 @@ export function showResult(capturedId: SDCId.CapturedId): void {
         ["Sponsor", data.sponsor],
         ["Captured Sides", data.capturedSides],
         ["Is Back Side Capture Supported", data.isBackSideCaptureSupported],
+        ["Visa Number", data.visaNumber],
+        ["Passport Number", data.passportNumber],
       ])
     );
   }

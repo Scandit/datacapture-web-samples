@@ -1,7 +1,7 @@
 <script lang="ts">
   import Toast from "@/components/atoms/Toast.svelte";
   import { scannedBarcode, showScanResults } from "@/store";
-  import { SymbologyDescription } from "scandit-web-datacapture-barcode";
+  import { SymbologyDescription } from "@scandit/web-datacapture-barcode";
   import { onDestroy } from "svelte";
 
   let toastTimeoutID: number;

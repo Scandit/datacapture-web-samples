@@ -5,25 +5,20 @@ import {
   DataCaptureView,
   FrameSourceState,
   configure,
-} from "scandit-web-datacapture-core";
-import type {
-  AamvaBarcodeVerificationResult,
-  AamvaVizBarcodeComparisonResult,
-  CapturedId,
-  IdCaptureSession,
-} from "scandit-web-datacapture-id";
+} from "@scandit/web-datacapture-core";
+import type { AamvaBarcodeVerificationResult, CapturedId } from "@scandit/web-datacapture-id";
 import {
+  RejectionReason,
   AamvaBarcodeVerifier,
-  AamvaVizBarcodeComparisonVerifier,
+  DriverLicense,
   IdCapture,
   IdCaptureOverlay,
   IdCaptureSettings,
-  IdDocumentType,
   IdImageType,
-  SupportedSides,
+  Region,
   idCaptureLoader,
-  DocumentType,
-} from "scandit-web-datacapture-id";
+  FullDocumentScanner,
+} from "@scandit/web-datacapture-id";
 
 import * as UI from "./ui";
 
@@ -36,7 +31,6 @@ let camera: Camera;
 
 export interface VerificationResult {
   isExpired: boolean;
-  aamvaVizBarcodeComparisonResult: AamvaVizBarcodeComparisonResult | null;
   aamvaBarcodeVerificationResult: Promise<AamvaBarcodeVerificationResult>;
 }
 
@@ -76,8 +70,8 @@ async function run(): Promise<void> {
 
   // Create the IdCapture mode with the required settings
   const settings = new IdCaptureSettings();
-  settings.supportedDocuments = [IdDocumentType.DLVIZ];
-  settings.supportedSides = SupportedSides.FrontAndBack;
+  settings.scannerType = new FullDocumentScanner();
+  settings.acceptedDocuments = [new DriverLicense(Region.Us)];
   settings.setShouldPassImageTypeToResult(IdImageType.Face, true);
   idCapture = await IdCapture.forContext(context, settings);
 
@@ -88,10 +82,9 @@ async function run(): Promise<void> {
   await IdCaptureOverlay.withIdCaptureForView(idCapture, view);
 
   // Create an instance of the verifier, to be used later when a document has been scanned
-  const comparisonVerifier = AamvaVizBarcodeComparisonVerifier.create();
   const barcodeVerifier = await AamvaBarcodeVerifier.create(context);
 
-  async function verifyDriverLicense(capturedId: CapturedId): Promise<VerificationResult> {
+  function verifyDriverLicense(capturedId: CapturedId): VerificationResult {
     const capturedDateOfExpiry = capturedId.dateOfExpiry;
     let isExpired: boolean;
     if (capturedDateOfExpiry) {
@@ -108,40 +101,30 @@ async function run(): Promise<void> {
 
     return {
       isExpired,
-      aamvaVizBarcodeComparisonResult: await comparisonVerifier.verify(capturedId),
       aamvaBarcodeVerificationResult: barcodeVerifier.verify(capturedId),
     };
   }
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: async (idCaptureInstance: IdCapture, session: IdCaptureSession) => {
-      // Disable the IdCapture mode to handle the current result
+    didCaptureId: async (capturedId: CapturedId) => {
       await idCapture.setEnabled(false);
-
-      const capturedId = session.newlyCapturedId;
-      if (!capturedId) {
-        return;
-      }
-
-      if (capturedId.documentType !== DocumentType.DrivingLicense || capturedId.issuingCountryIso !== "USA") {
-        await idCapture.reset();
-        UI.showWarning("Document is not a US driver's license.");
-        return;
-      }
-
-      if (capturedId.vizResult?.capturedSides === SupportedSides.FrontAndBack) {
-        const verificationResult = await verifyDriverLicense(capturedId);
-        UI.showResult(capturedId, verificationResult);
-        await idCapture.reset();
-      } else {
-        await idCapture.setEnabled(true);
-      }
+      const verificationResult = verifyDriverLicense(capturedId);
+      void UI.showResult(capturedId, verificationResult);
+      await idCapture.reset();
     },
-    didRejectId: async () => {
+    didRejectId: async (capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);
       await idCapture.reset();
-      UI.showWarning("Document is not a US driver's license.");
+      if (reason === RejectionReason.Timeout) {
+        UI.showWarning(
+          "Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document."
+        );
+      } else if (reason === RejectionReason.NotAcceptedDocumentType && capturedId.issuingCountry !== Region.Us) {
+        UI.showWarning("Document is not a US driver’s license");
+      } else {
+        UI.showWarning("Document not supported. Try scanning another document");
+      }
     },
   });
 
@@ -165,9 +148,20 @@ window.dispatchAction = async (...arguments_) => {
 };
 
 run().catch((error: unknown) => {
+  let errorMessage = (error as Error).toString();
+  if (error instanceof Error && error.name === "NoLicenseKeyError") {
+    errorMessage = `
+        NoLicenseKeyError:
+
+        Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+        - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+        - placing your license key in a \`.env\` file at the root of the sample directory
+        — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+    `;
+  }
   // eslint-disable-next-line no-console
   console.error(error);
-  alert((error as Error).toString());
+  alert(errorMessage);
 });
 
 declare global {

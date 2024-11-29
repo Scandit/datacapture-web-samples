@@ -1,4 +1,4 @@
-import type { Barcode, Symbology } from "scandit-web-datacapture-barcode";
+import type { Barcode, Symbology } from "@scandit/web-datacapture-barcode";
 
 export enum Events {
   BarcodesChange = "barcodes-change",

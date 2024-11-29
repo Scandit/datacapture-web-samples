@@ -7,7 +7,7 @@ import { startServer } from './productionServer'
 
 import fs from 'node:fs/promises'
 import crypto from 'node:crypto'
-import { register, unregister } from 'scandit-web-datacapture-core/build/electron/main'
+import { register, unregister } from '@scandit/web-datacapture-core/build/electron/main'
 import { isRemoteDebuggingEnabled } from './utils'
 
 import { isCI } from '../../isCI.js'

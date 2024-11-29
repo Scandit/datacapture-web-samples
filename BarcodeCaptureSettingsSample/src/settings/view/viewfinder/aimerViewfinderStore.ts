@@ -1,5 +1,5 @@
 import { barcodeCaptureOverlay, isSdkConfigured } from "@/store";
-import { AimerViewfinder, Color } from "scandit-web-datacapture-core";
+import { AimerViewfinder, Color } from "@scandit/web-datacapture-core";
 import { get, writable } from "svelte/store";
 
 export enum AimerViewfinderColorType {

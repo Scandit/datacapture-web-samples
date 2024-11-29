@@ -1,6 +1,6 @@
 <script lang="ts">
   import Spinner from "@/components/atoms/Spinner.svelte";
-  import { useLocation } from "svelte-navigator";
+  import { useLocation, Link } from "svelte-navigator";
   import { isSdkConfigured, isSidebarOpen } from "@/store";
 
   const location = useLocation();
@@ -8,6 +8,9 @@
   $: $isSidebarOpen = $location.pathname.startsWith("/settings");
 </script>
 
+{#if $isSidebarOpen}
+  <Link to="/" class="fixed top-0 bg-black opacity-50 w-full h-full z-20" />
+{/if}
 <aside class="sidebar" class:sidebar--visible={$isSidebarOpen}>
   {#if $isSdkConfigured}
     <slot />

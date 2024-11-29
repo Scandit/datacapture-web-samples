@@ -1,8 +1,7 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
-import type * as SDCCore from "scandit-web-datacapture-core";
-import type * as SDCBarcode from "scandit-web-datacapture-barcode";
-import type * as SDCId from "scandit-web-datacapture-id";
+import type * as SDCCore from "@scandit/web-datacapture-core";
+import type * as SDCId from "@scandit/web-datacapture-id";
 
 declare module "*.svelte" {
   import type { ComponentType } from "svelte";

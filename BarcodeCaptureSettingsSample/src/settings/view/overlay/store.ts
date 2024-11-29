@@ -1,5 +1,5 @@
 import { barcodeCaptureOverlay, isSdkConfigured } from "@/store";
-import { Brush, Color } from "scandit-web-datacapture-core";
+import { Brush, Color } from "@scandit/web-datacapture-core";
 import { derived, get, writable } from "svelte/store";
 
 export enum BrushType {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DateResult } from "scandit-web-datacapture-id";
+  import { DateResult } from "@scandit/web-datacapture-id";
 
   export let name: string;
   export let value: unknown;

@@ -1,6 +1,6 @@
 import { useSymbologyStore } from "@/settings/barcode-capture/symbologies/symbology/store";
 import { barcodeCapture, barcodeCaptureSettings, isSdkConfigured } from "@/store";
-import type { CompositeType } from "scandit-web-datacapture-barcode";
+import type { CompositeType } from "@scandit/web-datacapture-barcode";
 import { get, writable } from "svelte/store";
 
 export const enabledCompositeTypes = writable(new Set<CompositeType>());

@@ -66,7 +66,7 @@ export default defineConfig({
   plugins: [
     viteStaticCopy({
       targets: ["core", "barcode"].map((module) => ({
-        src: `./node_modules/scandit-web-datacapture-${module}/build/engine/*`,
+        src: `./node_modules/@scandit/web-datacapture-${module}/sdc-lib/*`,
         dest: "./library/engine",
       })),
     }),

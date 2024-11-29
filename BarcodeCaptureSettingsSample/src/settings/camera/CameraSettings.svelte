@@ -16,7 +16,7 @@
     zoomGestureZoomFactor,
   } from "@/settings/camera/store";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { FocusGestureStrategy, VideoResolution } from "scandit-web-datacapture-core";
+  import { FocusGestureStrategy, VideoResolution } from "@scandit/web-datacapture-core";
 </script>
 
 <SidebarRoute backRoute="/settings">

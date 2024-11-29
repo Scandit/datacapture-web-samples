@@ -6,17 +6,17 @@ import {
   DataCaptureView,
   FrameSourceState,
   configure,
-} from "scandit-web-datacapture-core";
-import type { BarcodeTrackingSession, TrackedBarcode } from "scandit-web-datacapture-barcode";
+} from "@scandit/web-datacapture-core";
+import type { BarcodeBatchSession, TrackedBarcode } from "@scandit/web-datacapture-barcode";
 import {
-  BarcodeTracking,
-  BarcodeTrackingBasicOverlay,
-  BarcodeTrackingBasicOverlayStyle,
-  BarcodeTrackingSettings,
+  BarcodeBatch,
+  BarcodeBatchBasicOverlay,
+  BarcodeBatchBasicOverlayStyle,
+  BarcodeBatchSettings,
   Symbology,
   SymbologyDescription,
   barcodeCaptureLoader,
-} from "scandit-web-datacapture-barcode";
+} from "@scandit/web-datacapture-barcode";
 
 import { SdcUiButton } from "./components/sdcUiButton.js";
 import { SdcUiDrawerBottom } from "./components/sdcUiDrawerBottom.js";
@@ -66,13 +66,13 @@ async function run(): Promise<void> {
   // Try to use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
   // default and must be turned on to start streaming frames to the data capture context for recognition.
   const camera: Camera = Camera.default;
-  const cameraSettings = BarcodeTracking.recommendedCameraSettings;
+  const cameraSettings = BarcodeBatch.recommendedCameraSettings;
   await camera.applySettings(cameraSettings);
   await context.setFrameSource(camera);
 
   // The barcode tracking process is configured through barcode tracking settings,
   // they are then applied to the barcode tracking instance that manages barcode recognition.
-  const settings: BarcodeTrackingSettings = new BarcodeTrackingSettings();
+  const settings: BarcodeBatchSettings = new BarcodeBatchSettings();
 
   // The settings instance initially has all types of barcodes (symbologies) disabled. For the purpose of this
   // sample we enable a very generous set of symbologies. In your own app ensure that you only enable the
@@ -86,14 +86,14 @@ async function run(): Promise<void> {
   ]);
 
   // Create a new barcode tracking mode with the settings from above.
-  const barcodeTracking = await BarcodeTracking.forContext(context, settings);
+  const barcodeBatch = await BarcodeBatch.forContext(context, settings);
   // Disable the barcode tracking mode until the camera is accessed.
-  await barcodeTracking.setEnabled(true);
+  await barcodeBatch.setEnabled(true);
 
   let trackedBarcodes: Record<string, TrackedBarcode>;
   // Register a listener to get updates about tracked barcodes.
-  barcodeTracking.addListener({
-    didUpdateSession: (barcodeTrackingMode: BarcodeTracking, session: BarcodeTrackingSession) => {
+  barcodeBatch.addListener({
+    didUpdateSession: (barcodeBatchMode: BarcodeBatch, session: BarcodeBatchSession) => {
       trackedBarcodes = session.trackedBarcodes;
     },
   });
@@ -103,16 +103,16 @@ async function run(): Promise<void> {
 
   // Add a barcode tracking overlay to the data capture view to render the location of tracked barcodes on top of
   // the video preview. This is optional, but recommended for better visual feedback.
-  await BarcodeTrackingBasicOverlay.withBarcodeTrackingForViewWithStyle(
-    barcodeTracking,
+  await BarcodeBatchBasicOverlay.withBarcodeBatchForViewWithStyle(
+    barcodeBatch,
     view,
-    BarcodeTrackingBasicOverlayStyle.Frame
+    BarcodeBatchBasicOverlayStyle.Frame
   );
 
   // Switch the camera on to start streaming frames.
   // The camera is started asynchronously and will take some time to completely turn on.
   await context.frameSource?.switchToDesiredState(FrameSourceState.On);
-  await barcodeTracking.setEnabled(true);
+  await barcodeBatch.setEnabled(true);
   view.hideProgressBar();
 
   const doneButton = document.querySelector<SdcUiButton>("sdc-ui-button")!;
@@ -140,7 +140,7 @@ async function run(): Promise<void> {
   }
 
   doneButton.addEventListener("click", async () => {
-    await barcodeTracking.setEnabled(false);
+    await barcodeBatch.setEnabled(false);
     const noDuplicated = new Map<string, TrackedBarcode>();
     for (const trackedBarcode of Object.values(trackedBarcodes)) {
       const { data, symbology } = trackedBarcode.barcode;
@@ -155,7 +155,7 @@ async function run(): Promise<void> {
   });
 
   const onContinue = async (): Promise<void> => {
-    await barcodeTracking.setEnabled(true);
+    await barcodeBatch.setEnabled(true);
     drawer.open = false;
     document.getElementById("data-capture-view")!.classList.remove("scaled");
   };
@@ -164,7 +164,18 @@ async function run(): Promise<void> {
 }
 
 run().catch((error: unknown) => {
+  let errorMessage = (error as Error).toString();
+  if (error instanceof Error && error.name === "NoLicenseKeyError") {
+    errorMessage = `
+        NoLicenseKeyError:
+        
+        Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+        - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+        - placing your license key in a \`.env\` file at the root of the sample directory 
+        — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+    `;
+  }
   // eslint-disable-next-line no-console
   console.error(error);
-  alert((error as Error).toString());
+  alert(errorMessage);
 });

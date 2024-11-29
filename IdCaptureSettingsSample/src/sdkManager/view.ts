@@ -4,15 +4,14 @@ import {
   type LogoStyle,
   type PointWithUnit,
   TorchSwitchControl,
-} from "scandit-web-datacapture-core";
-import { MarginsWithUnit, NumberWithUnit, Brush, Color } from "scandit-web-datacapture-core";
+} from "@scandit/web-datacapture-core";
+import { MarginsWithUnit, NumberWithUnit, Brush, Color } from "@scandit/web-datacapture-core";
 import type { SDKManager } from "./sdkManager";
 import { scanAreaMargins } from "@/settings/view/scan-area/store";
 import { pointOfInterest } from "@/settings/view/point-of-interest/store";
-import type { IdLayout, IdLayoutLineStyle, IdLayoutStyle } from "scandit-web-datacapture-id";
+import type { IdLayoutLineStyle, IdLayoutStyle } from "@scandit/web-datacapture-id";
 import {
   BrushType,
-  layout,
   layoutCapturedBrush,
   layoutLineStyle,
   layoutLocalizedBrush,
@@ -41,15 +40,18 @@ export class SDKViewManager {
 
     let newBrush: Brush;
     switch (type) {
-      case BrushType.Red:
+      case BrushType.Red: {
         newBrush = new Brush(transparent, red, 2);
         break;
-      case BrushType.Green:
+      }
+      case BrushType.Green: {
         newBrush = new Brush(transparent, green, 2);
         break;
-      case BrushType.Default:
+      }
+      case BrushType.Default: {
         newBrush = new Brush(transparent, white, 2);
         break;
+      }
     }
     return newBrush;
   }
@@ -77,11 +79,6 @@ export class SDKViewManager {
   public updatePointOfInterest(point: PointWithUnit): void {
     this.sdkManager.dataCaptureView.pointOfInterest = point;
     pointOfInterest.set(point);
-  }
-
-  public updateOverlayLayout(style: string): void {
-    this.sdkManager.idCaptureOverlay.setIdLayout(style as IdLayout);
-    layout.set(style as IdLayout);
   }
 
   public updateOverlayLayoutStyle(style: string): void {

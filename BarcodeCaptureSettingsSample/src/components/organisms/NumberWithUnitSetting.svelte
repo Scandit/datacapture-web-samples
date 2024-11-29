@@ -2,7 +2,7 @@
   import NumberSetting from "@/components/molecules/NumberSetting.svelte";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import { camelCaseToTitleCase } from "@/helpers/camelCaseToTitleCase";
-  import { MeasureUnit } from "scandit-web-datacapture-core";
+  import { MeasureUnit } from "@scandit/web-datacapture-core";
 
   export let id: string = "";
   export let value: number = 0;

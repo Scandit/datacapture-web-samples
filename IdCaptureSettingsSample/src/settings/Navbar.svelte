@@ -5,15 +5,15 @@
   const navigate = useNavigate();
 </script>
 
-<section id="navbar" class="relative p-4 inline-flex flex-col items-start gap-4 z-10 rounded-b-xl">
+<nav id="navbar" class="relative w-full p-4 flex bg-black text-white z-10">
   <header>
-    <h1 class="text-white">Id Capture Settings</h1>
+    <h1 class="font-bold">ID Capture Settings</h1>
   </header>
   <button
     id="show-settings-button"
-    class="text-white"
     disabled={Boolean($scannedDocument)}
     hidden={!$isSdkConfigured}
+    class="ml-auto"
     on:click={() => navigate("/settings")}
   >
     <!-- cog icon -->
@@ -56,4 +56,4 @@
       </g>
     </svg>
   </button>
-</section>
+</nav>

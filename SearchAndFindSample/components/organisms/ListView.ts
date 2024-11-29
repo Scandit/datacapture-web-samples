@@ -5,7 +5,7 @@ import { BarcodeListItem } from "../atoms/BarcodeListItem.js";
 
 import { SearchIconButton } from "../atoms/SearchIconButton.js";
 import { define, removeAllChildNodes } from "../../utils.js";
-import type { Barcode, Symbology } from "scandit-web-datacapture-barcode";
+import type { Barcode, Symbology } from "@scandit/web-datacapture-barcode";
 import { Events, EventType } from "../../store.js";
 import type { CustomStateEvent, StateModel } from "../../store.js";
 

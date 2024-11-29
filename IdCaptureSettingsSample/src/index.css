@@ -7,6 +7,10 @@
   background-color: black;
 }
 
+body {
+  max-height: 100dvh;
+}
+
 * {
   outline: transparent;
 }
@@ -16,7 +20,7 @@ a {
   text-decoration: none;
 }
 
-input {
+input.default {
   @apply w-2/4 px-2 py-1 border border-gray-300 transition;
   @apply focus:border-gray-400;
 }

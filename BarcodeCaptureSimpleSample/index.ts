@@ -8,8 +8,8 @@ import {
   RectangularViewfinderStyle,
   RectangularViewfinderLineStyle,
   FrameSourceState,
-} from "scandit-web-datacapture-core";
-import type { SymbologySettings, Barcode, BarcodeCaptureSession } from "scandit-web-datacapture-barcode";
+} from "@scandit/web-datacapture-core";
+import type { SymbologySettings, Barcode, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";
 import {
   barcodeCaptureLoader,
   BarcodeCapture,
@@ -18,7 +18,7 @@ import {
   BarcodeCaptureOverlay,
   BarcodeCaptureOverlayStyle,
   SymbologyDescription,
-} from "scandit-web-datacapture-barcode";
+} from "@scandit/web-datacapture-barcode";
 
 declare global {
   interface Window {
@@ -164,6 +164,18 @@ async function run(): Promise<void> {
 }
 
 run().catch((error: unknown) => {
+  let errorMessage = (error as Error).toString();
+  if (error instanceof Error && error.name === "NoLicenseKeyError") {
+    errorMessage = `
+        NoLicenseKeyError:
+        
+        Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+        - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+        - placing your license key in a \`.env\` file at the root of the sample directory 
+        — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+    `;
+  }
+  // eslint-disable-next-line no-console
   console.error(error);
-  alert((error as Error).toString());
+  alert(errorMessage);
 });

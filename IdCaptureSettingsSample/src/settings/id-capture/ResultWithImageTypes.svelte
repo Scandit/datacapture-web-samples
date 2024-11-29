@@ -2,15 +2,17 @@
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { IdImageType } from "scandit-web-datacapture-id";
+  import { IdImageType } from "@scandit/web-datacapture-id";
   import { idCaptureApplyingSettingStore, idCaptureSettingsStore } from "./store";
   import { valueFromCheckbox } from "@/helper";
 
   async function onTypeToggled(docType: string, enabled: boolean) {
     const currentValues = {
       [IdImageType.Face]: $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.Face),
-      [IdImageType.IdBack]: true,
-      [IdImageType.IdFront]: true,
+      [IdImageType.CroppedDocument]: $idCaptureSettingsStore.getShouldPassImageTypeToResult(
+        IdImageType.CroppedDocument
+      ),
+      [IdImageType.Frame]: $idCaptureSettingsStore.getShouldPassImageTypeToResult(IdImageType.Frame),
     };
     sdkManager.idCapture.updateResultWithImageTypes({ ...currentValues, [docType as IdImageType]: enabled });
   }
@@ -25,9 +27,10 @@
       <section class="flex flex-col">
         <CheckboxSetting
           id={imageType}
-          checked={imageType == IdImageType.Face ? $idCaptureSettingsStore?.getShouldPassImageTypeToResult(imageType) : true}
-          disabled={imageType == IdImageType.Face ? $idCaptureApplyingSettingStore : true}
-          on:change={(e) => onTypeToggled(imageType, valueFromCheckbox(e))}>{imageType}</CheckboxSetting
+          checked={$idCaptureSettingsStore?.getShouldPassImageTypeToResult(imageType)}
+          disabled={$idCaptureApplyingSettingStore}
+          on:change={(e) => onTypeToggled(imageType, valueFromCheckbox(e))}
+          ><span class="capitalize">{imageType}</span></CheckboxSetting
         >
       </section>
     {/each}

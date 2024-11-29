@@ -1,5 +1,5 @@
 import { barcodeCapture, isSdkConfigured } from "@/store";
-import { BrowserHelper, Feedback, Sound, Vibration } from "scandit-web-datacapture-core";
+import { BrowserHelper, Feedback, Sound, Vibration } from "@scandit/web-datacapture-core";
 import { get, readable, writable } from "svelte/store";
 
 export const isSoundEnabled = writable(true);

@@ -1,4 +1,4 @@
-import type { CameraSettings, Translations as CoreTranslations } from "scandit-web-datacapture-core";
+import type { CameraSettings, Translations as CoreTranslations } from "@scandit/web-datacapture-core";
 import {
   Camera,
   CameraSwitchControl,
@@ -7,23 +7,22 @@ import {
   FrameSourceState,
   Localization,
   configure,
-} from "scandit-web-datacapture-core";
-import type {
-  CapturedId,
-  IdCaptureError,
-  IdCaptureSession,
-  Translations as IdTranslations,
-} from "scandit-web-datacapture-id";
+} from "@scandit/web-datacapture-core";
+import type { CapturedId, IdCaptureError, Translations as IdTranslations } from "@scandit/web-datacapture-id";
 import {
+  RejectionReason,
+  DriverLicense,
   IdCapture,
   IdCaptureErrorCode,
   IdCaptureOverlay,
   IdCaptureSettings,
-  IdDocumentType,
+  IdCard,
   IdImageType,
-  SupportedSides,
+  Passport,
+  Region,
+  SingleSideScanner,
   idCaptureLoader,
-} from "scandit-web-datacapture-id";
+} from "@scandit/web-datacapture-id";
 import * as UI from "./ui";
 
 const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
@@ -44,38 +43,13 @@ Localization.getInstance().update<IdTranslations | CoreTranslations>({
   // "id.idCaptureOverlay.scanBackSideHint": "Custom text for back of document",
 });
 
-// A map defining which document types we enable depending on the selected mode.
-const supportedDocumentsByMode: { [key in Mode]: IdDocumentType[] } = {
-  barcode: [
-    IdDocumentType.AAMVABarcode,
-    IdDocumentType.ColombiaIdBarcode,
-    IdDocumentType.ColombiaDlBarcode,
-    IdDocumentType.USUSIdBarcode,
-    IdDocumentType.ArgentinaIdBarcode,
-    IdDocumentType.SouthAfricaDlBarcode,
-    IdDocumentType.SouthAfricaIdBarcode,
-    IdDocumentType.CommonAccessCardBarcode,
-  ],
-  mrz: [
-    IdDocumentType.VisaMRZ,
-    IdDocumentType.PassportMRZ,
-    IdDocumentType.SwissDLMRZ,
-    IdDocumentType.IdCardMRZ,
-    IdDocumentType.ChinaMainlandTravelPermitMRZ,
-    IdDocumentType.ChinaExitEntryPermitMRZ,
-    IdDocumentType.ChinaOneWayPermitFrontMRZ,
-    IdDocumentType.ChinaOneWayPermitBackMRZ,
-    IdDocumentType.ApecBusinessTravelCardMRZ,
-  ],
-  viz: [IdDocumentType.DLVIZ, IdDocumentType.IdCardVIZ],
-};
-
 function createIdCaptureSettingsFor(mode: Mode): IdCaptureSettings {
   const settings = new IdCaptureSettings();
-  settings.supportedDocuments = supportedDocumentsByMode[mode];
-  // For VIZ documents, we enable scanning both sides and want to get the ID image
+  settings.scannerType = new SingleSideScanner(mode === "barcode", mode === "mrz", mode === "viz");
+  settings.acceptedDocuments = [new IdCard(Region.Any), new DriverLicense(Region.Any), new Passport(Region.Any)];
+
+  // For VIZ documents, we want to get the Face image
   if (mode === "viz") {
-    settings.supportedSides = SupportedSides.FrontAndBack;
     settings.setShouldPassImageTypeToResult(IdImageType.Face, true);
   }
 
@@ -89,30 +63,20 @@ async function createIdCapture(settings: IdCaptureSettings): Promise<void> {
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: async (idCaptureInstance: IdCapture, session: IdCaptureSession) => {
-      // Disable the IdCapture mode to handle the current result
+    didCaptureId: async (capturedId: CapturedId) => {
       await idCapture.setEnabled(false);
-
-      const capturedId = session.newlyCapturedId;
-      if (!capturedId) {
-        return;
-      }
-
-      if (capturedId.vizResult?.isBackSideCaptureSupported === true) {
-        if (capturedId.vizResult.capturedSides === SupportedSides.FrontAndBack) {
-          UI.showResult(capturedId);
-          void idCapture.reset();
-        } else {
-          UI.confirmScanningBackside(capturedId);
-        }
-      } else {
-        UI.showResult(capturedId);
-        void idCapture.reset();
-      }
+      UI.showResult(capturedId);
+      void idCapture.reset();
     },
-    didRejectId: async () => {
+    didRejectId: async (_capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);
-      UI.showWarning("Document type not supported.");
+      if (reason === RejectionReason.Timeout) {
+        UI.showWarning(
+          "Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document."
+        );
+      } else {
+        UI.showWarning("Document not supported. Try scanning another document.");
+      }
       void idCapture.reset();
     },
     didFailWithError: (_: IdCapture, error: IdCaptureError) => {
@@ -213,9 +177,20 @@ window.dispatchAction = async (...arguments_) => {
 };
 
 run().catch((error: unknown) => {
+  let errorMessage = (error as Error).toString();
+  if (error instanceof Error && error.name === "NoLicenseKeyError") {
+    errorMessage = `
+        NoLicenseKeyError:
+        
+        Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+        - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+        - placing your license key in a \`.env\` file at the root of the sample directory 
+        — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+    `;
+  }
   // eslint-disable-next-line no-console
   console.error(error);
-  alert((error as Error).toString());
+  alert(errorMessage);
 });
 
 type ActionParameters<A extends UI.Action> = A extends UI.Action.SWITCH_MODE

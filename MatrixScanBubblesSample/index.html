@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MatrixScan Bubbles Sample</title>
+    <script type="module" src="index.ts"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #333;
+        font-family: Helvetica, sans-serif;
+      }
+
+      body:not(.componentsDefined) .fixed-bottom, body:not(.componentsDefined) sdc-ui-button {
+        display: none;
+      }
+
+      #data-capture-view {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100svh;
+        transition: transform 200ms ease-in-out;
+      }
+
+      .fixed-bottom {
+        position: fixed;
+        bottom: 1rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="data-capture-view"></div>
+    <div class="fixed-bottom">
+      <sdc-ui-button></sdc-ui-button>
+    </div>
+  </body>
+</html>

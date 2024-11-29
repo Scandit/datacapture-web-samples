@@ -2,7 +2,6 @@ import { idCaptureSettingsStore } from "@/settings/id-capture/store";
 import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
 import {
   BrushType,
-  layout,
   layoutCapturedBrush,
   layoutLineStyle,
   layoutLocalizedBrush,
@@ -19,9 +18,9 @@ import {
   Camera,
   CameraPosition,
   TorchState,
-} from "scandit-web-datacapture-core";
-import type { IdCaptureOverlay } from "scandit-web-datacapture-id";
-import { IdCapture, IdLayout, idCaptureLoader } from "scandit-web-datacapture-id";
+} from "@scandit/web-datacapture-core";
+import type { IdCaptureOverlay } from "@scandit/web-datacapture-id";
+import { IdCapture, idCaptureLoader } from "@scandit/web-datacapture-id";
 import { availableCameras, cameraSettings, currentCamera, desiredTorchState } from "../settings/camera/store";
 import { isSdkConfigured } from "../store";
 import { SDKCameraManager } from "./camera";
@@ -48,11 +47,23 @@ export class SDKManager {
 
     await configure({
       licenseKey,
-      libraryLocation: new URL("library/engine/", window.location.href.replace(/index\.html.*/, "")).toString(),
+      libraryLocation: new URL("library/engine/", globalThis.location.href.replace(/index\.html.*/, "")).toString(),
       moduleLoaders: [idCaptureLoader({ enableVIZDocuments: true })],
-    }).catch((error) => {
+    }).catch((error: unknown) => {
+      let errorMessage = (error as Error).toString();
+      if (error instanceof Error && error.name === "NoLicenseKeyError") {
+        errorMessage = `
+          NoLicenseKeyError:
+
+          Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+          - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+          - placing your license key in a \`.env\` file at the root of the sample directory
+          — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+        `;
+      }
+      // eslint-disable-next-line no-console
       console.error(error);
-      alert(error);
+      alert(errorMessage);
     });
 
     this.dataCaptureView.hideProgressBar();
@@ -83,7 +94,6 @@ export class SDKManager {
     scanAreaMargins.set(this.dataCaptureView.scanAreaMargins);
     pointOfInterest.set(this.dataCaptureView.pointOfInterest);
 
-    layout.set(IdLayout.Auto);
     layoutStyle.set(this.idCaptureOverlay.idLayoutStyle);
     layoutLineStyle.set(this.idCaptureOverlay.idLayoutLineStyle);
     layoutCapturedBrush.set(BrushType.Default);

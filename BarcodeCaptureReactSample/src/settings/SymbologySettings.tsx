@@ -1,4 +1,4 @@
-import { Symbology, SymbologyDescription } from "scandit-web-datacapture-barcode";
+import { Symbology, SymbologyDescription } from "@scandit/web-datacapture-barcode";
 
 import BarcodeIcon from "../icons/BarcodeIcon";
 import { useSDK } from "../sdk";

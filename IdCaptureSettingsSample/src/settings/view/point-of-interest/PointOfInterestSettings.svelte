@@ -2,7 +2,7 @@
   import NumberWithUnitSetting from "@/components/organisms/NumberWithUnitSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { type MeasureUnit, PointWithUnit, NumberWithUnit } from "scandit-web-datacapture-core";
+  import { type MeasureUnit, PointWithUnit, NumberWithUnit } from "@scandit/web-datacapture-core";
   import { pointOfInterest } from "./store";
   import Subtitle from "@/components/atoms/Subtitle.svelte";
 

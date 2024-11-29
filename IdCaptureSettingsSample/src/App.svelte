@@ -8,22 +8,26 @@
   import Sidebar from "@/settings/Sidebar.svelte";
   import { isSidebarOpen, scannedDocument, showScanResults } from "@/store";
   import CameraSettingsPage from "@/settings/camera/CameraSettings.svelte";
-  import SupportedDocumentsPage from "@/settings/id-capture/SupportedDocuments.svelte";
+  import DocumentSelection from "@/settings/id-capture/DocumentSelection.svelte";
   import ViewSettingsPage from "@/settings/view/ViewSettings.svelte";
   import IdCaptureSettingsPage from "@/settings/id-capture/IdCaptureSettings.svelte";
   import ResultWithImageTypes from "./settings/id-capture/ResultWithImageTypes.svelte";
-  import Feedback from "./settings/id-capture/Feedback.svelte";
   import ScanAreaSettingsPage from "./settings/view/scan-area/ScanAreaSettings.svelte";
   import PointOfInterestSettingsPage from "./settings/view/point-of-interest/PointOfInterestSettings.svelte";
   import OverlaySettingsPage from "./settings/view/overlay/OverlaySettings.svelte";
   import LogoSettingsPage from "./settings/view/logo/LogoSettings.svelte";
   import LogoOffsetSettingsPage from "./settings/view/logo/offset/LogoOffsetSettings.svelte";
   import ControlsSettingsPage from "./settings/view/controls/ControlsSettings.svelte";
-  import { isSdkConfigured } from "./store";
+  import { isSdkConfigured, showLicenseText } from "./store";
   import { get } from "svelte/store";
   import { sdkManager } from "./sdkManager/sdkManager";
-  import { TorchState } from "scandit-web-datacapture-core";
+  import { TorchState } from "@scandit/web-datacapture-core";
   import { desiredTorchState } from "./settings/camera/store";
+  import ScannerType from "./settings/id-capture/ScannerType.svelte";
+  import Feedback from "./settings/id-capture/Feedback.svelte";
+  import LicenseModal from "@/components/molecules/LicenseModal.svelte";
+  import Alert from "./components/atoms/Alert.svelte";
+  import { modalStore } from "./settings/id-capture/store";
 
   // If SDK finishes configuring and the sidebar is open, disable it
   isSdkConfigured.subscribe((configured) => {
@@ -48,7 +52,6 @@
 </script>
 
 <HashRouter>
-  <Navbar />
   <Sidebar>
     <Route path="/settings">
       <Settings />
@@ -62,14 +65,25 @@
     <Route path="/settings/view">
       <ViewSettingsPage />
     </Route>
-    <Route path="/settings/id-capture/supported-documents">
-      <SupportedDocumentsPage />
+    <Route path="/settings/id-capture/accepted-documents">
+      <DocumentSelection
+        title="Accepted documents"
+        getDocuments={(settings) => settings.acceptedDocuments}
+        updateDocuments={(newDocuments) => sdkManager.idCapture.updateAcceptedDocuments(newDocuments)}
+      />
+    </Route>
+    <Route path="/settings/id-capture/rejected-documents">
+      <DocumentSelection
+        title="Rejected documents"
+        getDocuments={(settings) => settings.rejectedDocuments}
+        updateDocuments={(newDocuments) => sdkManager.idCapture.updateRejectedDocuments(newDocuments)}
+      />
+    </Route>
+    <Route path="/settings/id-capture/scanner">
+      <ScannerType />
     </Route>
     <Route path="/settings/id-capture/result-with-image-types">
       <ResultWithImageTypes />
-    </Route>
-    <Route path="/settings/id-capture/feedback">
-      <Feedback />
     </Route>
     <Route path="/settings/view/scan-area">
       <ScanAreaSettingsPage />
@@ -89,9 +103,24 @@
     <Route path="/settings/view/controls">
       <ControlsSettingsPage />
     </Route>
+    <Route path="/settings/id-capture/feedback">
+      <Feedback />
+    </Route>
   </Sidebar>
+  <div class="flex flex-col h-[100dvh]">
+    <Navbar />
+    <DataCapture />
+  </div>
 </HashRouter>
-<DataCapture />
+
 {#if $scannedDocument && $showScanResults}
   <ScanResultModal />
+{/if}
+
+
+{#if $showLicenseText}
+  <LicenseModal />
+{/if}
+{#if $modalStore != null}
+  <Alert title={$modalStore.title} content={$modalStore.content} />
 {/if}

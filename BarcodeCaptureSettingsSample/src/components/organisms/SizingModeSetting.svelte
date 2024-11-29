@@ -3,7 +3,7 @@
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import NumberWithUnitSetting from "@/components/organisms/NumberWithUnitSetting.svelte";
   import { camelCaseToTitleCase } from "@/helpers/camelCaseToTitleCase";
-  import { MeasureUnit, SizingMode } from "scandit-web-datacapture-core";
+  import { MeasureUnit, SizingMode } from "@scandit/web-datacapture-core";
 
   export let id: string = "";
   export let sizingMode: SizingMode = SizingMode.WidthAndHeight;

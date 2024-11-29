@@ -2,7 +2,7 @@
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
   import { enabledCompositeTypes } from "@/settings/barcode-capture/composite-types/store";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { CompositeType } from "scandit-web-datacapture-barcode";
+  import { CompositeType } from "@scandit/web-datacapture-barcode";
 
   function onCompositeTypeToggle(compositeType: CompositeType) {
     return (event: CustomEvent<boolean>) => {

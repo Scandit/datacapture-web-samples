@@ -1,4 +1,4 @@
-import type { FrameData, FrameSource } from "scandit-web-datacapture-core";
+import type { FrameSource } from "@scandit/web-datacapture-core";
 import {
   Brush,
   Camera,
@@ -10,18 +10,23 @@ import {
   SingleImageUploader,
   SingleImageUploaderSettings,
   configure,
-} from "scandit-web-datacapture-core";
-import type { IdCaptureError, IdCaptureListener, IdCaptureSession, CapturedId } from "scandit-web-datacapture-id";
+} from "@scandit/web-datacapture-core";
+import type { IdCaptureError, Listener, CapturedId } from "@scandit/web-datacapture-id";
 import {
+  RejectionReason,
   IdCapture,
   IdCaptureErrorCode,
   IdCaptureOverlay,
   IdCaptureSettings,
-  IdDocumentType,
-  SupportedSides,
-  idCaptureLoader,
   IdCaptureTrigger,
-} from "scandit-web-datacapture-id";
+  CapturedSides,
+  idCaptureLoader,
+  DriverLicense,
+  Region,
+  IdSide,
+  IdImageType,
+  FullDocumentScanner,
+} from "@scandit/web-datacapture-id";
 import * as UI from "./ui";
 
 const LICENSE_KEY = "-- ENTER YOUR SCANDIT LICENSE KEY HERE --";
@@ -35,33 +40,11 @@ let lastCameraFrameSource: FrameSource | null = null;
 let singleImageFrameSource: SingleImageUploader | null = null;
 let finalCapturedId: CapturedId | null = null;
 
-const idCaptureCameraListener: IdCaptureListener = {
+const idCaptureListener: Listener = {
   didCaptureId: onCapturedId,
   didRejectId: onRejectedId,
-  didTimedOut: onCapturedTimeout,
   didFailWithError: onIdCaptureFailure,
 };
-const idCaptureManualUploadListener: IdCaptureListener = {
-  didUpdateSession: onManualUploadDidUpdateSession,
-};
-
-async function blobToDataUrl(blob: Blob): Promise<string | null> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.addEventListener("error", (error) => {
-      // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
-      reject(error);
-    });
-    reader.addEventListener("load", () => {
-      if (reader.result === null) {
-        resolve(null);
-      } else {
-        resolve(reader.result as string);
-      }
-    });
-    reader.readAsDataURL(blob);
-  });
-}
 
 // Load and initialize all the components
 async function initScanner(): Promise<void> {
@@ -90,11 +73,16 @@ async function initScanner(): Promise<void> {
   await context.setFrameSource(camera);
 
   const settings = new IdCaptureSettings();
+  settings.scannerType = new FullDocumentScanner();
+  settings.acceptedDocuments = [
+    new DriverLicense(Region.Us),
+    new DriverLicense(Region.EuAndSchengen),
+    new DriverLicense(Region.Uk),
+  ];
   settings.captureTrigger = IdCaptureTrigger.ButtonTap;
-  settings.supportedDocuments = [IdDocumentType.DLVIZ];
-  settings.supportedSides = SupportedSides.FrontAndBack;
+  settings.setShouldPassImageTypeToResult(IdImageType.Frame, true);
   idCapture = await IdCapture.forContext(context, settings);
-  idCapture.addListener(idCaptureCameraListener);
+  idCapture.addListener(idCaptureListener);
   const overlay = await IdCaptureOverlay.withIdCaptureForView(idCapture, view);
   await overlay.setLocalizedBrush(Brush.transparent);
   view.hideProgressBar();
@@ -105,68 +93,61 @@ async function initScanner(): Promise<void> {
   await singleImageFrameSource.applySettings(singleImageFrameSourceSettings);
 }
 
-async function onCapturedId(_idCapture: IdCapture, session: IdCaptureSession, frameData: FrameData): Promise<void> {
-  if (session.newlyCapturedId == null) {
-    return;
-  }
+async function onCapturedId(capturedId: CapturedId): Promise<void> {
   await idCapture.setEnabled(false);
-  const capturedId = session.newlyCapturedId;
-  if (capturedId.vizResult?.capturedSides === SupportedSides.FrontAndBack) {
-    backSideData = await saveImage(frameData);
-    if (frontSideData != null && backSideData != null) {
-      showImagesForReview();
-      finalCapturedId = capturedId;
-    }
-  } else {
-    finalCapturedId = capturedId;
-    frontSideData = await saveImage(frameData);
-    // freeze the camera for a short while to let the user better understand that the front-side has been scanned
-    await context.frameSource?.switchToDesiredState(FrameSourceState.Standby);
-    await new Promise((resolve) => {
-      setTimeout(resolve, 400);
-    });
-    await context.frameSource?.switchToDesiredState(FrameSourceState.On);
-    await idCapture.setEnabled(true);
-  }
-}
 
-async function saveImage(frameData: FrameData): Promise<string | null> {
-  const blob = await frameData.toBlob("image/jpeg", 100);
-  if (blob == null) {
-    await UI.showDialog("Error", "Could not get the image from the captured document. Please start over.", [
-      { id: "close", label: "close" },
-    ]);
-    await startScanner(true);
-    return null;
-  }
-  return blobToDataUrl(blob);
+  frontSideData = capturedId.images.getFrame(IdSide.Front);
+  backSideData = capturedId.images.getFrame(IdSide.Back);
+
+  finalCapturedId = capturedId;
+  showImagesForReview();
 }
 
 function showImagesForReview(): void {
   const imgFront = new Image();
-  imgFront.src = frontSideData!;
+  imgFront.src = `data:image/png;base64,${frontSideData}`;
   const imagePlaceholders = UI.elements.review.querySelectorAll(".review__image-inner");
   imagePlaceholders[0].innerHTML = "";
   imagePlaceholders[0].append(imgFront);
 
   const imgBack = new Image();
-  imgBack.src = backSideData!;
+  imgBack.src = `data:image/png;base64,${backSideData}`;
   imagePlaceholders[1].innerHTML = "";
   imagePlaceholders[1].append(imgBack);
 
   UI.elements.review.hidden = false;
 }
 
-async function onRejectedId(): Promise<void> {
+async function onRejectedId(capturedId: CapturedId, reason: RejectionReason): Promise<void> {
   await idCapture.setEnabled(false);
-  await UI.showDialog("Invalid document", "Document type not supported.", [{ id: "ok", label: "OK" }]);
-  await startScanner(false);
-}
+  switch (reason) {
+    case RejectionReason.Timeout: {
+      await context.frameSource?.switchToDesiredState(FrameSourceState.Standby);
+      UI.elements.timeout.hidden = false;
+      break;
+    }
+    case RejectionReason.SingleImageNotRecognized: {
+      if (frontSideData == null) {
+        frontSideData = capturedId.images.getFrame(IdSide.Front);
+        void UI.showDialog("Success", "Front side image saved", [{ id: "ok", label: "Proceed with back side" }]);
+        void showManualUpload();
+        return;
+      }
 
-async function onCapturedTimeout(): Promise<void> {
-  await idCapture.setEnabled(false);
-  await context.frameSource?.switchToDesiredState(FrameSourceState.Standby);
-  UI.elements.timeout.hidden = false;
+      if (backSideData == null) {
+        // Beware: because we could not scan the front side, the SDK could not store the front image internally
+        // because it could not know that both images have to be treated as part of the same document.
+        backSideData = capturedId.images.getFrame(IdSide.Back) ?? capturedId.images.getFrame(IdSide.Front);
+      }
+      showImagesForReview();
+      break;
+    }
+    default: {
+      await UI.showDialog("Invalid document", "Document type not supported.", [{ id: "ok", label: "OK" }]);
+      await startScanner(false);
+      break;
+    }
+  }
 }
 
 async function onIdCaptureFailure(_idCapture: IdCapture, error: IdCaptureError): Promise<void> {
@@ -181,24 +162,6 @@ async function onIdCaptureFailure(_idCapture: IdCapture, error: IdCaptureError):
   }
 }
 
-async function onManualUploadDidUpdateSession(
-  _: IdCapture,
-  session: IdCaptureSession,
-  frameData: FrameData
-): Promise<void> {
-  if (frontSideData == null) {
-    frontSideData = await saveImage(frameData);
-    void UI.showDialog("Success", "Front side image saved", [{ id: "ok", label: "Proceed with back side" }]);
-    void showManualUpload();
-    return;
-  }
-
-  if (backSideData == null) {
-    backSideData = await saveImage(frameData);
-  }
-  showImagesForReview();
-}
-
 async function showManualUpload(): Promise<void> {
   Localization.getInstance().update({
     "core.singleImageUploader.title": `Take a picture of the ${frontSideData == null ? "FRONT" : "BACK"} side of your ID`,
@@ -209,8 +172,6 @@ async function showManualUpload(): Promise<void> {
   await singleImageFrameSource?.applySettings(newSettings);
   await context.frameSource?.switchToDesiredState(FrameSourceState.Off);
   await context.setFrameSource(singleImageFrameSource);
-  idCapture.removeListener(idCaptureCameraListener);
-  idCapture.addListener(idCaptureManualUploadListener);
   await idCapture.setEnabled(true);
   await singleImageFrameSource?.switchToDesiredState(FrameSourceState.On);
 }
@@ -222,6 +183,8 @@ function initUIElements(): void {
   });
   UI.elements.timeoutManualUploadButton.addEventListener("click", () => {
     UI.elements.timeout.hidden = true;
+    // reset state to start a new capture from the images that will be submitted
+    void idCapture.reset();
     void showManualUpload();
   });
   UI.elements.reviewRetryButton.addEventListener("click", async () => {
@@ -261,8 +224,6 @@ async function startScanner(reset: boolean = false): Promise<void> {
     frontSideData = null;
     backSideData = null;
   }
-  idCapture.removeListener(idCaptureManualUploadListener);
-  idCapture.addListener(idCaptureCameraListener);
   await context.setFrameSource(lastCameraFrameSource);
   await context.frameSource!.switchToDesiredState(FrameSourceState.On);
   await idCapture.setEnabled(true);
@@ -275,6 +236,18 @@ async function start(): Promise<void> {
 }
 
 start().catch((error: unknown) => {
+  let errorMessage = (error as Error).toString();
+  if (error instanceof Error && error.name === "NoLicenseKeyError") {
+    errorMessage = `
+        NoLicenseKeyError:
+
+        Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+        - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
+        - placing your license key in a \`.env\` file at the root of the sample directory
+        — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
+    `;
+  }
+  // eslint-disable-next-line no-console
   console.error(error);
-  alert((error as Error).toString());
+  alert(errorMessage);
 });

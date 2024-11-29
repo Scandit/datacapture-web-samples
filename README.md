@@ -10,12 +10,12 @@ You can also try them directly in StackBlitz by following the links below.
 
 - BarcodeCaptureSimpleSample [![BarcodeCaptureSimpleSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/BarcodeCaptureSimpleSample?file=index.ts)
 
-- BarcodeCaptureViewsSample [![BarcodeCaptureViewsSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/BarcodeCaptureViewsSample?file=index.html)
-
 - MatrixScanSimpleSample [![MatrixScanSimpleSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/MatrixScanSimpleSample?file=index.html)
 
- - SearchAndFindSample [![SearchAndFindSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/SearchAndFindSample?file=index.html)
+- MatrixScanBubblesSample [![MatrixScanBubblesSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/MatrixScanBubblesSample?file=index.ts)
+
+- SearchAndFindSample [![SearchAndFindSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/SearchAndFindSample?file=index.ts)
 
 - ListBuildingSample [![ListBuildingSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/ListBuildingSample)
 
-If you want to learn more about the SDK, check out the complete documentation and getting started guides [here](https://docs.scandit.com/data-capture-sdk/web/).
+If you want to learn more about the SDK, check out the complete documentation and get started guides [here](https://docs.scandit.com/data-capture-sdk/web/).

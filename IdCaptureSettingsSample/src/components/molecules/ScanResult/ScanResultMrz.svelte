@@ -1,6 +1,6 @@
 <script lang="ts">
   import ResultField from "@/components/atoms/ResultField.svelte";
-  import type { MRZResult } from "scandit-web-datacapture-id";
+  import type { MRZResult } from "@scandit/web-datacapture-id";
 
   type MainType = MRZResult;
   export let data: MainType;
@@ -11,6 +11,15 @@
     optional: "Optional",
     optional1: "Optional1",
     capturedMrz: "Captured Mrz",
+    personalIdNumber: "Personal ID Number",
+    renewalTimes: "Renewal times",
+    fullNameSimplifiedChinese: "Full Name Simplified Chinese",
+    omittedCharacterCountInGbkName: "Omitted Character Count In GBK Name",
+    omittedNameCount: "Omitted Name Count",
+    issuingAuthorityCode: "Issuing Authority Code",
+    passportNumber: "Passport Number",
+    passportIssuerIso: "Passport Issuer ISO",
+    passportDateOfExpiry: "Passport Date of Expiry",
   };
 </script>
 

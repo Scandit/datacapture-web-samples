@@ -8,8 +8,8 @@ import {
   FocusGestureStrategy,
   VideoResolution,
   DataCaptureContext,
-} from "scandit-web-datacapture-core";
-import type { FrameSource } from "scandit-web-datacapture-core";
+} from "@scandit/web-datacapture-core";
+import type { FrameSource } from "@scandit/web-datacapture-core";
 import { get, writable } from "svelte/store";
 
 export const cameraLabel = writable("");

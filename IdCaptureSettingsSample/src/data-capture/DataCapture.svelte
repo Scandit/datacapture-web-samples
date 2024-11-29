@@ -11,17 +11,14 @@
   });
 </script>
 
-<main>
+<main class="relative h-full">
   <div id="data-capture-view" />
 </main>
 
 <style>
   #data-capture-view {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
   }
 
   @supports (-webkit-touch-callout: none) {

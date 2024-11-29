@@ -20,7 +20,8 @@ Once you get the sample up and running, go find some barcodes to scan. Don’t f
 
 ## Trial Signup
 
-To add Barcode Capture to your app, sign up for your Scandit Developer Account  and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
+To add Barcode Capture to your app, sign up for your Scandit Developer Account 
+and get instant access to your license key: [https://ssl.scandit.com/dashboard/sign-up?p=test](https://ssl.scandit.com/dashboard/sign-up?p=test)
 
 ## Support
 
@@ -39,6 +40,12 @@ npm install
 ```
 
 ## How to run
+
+Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
+
+- running `SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build`
+- placing your license key in a `.env` file at the root of the sample directory
+- or by inserting your license key into `index.ts`, replacing the placeholder `-- ENTER YOUR SCANDIT LICENSE KEY HERE --` with the key.
 
 Build and serve the application:
 

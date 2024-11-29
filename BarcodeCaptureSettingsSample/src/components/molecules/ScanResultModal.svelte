@@ -1,7 +1,7 @@
 <script lang="ts">
   import Modal from "@/components/atoms/Modal.svelte";
   import { barcodeCapture, isSidebarOpen, scannedBarcode, showScanResults } from "@/store";
-  import { SymbologyDescription } from "scandit-web-datacapture-barcode";
+  import { SymbologyDescription } from "@scandit/web-datacapture-barcode";
 
   $: symbologyDescription = $scannedBarcode && new SymbologyDescription($scannedBarcode.symbology);
 
@@ -24,6 +24,6 @@
     {#if !symbologyDescription?.activeSymbolCountRange.isFixed}
       <p>Symbol Count: {$scannedBarcode?.symbolCount}</p>
     {/if}
-    <button class="cta cta--primary" on:click={onModalClose}>Ok</button>
   </div>
+  <button slot="footer" class="cta cta--primary flex-grow" on:click={onModalClose}>Ok</button>
 </Modal>
