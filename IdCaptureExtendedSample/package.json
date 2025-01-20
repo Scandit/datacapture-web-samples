@@ -13,8 +13,8 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-core": "7.0.1",
-    "@scandit/web-datacapture-id": "7.0.1"
+    "@scandit/web-datacapture-core": "7.0.2",
+    "@scandit/web-datacapture-id": "7.0.2"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
