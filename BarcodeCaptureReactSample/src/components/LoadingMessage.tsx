@@ -1,6 +1,8 @@
+import type { ReactElement } from "react";
+
 import Spinner from "./Spinner";
 
-export default function LoadingMessage(): JSX.Element {
+export default function LoadingMessage(): ReactElement {
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <p>Initializing the scanner...</p>

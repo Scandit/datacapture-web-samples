@@ -154,9 +154,29 @@ export async function showResult(capturedId: SDCId.CapturedId, verificationResul
   let header = "";
   const result = document.createDocumentFragment();
 
-  const { isExpired, aamvaBarcodeVerificationResult } = verificationResult;
+  const { isExpired, aamvaBarcodeVerificationResult, dataConsistencyResult } = verificationResult;
 
   result.append(isExpired ? getPanel("warn", "Document is expired.") : getPanel("passed", "Document is not expired."));
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const dataConsistency = await dataConsistencyResult;
+
+  // Data consistency verification result
+  if (dataConsistency === null) {
+    result.append(getPanel("warn", "No result for verification."));
+  } else if (dataConsistency.allChecksPassed) {
+    result.append(getPanel("passed", "Information on front and back matches."));
+  } else {
+    result.append(getPanel("warn", "Information on front and back does not match."));
+    const frontReviewImage = await dataConsistency.frontReviewImage();
+    if (frontReviewImage !== "") {
+      result.append(getDOMForLabel("Front Review Image"));
+      const mismatchImage = new Image();
+      mismatchImage.className = "id-mismatch-image";
+      mismatchImage.src = frontReviewImage;
+      result.append(mismatchImage);
+    }
+  }
 
   if (!isExpired) {
     // AAMVA verification result is asynchronous, we schedule the update of the DOM when the result arrives

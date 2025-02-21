@@ -1,8 +1,10 @@
+import type { ReactElement } from "react";
+
 export interface HomeIconProps {
   color: string;
 }
 
-export default function HomeIcon({ color }: HomeIconProps): JSX.Element {
+export default function HomeIcon({ color }: HomeIconProps): ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
       <path

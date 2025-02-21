@@ -1,9 +1,10 @@
+import type { ReactElement } from "react";
 import { useCallback } from "react";
 
 import CameraIcon from "../icons/CameraIcon";
 import { useStore } from "../store";
 
-export default function CameraSettings(): JSX.Element {
+export default function CameraSettings(): ReactElement {
   const { keepCameraOn, setKeepCameraOn } = useStore();
 
   const onChange = useCallback(

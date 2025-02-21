@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 import LoadingMessage from "../components/LoadingMessage";
@@ -6,7 +7,7 @@ import BackIcon from "../icons/BackIcon";
 import { useSDK } from "../sdk";
 import ScannerComponent from "./ScannerComponent";
 
-export default function ScannerPage(): JSX.Element {
+export default function ScannerPage(): ReactElement {
   const { loaded } = useSDK();
 
   return (

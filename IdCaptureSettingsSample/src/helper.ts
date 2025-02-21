@@ -22,3 +22,13 @@ export function range(minimum: number, maximum: number, step: number = 1): numbe
 export function assertUnreachable(_t: never): never {
   throw new Error("unreachable case");
 }
+
+export function parseNullableNumber(input: string): number | null {
+  const trimmedValue = input.trim();
+  if (trimmedValue === "") {
+    return null;
+  }
+  const parsedNumber = Number(trimmedValue);
+
+  return Number.isNaN(parsedNumber) ? null : parsedNumber;
+}

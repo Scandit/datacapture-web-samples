@@ -1,0 +1,30 @@
+{
+  "name": "web-matrix-scan-check-simple-sample",
+  "displayName": "MatrixScanCheckSimpleSample",
+  "version": "1.0.0",
+  "author": "Scandit",
+  "description": "MatrixScanCheckSimpleSample for the Web",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "fast-build": "vite build",
+    "serve": "vite preview",
+    "lint": "biome lint .",
+    "format": "biome format ."
+  },
+  "dependencies": {
+    "@scandit/web-datacapture-barcode": "7.1.0",
+    "@scandit/web-datacapture-core": "7.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "~18.19.50",
+    "dotenv": "^16.4.7",
+    "npm-packlist": "^5.1.1",
+    "prettier": "^2.8.8",
+    "typescript": "4.9.5",
+    "vite": "~5.4.11",
+    "vite-plugin-static-copy": "^1.0.2"
+  }
+}

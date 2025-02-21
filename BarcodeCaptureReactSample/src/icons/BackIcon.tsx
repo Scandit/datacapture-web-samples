@@ -1,8 +1,10 @@
+import type { ReactElement } from "react";
+
 export interface BackIconProps {
   color: string;
 }
 
-export default function BackIcon({ color }: BackIconProps): JSX.Element {
+export default function BackIcon({ color }: BackIconProps): ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
       <path

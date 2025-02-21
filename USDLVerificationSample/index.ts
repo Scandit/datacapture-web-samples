@@ -6,10 +6,11 @@ import {
   FrameSourceState,
   configure,
 } from "@scandit/web-datacapture-core";
-import type { AamvaBarcodeVerificationResult, CapturedId } from "@scandit/web-datacapture-id";
+import type { AamvaBarcodeVerificationResult, CapturedId, DataConsistencyResult } from "@scandit/web-datacapture-id";
 import {
   RejectionReason,
   AamvaBarcodeVerifier,
+  DataConsistencyVerifier,
   DriverLicense,
   IdCapture,
   IdCaptureOverlay,
@@ -32,6 +33,8 @@ let camera: Camera;
 export interface VerificationResult {
   isExpired: boolean;
   aamvaBarcodeVerificationResult: Promise<AamvaBarcodeVerificationResult>;
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  dataConsistencyResult: Promise<DataConsistencyResult | null>;
 }
 
 async function run(): Promise<void> {
@@ -73,6 +76,9 @@ async function run(): Promise<void> {
   settings.scannerType = new FullDocumentScanner();
   settings.acceptedDocuments = [new DriverLicense(Region.Us)];
   settings.setShouldPassImageTypeToResult(IdImageType.Face, true);
+
+  // Required for DataConsistencyResult frontReviewImage()
+  settings.setShouldPassImageTypeToResult(IdImageType.CroppedDocument, true);
   idCapture = await IdCapture.forContext(context, settings);
 
   // Disable the mode until the camera is accessed
@@ -83,6 +89,8 @@ async function run(): Promise<void> {
 
   // Create an instance of the verifier, to be used later when a document has been scanned
   const barcodeVerifier = await AamvaBarcodeVerifier.create(context);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+  const dataConsistencyVerifier = DataConsistencyVerifier.create(context);
 
   function verifyDriverLicense(capturedId: CapturedId): VerificationResult {
     const capturedDateOfExpiry = capturedId.dateOfExpiry;
@@ -102,6 +110,8 @@ async function run(): Promise<void> {
     return {
       isExpired,
       aamvaBarcodeVerificationResult: barcodeVerifier.verify(capturedId),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      dataConsistencyResult: dataConsistencyVerifier.verify(capturedId),
     };
   }
 

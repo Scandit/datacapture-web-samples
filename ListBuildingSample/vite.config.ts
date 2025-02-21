@@ -39,6 +39,8 @@ function scandit(options: VitePluginScanditOptions): Plugin {
       );
     },
     configureServer: (server) => {
+      server.config.preview.port = 8888;
+      server.config.server.port = 8888;
       server.middlewares.use(crossOriginIsolationMiddleware);
     },
     configurePreviewServer: (server) => {

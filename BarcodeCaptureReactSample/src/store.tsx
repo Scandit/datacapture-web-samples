@@ -1,6 +1,6 @@
-import type { Dispatch, ReactNode, SetStateAction } from "react";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { Barcode, Symbology } from "@scandit/web-datacapture-barcode";
+import type { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import { useSDK } from "./sdk";
 
@@ -26,7 +26,7 @@ export interface StoreProviderProps {
   children: ReactNode;
 }
 
-export function StoreProvider({ children }: StoreProviderProps): JSX.Element {
+export function StoreProvider({ children }: StoreProviderProps): ReactElement {
   const { sdk, loaded } = useSDK();
   const [barcode, setBarcode] = useState<Barcode | undefined>();
   const [keepCameraOn, setKeepCameraOn] = useState(true);

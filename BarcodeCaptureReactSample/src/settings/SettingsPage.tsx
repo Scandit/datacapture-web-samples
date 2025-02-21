@@ -1,10 +1,11 @@
+import type { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 import BackIcon from "../icons/BackIcon";
 import CameraSettings from "./CameraSettings";
 import SymbologySettings from "./SymbologySettings";
 
-export default function SettingsPage(): JSX.Element {
+export default function SettingsPage(): ReactElement {
   return (
     <main className="w-screen h-[100dvh] flex flex-col gap-4 lg:max-w-[800px] lg:mx-auto">
       <nav className="sticky py-4 top-0 bg-white border-b lg:p-4">

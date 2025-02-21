@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && npm run lint && vite build",
     "fast-build": "vite build",
     "serve": "vite preview",
     "lint": "eslint --fix src/**/*.{ts,svelte} && svelte-check --tsconfig ./tsconfig.json",
@@ -62,8 +62,8 @@
   },
   "dependencies": {
     "history": "^5.3.0",
-    "@scandit/web-datacapture-core": "7.0.2",
-    "@scandit/web-datacapture-id": "7.0.2",
+    "@scandit/web-datacapture-core": "7.1.0",
+    "@scandit/web-datacapture-id": "7.1.0",
     "svelte-navigator": "^3.2.2"
   }
 }

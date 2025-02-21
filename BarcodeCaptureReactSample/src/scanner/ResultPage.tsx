@@ -1,6 +1,7 @@
+import { SymbologyDescription } from "@scandit/web-datacapture-barcode";
+import type { ReactElement } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SymbologyDescription } from "@scandit/web-datacapture-barcode";
 
 import MenuButton from "../components/MenuButton";
 import HomeIcon from "../icons/HomeIcon";
@@ -8,7 +9,7 @@ import ScannerIcon from "../icons/ScannerIcon";
 import SettingsIcon from "../icons/SettingsIcon";
 import { useStore } from "../store";
 
-export default function ResultPage(): JSX.Element | null {
+export default function ResultPage(): ReactElement | null {
   const { barcode } = useStore();
   const navigate = useNavigate();
 

@@ -2,7 +2,6 @@ const pxTimesDpr = (x: number, dpr = window.devicePixelRatio): string => `${x * 
 
 export function BubbleComponent(data: { title: string; subtitle?: string }): HTMLElement {
   const container = document.createElement("div");
-  const bubble = document.createElement("div");
   const info = document.createElement("div");
   const title = document.createElement("div");
   const height = 50;
@@ -16,10 +15,10 @@ export function BubbleComponent(data: { title: string; subtitle?: string }): HTM
     width: widthDpr,
     height: heightDpr,
     display: "flex",
-    "background-color": "rgb(216,216,216)",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
     borderRadius,
     position: "absolute",
-  });
+  } satisfies Partial<CSSStyleDeclaration>);
   // texts container
   Object.assign(info.style, {
     display: "flex",
@@ -27,25 +26,11 @@ export function BubbleComponent(data: { title: string; subtitle?: string }): HTM
     justifyContent: "center",
     flex: "1",
     color: "black",
-    padding: `${pxTimesDpr(16)} 0px ${pxTimesDpr(16)} ${pxTimesDpr(10)}`,
+    padding: `${pxTimesDpr(16)} 0px`,
     fontFamily: "Helvetica, sans-serif",
     fontSize: pxTimesDpr(12),
-  });
-  // bubble
-  Object.assign(bubble.style, {
-    borderRadius,
-    height: heightDpr,
-    width: heightDpr,
-    backgroundColor: "rgb(65,155,147)",
-    overflow: "hidden",
-  });
-
-  // This image is here for testing purposes and will be stripped if the license does not support it.
-  // Please contact support@scandit.com if you have any questions.
-  const img = document.createElement("img");
-  img.src =
-    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAADMElEQVR4nOzVwQnAIBQFQYXff81RUkQCOyDj1YOPnbXWPmeTRef+/3O/OyBjzh3CD95BfqICMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMO0TAAD//2Anhf4QtqobAAAAAElFTkSuQmCC";
-  bubble.append(img);
+    textAlign: "center",
+  } satisfies Partial<CSSStyleDeclaration>);
 
   title.style.fontWeight = "bold";
   title.textContent = data.title;
@@ -61,7 +46,6 @@ export function BubbleComponent(data: { title: string; subtitle?: string }): HTM
   if (details != null) {
     info.append(details);
   }
-  container.append(bubble);
   container.append(info);
 
   return container;

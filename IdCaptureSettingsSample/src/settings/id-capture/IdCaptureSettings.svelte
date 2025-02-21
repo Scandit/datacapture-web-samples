@@ -4,10 +4,13 @@
   import { idCaptureApplyingSettingStore, idCaptureSettingsStore } from "./store";
   import SelectSetting from "@/components/molecules/SelectSetting.svelte";
   import CheckboxSetting from "@/components/molecules/CheckboxSetting.svelte";
+  import NumberSetting from "@/components/molecules/NumberSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import { valueFromInput, valueFromCheckbox, camelCaseToTitleCase } from "@/helper";
   import { IdAnonymizationMode, IdCaptureTrigger, IdCaptureScanner } from "@scandit/web-datacapture-id";
   import Spinner from "@/components/atoms/Spinner.svelte";
+
+  export let rejectIdsExpiringInDays = $idCaptureSettingsStore.rejectIdsExpiringIn ? $idCaptureSettingsStore.rejectIdsExpiringIn.days : null;
 </script>
 
 <SidebarRoute backRoute="/settings">
@@ -90,13 +93,6 @@
       </svelte:fragment>
     </SelectSetting>
     <CheckboxSetting
-      id="rejectVoidedIds"
-      checked={$idCaptureSettingsStore.rejectVoidedIds}
-      disabled={$idCaptureApplyingSettingStore}
-      on:change={(e) => sdkManager.idCapture.updateRejectVoidedIds(valueFromCheckbox(e))}
-      >Reject Voided IDs</CheckboxSetting
-    >
-    <CheckboxSetting
       id="decodeBackOfEuropeanDrivingLicense"
       checked={$idCaptureSettingsStore.decodeBackOfEuropeanDrivingLicense}
       disabled={$idCaptureApplyingSettingStore}
@@ -104,5 +100,53 @@
     >
       Capture back of European DL
     </CheckboxSetting>
+    <CheckboxSetting
+      id="rejectVoidedIds"
+      checked={$idCaptureSettingsStore.rejectVoidedIds}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateRejectVoidedIds(valueFromCheckbox(e))}
+      >Reject Voided IDs</CheckboxSetting
+    >
+    <CheckboxSetting
+      id="rejectExpiredIds"
+      checked={$idCaptureSettingsStore.rejectExpiredIds}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateRejectExpiredIds(valueFromCheckbox(e))}
+      >Reject expired IDs</CheckboxSetting
+    >
+    <NumberSetting
+      id="rejectIdsExpiringIn"
+      min="0"
+      max="100000"
+      step="1"
+      bind:value={rejectIdsExpiringInDays}
+      on:change={(e) => sdkManager.idCapture.updateRejectIdsExpiringIn(valueFromInput(e))}
+    >
+      Reject IDs expiring in x days</NumberSetting
+    >
+    <CheckboxSetting
+      id="rejectNotRealIdCompliant"
+      checked={$idCaptureSettingsStore.rejectNotRealIdCompliant}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateRejectNotRealIdCompliant(valueFromCheckbox(e))}
+      >Reject not Real ID compliant</CheckboxSetting
+    >
+    <CheckboxSetting
+      id="rejectInconsistentData"
+      checked={$idCaptureSettingsStore.rejectInconsistentData}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateRejectInconsistentData(valueFromCheckbox(e))}
+      >Reject inconsistent data</CheckboxSetting
+    >
+    <NumberSetting
+      id="rejectHolderBelowAge"
+      min="0"
+      max="150"
+      step="1"
+      bind:value={$idCaptureSettingsStore.rejectHolderBelowAge}
+      on:change={(e) => sdkManager.idCapture.updateRejectHolderBelowAge(valueFromInput(e))}
+    >
+      Reject holder below age</NumberSetting
+    >
   </svelte:fragment>
 </SidebarRoute>

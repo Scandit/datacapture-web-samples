@@ -1,8 +1,10 @@
+import type { ReactElement } from "react";
+
 export interface InfoIconProps {
   color: string;
 }
 
-export default function InfoIcon({ color }: InfoIconProps): JSX.Element {
+export default function InfoIcon({ color }: InfoIconProps): ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="inline flex-shrink-0">
       <path

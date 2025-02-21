@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useEffect } from "react";
 
 import LoadingMessage from "../components/LoadingMessage";
@@ -8,7 +9,7 @@ import ScannerIcon from "../icons/ScannerIcon";
 import SettingsIcon from "../icons/SettingsIcon";
 import { useSDK } from "../sdk";
 
-export default function HomePage(): JSX.Element {
+export default function HomePage(): ReactElement {
   const { loading, sdk } = useSDK();
 
   useEffect(() => {

@@ -10,16 +10,20 @@ import {
   FullDocumentScanner,
   IdCaptureScanner,
   IdCaptureFeedback,
+  Duration,
 } from "@scandit/web-datacapture-id";
 import type { SDKManager } from "./sdkManager";
 import { idCaptureApplyingSettingStore, idCaptureSettingsStore } from "@/settings/id-capture/store";
 import {
+  dataConsistencyResult,
+  frontReviewImage,
   scannedDocument,
   scannedDocumentBackFrameImage,
   scannedDocumentBackImage,
   scannedDocumentFaceImage,
   scannedDocumentFrontFrameImage,
   scannedDocumentFrontImage,
+  showDataConsistency,
   showScanResults,
 } from "@/store";
 import { ScannerType } from "./enums";
@@ -27,6 +31,7 @@ import { FeedbackType } from "@/settings/id-capture/FeedbackType";
 import type { Sound } from "@scandit/web-datacapture-core";
 import { Feedback, Vibration } from "@scandit/web-datacapture-core";
 import { showAlert } from "@/components/atoms/Alert";
+import { parseNullableNumber } from "@/helper";
 
 interface NewSettings
   extends Partial<
@@ -38,6 +43,11 @@ interface NewSettings
       | "anonymizationMode"
       | "captureTrigger"
       | "decodeBackOfEuropeanDrivingLicense"
+      | "rejectExpiredIds"
+      | "rejectIdsExpiringIn"
+      | "rejectNotRealIdCompliant"
+      | "rejectInconsistentData"
+      | "rejectHolderBelowAge"
     >
   > {
   scanner?:
@@ -110,9 +120,18 @@ export class SDKIdCaptureManager {
     }
     newSettings.anonymizationMode = newSettingsOptions.anonymizationMode ?? settings.anonymizationMode;
     newSettings.captureTrigger = newSettingsOptions.captureTrigger ?? settings.captureTrigger;
-    newSettings.rejectVoidedIds = newSettingsOptions.rejectVoidedIds ?? settings.rejectVoidedIds;
     newSettings.decodeBackOfEuropeanDrivingLicense =
       newSettingsOptions.decodeBackOfEuropeanDrivingLicense ?? settings.decodeBackOfEuropeanDrivingLicense;
+    newSettings.rejectVoidedIds = newSettingsOptions.rejectVoidedIds ?? settings.rejectVoidedIds;
+    newSettings.rejectExpiredIds = newSettingsOptions.rejectExpiredIds ?? settings.rejectExpiredIds;
+    newSettings.rejectIdsExpiringIn =
+      newSettingsOptions.rejectIdsExpiringIn === undefined
+        ? settings.rejectIdsExpiringIn
+        : newSettingsOptions.rejectIdsExpiringIn;
+    newSettings.rejectNotRealIdCompliant =
+      newSettingsOptions.rejectNotRealIdCompliant ?? settings.rejectNotRealIdCompliant;
+    newSettings.rejectInconsistentData = newSettingsOptions.rejectInconsistentData ?? settings.rejectInconsistentData;
+    newSettings.rejectHolderBelowAge = newSettingsOptions.rejectHolderBelowAge ?? settings.rejectHolderBelowAge;
     newSettings.setShouldPassImageTypeToResult(
       IdImageType.Face,
       newSettingsOptions.images?.face ?? settings.getShouldPassImageTypeToResult(IdImageType.Face)
@@ -153,22 +172,60 @@ export class SDKIdCaptureManager {
       void this.setEnabled(true);
     };
 
+    let errorMessage: string | null = null;
+
     switch (rejectedReason) {
       case RejectionReason.InvalidFormat:
       case RejectionReason.NotAcceptedDocumentType: {
-        await this.setEnabled(false);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        void showAlert("Error", "Invalid or unsupported document").then(onAlertClosed);
+        errorMessage = "Invalid or unsupported document";
         break;
       }
       case RejectionReason.DocumentVoided: {
-        await this.setEnabled(false);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        void showAlert("Error", "Document voided").then(onAlertClosed);
+        errorMessage = "Document voided";
+        break;
+      }
+      case RejectionReason.DocumentExpired: {
+        errorMessage = "Document expired";
+        break;
+      }
+      case RejectionReason.DocumentExpiresSoon: {
+        errorMessage = "Document expires soon";
+        break;
+      }
+      case RejectionReason.NotRealIdCompliant: {
+        errorMessage = "Not Real ID Compliant";
+        break;
+      }
+      case RejectionReason.HolderUnderage: {
+        errorMessage = "Document holder is underage";
+        break;
+      }
+      case RejectionReason.Timeout: {
+        errorMessage =
+          "Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document";
+        break;
+      }
+      case RejectionReason.InconsistentData: {
+        const { dataConsistency } = _capturedId.verificationResult;
+        dataConsistencyResult.set(dataConsistency);
+        if (dataConsistency) {
+          const image = await dataConsistency.frontReviewImage();
+          frontReviewImage.set(image);
+          showDataConsistency.set(true);
+          await this.setEnabled(false);
+        } else {
+          errorMessage = "Document with inconsistent data";
+        }
         break;
       }
       default:
       // nothing to do
+    }
+
+    if (errorMessage !== null) {
+      await this.setEnabled(false);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      void showAlert("Error", errorMessage).then(onAlertClosed);
     }
   }
 
@@ -244,6 +301,38 @@ export class SDKIdCaptureManager {
 
   public async updateRejectVoidedIds(rejectVoidedIds: boolean): Promise<void> {
     const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, { rejectVoidedIds });
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectExpiredIds(rejectExpiredIds: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, { rejectExpiredIds });
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectIdsExpiringIn(rejectIdsExpiringIn: string): Promise<void> {
+    const days = parseNullableNumber(rejectIdsExpiringIn);
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
+      rejectIdsExpiringIn: days == null ? null : new Duration(days, 0, 0),
+    });
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectNotRealIdCompliant(rejectNotRealIdCompliant: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
+      rejectNotRealIdCompliant,
+    });
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectInconsistentData(rejectInconsistentData: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, { rejectInconsistentData });
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectHolderBelowAge(rejectHolderBelowAge: string): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
+      rejectHolderBelowAge: parseNullableNumber(rejectHolderBelowAge),
+    });
     await this.applyIdCaptureSettings(newSettings);
   }
 

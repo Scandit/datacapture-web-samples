@@ -15,9 +15,7 @@
   import ScanResultBarcode from "./ScanResult/ScanResultBarcode.svelte";
   import ScanResultCommon from "./ScanResult/ScanResultCommon.svelte";
   import ScanResultMrz from "./ScanResult/ScanResultMrz.svelte";
-  import ResultField from "@/components/atoms/ResultField.svelte"
   import { get } from "svelte/store";
-
 
   async function onModalClose() {
     $scannedDocument = null;

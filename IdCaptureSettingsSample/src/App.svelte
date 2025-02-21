@@ -6,7 +6,7 @@
   import Navbar from "@/settings/Navbar.svelte";
   import Settings from "@/settings/Settings.svelte";
   import Sidebar from "@/settings/Sidebar.svelte";
-  import { isSidebarOpen, scannedDocument, showScanResults } from "@/store";
+  import { dataConsistencyResult, isSidebarOpen, scannedDocument, showDataConsistency, showScanResults } from "@/store";
   import CameraSettingsPage from "@/settings/camera/CameraSettings.svelte";
   import DocumentSelection from "@/settings/id-capture/DocumentSelection.svelte";
   import ViewSettingsPage from "@/settings/view/ViewSettings.svelte";
@@ -26,8 +26,9 @@
   import ScannerType from "./settings/id-capture/ScannerType.svelte";
   import Feedback from "./settings/id-capture/Feedback.svelte";
   import LicenseModal from "@/components/molecules/LicenseModal.svelte";
-  import Alert from "./components/atoms/Alert.svelte";
   import { modalStore } from "./settings/id-capture/store";
+  import Alert from "./components/atoms/Alert.svelte";
+  import DataConsitencyModal from "./components/molecules/DataConsitencyModal.svelte";
 
   // If SDK finishes configuring and the sidebar is open, disable it
   isSdkConfigured.subscribe((configured) => {
@@ -117,10 +118,14 @@
   <ScanResultModal />
 {/if}
 
+{#if $dataConsistencyResult && $showDataConsistency}
+  <DataConsitencyModal />
+{/if}
 
 {#if $showLicenseText}
   <LicenseModal />
 {/if}
+
 {#if $modalStore != null}
   <Alert title={$modalStore.title} content={$modalStore.content} />
 {/if}

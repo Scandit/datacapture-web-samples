@@ -1,8 +1,10 @@
+import type { ReactElement } from "react";
+
 export interface BarcodeIconProps {
   color: string;
 }
 
-export default function BarcodeIcon({ color }: BarcodeIconProps): JSX.Element {
+export default function BarcodeIcon({ color }: BarcodeIconProps): ReactElement {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
       <path

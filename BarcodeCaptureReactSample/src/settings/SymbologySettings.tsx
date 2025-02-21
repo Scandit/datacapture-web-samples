@@ -1,10 +1,11 @@
 import { Symbology, SymbologyDescription } from "@scandit/web-datacapture-barcode";
+import type { ReactElement } from "react";
 
 import BarcodeIcon from "../icons/BarcodeIcon";
 import { useSDK } from "../sdk";
 import { useStore } from "../store";
 
-export default function SymbologySettings(): JSX.Element {
+export default function SymbologySettings(): ReactElement {
   const { symbologies, setSymbologies } = useStore();
   const { loading, sdk } = useSDK();
 

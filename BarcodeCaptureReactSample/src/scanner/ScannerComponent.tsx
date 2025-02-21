@@ -1,11 +1,12 @@
+import type { BarcodeCapture, BarcodeCaptureListener, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";
+import type { ReactElement } from "react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import type { BarcodeCapture, BarcodeCaptureListener, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";
 
 import { useSDK } from "../sdk";
 import { useStore } from "../store";
 
-export default function ScannerComponent(): JSX.Element {
+export default function ScannerComponent(): ReactElement {
   const host = useRef<HTMLDivElement | null>(null);
   const { loaded, sdk } = useSDK();
   const { setBarcode, keepCameraOn } = useStore();

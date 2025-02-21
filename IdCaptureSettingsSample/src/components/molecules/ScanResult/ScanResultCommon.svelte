@@ -22,6 +22,7 @@
     dateOfExpiry: "Date of Expiry",
     isExpired: "Is Expired",
     dateOfIssue: "Date of Issue",
+    usRealIdStatus: "Is US Real ID",
   } satisfies Partial<Record<keyof MainType, string>>;
 
   const documentAsRegionSpecific = data.document as RegionSpecific | undefined;
