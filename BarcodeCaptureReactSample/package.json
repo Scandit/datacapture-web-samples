@@ -18,8 +18,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.20.0",
-    "@scandit/web-datacapture-barcode": "7.1.0",
-    "@scandit/web-datacapture-core": "7.1.0"
+    "@scandit/web-datacapture-barcode": "7.1.1",
+    "@scandit/web-datacapture-core": "7.1.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.8",
