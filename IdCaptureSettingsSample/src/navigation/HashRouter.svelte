@@ -1,6 +1,6 @@
 <script>
   import { createHashHistorySource } from "@/navigation/createHashHistory";
-  import { createHistory, Router } from "svelte-navigator";
+  import { createHistory, Router } from "svelte-navigator-no-postinstall";
 
   const hashHistorySource = createHashHistorySource();
   const hashHistory = createHistory(hashHistorySource);

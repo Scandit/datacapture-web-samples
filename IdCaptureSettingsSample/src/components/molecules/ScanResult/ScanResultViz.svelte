@@ -34,6 +34,14 @@
     sponsor: "Sponsor",
     visaNumber: "Visa Number",
     passportNumber: "Passport Number",
+    sex: "Sex",
+    dateOfBirth: "Date of Birth",
+    nationality: "Nationality",
+    address: "Address",
+    documentNumber: "Document Number",
+    dateOfIssue: "Date of Issue",
+    dateOfExpiry: "Date of Expiry",
+    vehicleOwner: "Vehicle Owner",
   };
 </script>
 

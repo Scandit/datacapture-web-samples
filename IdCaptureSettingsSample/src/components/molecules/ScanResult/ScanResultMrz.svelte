@@ -20,6 +20,16 @@
     passportNumber: "Passport Number",
     passportIssuerIso: "Passport Issuer ISO",
     passportDateOfExpiry: "Passport Date of Expiry",
+    firstName: "First Name",
+    lastName: "Last Name",
+    fullName: "Full Name",
+    sex: "Sex",
+    dateOfBirth: "Date of Birth",
+    nationality: "Nationality",
+    address: "Address",
+    documentNumber: "Document Number",
+    dateOfIssue: "Date of Issue",
+    dateOfExpiry: "Date of Expiry"
   };
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isSdkConfigured, scannedDocument } from "@/store";
-  import { useNavigate } from "svelte-navigator";
+  import { useNavigate } from "svelte-navigator-no-postinstall";
 
   const navigate = useNavigate();
 </script>

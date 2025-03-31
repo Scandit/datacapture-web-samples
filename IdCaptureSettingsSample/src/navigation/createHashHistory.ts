@@ -1,5 +1,5 @@
 import { Action, createHashHistory, type Update } from "history";
-import type { HistorySource } from "svelte-navigator";
+import type { HistorySource } from "svelte-navigator-no-postinstall";
 
 export type HistoryNavigationListener = (location: Update) => Promise<void> | void;
 

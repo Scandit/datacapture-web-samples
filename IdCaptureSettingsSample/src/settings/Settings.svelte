@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DataCaptureContext } from "@scandit/web-datacapture-core";
-  import { Link } from "svelte-navigator";
+  import { Link } from "svelte-navigator-no-postinstall";
 
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import SettingsEntry from "./SettingsEntry.svelte";

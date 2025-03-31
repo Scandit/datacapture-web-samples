@@ -82,15 +82,30 @@
           </div>
         {/if}
       {/if}
-      <ScanResultCommon data={$scannedDocument} />
+
+      <div class="border p-4 rounded-md shadow-md">
+        <ScanResultCommon data={$scannedDocument} />
+      </div>
+
       {#if $scannedDocument.vizResult}
-        <ScanResultViz data={$scannedDocument.vizResult} />
+        <h3 class="font-bold mt-2">VIZ Result</h3>
+        <div class="border p-4 rounded-md shadow-md mt-2">
+          <ScanResultViz data={$scannedDocument.vizResult} />
+        </div>
       {/if}
+
       {#if $scannedDocument.barcode}
-        <ScanResultBarcode data={$scannedDocument.barcode} />
+        <h3 class="font-bold mt-2">Barcode Result</h3>
+        <div class="border p-4 rounded-md shadow-md mt-2">
+          <ScanResultBarcode data={$scannedDocument.barcode} />
+        </div>
       {/if}
+
       {#if $scannedDocument.mrzResult != null}
-        <ScanResultMrz data={$scannedDocument.mrzResult} />
+        <h3 class="font-bold mt-2">MRZ Result</h3>
+        <div class="border p-4 rounded-md shadow-md mt-2">
+          <ScanResultMrz data={$scannedDocument.mrzResult} />
+        </div>
       {/if}
     {/if}
   </div>

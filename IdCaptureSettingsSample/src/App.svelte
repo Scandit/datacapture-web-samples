@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Route } from "svelte-navigator";
+  import { Route } from "svelte-navigator-no-postinstall";
   import ScanResultModal from "@/components/molecules/ScanResultModal.svelte";
   import DataCapture from "@/data-capture/DataCapture.svelte";
   import HashRouter from "@/navigation/HashRouter.svelte";

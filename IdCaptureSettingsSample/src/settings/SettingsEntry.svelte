@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Link } from "svelte-navigator";
+  import { Link } from "svelte-navigator-no-postinstall";
 
   export let to = "/settings";
 </script>

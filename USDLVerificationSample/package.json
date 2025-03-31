@@ -1,5 +1,5 @@
 {
-  "name": "web-idcapture-us-dl-verification-sample",
+  "name": "us-dl-verification-sample",
   "displayName": "WebUSDLVerificationSample",
   "version": "1.0.0",
   "author": "Scandit",
@@ -13,8 +13,8 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-core": "7.1.3",
-    "@scandit/web-datacapture-id": "7.1.3"
+    "@scandit/web-datacapture-core": "7.2.0",
+    "@scandit/web-datacapture-id": "7.2.0"
   },
   "devDependencies": {
     "@types/dompurify": "^2.3.3",

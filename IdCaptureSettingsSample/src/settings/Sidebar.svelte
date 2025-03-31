@@ -1,6 +1,6 @@
 <script lang="ts">
   import Spinner from "@/components/atoms/Spinner.svelte";
-  import { useLocation, Link } from "svelte-navigator";
+  import { useLocation, Link } from "svelte-navigator-no-postinstall";
   import { isSdkConfigured, isSidebarOpen } from "@/store";
 
   const location = useLocation();

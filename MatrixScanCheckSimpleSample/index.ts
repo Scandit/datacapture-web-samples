@@ -16,6 +16,8 @@ import {
 } from "@scandit/web-datacapture-barcode";
 import { Anchor, Brush, Color, DataCaptureContext, DataCaptureView, configure } from "@scandit/web-datacapture-core";
 
+import { Temporal } from 'temporal-polyfill';
+
 async function run(): Promise<void> {
   // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
   const view: DataCaptureView = new DataCaptureView();
@@ -86,6 +88,34 @@ async function run(): Promise<void> {
     },
   };
 
+  const state = new Map<Set<Symbology>, { days: number; discount: number }>([
+    [codeSymbologiesSet, { days: 3, discount: 25 }],
+    [twoDsymbologiesSet, { days: 2, discount: 50 }],
+    [eanSymbologiesSet, { days: 1, discount: 75 }],
+  ]);
+
+
+  function calculateExpirationDate(symbologies: Set<Symbology>): string {
+    const now = Temporal.Now.plainDateTimeISO();
+    const expirationDate = now.add({ days: state.get(symbologies)?.days ?? 0 });
+    return expirationDate.toLocaleString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  }
+
+  function createListenerFromOriginalText(originalText: string, symbologies: Set<Symbology>) {
+    return {
+      onInfoAnnotationTapped: (annotation: BarcodeCheckInfoAnnotation) => {
+        if (annotation.body[0].text === originalText) {
+          annotation.body[0].text = calculateExpirationDate(symbologies);
+        } else {
+          annotation.body[0].text = originalText;
+        }
+      },
+    };
+  }
   // Create the annotation provider and configure an annotation for specific barcodes
   barcodeCheckView.annotationProvider = {
     // biome-ignore lint/suspicious/useAwait: <explanation>
@@ -93,47 +123,53 @@ async function run(): Promise<void> {
       // Get the information you want to show from your back end system/database
       if (eanSymbologiesSet.has(barcode.symbology)) {
         const header = BarcodeCheckInfoAnnotationHeader.create();
-        header.text = "75% off";
+        header.text = `${state.get(eanSymbologiesSet)?.discount}% off`;
         header.backgroundColor = Color.fromRGBA(255, 0, 0);
 
         const body = BarcodeCheckInfoAnnotationBodyComponent.create();
-        body.text = "Item expired in 3 days";
+        const originalText = `Item expired in ${state.get(eanSymbologiesSet)?.days} days`;
+        body.text = originalText;
 
         const infoAnnotation = BarcodeCheckInfoAnnotation.create(barcode);
+        infoAnnotation.isEntireAnnotationTappable = true;
         infoAnnotation.anchor = BarcodeCheckInfoAnnotationAnchor.Bottom;
         infoAnnotation.body = [body];
         infoAnnotation.header = header;
+        infoAnnotation.listener = createListenerFromOriginalText(body.text, eanSymbologiesSet);
         callback(infoAnnotation);
       }
 
       if (codeSymbologiesSet.has(barcode.symbology)) {
         const header = BarcodeCheckInfoAnnotationHeader.create();
-        header.text = "25% off";
+        header.text = `${state.get(codeSymbologiesSet)?.discount}% off`;
         header.backgroundColor = Color.fromRGBA(246, 212, 56);
 
         const body = BarcodeCheckInfoAnnotationBodyComponent.create();
-        body.text = "Item expired in 2 days";
+        body.text = `Item expired in ${state.get(codeSymbologiesSet)?.days} days`;
 
         const infoAnnotation = BarcodeCheckInfoAnnotation.create(barcode);
+        infoAnnotation.isEntireAnnotationTappable = true;
         infoAnnotation.anchor = BarcodeCheckInfoAnnotationAnchor.Bottom;
         infoAnnotation.body = [body];
         infoAnnotation.header = header;
+        infoAnnotation.listener = createListenerFromOriginalText(body.text, codeSymbologiesSet);
         callback(infoAnnotation);
       }
 
       if (twoDsymbologiesSet.has(barcode.symbology)) {
         const header = BarcodeCheckInfoAnnotationHeader.create();
         header.backgroundColor = Color.fromRGBA(240, 134, 31);
-
-        header.text = "50% off";
+        header.text = `${state.get(twoDsymbologiesSet)?.discount}% off`;
 
         const body = BarcodeCheckInfoAnnotationBodyComponent.create();
-        body.text = "Item expired in 1 days";
+        body.text = `Item expired in ${state.get(twoDsymbologiesSet)?.days} days`;
 
         const infoAnnotation = BarcodeCheckInfoAnnotation.create(barcode);
+        infoAnnotation.isEntireAnnotationTappable = true;
         infoAnnotation.anchor = BarcodeCheckInfoAnnotationAnchor.Bottom;
         infoAnnotation.body = [body];
         infoAnnotation.header = header;
+        infoAnnotation.listener = createListenerFromOriginalText(body.text, twoDsymbologiesSet);
         callback(infoAnnotation);
       }
     },
