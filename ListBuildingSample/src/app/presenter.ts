@@ -1,20 +1,20 @@
+import { effect } from "@preact/signals";
+import type { Barcode, SparkScanBarcodeFeedback, SparkScanFeedbackDelegate } from "@scandit/web-datacapture-barcode";
 import {
-  SparkScanViewSettings,
   SparkScan,
-  SparkScanSettings,
-  SparkScanView,
-  Symbology,
-  barcodeCaptureLoader,
   SparkScanBarcodeErrorFeedback,
   SparkScanBarcodeSuccessFeedback,
+  SparkScanSettings,
+  SparkScanView,
+  SparkScanViewSettings,
+  Symbology,
+  barcodeCaptureLoader,
 } from "@scandit/web-datacapture-barcode";
-import type { Barcode, SparkScanBarcodeFeedback, SparkScanFeedbackDelegate } from "@scandit/web-datacapture-barcode";
-import { AppModel } from "./model";
 import type { LoadingStatusSubscriber, ProgressInfo } from "@scandit/web-datacapture-core";
 import { DataCaptureContext, configure, loadingStatus } from "@scandit/web-datacapture-core";
-import { effect } from "@preact/signals";
-import type { AppView } from "./view";
 import { ScannedItemModel } from "../scanned-item/model";
+import { AppModel } from "./model";
+import type { AppView } from "./view";
 
 export class AppPresenter implements SparkScanFeedbackDelegate {
   private readonly model: AppModel = new AppModel();
@@ -52,7 +52,7 @@ export class AppPresenter implements SparkScanFeedbackDelegate {
     this.sparkScan = SparkScan.forSettings(this.sparkScanSettings);
     this.sparkScanViewSettings = new SparkScanViewSettings();
     this.sparkScanView = SparkScanView.forElement(
-      document.body,
+      document.getElementById("spark-scan-ui")!,
       this.dataCaptureContext,
       this.sparkScan,
       this.sparkScanViewSettings

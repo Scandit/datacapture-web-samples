@@ -90,8 +90,8 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       rollupOptions: {
         output: {
-          assetFileNames: "[name].[ext]",
-          chunkFileNames: "[name].[ext]",
+          assetFileNames: "[name].[extname]",
+          chunkFileNames: "[name].js",
           entryFileNames: "[name].js",
         },
       },

@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import { type ConfigEnv, type Plugin, defineConfig } from "vite";
+import { ConfigEnv, Plugin, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-
 import type { IncomingMessage, OutgoingMessage } from "node:http";
+
 dotenv.config();
 
 interface VitePluginScanditOptions {
@@ -39,18 +39,19 @@ function scandit(options: VitePluginScanditOptions): Plugin {
       );
     },
     configureServer: (server) => {
+      server.config.preview.port = 8888;
+      server.config.server.port = 8888;
       server.middlewares.use(crossOriginIsolationMiddleware);
     },
     configurePreviewServer: (server) => {
+      server.config.preview.port = 8888;
+      server.config.server.port = 8888;
       server.middlewares.use(crossOriginIsolationMiddleware);
     },
   };
 }
 
 export default defineConfig({
-  server: {
-    port: 8888,
-  },
   base: "./",
   build: {
     emptyOutDir: true,
@@ -65,7 +66,7 @@ export default defineConfig({
   envPrefix: "SCANDIT",
   plugins: [
     viteStaticCopy({
-      targets: ["core", "barcode"].map((module) => ({
+      targets: ["core", "barcode", "label"].map((module) => ({
         src: `./node_modules/@scandit/web-datacapture-${module}/sdc-lib/*`,
         dest: "./library/engine",
       })),
@@ -75,4 +76,7 @@ export default defineConfig({
       licenseKeyPlaceholder: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
     }),
   ],
+  server: {
+    allowedHosts: ["sdc.ngrok.dev"],
+  },
 });
