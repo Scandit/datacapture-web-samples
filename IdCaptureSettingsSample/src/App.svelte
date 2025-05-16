@@ -7,7 +7,7 @@
   import Settings from "@/settings/Settings.svelte";
   import Sidebar from "@/settings/Sidebar.svelte";
   import { dataConsistencyResult, isSidebarOpen, scannedDocument, showDataConsistency, showScanResults } from "@/store";
-  import CameraSettingsPage from "@/settings/camera/CameraSettings.svelte";
+  import FrameSourceSettings from "@/settings/frame-source/FrameSourceSettings.svelte";
   import DocumentSelection from "@/settings/id-capture/DocumentSelection.svelte";
   import ViewSettingsPage from "@/settings/view/ViewSettings.svelte";
   import IdCaptureSettingsPage from "@/settings/id-capture/IdCaptureSettings.svelte";
@@ -22,7 +22,7 @@
   import { get } from "svelte/store";
   import { sdkManager } from "./sdkManager/sdkManager";
   import { TorchState } from "@scandit/web-datacapture-core";
-  import { desiredTorchState } from "./settings/camera/store";
+  import { desiredTorchState } from "./settings/frame-source/store";
   import ScannerType from "./settings/id-capture/ScannerType.svelte";
   import Feedback from "./settings/id-capture/Feedback.svelte";
   import LicenseModal from "@/components/molecules/LicenseModal.svelte";
@@ -60,8 +60,8 @@
     <Route path="/settings/id-capture">
       <IdCaptureSettingsPage />
     </Route>
-    <Route path="/settings/camera">
-      <CameraSettingsPage />
+    <Route path="/settings/frame-source">
+      <FrameSourceSettings />
     </Route>
     <Route path="/settings/view">
       <ViewSettingsPage />

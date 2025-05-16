@@ -1,11 +1,11 @@
-# MatrixScanCheckSimpleSample
+# MatrixScanARSimpleSample
 
-A simple example of how to use BarcodeCheck.
+A simple example of how to use BarcodeAr.
 
 ## Prerequisites
 
 Before proceeding, you will need a valid Scandit DataCapture SDK license key.
-You can retrieve it by sign-in into your account at https://ssl.scandit.com.
+You can retrieve it by sign-in into your account at <https://ssl.scandit.com>.
 
 ## Installation
 
@@ -30,7 +30,7 @@ npm run build
 npm run serve
 ```
 
-Open http://localhost:8888 and start scanning.
+Open <http://localhost:8888> and start scanning.
 
 ## How to test the sample from any device
 
@@ -57,4 +57,4 @@ Start the development server:
 npm run dev
 ```
 
-Open http://localhost:8888 and start scanning.
+Open <http://localhost:8888> and start scanning.

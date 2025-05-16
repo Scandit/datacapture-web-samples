@@ -21,7 +21,7 @@
   aria-labelledby="modal-title"
   aria-describedby="modal-content"
   use:portal
-  class="fixed top-0 left-0 h-full h-[100dvh] w-full flex z-30"
+  class="fixed top-0 left-0 h-full h-[100dvh] w-full flex z-30 bg-black/30"
   class:opacity-0={!show}
   class:pointer-events-none={!show}
 >

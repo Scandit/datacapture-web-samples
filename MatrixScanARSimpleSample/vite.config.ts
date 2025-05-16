@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import { type ConfigEnv, type Plugin, defineConfig } from "vite";
+import type { IncomingMessage, OutgoingMessage } from "node:http";
+import { type Plugin, type ResolvedConfig, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
-import type { IncomingMessage, OutgoingMessage } from "node:http";
 dotenv.config();
 
 interface VitePluginScanditOptions {
@@ -17,22 +17,23 @@ function crossOriginIsolationMiddleware(_: IncomingMessage, response: OutgoingMe
 }
 
 function scandit(options: VitePluginScanditOptions): Plugin {
-  let config: ConfigEnv;
+  let config: ResolvedConfig;
 
   return {
     name: "vite-plugin-scandit",
-    configResolved(resolvedConfig) {
+    configResolved(resolvedConfig: ResolvedConfig) {
       config = resolvedConfig;
     },
-    transform(code) {
-      const shouldReplaceLicenseKey = config.command === "serve" || !process.env.SKIP_LICENSE_KEY_REPLACEMENT;
+    transform(code: string) {
+      const shouldReplaceLicenseKey = config.mode === "development" || !process.env.SKIP_LICENSE_KEY_REPLACEMENT;
       if (shouldReplaceLicenseKey) {
         return {
           code: code.replace(options.licenseKeyPlaceholder, options.licenseKey),
         };
       }
+      return null;
     },
-    transformIndexHtml(html) {
+    transformIndexHtml(html: string) {
       return html.replace(
         '<script type="module" crossorigin src="./index.js"></script>',
         '<script data-id="scandit-main" type="module" crossorigin src="./index.js"></script>'

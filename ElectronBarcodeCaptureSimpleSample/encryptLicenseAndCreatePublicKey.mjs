@@ -45,11 +45,11 @@ async function createLicenseAndPublicKey() {
   console.log(
     chalk.red(
       '!! \n' +
-      "IMPORTANT save your key to a secure location. Don't bundle it within your application unless you use bytenode plugin." +
-      'Remember only main.ts and preload.ts will be compile by bytenote.\n' +
-      'If possible fetch the key from a secure remote location' +
-      'More info here https://electron-vite.org/guide/source-code-protection or here https://github.com/bytenode/bytenode \n' +
-      '!!'
+        "IMPORTANT save your key to a secure location. Don't bundle it within your application unless you use bytenode plugin." +
+        'Remember only main.ts and preload.ts will be compile by bytenote.\n' +
+        'If possible fetch the key from a secure remote location' +
+        'More info here https://electron-vite.org/guide/source-code-protection or here https://github.com/bytenode/bytenode \n' +
+        '!!'
     )
   )
 }

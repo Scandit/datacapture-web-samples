@@ -21,7 +21,7 @@
   {/if}
 </aside>
 
-<style>
+<style lang="postcss">
   .sidebar {
     height: 100vh;
     height: 100dvh;

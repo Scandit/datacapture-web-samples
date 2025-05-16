@@ -1,6 +1,8 @@
-import type { TorchState, Camera, CameraSettings } from "@scandit/web-datacapture-core";
+import type { TorchState, Camera, CameraSettings, SingleImageUploader } from "@scandit/web-datacapture-core";
 import { VideoResolution } from "@scandit/web-datacapture-core";
 import { writable } from "svelte/store";
+
+export const currentFrameSource = writable<"camera" | "singleImageUploader">("camera");
 
 export const availableCameras = writable<Camera[]>([]);
 export const currentCamera = writable<Camera>();
@@ -32,3 +34,5 @@ export function mapVideoResolutionToLabel(resolution: VideoResolution): string {
     [VideoResolution.UHD4K]: "UHD 4K",
   }[resolution];
 }
+
+export const singleImageUploader = writable<SingleImageUploader>();

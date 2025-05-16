@@ -1,9 +1,9 @@
 {
-  "name": "matrixscan-check-simple-sample",
-  "displayName": "MatrixScanCheckSimpleSample",
+  "name": "matrixscan-ar-simple-sample",
+  "displayName": "MatrixScanARSimpleSample",
   "version": "1.0.0",
   "author": "Scandit",
-  "description": "MatrixScanCheckSimpleSample for the Web",
+  "description": "MatrixScanARSimpleSample for the Web",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,8 +14,8 @@
     "format": "biome format ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "7.2.2",
-    "@scandit/web-datacapture-core": "7.2.2",
+    "@scandit/web-datacapture-barcode": "7.3.0",
+    "@scandit/web-datacapture-core": "7.3.0",
     "temporal-polyfill": "~0.2.5"
   },
   "devDependencies": {
@@ -24,8 +24,8 @@
     "dotenv": "^16.4.7",
     "npm-packlist": "^5.1.1",
     "prettier": "^2.8.8",
-    "typescript": "4.9.5",
-    "vite": "~5.4.11",
-    "vite-plugin-static-copy": "^1.0.2"
+    "typescript": "5.5.4",
+    "vite": "^6.0.0",
+    "vite-plugin-static-copy": "^2.3.0"
   }
 }

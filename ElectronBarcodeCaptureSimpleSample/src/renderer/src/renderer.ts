@@ -42,7 +42,7 @@ async function run(): Promise<void> {
   // Your Scandit License key is available via your Scandit SDK web account.
   // The passed parameter represents the location of the wasm file, which will be fetched asynchronously.
   // You must `await` the returned promise to be able to continue.
-  const licenseDataPath = './out/renderer/data/sdc-license.data';
+  const licenseDataPath = './out/renderer/data/sdc-license.data'
   try {
     await configure({
       licenseKey: '',
@@ -52,21 +52,20 @@ async function run(): Promise<void> {
       libraryLocation: new URL('library/engine/', document.baseURI).toString(),
       moduleLoaders: [barcodeCaptureLoader()]
     })
-  } catch(error: unknown) {
-    let errorMessage = (error as Error).toString();
-    if (error instanceof Error && error.name === "NoLicenseKeyError") {
+  } catch (error: unknown) {
+    let errorMessage = (error as Error).toString()
+    if (error instanceof Error && error.name === 'NoLicenseKeyError') {
       errorMessage = `
         NoLicenseKeyError:
 
         Cannot find or decrypt license at path.join(app.getAppPath(), ${licenseDataPath})
         Make sure license file is correctly encrypted and present in this folder ${licenseDataPath}.
-    `;
+    `
     }
     // eslint-disable-next-line no-console
-    console.error(error);
-    alert(errorMessage);
+    console.error(error)
+    alert(errorMessage)
   }
-
 
   // Set the progress bar to be in an indeterminate state
   view.setProgressBarPercentage(null)

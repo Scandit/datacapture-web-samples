@@ -1,4 +1,15 @@
 /* eslint-disable max-classes-per-file */
+import type { BarcodeBatchSession, TrackedBarcode, TrackedBarcodeViewOptions } from "@scandit/web-datacapture-barcode";
+import {
+  BarcodeBatch,
+  BarcodeBatchAdvancedOverlay,
+  BarcodeBatchBasicOverlay,
+  BarcodeBatchBasicOverlayStyle,
+  BarcodeBatchSettings,
+  barcodeCaptureLoader,
+  Symbology,
+  TrackedBarcodeView,
+} from "@scandit/web-datacapture-barcode";
 import type {
   DataCaptureContextListener,
   FrameSource,
@@ -9,28 +20,17 @@ import {
   Anchor,
   Camera,
   CameraSwitchControl,
+  configure,
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
-  configure,
-  PointWithUnit,
   MeasureUnit,
   NumberWithUnit,
+  PointWithUnit,
 } from "@scandit/web-datacapture-core";
-import {
-  BarcodeBatchBasicOverlay,
-  BarcodeBatchBasicOverlayStyle,
-  BarcodeBatch,
-  BarcodeBatchAdvancedOverlay,
-  BarcodeBatchSettings,
-  Symbology,
-  barcodeCaptureLoader,
-  TrackedBarcodeView,
-} from "@scandit/web-datacapture-barcode";
-import type { BarcodeBatchSession, TrackedBarcode, TrackedBarcodeViewOptions } from "@scandit/web-datacapture-barcode";
 
-import { SdcUiButton } from "./components/sdcUiButton.js";
 import { BubbleComponent } from "./BubbleComponent.js";
+import { SdcUiButton } from "./components/sdcUiButton.js";
 import { define } from "./utils.js";
 
 async function run(): Promise<void> {

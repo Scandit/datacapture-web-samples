@@ -101,6 +101,14 @@
       Capture back of European DL
     </CheckboxSetting>
     <CheckboxSetting
+      id="decodeMobileDriverLicenses"
+      checked={$idCaptureSettingsStore.decodeMobileDriverLicenses}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateDecodeMobileDriverLicenses(valueFromCheckbox(e))}
+    >
+      Decode mobile driver licenses
+    </CheckboxSetting>
+    <CheckboxSetting
       id="rejectVoidedIds"
       checked={$idCaptureSettingsStore.rejectVoidedIds}
       disabled={$idCaptureApplyingSettingStore}

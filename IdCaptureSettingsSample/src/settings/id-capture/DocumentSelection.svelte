@@ -1,16 +1,16 @@
 <script lang="ts">
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
   import {
+    type IdCaptureDocument,
+    type IdCaptureSettings,
+    type RegionSpecificSubtype,
+    Region,
     DriverLicense,
     HealthInsuranceCard,
-    IdCaptureDocument,
     IdCaptureDocumentType,
-    IdCaptureSettings,
     IdCard,
     Passport,
-    Region,
     RegionSpecific,
-    RegionSpecificSubtype,
     ResidencePermit,
     VisaIcao,
   } from "@scandit/web-datacapture-id";
@@ -25,8 +25,8 @@
   export let getDocuments: (idCaptureSettings: IdCaptureSettings) => IdCaptureDocument[];
   export let updateDocuments: (documents: IdCaptureDocument[]) => Promise<void>;
 
-  let allDocumentTypes = Object.values(IdCaptureDocumentType);
-  let normalizedDocumentsAndRegions = derived(idCaptureSettingsStore, (settings) => {
+  const allDocumentTypes = Object.values(IdCaptureDocumentType);
+  const normalizedDocumentsAndRegions = derived(idCaptureSettingsStore, (settings) => {
     return allDocumentTypes
       .filter((type) => type !== IdCaptureDocumentType.RegionSpecific)
       .map((type) => ({
@@ -75,7 +75,10 @@
       case IdCaptureDocumentType.VisaIcao:
         return new VisaIcao(region);
       case IdCaptureDocumentType.RegionSpecific:
-        return new RegionSpecific(subtype!);
+        if (subtype == null) {
+          throw new Error("RegionSpecific document type requires a subtype");
+        }
+        return new RegionSpecific(subtype);
       default:
         assertUnreachable(type);
     }
@@ -84,14 +87,14 @@
   async function onUpdated(type: IdCaptureDocumentType, enabled: boolean, regions: Region[]) {
     let acceptedDocuments = [...getDocuments($idCaptureSettingsStore)];
 
-    // remove all documents if this type to start clean
+    // remove all documents of this type to start clean
     acceptedDocuments = acceptedDocuments.filter((document) => document.documentType !== type);
 
     if (enabled) {
       // add new document for each region
-      regions.forEach((region) => {
+      for (const region of regions) {
         acceptedDocuments.push(getDocumentInstanceFromType(type, region));
-      });
+      }
     }
     await updateDocuments(acceptedDocuments);
   }
@@ -106,18 +109,18 @@
   </svelte:fragment>
   <svelte:fragment slot="content">
     {#each $normalizedDocumentsAndRegions as documentAndRegions}
-      <section class="">
+      <section>
         <DocumentAndRegion
           regions={documentAndRegions.regions}
           type={documentAndRegions.type}
           checked={documentAndRegions.enabled}
           disabled={$idCaptureApplyingSettingStore}
-          onChange={onUpdated}>{documentAndRegions.type}</DocumentAndRegion
-        >
+          onChange={onUpdated}
+        />
       </section>
     {/each}
     <!-- Region specific case -->
-    <section class="">
+    <section>
       <RegionSpecificDocument {getDocuments} {updateDocuments} />
     </section>
   </svelte:fragment>

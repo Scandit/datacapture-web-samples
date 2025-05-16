@@ -3,8 +3,12 @@
   import { valueFromCheckbox } from "@/helper";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import SidebarRoute from "@/settings/SidebarRoute.svelte";
-  import { currentCamera } from "@/settings/camera/store";
-  import { cameraSwitchControlEnabled, torchSwitchControlEnabled, allowPictureInPicture } from "@/settings/view/controls/store";
+  import { currentCamera } from "@/settings/frame-source/store";
+  import {
+    cameraSwitchControlEnabled,
+    torchSwitchControlEnabled,
+    allowPictureInPicture,
+  } from "@/settings/view/controls/store";
 </script>
 
 <SidebarRoute backRoute="/settings/view">
@@ -33,8 +37,8 @@
       checked={$allowPictureInPicture}
       on:change={async (e) => {
         await sdkManager.view.allowPictureInPicture(valueFromCheckbox(e));
-        $allowPictureInPicture = valueFromCheckbox(e)
-      }}
-    >Allow Picture-in-Picture</CheckboxSetting>
+        $allowPictureInPicture = valueFromCheckbox(e);
+      }}>Allow Picture-in-Picture</CheckboxSetting
+    >
   </svelte:fragment>
 </SidebarRoute>

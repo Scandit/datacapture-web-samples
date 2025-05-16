@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { IdCaptureDocumentType, Region } from "@scandit/web-datacapture-id";
+  import { type IdCaptureDocumentType, Region } from "@scandit/web-datacapture-id";
   import CheckboxSetting from "./CheckboxSetting.svelte";
   import { camelCaseToTitleCase, valueFromCheckbox } from "@/helper";
   import RegionSelector from "./RegionSelector.svelte";
@@ -13,24 +13,26 @@
 
   let displayRegions = false;
   let selectedRegions = [...regions];
+  let previousRegions: Region[] | null = null;
 
-  function onChecked(newValue: boolean) {
-    checked = newValue;
-    selectedRegions = [Region.Any];
-    if (!newValue) {
+  function onChecked(enabled: boolean) {
+    checked = enabled;
+
+    if (enabled) {
+      // restore any region that was previously selected
+      if (previousRegions !== null) {
+        selectedRegions = [...previousRegions];
+        previousRegions = null;
+      } else {
+        selectedRegions = [Region.Any];
+      }
+    } else {
+      // save the selected regions in case the user re-enables this document
+      previousRegions = [...selectedRegions];
+      selectedRegions = [Region.Any];
       displayRegions = false;
     }
-    onChange(type, newValue, selectedRegions);
-  }
-
-  function onRegionChange(newRegions: Region[]) {
-    // When the local "regions" are updated by the parent, it will propagate to the region selector, which will
-    // trigger the Region's selector onChange callback.
-    if (selectedRegions === newRegions) {
-      return;
-    }
-    selectedRegions = [...newRegions];
-    // onChange(type, checked, selectedRegions);
+    onChange(type, enabled, selectedRegions);
   }
 
   function onDoneClicked() {
@@ -47,7 +49,7 @@
     <div class="px-4 py-2">
       {#if displayRegions}
         <div class="pb-2 flex flex-col gap-2">
-          <RegionSelector onChange={onRegionChange} {regions} />
+          <RegionSelector bind:selectedRegions />
           <button class="border border-gray-400 px-4 py-2 rounded-md bg-white" on:click={onDoneClicked}>Done</button>
         </div>
       {:else}

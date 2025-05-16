@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
-import type { SDKManager } from "./sdkManager";
 import type { TorchState, VideoResolution } from "@scandit/web-datacapture-core";
-import { CameraSettings, FrameSourceState, Camera, CameraAccess } from "@scandit/web-datacapture-core";
+import { Camera, CameraAccess, CameraSettings, FrameSourceState } from "@scandit/web-datacapture-core";
 import { get } from "svelte/store";
-import { availableCameras, cameraSettings, currentCamera } from "../settings/camera/store";
+import { availableCameras, cameraSettings, currentCamera } from "../settings/frame-source/store";
+import type { SDKManager } from "./sdkManager";
 
 export class SDKCameraManager {
   private readonly sdkManager: SDKManager;
@@ -13,7 +13,16 @@ export class SDKCameraManager {
   }
 
   public async populateCameras(): Promise<Camera[]> {
-    const cameras = (await CameraAccess.getCameras()).map((deviceCamera) => Camera.fromDeviceCamera(deviceCamera));
+    const currentFrameSource = this.sdkManager.context.frameSource as Camera | undefined;
+    // If we already have access to the camera, we can get the list of available camera devices
+    // without getting the prompt for camera access twice on firefox by calling with refreshDevices = false and cameraAlreadyAccessed = true.
+    const cameras = (
+      await CameraAccess.getCameras(
+        false,
+        currentFrameSource?.desiredState === FrameSourceState.On ||
+          currentFrameSource?.desiredState === FrameSourceState.Standby
+      )
+    ).map((deviceCamera) => Camera.fromDeviceCamera(deviceCamera));
     availableCameras.set(cameras);
 
     return cameras;

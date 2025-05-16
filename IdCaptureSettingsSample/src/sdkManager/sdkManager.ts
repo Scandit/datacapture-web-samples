@@ -11,17 +11,26 @@ import {
 import { pointOfInterest } from "@/settings/view/point-of-interest/store";
 import { scanAreaMargins } from "@/settings/view/scan-area/store";
 import {
+  Camera,
+  CameraPosition,
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
-  configure,
-  Camera,
-  CameraPosition,
+  SingleImageUploader,
+  SingleImageUploaderSettings,
   TorchState,
+  configure,
 } from "@scandit/web-datacapture-core";
 import type { IdCaptureOverlay } from "@scandit/web-datacapture-id";
 import { IdCapture, idCaptureLoader } from "@scandit/web-datacapture-id";
-import { availableCameras, cameraSettings, currentCamera, desiredTorchState } from "../settings/camera/store";
+import {
+  availableCameras,
+  cameraSettings,
+  currentCamera,
+  currentFrameSource,
+  desiredTorchState,
+  singleImageUploader,
+} from "../settings/frame-source/store";
 import { isSdkConfigured } from "../store";
 import { SDKCameraManager } from "./camera";
 import { SDKIdCaptureManager } from "./idCapture";
@@ -73,7 +82,6 @@ export class SDKManager {
     this.context = await DataCaptureContext.create();
     await this.dataCaptureView.setContext(this.context);
 
-    const cameras = await this.camera.populateCameras();
     // Let the SDK select the best world facing camera
     const camera = Camera.atPosition(CameraPosition.WorldFacing)!;
     const initialCameraSettings = IdCapture.recommendedCameraSettings;
@@ -83,11 +91,18 @@ export class SDKManager {
     await this.idCapture.init();
 
     await camera.switchToDesiredState(FrameSourceState.On);
+    const cameras = await this.camera.populateCameras();
     await this.idCapture.setEnabled(true);
+
+    const singleImageUploaderInstance = SingleImageUploader.default;
+    const singleImageUploaderSettings = new SingleImageUploaderSettings(null);
+    await singleImageUploaderInstance.applySettings(singleImageUploaderSettings);
 
     // update stores with initial values
     availableCameras.set(cameras);
     currentCamera.set(camera);
+    currentFrameSource.set("camera");
+    singleImageUploader.set(singleImageUploaderInstance);
     desiredTorchState.set(TorchState.Off);
     cameraSettings.set(initialCameraSettings);
     idCaptureSettingsStore.set(this.idCapture.idCaptureSettings);

@@ -30,12 +30,12 @@ export class ResultView extends HTMLElement {
 			<bottom-sheet>
 				<div class="w-dvw h-dvh grid grid-rows-[108px,auto,208px]">
 					<div>
-						<div class="w-full p-4 flex justify-center items-center">
+						<div data-test-id="dragHandle" class="w-full p-4 flex justify-center items-center">
 							<div class="w-8 border-2 border-gray-300 rounded-xl"></div>
 						</div>
 						<div class="w-full p-6 flex justify-between items-center">
 							<p id="itemScanCount">0 item scanned</p>
-							<button id="clear" class="text-red-500 hidden">Clear list</button>
+							<button id="clear" data-test-id="clearListButton" class="text-red-500 hidden">Clear list</button>
 						</div>
 					</div>
 					<div class="w-full h-fit overflow-scroll">
@@ -45,7 +45,7 @@ export class ResultView extends HTMLElement {
 						<div id="resultList" class="w-full h-full px-6 flex flex-col divide-y divide-[#88c2cc]"></div>
 					</div>
 					<div class="w-full h-fit p-6 flex justify-center items-center">
-						<button id="continueScan" class="w-full p-4 bg-black text-white uppercase font-bold">
+						<button id="continueScan" data-test-id="continueScanningButton" class="w-full p-4 bg-black text-white uppercase font-bold">
 							Continue scanning
 						</button>
 					</div>

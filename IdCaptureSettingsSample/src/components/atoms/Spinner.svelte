@@ -4,7 +4,7 @@
 
 <div class="spinner" style={`width: ${size}; height: ${size};`} />
 
-<style>
+<style lang="postcss">
   .spinner {
     animation: spin 1s linear forwards infinite;
     border-radius: 50%;

@@ -43,6 +43,7 @@ interface NewSettings
       | "anonymizationMode"
       | "captureTrigger"
       | "decodeBackOfEuropeanDrivingLicense"
+      | "decodeMobileDriverLicenses"
       | "rejectExpiredIds"
       | "rejectIdsExpiringIn"
       | "rejectNotRealIdCompliant"
@@ -122,6 +123,8 @@ export class SDKIdCaptureManager {
     newSettings.captureTrigger = newSettingsOptions.captureTrigger ?? settings.captureTrigger;
     newSettings.decodeBackOfEuropeanDrivingLicense =
       newSettingsOptions.decodeBackOfEuropeanDrivingLicense ?? settings.decodeBackOfEuropeanDrivingLicense;
+    newSettings.decodeMobileDriverLicenses =
+        newSettingsOptions.decodeMobileDriverLicenses ?? settings.decodeMobileDriverLicenses;
     newSettings.rejectVoidedIds = newSettingsOptions.rejectVoidedIds ?? settings.rejectVoidedIds;
     newSettings.rejectExpiredIds = newSettingsOptions.rejectExpiredIds ?? settings.rejectExpiredIds;
     newSettings.rejectIdsExpiringIn =
@@ -166,7 +169,7 @@ export class SDKIdCaptureManager {
     void this.idCapture.reset();
   }
 
-  public async didRejectId(_capturedId: CapturedId, rejectedReason: RejectionReason): Promise<void> {
+  public async didRejectId(capturedId: CapturedId, rejectedReason: RejectionReason): Promise<void> {
     // eslint-disable-next-line unicorn/consistent-function-scoping
     const onAlertClosed: () => void = () => {
       void this.setEnabled(true);
@@ -206,7 +209,7 @@ export class SDKIdCaptureManager {
         break;
       }
       case RejectionReason.InconsistentData: {
-        const { dataConsistency } = _capturedId.verificationResult;
+        const { dataConsistency } = capturedId.verificationResult;
         dataConsistencyResult.set(dataConsistency);
         if (dataConsistency) {
           const image = await dataConsistency.frontReviewImage();
@@ -216,6 +219,11 @@ export class SDKIdCaptureManager {
         } else {
           errorMessage = "Document with inconsistent data";
         }
+        break;
+      }
+      case RejectionReason.SingleImageNotRecognized: {
+        errorMessage = "Single image: nothing recognized. Id Capture was reset.";
+        this.didRejectSingleImage(capturedId);
         break;
       }
       default:
@@ -229,11 +237,25 @@ export class SDKIdCaptureManager {
     }
   }
 
+  public didRejectSingleImage(capturedId: CapturedId): void {
+    scannedDocumentFrontFrameImage.set(capturedId.images.getFrame(IdSide.Front));
+    scannedDocumentBackFrameImage.set(capturedId.images.getFrame(IdSide.Back));
+    scannedDocument.set(capturedId);
+    showScanResults.set(true);
+  }
+
   public async setEnabled(enabled: boolean): Promise<void> {
     return this.idCapture.setEnabled(enabled);
   }
 
   public async reset(): Promise<void> {
+    scannedDocumentFrontImage.set(null);
+    scannedDocumentBackImage.set(null);
+    scannedDocumentFaceImage.set(null);
+    scannedDocumentFrontFrameImage.set(null);
+    scannedDocumentBackFrameImage.set(null);
+    scannedDocument.set(null);
+
     return this.idCapture.reset();
   }
 
@@ -339,6 +361,14 @@ export class SDKIdCaptureManager {
   public async updateDecodeBackOfEuropeanDrivingLicense(decodeBackOfEuropeanDrivingLicense: boolean): Promise<void> {
     const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
       decodeBackOfEuropeanDrivingLicense,
+    });
+
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateDecodeMobileDriverLicenses(decodeMobileDriverLicenses: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
+      decodeMobileDriverLicenses,
     });
 
     await this.applyIdCaptureSettings(newSettings);

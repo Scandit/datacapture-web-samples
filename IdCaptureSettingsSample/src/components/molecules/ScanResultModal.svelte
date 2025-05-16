@@ -112,7 +112,7 @@
   <button slot="footer" class="w-full cta cta--primary" on:click={onModalClose}>OK</button>
 </Modal>
 
-<style>
+<style lang="postcss">
   img.doc-image {
     @apply h-[140px];
   }

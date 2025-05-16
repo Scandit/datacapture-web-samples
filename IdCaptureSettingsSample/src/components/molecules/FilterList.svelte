@@ -21,13 +21,27 @@
   }
 
   function toggleItem(item: Item, checked: boolean, originalEvent: Event) {
-    let selectedItemsUpdated = [...selectedItems];
-    if (checked) {
-      selectedItemsUpdated.push(item);
-    } else {
-      selectedItemsUpdated = selectedItemsUpdated.filter((_item) => _item !== item);
-    }
     dispatcher("change", { item, checked, originalEvent });
+  }
+
+  function displayListItem(item: Item) {
+    // Convert from "FrenchSouthernTerritories" to "French Southern Territories"
+    const titleCased = camelCaseToTitleCase(item);
+    const foundIndex = item.toLowerCase().indexOf(input.toLowerCase());
+    if (foundIndex < 0) {
+      return titleCased;
+    }
+
+    // highlight the portion of the text that matches
+    const startPos = titleCased.toLowerCase().indexOf(input.toLowerCase());
+    const endPos = startPos + input.length;
+    return [
+      titleCased.slice(0, startPos),
+      "<b>",
+      titleCased.slice(startPos, endPos),
+      "</b>",
+      titleCased.slice(endPos),
+    ].join("");
   }
 </script>
 
@@ -48,7 +62,7 @@
           id={String(item)}
           on:click={(event) => toggleItem(item, valueFromCheckbox(event), event)}
         />
-        <label class="flex-grow" for={String(item)}>{camelCaseToTitleCase(item)}</label>
+        <label class="flex-grow" for={String(item)}>{@html displayListItem(item)}</label>
       </li>
     {/each}
   </ul>

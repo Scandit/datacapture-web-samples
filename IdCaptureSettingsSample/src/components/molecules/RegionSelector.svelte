@@ -1,35 +1,36 @@
 <script lang="ts">
   import { Region } from "@scandit/web-datacapture-id";
-  import { writable } from "svelte/store";
   import FilterList from "./FilterList.svelte";
 
-  export let onChange: (selectedRegions: Region[]) => void;
-  export let regions: Region[];
+  export let selectedRegions: Region[];
 
   const allRegions = Object.values(Region).sort();
-  const enabledRegions = writable<Region[]>(regions);
-  let displayedRegions = [Region.Any, ...allRegions.filter((region) => region !== Region.Any)];
+  const allRegionButAny = allRegions.filter((region) => region !== Region.Any);
+  // Any region comes first
+  let displayedRegions = [Region.Any, ...allRegionButAny];
 
   function filterList(input: string) {
     if (input.trim().length === 0) {
-      displayedRegions = allRegions;
+      displayedRegions = [Region.Any, ...allRegionButAny];
       return;
     }
-    displayedRegions = allRegions.filter((region) => region.toLowerCase().includes(input.toLowerCase()));
+    const needle = input.toLowerCase();
+    displayedRegions = allRegionButAny
+      // filter out non-matching
+      .filter((region) => region.toLowerCase().includes(needle))
+      // shortest match should come first
+      .sort((a, b) => a.length - b.length);
   }
 
-  // Whenever the store is updated, trigger the onChange callback
-  enabledRegions.subscribe((selectedRegions) => onChange(selectedRegions));
-
   function toggleRegion(region: string, newValue: boolean, event: Event) {
-    let updatedRegions = [...$enabledRegions];
+    let updatedRegions = [...selectedRegions];
 
     if (region === Region.Any) {
       // when Any is checked, or when it's the only region selected, remove all regions and only keep "Any"
-      if (newValue || $enabledRegions.length === 1) {
+      if (newValue || selectedRegions.length === 1) {
         // prevent unchecking the checkbox
         !newValue && event.preventDefault();
-        $enabledRegions = [Region.Any];
+        selectedRegions = [Region.Any];
         return;
       }
     } else if (newValue) {
@@ -48,14 +49,14 @@
       updatedRegions = [Region.Any];
     }
 
-    // only update the store once
-    $enabledRegions = updatedRegions;
+    // only update the parent variable once
+    selectedRegions = updatedRegions;
   }
 </script>
 
 <FilterList
   items={displayedRegions}
-  selectedItems={$enabledRegions}
+  selectedItems={selectedRegions}
   {filterList}
   on:change={(e) => toggleRegion(e.detail.item, e.detail.checked, e.detail.originalEvent)}
 />

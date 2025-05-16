@@ -42,7 +42,7 @@ export class FillMissingInfoView extends HTMLElement {
         <div class="p-6">
           <div class="w-full mb-3 flex justify-between items-center">
             <p>Enter item details</p>
-            <button id="dismissButton">
+            <button id="dismissButton" data-test-id="dismissButton">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <rect width="24" height="24" fill="none" />
                 <path fill="currentColor" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
@@ -55,24 +55,24 @@ export class FillMissingInfoView extends HTMLElement {
                 <div class="w-2 aspect-square bg-[#2ec1ce] rounded-full"></div>
                 <span>Code</span>
               </div>
-              <p id="code" class="w-full text-left"></p>
+              <p id="code" data-test-id="codeField" class="w-full text-left"></p>
             </div>
             <label class="flex items-center gap-2" for="weight">
               <div class="w-6/12 flex items-center gap-2">
                 <div class="w-2 aspect-square bg-[#fbc02c] rounded-full"></div>
                 <span>Weight</span>
               </div>
-              <input id="weight" class="w-full border-b border-gray-300 outline-none transition duration-300 focus:border-[#2ec1ce]" type="number" />
+              <input id="weight" data-test-id="weightField" class="w-full border-b border-gray-300 outline-none transition duration-300 focus:border-[#2ec1ce]" type="number" />
             </label>
             <label class="flex items-center gap-2" for="unitPrice">
               <div class="w-6/12 flex items-center gap-2">
                 <div class="w-2 aspect-square bg-[#0a3390] rounded-full"></div>
                 <span>Unit price</span>
               </div>
-              <input id="unitPrice" class="w-full border-b border-gray-300 outline-none transition duration-300 focus:border-[#2ec1ce]" type="number" />
+              <input id="unitPrice" data-test-id="unitPriceField" class="w-full border-b border-gray-300 outline-none transition duration-300 focus:border-[#2ec1ce]" type="number" />
             </label>
           </div>
-          <button id="submitButton" class="w-full p-4 bg-black text-white uppercase font-bold transition duration-300 disabled:bg-gray-200 disabled:text-gray-400" disabled>
+          <button id="submitButton" data-test-id="submitButton" class="w-full p-4 bg-black text-white uppercase font-bold transition duration-300 disabled:bg-gray-200 disabled:text-gray-400" disabled>
             Add to list
           </button>
         </div>

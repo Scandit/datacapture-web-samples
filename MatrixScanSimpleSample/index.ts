@@ -1,12 +1,3 @@
-import {
-  Anchor,
-  Camera,
-  CameraSwitchControl,
-  DataCaptureContext,
-  DataCaptureView,
-  FrameSourceState,
-  configure,
-} from "@scandit/web-datacapture-core";
 import type { BarcodeBatchSession, TrackedBarcode } from "@scandit/web-datacapture-barcode";
 import {
   BarcodeBatch,
@@ -17,10 +8,19 @@ import {
   SymbologyDescription,
   barcodeCaptureLoader,
 } from "@scandit/web-datacapture-barcode";
+import {
+  Anchor,
+  Camera,
+  CameraSwitchControl,
+  DataCaptureContext,
+  DataCaptureView,
+  FrameSourceState,
+  configure,
+} from "@scandit/web-datacapture-core";
 
+import { SdcUiBarcodeList, SdcUiBarcodeListItem } from "./components/sdcUiBarcodeList.js";
 import { SdcUiButton } from "./components/sdcUiButton.js";
 import { SdcUiDrawerBottom } from "./components/sdcUiDrawerBottom.js";
-import { SdcUiBarcodeList, SdcUiBarcodeListItem } from "./components/sdcUiBarcodeList.js";
 import { define, removeAllChildNodes } from "./utils.js";
 
 async function run(): Promise<void> {
@@ -85,9 +85,9 @@ async function run(): Promise<void> {
     Symbology.Code128,
   ]);
 
-  // Create a new barcode tracking mode with the settings from above.
+  // Create a new barcode batch mode with the settings from above.
   const barcodeBatch = await BarcodeBatch.forContext(context, settings);
-  // Disable the barcode tracking mode until the camera is accessed.
+  // Disable the barcode batch mode until the camera is accessed.
   await barcodeBatch.setEnabled(true);
 
   let trackedBarcodes: Record<string, TrackedBarcode>;
@@ -168,10 +168,10 @@ run().catch((error: unknown) => {
   if (error instanceof Error && error.name === "NoLicenseKeyError") {
     errorMessage = `
         NoLicenseKeyError:
-        
+
         Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
         - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
-        - placing your license key in a \`.env\` file at the root of the sample directory 
+        - placing your license key in a \`.env\` file at the root of the sample directory
         — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
     `;
   }

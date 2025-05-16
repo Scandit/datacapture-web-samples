@@ -8,7 +8,7 @@
 
   async function onShowLicenseText(e: Event) {
     e.preventDefault();
-    showLicenseText.set(true)
+    showLicenseText.set(true);
     const license = await DataCaptureContext.getOpenSourceSoftwareLicenseInfo();
     licenseText.set(license.licenseText);
   }
@@ -20,7 +20,7 @@
   </svelte:fragment>
   <svelte:fragment slot="content">
     <SettingsEntry to="/settings/id-capture">Id Capture</SettingsEntry>
-    <SettingsEntry to="/settings/camera">Camera</SettingsEntry>
+    <SettingsEntry to="/settings/frame-source">Frame source</SettingsEntry>
     <SettingsEntry to="/settings/view">View</SettingsEntry>
     <Link to="#" class="cta cta--full flex items-center justify-between" on:click={onShowLicenseText}>
       Show License Text

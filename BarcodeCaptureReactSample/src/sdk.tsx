@@ -6,9 +6,9 @@ import {
   BarcodeCaptureSettings,
   Symbology,
 } from "@scandit/web-datacapture-barcode";
-import { CameraSwitchControl } from "@scandit/web-datacapture-core";
 import {
   Camera,
+  CameraSwitchControl,
   configure,
   DataCaptureContext,
   DataCaptureView,

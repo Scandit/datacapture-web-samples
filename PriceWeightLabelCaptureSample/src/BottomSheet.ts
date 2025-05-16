@@ -46,7 +46,7 @@ export class BottomSheet extends HTMLElement {
 			mode: "open",
 		});
 		shadowRoot.innerHTML = `
-      <div class="backdrop"></div>
+      <div data-test-id="bottomSheetBackdrop" class="backdrop"></div>
 			<div class="bottomSheet">
         <slot></slot>
 			</div>
