@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "lit": "^2.8.0",
-    "@scandit/web-datacapture-barcode": "7.3.0",
-    "@scandit/web-datacapture-core": "7.3.0"
+    "@scandit/web-datacapture-barcode": "7.3.1",
+    "@scandit/web-datacapture-core": "7.3.1"
   },
   "devDependencies": {
     "@types/node": "^18.19.31",
