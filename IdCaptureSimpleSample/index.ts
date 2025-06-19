@@ -78,7 +78,6 @@ async function run(): Promise<void> {
       // Disable the IdCapture mode to handle the current result
       await idCapture.setEnabled(false);
       UI.showResult(capturedId);
-      void idCapture.reset();
     },
     didRejectId: async (_capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);

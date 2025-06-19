@@ -1,0 +1,30 @@
+{
+  "name": "label-capture-simple-sample",
+  "displayName": "LabelCaptureSimpleSample",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "fast-build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview",
+    "lint": "biome lint .",
+    "format": "biome format ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "autoprefixer": "^10.4.21",
+    "dotenv": "^16.5.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0",
+    "vite-plugin-static-copy": "^0.17.1"
+  },
+  "dependencies": {
+    "@scandit/web-datacapture-barcode": "7.4.0",
+    "@scandit/web-datacapture-core": "7.4.0",
+    "@scandit/web-datacapture-label": "7.4.0"
+  }
+}

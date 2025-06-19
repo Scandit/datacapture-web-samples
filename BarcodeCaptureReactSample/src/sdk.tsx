@@ -13,6 +13,7 @@ import {
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
+  LaserlineViewfinder,
 } from "@scandit/web-datacapture-core";
 import type { ReactElement, ReactNode } from "react";
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
@@ -27,6 +28,7 @@ enum SDKStatus {
 interface SDKState {
   context?: DataCaptureContext;
   view?: DataCaptureView;
+  laserlineViewfinder?: LaserlineViewfinder;
   settings?: BarcodeCaptureSettings;
   barcodeCapture?: BarcodeCapture;
   overlay?: BarcodeCaptureOverlay;
@@ -92,6 +94,7 @@ class SDKController {
     await this.state.context?.dispose();
     await this.state.context?.removeAllModes();
     this.state.view?.detachFromElement();
+    this.state.laserlineViewfinder = undefined;
     this.state.host?.remove();
 
     this.state = {
@@ -199,6 +202,9 @@ class SDKController {
       this.state.barcodeCapture,
       this.state.view
     );
+
+    this.state.laserlineViewfinder = new LaserlineViewfinder();
+    await this.state.overlay.setViewfinder(this.state.laserlineViewfinder);
   }
 }
 

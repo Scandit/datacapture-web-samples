@@ -14,8 +14,8 @@
     "format": "biome format ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "7.3.1",
-    "@scandit/web-datacapture-core": "7.3.1",
+    "@scandit/web-datacapture-barcode": "7.4.0",
+    "@scandit/web-datacapture-core": "7.4.0",
     "temporal-polyfill": "~0.2.5"
   },
   "devDependencies": {

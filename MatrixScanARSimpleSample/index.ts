@@ -25,7 +25,7 @@ async function run(): Promise<void> {
   // Connect the data capture view to the HTML element.
   view.connectToElement(document.getElementById("data-capture-view")!);
 
-  view.logoAnchor = Anchor.TopRight;
+  view.logoAnchor = Anchor.BottomRight;
 
   // Show the loading layer
   view.showProgressBar();
@@ -127,7 +127,7 @@ async function run(): Promise<void> {
         header.backgroundColor = Color.fromRGBA(255, 0, 0);
 
         const body = BarcodeArInfoAnnotationBodyComponent.create();
-        const originalText = `Item expired in ${state.get(eanSymbologiesSet)?.days} days`;
+        const originalText = `Expires in ${state.get(eanSymbologiesSet)?.days} days`;
         body.text = originalText;
 
         const infoAnnotation = BarcodeArInfoAnnotation.create(barcode);
@@ -145,7 +145,7 @@ async function run(): Promise<void> {
         header.backgroundColor = Color.fromRGBA(246, 212, 56);
 
         const body = BarcodeArInfoAnnotationBodyComponent.create();
-        body.text = `Item expired in ${state.get(codeSymbologiesSet)?.days} days`;
+        body.text = `Expires in ${state.get(codeSymbologiesSet)?.days} days`;
 
         const infoAnnotation = BarcodeArInfoAnnotation.create(barcode);
         infoAnnotation.isEntireAnnotationTappable = true;
@@ -162,7 +162,7 @@ async function run(): Promise<void> {
         header.text = `${state.get(twoDsymbologiesSet)?.discount}% off`;
 
         const body = BarcodeArInfoAnnotationBodyComponent.create();
-        body.text = `Item expired in ${state.get(twoDsymbologiesSet)?.days} days`;
+        body.text = `Expires in ${state.get(twoDsymbologiesSet)?.days} days`;
 
         const infoAnnotation = BarcodeArInfoAnnotation.create(barcode);
         infoAnnotation.isEntireAnnotationTappable = true;
