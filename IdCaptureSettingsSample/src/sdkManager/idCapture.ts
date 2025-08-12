@@ -25,6 +25,7 @@ import {
   scannedDocumentFrontImage,
   showDataConsistency,
   showScanResults,
+  resetIdCaptureOnClose,
 } from "@/store";
 import { ScannerType } from "./enums";
 import { FeedbackType } from "@/settings/id-capture/FeedbackType";
@@ -43,7 +44,8 @@ interface NewSettings
       | "anonymizationMode"
       | "captureTrigger"
       | "decodeBackOfEuropeanDrivingLicense"
-      | "decodeMobileDriverLicenses"
+      | "decodeMobileDriverLicenseViz"
+      | "notifyOnSideCapture"
       | "rejectExpiredIds"
       | "rejectIdsExpiringIn"
       | "rejectNotRealIdCompliant"
@@ -123,8 +125,9 @@ export class SDKIdCaptureManager {
     newSettings.captureTrigger = newSettingsOptions.captureTrigger ?? settings.captureTrigger;
     newSettings.decodeBackOfEuropeanDrivingLicense =
       newSettingsOptions.decodeBackOfEuropeanDrivingLicense ?? settings.decodeBackOfEuropeanDrivingLicense;
-    newSettings.decodeMobileDriverLicenses =
-        newSettingsOptions.decodeMobileDriverLicenses ?? settings.decodeMobileDriverLicenses;
+    newSettings.decodeMobileDriverLicenseViz =
+      newSettingsOptions.decodeMobileDriverLicenseViz ?? settings.decodeMobileDriverLicenseViz;
+    newSettings.notifyOnSideCapture = newSettingsOptions.notifyOnSideCapture ?? (settings.notifyOnSideCapture as boolean);
     newSettings.rejectVoidedIds = newSettingsOptions.rejectVoidedIds ?? settings.rejectVoidedIds;
     newSettings.rejectExpiredIds = newSettingsOptions.rejectExpiredIds ?? settings.rejectExpiredIds;
     newSettings.rejectIdsExpiringIn =
@@ -165,8 +168,11 @@ export class SDKIdCaptureManager {
     scannedDocumentBackFrameImage.set(capturedId.images.getFrame(IdSide.Back));
     scannedDocument.set(capturedId);
     showScanResults.set(true);
+    resetIdCaptureOnClose.set(capturedId.isCapturingComplete);
 
-    void this.idCapture.reset();
+    if (capturedId.isCapturingComplete) {
+      void this.idCapture.reset();
+    }
   }
 
   public async didRejectId(capturedId: CapturedId, rejectedReason: RejectionReason): Promise<void> {
@@ -366,9 +372,17 @@ export class SDKIdCaptureManager {
     await this.applyIdCaptureSettings(newSettings);
   }
 
-  public async updateDecodeMobileDriverLicenses(decodeMobileDriverLicenses: boolean): Promise<void> {
+  public async updateDecodeMobileDriverLicenseViz(decodeMobileDriverLicenseViz: boolean): Promise<void> {
     const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
-      decodeMobileDriverLicenses,
+      decodeMobileDriverLicenseViz,
+    });
+
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateNotifyOnSideCapture(notifyOnSideCapture: boolean): Promise<void> {
+    const newSettings = SDKIdCaptureManager.cloneIdCaptureSettings(this.idCaptureSettings, {
+      notifyOnSideCapture,
     });
 
     await this.applyIdCaptureSettings(newSettings);

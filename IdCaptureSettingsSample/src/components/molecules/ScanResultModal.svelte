@@ -10,6 +10,7 @@
     scannedDocumentFrontFrameImage,
     scannedDocumentFrontImage,
     showScanResults,
+    resetIdCaptureOnClose,
   } from "@/store";
   import ScanResultViz from "./ScanResult/ScanResultViz.svelte";
   import ScanResultBarcode from "./ScanResult/ScanResultBarcode.svelte";
@@ -25,7 +26,10 @@
       return;
     }
 
-    await sdkManager.idCapture.reset();
+    if ($resetIdCaptureOnClose) {
+      await sdkManager.idCapture.reset();
+    }
+    $resetIdCaptureOnClose = true;
     void sdkManager.idCapture.setEnabled(true);
   }
 </script>
