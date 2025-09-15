@@ -2,37 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MatrixScanARSimpleSample</title>
-    <script type="module" src="index.ts"></script>
+    <meta http-equiv="Content-Security-Policy" content="font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;" />
+    <title>MatrixScan AR Sample</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet" />
     <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
+      html, body {
         margin: 0;
         padding: 0;
+        font-family: 'Inter', Arial, sans-serif;
+        background: #fff;
+        height: 100dvh;
         width: 100vw;
-        height: 100svh;
-      }
-
-      body {
-        background: #333;
-        font-family: Helvetica, sans-serif;
-      }
-
-      #data-capture-view {
-        position: relative;
-        top: 0;
-        left: 0;
-        height: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
       }
     </style>
   </head>
   <body>
-    <div id="data-capture-view"></div>
+    <script data-id="scandit-main" type="module" src="./index.ts"></script>
   </body>
 </html>

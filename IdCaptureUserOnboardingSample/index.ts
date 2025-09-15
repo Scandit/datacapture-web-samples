@@ -151,10 +151,10 @@ async function onRejectedId(capturedId: CapturedId, reason: RejectionReason): Pr
 }
 
 async function onIdCaptureFailure(_idCapture: IdCapture, error: IdCaptureError): Promise<void> {
-  // If an error occured and the SDK recovered from it, we need to inform the user and reset the process.
+  // If an error occurred and the SDK recovered from it, we need to inform the user and reset the process.
   if (error.type === IdCaptureErrorCode.RecoveredAfterFailure) {
     await UI.showDialog(
-      "Error occured",
+      "Error occurred",
       "Oops, something went wrong. Please start over by scanning the front-side of your document.",
       [{ id: "ok", label: "OK" }]
     );

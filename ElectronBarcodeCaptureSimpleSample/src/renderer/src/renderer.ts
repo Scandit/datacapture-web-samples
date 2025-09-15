@@ -18,7 +18,6 @@ import {
   BarcodeCaptureSettings,
   Symbology,
   BarcodeCaptureOverlay,
-  BarcodeCaptureOverlayStyle,
   SymbologyDescription
 } from '@scandit/web-datacapture-barcode'
 
@@ -114,11 +113,7 @@ async function run(): Promise<void> {
   // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
   // the video preview. This is optional, but recommended for better visual feedback.
   const barcodeCaptureOverlay: BarcodeCaptureOverlay =
-    await BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
-      barcodeCapture,
-      view,
-      BarcodeCaptureOverlayStyle.Frame
-    )
+    await BarcodeCaptureOverlay.withBarcodeCaptureForView(barcodeCapture, view)
 
   // Register a listener to get informed whenever a new barcode got recognized.
   barcodeCapture.addListener({

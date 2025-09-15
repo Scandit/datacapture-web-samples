@@ -10,6 +10,8 @@
     namesAreTruncated: "Names Are Truncated",
     optional: "Optional",
     optional1: "Optional1",
+    optionalDataInLine1: "Optional Data in Line 1",
+    optionalDataInLine2: "Optional Data in Line 2",
     capturedMrz: "Captured Mrz",
     personalIdNumber: "Personal ID Number",
     renewalTimes: "Renewal times",

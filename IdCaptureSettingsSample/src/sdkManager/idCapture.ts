@@ -25,7 +25,6 @@ import {
   scannedDocumentFrontImage,
   showDataConsistency,
   showScanResults,
-  resetIdCaptureOnClose,
 } from "@/store";
 import { ScannerType } from "./enums";
 import { FeedbackType } from "@/settings/id-capture/FeedbackType";
@@ -168,11 +167,6 @@ export class SDKIdCaptureManager {
     scannedDocumentBackFrameImage.set(capturedId.images.getFrame(IdSide.Back));
     scannedDocument.set(capturedId);
     showScanResults.set(true);
-    resetIdCaptureOnClose.set(capturedId.isCapturingComplete);
-
-    if (capturedId.isCapturingComplete) {
-      void this.idCapture.reset();
-    }
   }
 
   public async didRejectId(capturedId: CapturedId, rejectedReason: RejectionReason): Promise<void> {

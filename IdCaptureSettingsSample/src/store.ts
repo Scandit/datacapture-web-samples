@@ -5,7 +5,6 @@ export const isSdkConfigured = writable(false);
 export const isSidebarOpen = writable(false);
 export const showScanResults = writable(false);
 export const showDataConsistency = writable(false);
-export const resetIdCaptureOnClose = writable(true);
 export const scannedDocument = writable<CapturedId | null>(null);
 export const scannedDocumentFrontImage = writable<string | null>();
 export const scannedDocumentBackImage = writable<string | null>();

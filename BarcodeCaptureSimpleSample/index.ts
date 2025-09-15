@@ -1,24 +1,23 @@
+import type { Barcode, BarcodeCaptureSession, SymbologySettings } from "@scandit/web-datacapture-barcode";
 import {
-  DataCaptureView,
-  Camera,
-  DataCaptureContext,
-  configure,
-  CameraSwitchControl,
-  RectangularViewfinder,
-  RectangularViewfinderStyle,
-  RectangularViewfinderLineStyle,
-  FrameSourceState,
-} from "@scandit/web-datacapture-core";
-import type { SymbologySettings, Barcode, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";
-import {
-  barcodeCaptureLoader,
   BarcodeCapture,
+  BarcodeCaptureOverlay,
   BarcodeCaptureSettings,
   Symbology,
-  BarcodeCaptureOverlay,
-  BarcodeCaptureOverlayStyle,
   SymbologyDescription,
+  barcodeCaptureLoader,
 } from "@scandit/web-datacapture-barcode";
+import {
+  Camera,
+  CameraSwitchControl,
+  DataCaptureContext,
+  DataCaptureView,
+  FrameSourceState,
+  RectangularViewfinder,
+  RectangularViewfinderLineStyle,
+  RectangularViewfinderStyle,
+  configure,
+} from "@scandit/web-datacapture-core";
 
 declare global {
   interface Window {
@@ -30,10 +29,17 @@ async function run(): Promise<void> {
   // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
   const view = new DataCaptureView();
 
-  // Connect the data capture view to the HTML element.
-  view.connectToElement(document.getElementById("data-capture-view")!);
+  // Try to use the world-facing (back) camera
+  const camera: Camera = Camera.default;
+  const cameraSettings = BarcodeCapture.recommendedCameraSettings;
+  await camera.applySettings(cameraSettings);
 
-  // Show the loading layer
+  // The camera is off by default and must be turned on. We start the stream before the configure phase.
+  void camera.switchToDesiredState(FrameSourceState.On);
+
+  // Connect the data capture view to the HTML element, passing it the camera to show it running as soon as possible.
+  view.connectToElement(document.getElementById("data-capture-view")!, { camera });
+
   view.showProgressBar();
 
   // Enter your Scandit License key here.
@@ -46,9 +52,7 @@ async function run(): Promise<void> {
     moduleLoaders: [barcodeCaptureLoader()],
   });
 
-  // Set the progress bar to be in an indeterminate state
-  view.setProgressBarPercentage(null);
-  view.setProgressBarMessage("Accessing Camera...");
+  view.hideProgressBar();
 
   // Create the data capture context.
   const context: DataCaptureContext = await DataCaptureContext.create();
@@ -57,11 +61,7 @@ async function run(): Promise<void> {
   // camera preview. The view must be connected to the data capture context.
   await view.setContext(context);
 
-  // Try to use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
-  // default and must be turned on to start streaming frames to the data capture context for recognition.
-  const camera: Camera = Camera.default;
-  const cameraSettings = BarcodeCapture.recommendedCameraSettings;
-  await camera.applySettings(cameraSettings);
+  // Set the camera as the frame source of the context to start streaming frames to the data capture context for recognition.
   await context.setFrameSource(camera);
 
   // The barcode capturing process is configured through barcode capture settings,
@@ -100,17 +100,16 @@ async function run(): Promise<void> {
 
   // Add a barcode capture overlay to the data capture view to render the location of captured barcodes on top of
   // the video preview. This is optional, but recommended for better visual feedback.
-  const barcodeCaptureOverlay: BarcodeCaptureOverlay = await BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+  const barcodeCaptureOverlay: BarcodeCaptureOverlay = await BarcodeCaptureOverlay.withBarcodeCaptureForView(
     barcodeCapture,
-    view,
-    BarcodeCaptureOverlayStyle.Frame
+    view
   );
 
   // Register a listener to get informed whenever a new barcode got recognized.
   barcodeCapture.addListener({
     didScan: async (barcodeCaptureMode: BarcodeCapture, session: BarcodeCaptureSession) => {
       // Disable the mode to avoid unwanted scan until the user closes the displayed result.
-      await barcodeCapture.setEnabled(false);
+      await barcodeCaptureMode.setEnabled(false);
       // Hide the viewfinder.
       await barcodeCaptureOverlay.setViewfinder(null);
       const barcode: Barcode | null = session.newlyRecognizedBarcode;
@@ -130,11 +129,8 @@ async function run(): Promise<void> {
 
   // Switch the camera on to start streaming frames.
   // The camera is started asynchronously and will take some time to completely turn on.
-  await camera.switchToDesiredState(FrameSourceState.On);
+  await context.frameSource?.switchToDesiredState(FrameSourceState.On);
   await barcodeCapture.setEnabled(true);
-
-  // The progress bar layer could be also hidden right after the configure phase
-  view.hideProgressBar();
 
   async function continueScanning(): Promise<void> {
     for (const r of document.querySelectorAll(".result")!) {
@@ -168,10 +164,10 @@ run().catch((error: unknown) => {
   if (error instanceof Error && error.name === "NoLicenseKeyError") {
     errorMessage = `
         NoLicenseKeyError:
-        
+
         Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
         - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
-        - placing your license key in a \`.env\` file at the root of the sample directory 
+        - placing your license key in a \`.env\` file at the root of the sample directory
         — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
     `;
   }

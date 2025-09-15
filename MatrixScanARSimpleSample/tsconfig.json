@@ -8,10 +8,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "skipLibCheck": true
   },
-  "include": ["*.ts"],
+  "include": ["*.ts", "components/feature-card.ts", "components/home-section.ts", "components/icons.ts"],
   "exclude": ["node_modules"]
 }

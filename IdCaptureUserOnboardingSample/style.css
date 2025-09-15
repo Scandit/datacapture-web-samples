@@ -341,6 +341,7 @@ hr {
   min-height: 100dvh;
   background: white;
   padding: 1rem;
+  z-index: 1;
 }
 
 #review p {

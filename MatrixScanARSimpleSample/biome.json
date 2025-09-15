@@ -91,7 +91,7 @@
           "level": "error",
           "options": {
             "requireAscii": true,
-            "filenameCases": ["camelCase", "PascalCase"]
+            "filenameCases": ["camelCase", "PascalCase", "kebab-case"]
           }
         },
         "useForOf": "error",

@@ -21,7 +21,6 @@ import {
   BarcodeFindItem,
   BarcodeCapture,
   BarcodeCaptureOverlay,
-  BarcodeCaptureOverlayStyle,
   BarcodeCaptureSettings,
   BarcodeFindItemSearchOptions,
   BarcodeFindSettings,
@@ -113,10 +112,9 @@ class Presenter implements BarcodeFindViewUiListener, BarcodeCaptureListener {
 
     // Add a barcode capture overlay to the data capture view to render.
     // This is optional but recommended for better visual feedback.
-    this.barcodeCaptureOverlay = await BarcodeCaptureOverlay.withBarcodeCaptureForViewWithStyle(
+    this.barcodeCaptureOverlay = await BarcodeCaptureOverlay.withBarcodeCaptureForView(
       this.barcodeCapture,
-      this.dataCaptureView,
-      BarcodeCaptureOverlayStyle.Frame
+      this.dataCaptureView
     );
 
     // Set the color of the Brush for the overlay when a barcode will be detected.
@@ -185,10 +183,10 @@ run().catch((error: unknown) => {
   if (error instanceof Error && error.name === "NoLicenseKeyError") {
     errorMessage = `
         NoLicenseKeyError:
-        
+
         Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
         - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
-        - placing your license key in a \`.env\` file at the root of the sample directory 
+        - placing your license key in a \`.env\` file at the root of the sample directory
         — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
     `;
   }

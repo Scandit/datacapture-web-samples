@@ -80,7 +80,7 @@ async function createIdCapture(settings: IdCaptureSettings): Promise<void> {
       void idCapture.reset();
     },
     didFailWithError: (_: IdCapture, error: IdCaptureError) => {
-      // If an error occured and the SDK recovered from it, we need to inform the user and reset the process.
+      // If an error occurred and the SDK recovered from it, we need to inform the user and reset the process.
       if (error.type === IdCaptureErrorCode.RecoveredAfterFailure) {
         UI.showWarning("Oops, something went wrong. Please start over by scanning the front-side of your document.");
         void idCapture.reset();

@@ -51,6 +51,7 @@ body {
   border-radius: 0.5rem;
   background: #fff;
   box-shadow: 0 0 11px 0px #c7c7c7;
+  z-index: 1;
 }
 
 #alert p {
@@ -93,6 +94,7 @@ body {
   padding: 3rem;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  z-index: 1;
 }
 
 @media screen and (max-height: 500px), (max-width: 500px) {

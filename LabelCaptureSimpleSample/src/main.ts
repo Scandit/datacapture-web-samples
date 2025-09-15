@@ -10,6 +10,7 @@ import {
   CustomBarcodeBuilder,
   ExpiryDateTextBuilder,
   LabelCapture,
+  LabelCaptureBasicOverlay,
   LabelCaptureSettingsBuilder,
   LabelCaptureValidationFlowListener,
   LabelCaptureValidationFlowOverlay,
@@ -144,6 +145,9 @@ async function main() {
 
   // Create the label capture mode
   const mode = await LabelCapture.forContext(context, settings);
+
+  // Set up the basic overlay
+  await LabelCaptureBasicOverlay.withLabelCaptureForView(mode, view);
 
   // Set up the validation flow overlay
   const overlay = await LabelCaptureValidationFlowOverlay.withLabelCaptureForView(mode, view);
