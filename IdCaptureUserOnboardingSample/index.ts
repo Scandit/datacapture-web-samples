@@ -189,7 +189,7 @@ function initUIElements(): void {
   });
   UI.elements.reviewRetryButton.addEventListener("click", async () => {
     void UI.showLoader();
-    await startScanner(true);
+    await startScanner(false);
     UI.elements.review.hidden = true;
     UI.closeLoader();
   });

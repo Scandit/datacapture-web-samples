@@ -121,17 +121,15 @@ async function run(): Promise<void> {
       await idCapture.setEnabled(false);
       const verificationResult = verifyDriverLicense(capturedId);
       void UI.showResult(capturedId, verificationResult);
-      await idCapture.reset();
     },
     didRejectId: async (capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);
-      await idCapture.reset();
       if (reason === RejectionReason.Timeout) {
         UI.showWarning(
           "Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document."
         );
       } else if (reason === RejectionReason.NotAcceptedDocumentType && capturedId.issuingCountry !== Region.Us) {
-        UI.showWarning("Document is not a US driver’s license");
+        UI.showWarning("Document is not a US driver's license");
       } else {
         UI.showWarning("Document not supported. Try scanning another document");
       }

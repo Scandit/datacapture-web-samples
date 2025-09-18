@@ -66,7 +66,6 @@ async function createIdCapture(settings: IdCaptureSettings): Promise<void> {
     didCaptureId: async (capturedId: CapturedId) => {
       await idCapture.setEnabled(false);
       UI.showResult(capturedId);
-      void idCapture.reset();
     },
     didRejectId: async (_capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);
@@ -77,7 +76,6 @@ async function createIdCapture(settings: IdCaptureSettings): Promise<void> {
       } else {
         UI.showWarning("Document not supported. Try scanning another document.");
       }
-      void idCapture.reset();
     },
     didFailWithError: (_: IdCapture, error: IdCaptureError) => {
       // If an error occurred and the SDK recovered from it, we need to inform the user and reset the process.
@@ -181,10 +179,10 @@ run().catch((error: unknown) => {
   if (error instanceof Error && error.name === "NoLicenseKeyError") {
     errorMessage = `
         NoLicenseKeyError:
-        
+
         Make sure SCANDIT_LICENSE_KEY is available in your environment, by either:
         - running \`SCANDIT_LICENSE_KEY=<YOUR_LICENSE_KEY> npm run build\`
-        - placing your license key in a \`.env\` file at the root of the sample directory 
+        - placing your license key in a \`.env\` file at the root of the sample directory
         — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
     `;
   }
