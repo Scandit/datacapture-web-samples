@@ -42,6 +42,10 @@ async function run(): Promise<void> {
 
   // Show the loading layer
   view.showProgressBar();
+  // Set the progress bar to be in an indeterminate state
+  view.setProgressBarPercentage(null);
+  view.setProgressBarMessage("Loading files...");
+
   // Enter your Scandit License key here.
   // Your Scandit License key is available via your Scandit SDK web account.
   // The passed parameter represents the location of the wasm file, which will be fetched asynchronously.
@@ -63,12 +67,15 @@ async function run(): Promise<void> {
   // camera preview. The view must be connected to the data capture context.
   await view.setContext(context);
 
-  // Try to use the world-facing (back) camera and set it as the frame source of the context. The camera is off by
+  view.setProgressBarMessage("Accessing Camera...");
+  // Let the SDK select the best camera and set it as the frame source of the context. The camera is off by
   // default and must be turned on to start streaming frames to the data capture context for recognition.
   const camera: Camera = Camera.default;
   const cameraSettings = BarcodeBatch.recommendedCameraSettings;
   await camera.applySettings(cameraSettings);
   await context.setFrameSource(camera);
+
+  view.setProgressBarPercentage(null);
 
   // The barcode tracking process is configured through barcode tracking settings,
   // they are then applied to the barcode tracking instance that manages barcode recognition.
