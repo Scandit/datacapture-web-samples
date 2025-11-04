@@ -1,0 +1,6 @@
+.eslintrc.cjs
+library/**
+node_modules/**
+*.d.ts
+*.js
+vite.config.*

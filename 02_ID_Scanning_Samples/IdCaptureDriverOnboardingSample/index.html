@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ID Capture Driver Onboarding Sample</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="index.ts"></script>
+  </head>
+  <body>
+    <div id="wrapper" class="h-full">
+      <div id="data-capture-view"></div>
+    </div>
+    <div id="manual-upload" class="card" hidden>
+      <div class="card-header"></div>
+      <div class="card-footer">
+        <button onclick="window.dispatchAction('MANUAL_UPLOAD')">Manual Picture Upload</button>
+      </div>
+    </div>
+    <div id="backdrop" hidden></div>
+    <div id="alert" hidden></div>
+    <div id="loader" hidden><div></div></div>
+    <div id="result" class="card" hidden>
+      <div class="card-header">
+        <div>Thank you, we will review your application</div>
+        <button onclick="window.dispatchAction('CLOSE_RESULT')">&times;</button>
+      </div>
+      <div class="card-content"></div>
+    </div>
+  </body>
+</html>

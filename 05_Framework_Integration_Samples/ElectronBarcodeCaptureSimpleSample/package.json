@@ -1,0 +1,61 @@
+{
+  "name": "electron-barcode-capture-simple-sample",
+  "version": "1.0.0",
+  "description": "A minimal Electron Barcode Capture Scandit application with TypeScript",
+  "main": "./out/main/index.js",
+  "author": "scandit.com",
+  "appId": "com.scandit.electron-barcode-capture-simple-sample",
+  "homepage": "https://www.scandit.com/",
+  "build": {
+    "productName": "ElectronBarcodeCaptureSimpleSample",
+    "appId": "com.scandit.electron-barcode-capture-simple-sample"
+  },
+  "scripts": {
+    "test": "node --test",
+    "e2e": "npx playwright test",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "clean": "rm -rvf out dist .env .env.production e2e-videos sdc-license.data",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "create-license-data": "node encryptLicenseAndCreatePublicKey.mjs",
+    "build": "npm run test && npm run typecheck && electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "build:unpack": "npm run build && electron-builder --dir --publish never",
+    "build:win": "npm run build && electron-builder --win --publish never",
+    "build:mac": "npm run build && electron-builder --mac --publish never",
+    "build:linux": "npm run build && electron-builder --linux --publish never"
+  },
+  "dependencies": {
+    "@electron-toolkit/preload": "~3.0.2",
+    "@electron-toolkit/utils": "~3.0.0",
+    "@scandit/web-datacapture-barcode": "8.0.0",
+    "@scandit/web-datacapture-core": "8.0.0",
+    "electron-updater": "~6.6.2",
+    "express": "~4.19.2"
+  },
+  "devDependencies": {
+    "@electron-toolkit/eslint-config-prettier": "^2.0.0",
+    "@electron-toolkit/eslint-config-ts": "~1.0.1",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@playwright/test": "~1.52.0",
+    "@types/node": "~22.15.17",
+    "chalk": "^5.4.1",
+    "dotenv": "~16.5.0",
+    "electron": "~36.2.0",
+    "electron-builder": "~26.0.12",
+    "electron-playwright-helpers": "~1.7.1",
+    "electron-vite": "~2.2.0",
+    "eslint": "~8.56.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "playwright": "~1.52.0",
+    "prettier": "~3.5.3",
+    "typescript": "~5.4.5",
+    "vite": "~5.2.10",
+    "vite-plugin-static-copy": "~1.0.3"
+  }
+}
