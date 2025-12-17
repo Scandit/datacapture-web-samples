@@ -15,11 +15,11 @@
     "format": "prettier --write --plugin-search-dir=. './src/**/*'"
   },
   "dependencies": {
+    "@scandit/web-datacapture-barcode": "8.1.0",
+    "@scandit/web-datacapture-core": "8.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^6.30.1",
-    "@scandit/web-datacapture-barcode": "8.0.0",
-    "@scandit/web-datacapture-core": "8.0.0"
+    "react-router-dom": "^6.30.1"
   },
   "devDependencies": {
     "@types/react": "^19.2.2",
@@ -42,11 +42,11 @@
     "eslint-plugin-no-unsanitized": "^4.0.2",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-regexp": "^1.11.0",
     "eslint-plugin-security": "^1.7.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-sonarjs": "^0.17.0",
     "eslint-plugin-unicorn": "^48.0.1",
     "npm-packlist": "^5.1.3",

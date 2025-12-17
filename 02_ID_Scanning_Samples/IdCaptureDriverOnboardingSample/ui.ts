@@ -87,7 +87,11 @@ function getFragmentForFields(fields: [string, unknown][]): DocumentFragment {
   return fragment;
 }
 
-export function showResult(capturedId: SDCId.CapturedId): void {
+/**
+ * @param capturedId What we could capture
+ * @param backImage The raw image of the back side of the document if we could not recognize it
+ */
+export function showResult(capturedId: SDCId.CapturedId, backImage?: string): void {
   const result = document.createDocumentFragment();
 
   if (capturedId.images.face != null) {
@@ -109,7 +113,10 @@ export function showResult(capturedId: SDCId.CapturedId): void {
   );
 
   const frontImageData = capturedId.images.getCroppedDocument(SDCId.IdSide.Front);
-  const backImageData = capturedId.images.getCroppedDocument(SDCId.IdSide.Back);
+  const backImageData =
+    capturedId.images.getCroppedDocument(SDCId.IdSide.Back) ??
+    capturedId.images.getFrame(SDCId.IdSide.Back) ??
+    backImage;
   if (frontImageData != null || backImageData != null) {
     result.append(getFragmentFromDOMString(getDOMStringForLabel("Captured Images")));
     if (frontImageData != null) {
@@ -119,10 +126,10 @@ export function showResult(capturedId: SDCId.CapturedId): void {
       result.append(frontImage);
     }
     if (backImageData != null) {
-      const backImage = new Image();
-      backImage.className = "card-image";
-      backImage.src = backImageData;
-      result.append(backImage);
+      const backImageElement = new Image();
+      backImageElement.className = "card-image";
+      backImageElement.src = backImageData;
+      result.append(backImageElement);
     }
   }
 
@@ -133,8 +140,12 @@ export function showResult(capturedId: SDCId.CapturedId): void {
   showBackdrop();
 }
 
-export function showManualUpload(): void {
+export function showManualUploadOption(): void {
   elements.manualUpload.removeAttribute("hidden");
+}
+
+export function hideManualUploadOption(): void {
+  elements.manualUpload.setAttribute("hidden", "true");
 }
 
 export async function showLoader(): Promise<void> {
@@ -154,10 +165,6 @@ export function closeDialog(): void {
 export function closeResults(): void {
   elements.result.setAttribute("hidden", "true");
   hideBackdrop();
-}
-
-export function closeManualUpload(): void {
-  elements.manualUpload.setAttribute("hidden", "true");
 }
 
 export function closeLoader(): void {

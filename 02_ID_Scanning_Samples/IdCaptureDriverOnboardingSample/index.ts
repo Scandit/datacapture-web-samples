@@ -4,6 +4,7 @@ import {
   DataCaptureContext,
   DataCaptureView,
   FrameSourceState,
+  Localization,
   SingleImageUploader,
 } from "@scandit/web-datacapture-core";
 import type { CapturedId } from "@scandit/web-datacapture-id";
@@ -18,6 +19,7 @@ import {
   Region,
   FullDocumentScanner,
   IdCaptureScanner,
+  IdSide,
 } from "@scandit/web-datacapture-id";
 
 import * as UI from "./ui";
@@ -32,30 +34,11 @@ let settings: IdCaptureSettings;
 let view: DataCaptureView;
 let camera: Camera;
 let singleimageuploader: SingleImageUploader;
-let capturedId: CapturedId | undefined;
-let manualUploadMode = false;
-
-async function setIdCaptureEnabled(enabled: boolean): Promise<void> {
-  await singleimageuploader.switchToDesiredState(enabled ? FrameSourceState.On : FrameSourceState.Off);
-  await idCapture.setEnabled(enabled);
-}
-
-async function resetFrameSource(): Promise<void> {
-  if (manualUploadMode) {
-    await camera.switchToDesiredState(FrameSourceState.On);
-    await context.setFrameSource(camera);
-    UI.showManualUpload();
-    manualUploadMode = false;
-  }
-}
-
-async function resetProgress(): Promise<void> {
-  capturedId = undefined;
-  await idCapture.reset();
-  await resetFrameSource();
-}
+let firstSideCapture: CapturedId | null = null;
 
 async function run(): Promise<void> {
+  Localization.getInstance().update({ "core.singleImageUploader.button": "Choose image for FRONT side" });
+
   // To visualize the ongoing loading process on screen, the view must be connected before the configure phase.
   view = new DataCaptureView();
 
@@ -92,28 +75,36 @@ async function run(): Promise<void> {
   settings = new IdCaptureSettings();
   settings.scanner = new IdCaptureScanner({ physicalDocument: new FullDocumentScanner() });
   settings.acceptedDocuments = [new DriverLicense(Region.Us)];
+  settings.notifyOnSideCapture = true;
   settings.setShouldPassImageTypeToResult(IdImageType.Face, true);
   settings.setShouldPassImageTypeToResult(IdImageType.CroppedDocument, true);
+  settings.setShouldPassImageTypeToResult(IdImageType.Frame, true);
   idCapture = await IdCapture.forContext(context, settings);
-
-  await setIdCaptureEnabled(false);
 
   // Add the ID Capture overlay
   await IdCaptureOverlay.withIdCaptureForView(idCapture, view);
 
   // Setup the listener to get notified about results
   idCapture.addListener({
-    didCaptureId: async (newCapturedId: CapturedId) => {
-      // Disable the IdCapture mode to handle the current result
-      await setIdCaptureEnabled(false);
-      capturedId = newCapturedId;
-      await UI.showLoader();
-      UI.showResult(capturedId);
+    didCaptureId: async (capturedId: CapturedId) => {
+      // we captured both sides of the document, show results
+      if (capturedId.isCapturingComplete) {
+        await idCapture.setEnabled(false);
+        await UI.showLoader();
+        UI.showResult(capturedId);
+      } else {
+        await idCapture.setEnabled(false);
+        await UI.showLoader();
+        firstSideCapture = capturedId;
+        // update the button text
+        Localization.getInstance().update({ "core.singleImageUploader.button": "Choose image for BACK side" });
+        await idCapture.setEnabled(true);
+      }
     },
-    didRejectId: async (_capturedId: CapturedId, reason: RejectionReason) => {
-      await setIdCaptureEnabled(false);
+    didRejectId: async (capturedId: CapturedId, reason: RejectionReason) => {
       switch (reason) {
         case RejectionReason.Timeout: {
+          await idCapture.setEnabled(false);
           UI.showWarning("Can't scan?", "Upload picture or try a different document", [
             { action: UI.Action.MANUAL_UPLOAD, label: "Upload Picture" },
             { action: UI.Action.CLOSE_WARNING_RESET, label: "Retry" },
@@ -121,11 +112,21 @@ async function run(): Promise<void> {
           break;
         }
         case RejectionReason.SingleImageNotRecognized: {
-          // @TODO save frame data, blocked by SDC-23806
-          if (capturedId) {
-            UI.showResult(capturedId);
+          if (firstSideCapture == null) {
+            UI.showWarning("Unrecognized document", "Please try again with a different document", [
+              { action: UI.Action.CLOSE_WARNING, label: "Ok" },
+            ]);
+            return;
           }
-          await setIdCaptureEnabled(true);
+
+          const backImage =
+            capturedId.images.getCroppedDocument(IdSide.Back) ?? capturedId.images.getFrame(IdSide.Back) ?? null;
+          if (backImage != null) {
+            // we could not capture the back side, but we still want to proceed with the results we have
+            await idCapture.setEnabled(false);
+            await UI.showLoader();
+            UI.showResult(firstSideCapture, backImage);
+          }
           break;
         }
         case RejectionReason.DocumentVoided: {
@@ -145,10 +146,18 @@ async function run(): Promise<void> {
 
   // Finally, switch on the frame sources and enable the ID Capture mode
   await camera.switchToDesiredState(FrameSourceState.On);
-  await singleimageuploader.switchToDesiredState(FrameSourceState.On);
-  await setIdCaptureEnabled(true);
 
-  UI.showManualUpload();
+  UI.showManualUploadOption();
+}
+
+async function resetToInitialState(resetFrameSource: boolean = false): Promise<void> {
+  Localization.getInstance().update({ "core.singleImageUploader.button": "Choose image for FRONT side" });
+  firstSideCapture = null;
+  if (resetFrameSource) {
+    await context.frameSource?.switchToDesiredState(FrameSourceState.Off);
+    await context.setFrameSource(camera);
+    await camera.switchToDesiredState(FrameSourceState.On);
+  }
 }
 
 window.dispatchAction = async (...arguments_) => {
@@ -156,28 +165,26 @@ window.dispatchAction = async (...arguments_) => {
   switch (action) {
     case UI.Action.CLOSE_RESULT: {
       UI.closeResults();
-      await resetProgress();
-      await setIdCaptureEnabled(true);
+      await resetToInitialState(true);
+      UI.showManualUploadOption();
+      await idCapture.setEnabled(true);
       break;
     }
-    case UI.Action.CLOSE_WARNING: {
-      UI.closeDialog();
-      await setIdCaptureEnabled(true);
-      break;
-    }
+    case UI.Action.CLOSE_WARNING:
     case UI.Action.CLOSE_WARNING_RESET: {
       UI.closeDialog();
-      await resetProgress();
-      await setIdCaptureEnabled(true);
+      await idCapture.setEnabled(true);
       break;
     }
     case UI.Action.MANUAL_UPLOAD: {
-      UI.closeDialog();
-      UI.closeManualUpload();
+      await idCapture.setEnabled(false);
       await camera.switchToDesiredState(FrameSourceState.Off);
+      UI.closeDialog();
+      UI.hideManualUploadOption();
+      await resetToInitialState();
       await context.setFrameSource(singleimageuploader);
-      await setIdCaptureEnabled(true);
-      manualUploadMode = true;
+      await idCapture.setEnabled(true);
+      await context.frameSource?.switchToDesiredState(FrameSourceState.On);
       break;
     }
   }

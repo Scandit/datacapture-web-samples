@@ -13,6 +13,7 @@
     dateOfBirth: "Date of Birth",
     age: "Age",
     nationality: "Nationality",
+    nationalityISO: "Nationality ISO",
     address: "Address",
     issuingCountryIso: "Issuing Country ISO",
     issuingCountry: "Issuing Country",

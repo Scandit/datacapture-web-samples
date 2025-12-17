@@ -13,8 +13,8 @@
     "lint": ""
   },
   "dependencies": {
-    "@scandit/web-datacapture-core": "8.0.0",
-    "@scandit/web-datacapture-id": "8.0.0"
+    "@scandit/web-datacapture-core": "8.1.0",
+    "@scandit/web-datacapture-id": "8.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",

@@ -153,5 +153,15 @@
     >
       Reject holder below age</NumberSetting
     >
+    <NumberSetting
+      id="rejectionTimeoutSeconds"
+      min="0"
+      max="60"
+      step="1"
+      bind:value={$idCaptureSettingsStore.rejectionTimeoutSeconds}
+      on:change={(e) => sdkManager.idCapture.updateRejectionTimeoutSeconds(valueFromInput(e))}
+    >
+      Rejection timeout (s)</NumberSetting
+    >
   </svelte:fragment>
 </SidebarRoute>

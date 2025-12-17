@@ -37,14 +37,24 @@ div.result {
   flex-direction: column;
   justify-content: center;
   width: 70%;
+  max-width: 90%;
+  max-height: 80vh;
   background: #fffe;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .result p {
   text-align: center;
   font-family: Helvetica, sans-serif;
   white-space: pre-line;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding: 10px;
+  margin: 10px;
+  overflow-y: auto;
+  max-height: calc(80vh - 80px);
 }
 
 .result button {
@@ -53,4 +63,5 @@ div.result {
   border: none;
   padding: 10px;
   font-size: 1em;
+  flex-shrink: 0;
 }

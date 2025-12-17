@@ -28,7 +28,7 @@ export default function ResultPage(): ReactElement | null {
   return (
     <main className="w-screen h-[100dvh] p-4 flex flex-col gap-4 lg:max-w-[800px] lg:mx-auto">
       <h1 className="font-bold text-2xl">{symbologyDescription.readableName}</h1>
-      <pre className="p-4 whitespace-normal rounded bg-gray-100 text-gray-700 overflow-scroll">
+      <pre className="p-4 whitespace-normal break-words rounded bg-gray-100 text-gray-700 overflow-auto max-h-[60vh]">
         {barcode.data} {barcode.addOnData}
       </pre>
       <MenuButton to="/scanner">

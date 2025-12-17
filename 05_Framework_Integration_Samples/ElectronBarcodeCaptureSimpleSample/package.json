@@ -32,8 +32,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "~3.0.2",
     "@electron-toolkit/utils": "~3.0.0",
-    "@scandit/web-datacapture-barcode": "8.0.0",
-    "@scandit/web-datacapture-core": "8.0.0",
+    "@scandit/web-datacapture-barcode": "8.1.0",
+    "@scandit/web-datacapture-core": "8.1.0",
     "electron-updater": "~6.6.2",
     "express": "~4.19.2"
   },

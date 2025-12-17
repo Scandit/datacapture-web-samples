@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/class-methods-use-this */
 import { effect } from "@preact/signals";
-import type { Barcode, SparkScanBarcodeFeedback, SparkScanFeedbackDelegate } from "@scandit/web-datacapture-barcode";
+import type {
+  Barcode,
+  SparkScanBarcodeFeedback,
+  SparkScanFeedbackDelegate,
+  SparkScanSession,
+} from "@scandit/web-datacapture-barcode";
 import {
   SparkScan,
   SparkScanBarcodeErrorFeedback,
@@ -8,9 +14,9 @@ import {
   SparkScanView,
   SparkScanViewSettings,
   Symbology,
-  barcodeCaptureLoader,
+  barcodeCaptureLoader
 } from "@scandit/web-datacapture-barcode";
-import type { LoadingStatusSubscriber, ProgressInfo } from "@scandit/web-datacapture-core";
+import type { FrameData, LoadingStatusSubscriber, ProgressInfo } from "@scandit/web-datacapture-core";
 import { DataCaptureContext, loadingStatus } from "@scandit/web-datacapture-core";
 import { ScannedItemModel } from "../scanned-item/model";
 import { AppModel } from "./model";
@@ -58,6 +64,7 @@ export class AppPresenter implements SparkScanFeedbackDelegate {
       this.sparkScanViewSettings
     );
     this.sparkScanView.feedbackDelegate = this;
+    this.sparkScan.addListener(this);
     await this.sparkScanView.prepareScanning();
     this.disposeEffect = effect(() => {
       this.view.render(
@@ -70,29 +77,40 @@ export class AppPresenter implements SparkScanFeedbackDelegate {
 
   public async disconnect(): Promise<void> {
     this.disposeEffect?.();
+    this.sparkScan?.removeListener(this);
     await this.sparkScanView?.stopScanning();
     await this.dataCaptureContext?.dispose();
     loadingStatus.unsubscribe(this.loadingStatusSubscriber);
   }
 
+  public isBarcodeRejected(barcode: Barcode): boolean {
+    return barcode.data === "5901234123457";
+  }
+
   public getFeedbackForBarcode(barcode: Barcode): SparkScanBarcodeFeedback {
-    if (barcode.data === "5901234123457") {
+    if (this.isBarcodeRejected(barcode)) {
       return new SparkScanBarcodeErrorFeedback("Barcode rejected.", 60_000);
+    }
+    return new SparkScanBarcodeSuccessFeedback();
+  }
+
+  public didTapClearListButton(): void {
+    this.model.clearList();
+  }
+
+  public didScan(_sparkScan: SparkScan, session: SparkScanSession, _frameData: FrameData): void {
+    const barcode = session.newlyRecognizedBarcode;
+    if (!barcode || this.isBarcodeRejected(barcode)) {
+      return;
     }
     const scannedItemId = `${barcode.symbology}-${barcode.data ?? ""}`;
     const previouslyScannedItem = this.model.getScannedItemById(scannedItemId);
     if (previouslyScannedItem) {
       previouslyScannedItem.quantity++;
       this.model.didScan(scannedItemId, previouslyScannedItem);
-      return new SparkScanBarcodeSuccessFeedback();
     }
     const scannedItem = new ScannedItemModel(barcode, 1);
     this.model.didScan(scannedItemId, scannedItem);
-    return new SparkScanBarcodeSuccessFeedback();
-  }
-
-  public didTapClearListButton(): void {
-    this.model.clearList();
   }
 
   private onLoadingStatusProgress(info: ProgressInfo): void {

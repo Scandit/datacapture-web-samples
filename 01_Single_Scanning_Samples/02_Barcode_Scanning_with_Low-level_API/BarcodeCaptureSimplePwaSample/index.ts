@@ -34,6 +34,7 @@ async function run(): Promise<void> {
   await camera.applySettings(cameraSettings);
 
   // The camera is off by default and must be turned on. We start the stream before the configure phase.
+  // biome-ignore lint/complexity/noVoid: left on purpose to show how camera can be switched before configure phase
   void camera.switchToDesiredState(FrameSourceState.On);
 
   // Connect the data capture view to the HTML element, passing it the camera to show it running as soon as possible.

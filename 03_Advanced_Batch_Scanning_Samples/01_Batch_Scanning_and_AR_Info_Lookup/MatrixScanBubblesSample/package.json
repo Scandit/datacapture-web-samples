@@ -13,9 +13,9 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "lit": "^2.8.0",
-    "@scandit/web-datacapture-barcode": "8.0.0",
-    "@scandit/web-datacapture-core": "8.0.0"
+    "@scandit/web-datacapture-barcode": "8.1.0",
+    "@scandit/web-datacapture-core": "8.1.0",
+    "lit": "^2.8.0"
   },
   "devDependencies": {
     "@types/node": "^18.19.31",

@@ -128,6 +128,12 @@ export class SDKIdCaptureManager {
       case RejectionReason.Timeout: {
         errorMessage =
           "Document capture failed. Make sure the document is well lit and free of glare. Alternatively, try scanning another document";
+
+        // Add diagnostic JSON if available
+        if (capturedId.rejectionDiagnosticJSON) {
+          const formattedDiagnostic = JSON.stringify(JSON.parse(capturedId.rejectionDiagnosticJSON), null, 2);
+          errorMessage += `\n\nDiagnostic Report:\n${formattedDiagnostic}`;
+        }
         break;
       }
       case RejectionReason.InconsistentData: {
@@ -289,6 +295,13 @@ export class SDKIdCaptureManager {
   public async updateRejectHolderBelowAge(rejectHolderBelowAge: string): Promise<void> {
     const newSettings = this.idCaptureSettings.clone();
     newSettings.rejectHolderBelowAge = parseNullableNumber(rejectHolderBelowAge);
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectionTimeoutSeconds(rejectionTimeoutSeconds: string): Promise<void> {
+    const newSettings = this.idCaptureSettings.clone();
+    const value = parseInt(rejectionTimeoutSeconds, 10);
+    newSettings.rejectionTimeoutSeconds = isNaN(value) ? 6 : value;
     await this.applyIdCaptureSettings(newSettings);
   }
 

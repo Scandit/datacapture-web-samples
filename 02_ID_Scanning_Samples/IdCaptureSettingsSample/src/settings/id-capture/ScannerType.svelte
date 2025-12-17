@@ -48,7 +48,7 @@
 <SidebarRoute backRoute="/settings/id-capture">
   <svelte:fragment slot="content">
     <h3 class="font-bold p-4">Physical Document Scanner</h3>
-    <SelectSetting id="scannerType" value={currentScannerType} on:change={(e) => updateScanner(valueFromInput(e))}>
+    <SelectSetting id="scanner" value={currentScannerType} on:change={(e) => updateScanner(valueFromInput(e))}>
       Scanner type
       <svelte:fragment slot="options">
         <option value={ScannerType.FullDocument}>Full</option>
