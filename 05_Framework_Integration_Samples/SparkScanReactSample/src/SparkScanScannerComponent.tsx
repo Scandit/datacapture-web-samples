@@ -14,7 +14,7 @@ import {
   SymbologyDescription,
 } from "@scandit/web-datacapture-barcode";
 import { DataCaptureContext } from "@scandit/web-datacapture-core";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CodesList } from "./CodesList.js";
 import type { CodeItem } from "./types.js";
 
@@ -28,6 +28,7 @@ export function SparkScanScannerComponent() {
   const [dataCaptureContext, setDataCaptureContext] = useState<DataCaptureContext | null>(null);
   const [sparkScan, setSparkScan] = useState<SparkScan | null>(null);
   const [codes, setCodes] = useState<CodeItem[]>([]);
+  const sparkScanViewRef = useRef<SparkScanView | null>(null);
 
   const addOrUpdateCode = useCallback((newData: string, newSymbology: string) => {
     setCodes((prev) => {
@@ -120,6 +121,10 @@ export function SparkScanScannerComponent() {
 
     return () => {
       isMounted = false;
+      // Cleanup: stop scanning before unmounting (per API contract)
+      sparkScanViewRef.current?.stopScanning().catch((error) => {
+        console.error("Error stopping scanning during cleanup:", error);
+      });
     };
   }, [sparkScanListener]);
 
@@ -131,6 +136,7 @@ export function SparkScanScannerComponent() {
           sparkScan={sparkScan}
           feedbackDelegate={feedbackDelegate}
           ref={(view: SparkScanView | null) => {
+            sparkScanViewRef.current = view;
             if (view) {
               view.setListener(uiViewListener);
             }
