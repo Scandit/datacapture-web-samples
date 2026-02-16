@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
-import { ConfigEnv, Plugin, PluginOption, PreviewServer, ViteDevServer, defineConfig } from "vite";
+import type { IncomingMessage, OutgoingMessage } from "node:http";
+import { type ConfigEnv, type Plugin, type PluginOption, type ServerOptions, defineConfig } from "vite";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import manifest from "./manifest_icons_template.json";
@@ -11,24 +12,20 @@ interface VitePluginScanditOptions {
   licenseKeyPlaceholder: string;
 }
 
+function crossOriginIsolationMiddleware(_: IncomingMessage, response: OutgoingMessage, next: VoidFunction) {
+  response.setHeader("Cross-Origin-Embedder-Policy", "credentialless");
+  response.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+}
+
 function crossOriginIsolatedDevServer(): PluginOption {
   return {
     name: "vite-plugin-scandit",
-    configureServer: (server: ViteDevServer) => {
-      server.config.preview.port = 4137;
-      server.config.server.port = 4137;
-      server.middlewares.use((_req: any, res: any, next: any) => {
-        res.setHeader("Cross-Origin-Embedder-Policy", "credentialless");
-        res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-        next();
-      });
+    configureServer: (server) => {
+      server.middlewares.use(crossOriginIsolationMiddleware);
     },
-    configurePreviewServer: (server: PreviewServer) => {
-      server.middlewares.use((_req: any, res: any, next: any) => {
-        res.setHeader("Cross-Origin-Embedder-Policy", "credentialless");
-        res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-        next();
-      });
+    configurePreviewServer: (server) => {
+      server.middlewares.use(crossOriginIsolationMiddleware);
     },
   };
 }
@@ -124,9 +121,17 @@ const createPwaOptions = ({ mode }: { mode: string }): Partial<VitePWAOptions> =
   };
 };
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig(({ mode }) => {
   return {
     base: "./",
+    server: serverOptions,
+    preview: serverOptions,
     build: {
       emptyOutDir: true,
       rollupOptions: {

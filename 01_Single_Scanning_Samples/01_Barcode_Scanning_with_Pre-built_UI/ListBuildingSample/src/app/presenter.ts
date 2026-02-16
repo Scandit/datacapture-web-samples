@@ -14,7 +14,7 @@ import {
   SparkScanView,
   SparkScanViewSettings,
   Symbology,
-  barcodeCaptureLoader
+  barcodeCaptureLoader,
 } from "@scandit/web-datacapture-barcode";
 import type { FrameData, LoadingStatusSubscriber, ProgressInfo } from "@scandit/web-datacapture-core";
 import { DataCaptureContext, loadingStatus } from "@scandit/web-datacapture-core";
@@ -108,6 +108,7 @@ export class AppPresenter implements SparkScanFeedbackDelegate {
     if (previouslyScannedItem) {
       previouslyScannedItem.quantity++;
       this.model.didScan(scannedItemId, previouslyScannedItem);
+      return;
     }
     const scannedItem = new ScannedItemModel(barcode, 1);
     this.model.didScan(scannedItemId, scannedItem);

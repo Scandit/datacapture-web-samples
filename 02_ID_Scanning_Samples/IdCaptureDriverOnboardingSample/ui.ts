@@ -26,6 +26,14 @@ function hideBackdrop(): void {
   elements.backdrop.setAttribute("hidden", "true");
 }
 
+export function showDataCaptureView(): void {
+  elements.dataCaptureView.style.opacity = "1";
+}
+
+function hideDataCaptureView(): void {
+  elements.dataCaptureView.style.opacity = "0";
+}
+
 export function showWarning(title: string, text: string, buttons: { action: Action; label: string }[]): void {
   // eslint-disable-next-line no-unsanitized/property
   elements.alert.innerHTML = `
@@ -92,6 +100,7 @@ function getFragmentForFields(fields: [string, unknown][]): DocumentFragment {
  * @param backImage The raw image of the back side of the document if we could not recognize it
  */
 export function showResult(capturedId: SDCId.CapturedId, backImage?: string): void {
+  hideDataCaptureView();
   const result = document.createDocumentFragment();
 
   if (capturedId.images.face != null) {

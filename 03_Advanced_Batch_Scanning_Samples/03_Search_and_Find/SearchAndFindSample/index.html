@@ -7,30 +7,16 @@
     <title>SearchAndFindSample</title>
     <script type="module" src="index.ts"></script>
     <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        background: #333;
-        font-family: Helvetica, sans-serif;
-      }
-      #data-capture-view {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100svh;
-      }
+      @import "tailwindcss";
     </style>
   </head>
-  <body>
-    <div id="data-capture-view"></div>
-    <div id="list-view"></div>
+  <body class="relative w-dvw min-h-dvh overscroll-none touch-none">
+    <div class="px-4 py-6 flex justify-between items-center bg-black text-white">
+      <p id="item-count-text">0 item(s) scanned</p>
+      <button id="clear-list-button" class="uppercase">Clear list</button>
+    </div>
+    <ul id="item-list" class="max-h-[calc(100dvh-72px)] overflow-y-scroll divide-y-2 divide-gray-200"></ul>
+    <div id="spark-scan-view-root" class="w-full min-h-[calc(100dvh-72px)]"></div>
+    <div id="data-capture-view-root" class="absolute inset-0 w-full h-full" hidden></div>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import type { IncomingMessage, OutgoingMessage } from "node:http";
 import dotenv from "dotenv";
-import { type ConfigEnv, defineConfig, type Plugin } from "vite";
+import { type ConfigEnv, type ServerOptions, defineConfig, type Plugin } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 dotenv.config();
@@ -47,11 +47,15 @@ function scandit(options: VitePluginScanditOptions): Plugin {
   };
 }
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig({
-  server: {
-    port: 8888,
-    allowedHosts: ["localhost", "sdc.ngrok.dev"],
-  },
+  server: serverOptions,
+  preview: serverOptions,
   base: "./",
   build: {
     emptyOutDir: true,

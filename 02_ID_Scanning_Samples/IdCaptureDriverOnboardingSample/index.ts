@@ -129,14 +129,9 @@ async function run(): Promise<void> {
           }
           break;
         }
-        case RejectionReason.DocumentVoided: {
-          UI.showWarning("Verification failed!", "Document is voided", [
-            { action: UI.Action.CLOSE_WARNING_RESET, label: "Ok" },
-          ]);
-          break;
-        }
         default: {
-          UI.showWarning("Verification failed!", "Document is not supported", [
+          await idCapture.setEnabled(false);
+          UI.showWarning("Invalid document", "Please scan a valid US driver's license", [
             { action: UI.Action.CLOSE_WARNING_RESET, label: "Ok" },
           ]);
         }
@@ -166,8 +161,9 @@ window.dispatchAction = async (...arguments_) => {
     case UI.Action.CLOSE_RESULT: {
       UI.closeResults();
       await resetToInitialState(true);
-      UI.showManualUploadOption();
       await idCapture.setEnabled(true);
+      UI.showDataCaptureView();
+      UI.showManualUploadOption();
       break;
     }
     case UI.Action.CLOSE_WARNING:
@@ -182,9 +178,10 @@ window.dispatchAction = async (...arguments_) => {
       UI.closeDialog();
       UI.hideManualUploadOption();
       await resetToInitialState();
+      await idCapture.reset();
       await context.setFrameSource(singleimageuploader);
-      await idCapture.setEnabled(true);
       await context.frameSource?.switchToDesiredState(FrameSourceState.On);
+      await idCapture.setEnabled(true);
       break;
     }
   }

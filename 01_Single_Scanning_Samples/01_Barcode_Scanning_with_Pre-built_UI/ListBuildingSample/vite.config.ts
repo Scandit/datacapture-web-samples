@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import type { IncomingMessage, OutgoingMessage } from "node:http";
-import { ConfigEnv, Plugin, defineConfig } from "vite";
+import { type ConfigEnv, type Plugin, type ServerOptions, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 dotenv.config();
@@ -39,8 +39,6 @@ function scandit(options: VitePluginScanditOptions): Plugin {
       );
     },
     configureServer: (server) => {
-      server.config.preview.port = 8888;
-      server.config.server.port = 8888;
       server.middlewares.use(crossOriginIsolationMiddleware);
     },
     configurePreviewServer: (server) => {
@@ -49,11 +47,16 @@ function scandit(options: VitePluginScanditOptions): Plugin {
   };
 }
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig({
-  server: {
-    port: 8888,
-  },
   base: "./",
+  server: serverOptions,
+  preview: serverOptions,
   build: {
     emptyOutDir: true,
     rollupOptions: {

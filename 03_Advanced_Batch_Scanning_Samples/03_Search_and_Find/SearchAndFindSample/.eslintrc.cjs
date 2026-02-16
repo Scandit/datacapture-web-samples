@@ -178,6 +178,7 @@ module.exports = {
       },
     ],
     "import/no-extraneous-dependencies": "off",
+    "no-unsanitized/property": "off",
   },
   overrides: [
     {

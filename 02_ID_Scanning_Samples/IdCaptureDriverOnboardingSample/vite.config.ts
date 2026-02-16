@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
-import { ConfigEnv, Plugin, PreviewServerForHook, ViteDevServer, defineConfig } from "vite";
+import type { IncomingMessage, OutgoingMessage } from "node:http";
+import { type ConfigEnv, type Plugin, type ServerOptions, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 dotenv.config();
@@ -9,18 +10,14 @@ interface VitePluginScanditOptions {
   licenseKeyPlaceholder: string;
 }
 
+function crossOriginIsolationMiddleware(_: IncomingMessage, response: OutgoingMessage, next: VoidFunction) {
+  response.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  response.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+  next();
+}
+
 function scandit(options: VitePluginScanditOptions): Plugin {
   let config: ConfigEnv;
-
-  function setupServer(server: ViteDevServer | PreviewServerForHook): void {
-    server.config.preview.port = 8888;
-    server.config.server.port = 8888;
-    server.middlewares.use((_req, res, next) => {
-      res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-      res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-      next();
-    });
-  }
 
   return {
     name: "vite-plugin-scandit",
@@ -41,13 +38,25 @@ function scandit(options: VitePluginScanditOptions): Plugin {
         '<script data-id="scandit-main" type="module" crossorigin src="./index.js"></script>'
       );
     },
-    configureServer: setupServer,
-    configurePreviewServer: setupServer,
+    configureServer: (server) => {
+      server.middlewares.use(crossOriginIsolationMiddleware);
+    },
+    configurePreviewServer: (server) => {
+      server.middlewares.use(crossOriginIsolationMiddleware);
+    },
   };
 }
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig({
   base: "./",
+  server: serverOptions,
+  preview: serverOptions,
   build: {
     emptyOutDir: true,
     rollupOptions: {

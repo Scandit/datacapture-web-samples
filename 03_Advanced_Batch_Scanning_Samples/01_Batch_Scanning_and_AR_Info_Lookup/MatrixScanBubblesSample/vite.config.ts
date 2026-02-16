@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-import { ConfigEnv, Plugin, defineConfig } from "vite";
+import type { IncomingMessage, OutgoingMessage } from "node:http";
+import { type ConfigEnv, type Plugin, type ServerOptions, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
-import type { IncomingMessage, OutgoingMessage } from "node:http";
 dotenv.config();
 
 interface VitePluginScanditOptions {
@@ -47,10 +47,15 @@ function scandit(options: VitePluginScanditOptions): Plugin {
   };
 }
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig({
-  server: {
-    port: 8888,
-  },
+  server: serverOptions,
+  preview: serverOptions,
   base: "./",
   build: {
     emptyOutDir: true,

@@ -1,6 +1,6 @@
-# Available samples and steps to run the samples
+# Scandit Web Samples
 
-To see the currently available samples and how to run them, take a look at our [Run Samples guide](https://docs.scandit.com/data-capture-sdk/web/samples/run-samples.html).
+This repository contains both simple and advanced samples that show you how use various features of the Scandit Data Capture SDK. The simple samples allow you to get going quickly, while the advanced samples show you how to use additional settings and setup the scanner for the best performance and user experience.
 
 You can also try them directly in StackBlitz by following the links below.
 

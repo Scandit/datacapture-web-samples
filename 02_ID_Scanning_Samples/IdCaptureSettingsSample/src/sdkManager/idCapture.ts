@@ -255,6 +255,12 @@ export class SDKIdCaptureManager {
     await this.applyIdCaptureSettings(newSettings);
   }
 
+  public async updateAnonymizeDefaultFields(anonymizeDefaultFields: boolean): Promise<void> {
+    const newSettings = this.idCaptureSettings.clone();
+    newSettings.anonymizeDefaultFields = anonymizeDefaultFields;
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
   public async updateCaptureTrigger(trigger: string): Promise<void> {
     const newSettings = this.idCaptureSettings.clone();
     newSettings.captureTrigger = trigger as IdCaptureTrigger;

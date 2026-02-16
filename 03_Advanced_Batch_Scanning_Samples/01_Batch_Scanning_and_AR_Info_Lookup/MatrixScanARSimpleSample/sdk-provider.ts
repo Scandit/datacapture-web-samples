@@ -81,6 +81,7 @@ class SDKProvider {
       await this.configurePromise;
     }
     this.barcodeArView = await BarcodeArView.create(element, this.context!, this.barcodeAr!);
+    this.barcodeArView.shouldShowTorchControl = true;
     this.setPreset(preset);
   }
 

@@ -5,7 +5,6 @@ import {
   ExpiryDateTextBuilder,
   LabelCapture,
   LabelCaptureBasicOverlay,
-  labelCaptureLoader,
   LabelCaptureSettingsBuilder,
   LabelCaptureValidationFlowListener,
   LabelCaptureValidationFlowOverlay,
@@ -15,8 +14,9 @@ import {
   LabelDefinitionBuilder,
   LabelField,
   LabelFieldType,
-  UnitPriceTextBuilder,
-  WeightTextBuilder,
+  labelCaptureLoader,
+  TotalPriceTextBuilder,
+  // SerialNumberBarcodeBuilder,
 } from "@scandit/web-datacapture-label";
 
 const elements = {
@@ -78,7 +78,7 @@ async function main() {
   await camera.switchToDesiredState(FrameSourceState.On);
   view.hideProgressBar();
 
-  const retailItemLabel = await new LabelDefinitionBuilder()
+  const retailItem = await new LabelDefinitionBuilder()
     .addCustomBarcode(
       await new CustomBarcodeBuilder()
         .isOptional(false)
@@ -91,9 +91,8 @@ async function main() {
         .setLabelDateFormat(new LabelDateFormat(LabelDateComponentFormat.MDY))
         .build("Expiry Date")
     )
-    .addWeightText(await new WeightTextBuilder().isOptional(true).build("Weight"))
-    .addUnitPriceText(await new UnitPriceTextBuilder().isOptional(true).build("Unit Price"))
-    .build("Retail Item");
+    .addTotalPriceText(await new TotalPriceTextBuilder().isOptional(true).build("Total Price"))
+    .build("Perishable Product");
 
   // Note: You can customize the label definition to adapt it to your use-case.
   // For example, you can use the following label definition for Smart Devices box Scanning:
@@ -132,8 +131,11 @@ async function main() {
   */
 
   const settings = await new LabelCaptureSettingsBuilder()
-    .addLabel(retailItemLabel)
-    // .addLabel(smartDeviceLabel) // Uncomment to use smart device label
+    .addLabel(retailItem)
+    /**
+     * Uncomment this and the smartphoneBoxLabel definition above to use smart device label
+     */
+    // .addLabel(smartphoneBoxLabel)
     .build();
 
   // Create the label capture mode
@@ -145,6 +147,9 @@ async function main() {
   // Set up the validation flow overlay
   const overlay = await LabelCaptureValidationFlowOverlay.withLabelCaptureForView(mode, view);
   overlay.listener = {
+    onManualInput: (_field: LabelField, _oldValue: string | null, _newValue: string) => {
+      // This function is called when the user manually inputs a value for a field.
+    },
     onValidationFlowLabelCaptured: async (fields: LabelField[]) => {
       await mode.setEnabled(false);
       await context.frameSource?.switchToDesiredState(FrameSourceState.Standby);

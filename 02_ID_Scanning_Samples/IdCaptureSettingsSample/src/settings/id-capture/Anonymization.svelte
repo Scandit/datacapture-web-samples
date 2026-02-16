@@ -47,6 +47,13 @@
       </svelte:fragment>
     </SelectSetting>
 
+    <CheckboxSetting
+      id="anonymizeDefaultFields"
+      checked={$idCaptureSettingsStore.anonymizeDefaultFields}
+      disabled={$idCaptureApplyingSettingStore}
+      on:change={(e) => sdkManager.idCapture.updateAnonymizeDefaultFields(valueFromCheckbox(e))}
+      >Anonymize Default Fields</CheckboxSetting>
+
     <div class="px-4 py-2 font-semibold text-gray-600 text-sm">Anonymized Fields</div>
     {#each Object.values(IdFieldType) as fieldType}
       <CheckboxSetting

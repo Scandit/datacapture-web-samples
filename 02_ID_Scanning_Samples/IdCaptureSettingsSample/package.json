@@ -60,8 +60,8 @@
     "vite-plugin-static-copy": "^0.16.0"
   },
   "dependencies": {
-    "@scandit/web-datacapture-core": "8.1.1",
-    "@scandit/web-datacapture-id": "8.1.1",
+    "@scandit/web-datacapture-core": "8.2.0",
+    "@scandit/web-datacapture-id": "8.2.0",
     "history": "^5.3.0",
     "svelte-navigator-no-postinstall": "3.2.4"
   }

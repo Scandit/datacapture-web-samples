@@ -50,6 +50,7 @@ function scandit(options: VitePluginScanditOptions): Plugin {
 export default defineConfig({
   server: {
     port: 8888,
+    allowedHosts: true,
   },
   base: "./",
   build: {

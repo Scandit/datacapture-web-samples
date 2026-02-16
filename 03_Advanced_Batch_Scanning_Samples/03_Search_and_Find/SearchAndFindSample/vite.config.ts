@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
-import { type ConfigEnv, type Plugin, defineConfig } from "vite";
-import { viteStaticCopy } from "vite-plugin-static-copy";
-
 import type { IncomingMessage, OutgoingMessage } from "node:http";
+import { type ConfigEnv, type Plugin, type ServerOptions, defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import tailwindcss from "@tailwindcss/vite";
+
 dotenv.config();
 
 interface VitePluginScanditOptions {
@@ -47,10 +48,15 @@ function scandit(options: VitePluginScanditOptions): Plugin {
   };
 }
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig({
-  server: {
-    port: 8888,
-  },
+  server: serverOptions,
+  preview: serverOptions,
   base: "./",
   build: {
     emptyOutDir: true,
@@ -74,5 +80,6 @@ export default defineConfig({
       licenseKey: process.env.SCANDIT_LICENSE_KEY ?? "",
       licenseKeyPlaceholder: "-- ENTER YOUR SCANDIT LICENSE KEY HERE --",
     }),
+    tailwindcss(),
   ],
 });
