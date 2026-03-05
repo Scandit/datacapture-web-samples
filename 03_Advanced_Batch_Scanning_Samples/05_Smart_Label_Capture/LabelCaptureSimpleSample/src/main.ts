@@ -1,13 +1,18 @@
 import { Symbology } from "@scandit/web-datacapture-barcode";
 import { Camera, DataCaptureContext, DataCaptureView, FrameSourceState } from "@scandit/web-datacapture-core";
 import {
+  // SerialNumberBarcodeBuilder,
+  // AdaptiveRecognitionMode,
   CustomBarcodeBuilder,
   ExpiryDateTextBuilder,
+  // ImeiOneBarcodeBuilder,
+  // ImeiTwoBarcodeBuilder,
   LabelCapture,
   LabelCaptureBasicOverlay,
   LabelCaptureSettingsBuilder,
   LabelCaptureValidationFlowListener,
   LabelCaptureValidationFlowOverlay,
+  LabelCaptureValidationFlowSettings,
   LabelDateComponentFormat,
   LabelDateFormat,
   LabelDateResult,
@@ -16,7 +21,6 @@ import {
   LabelFieldType,
   labelCaptureLoader,
   TotalPriceTextBuilder,
-  // SerialNumberBarcodeBuilder,
 } from "@scandit/web-datacapture-label";
 
 const elements = {
@@ -79,6 +83,8 @@ async function main() {
   view.hideProgressBar();
 
   const retailItem = await new LabelDefinitionBuilder()
+    // Uncomment this to enable adaptive recognition mode
+    // .adaptiveRecognitionMode(AdaptiveRecognitionMode.Auto)
     .addCustomBarcode(
       await new CustomBarcodeBuilder()
         .isOptional(false)
@@ -87,7 +93,8 @@ async function main() {
     )
     .addExpiryDateText(
       await new ExpiryDateTextBuilder()
-        .isOptional(true)
+        .isOptional(false)
+        .resetAnchorRegexes()
         .setLabelDateFormat(new LabelDateFormat(LabelDateComponentFormat.MDY))
         .build("Expiry Date")
     )
@@ -95,40 +102,24 @@ async function main() {
     .build("Perishable Product");
 
   // Note: You can customize the label definition to adapt it to your use-case.
-  // For example, you can use the following label definition for Smart Devices box Scanning:
-  /*
-  const smartDeviceLabel = await new LabelDefinitionBuilder()
-    .addCustomBarcode(
-      await new CustomBarcodeBuilder()
-        .isOptional(false)
-        .setSymbologies([
-          Symbology.EAN13UPCA,
-          Symbology.Code128,
-          Symbology.Code39,
-          Symbology.InterleavedTwoOfFive
-        ])
-        .build("Barcode")
-    )
-    .addImeiOneBarcode(
-      await new ImeiOneBarcodeBuilder()
-        .isOptional(false)
-        .setSymbology(Symbology.Code128)
-        .build("IMEI1")
-    )
-    .addImeiTwoBarcode(
-      await new ImeiTwoBarcodeBuilder()
-        .isOptional(true)
-        .setSymbology(Symbology.Code128)
-        .build("IMEI2")
-    )
-    .addSerialNumberBarcode(
-      await new SerialNumberBarcodeBuilder()
-        .isOptional(true)
-        .setSymbology(Symbology.Code128)
-        .build("Serial Number")
-    )
-    .build("Smart Device");
-  */
+  // For example, you can use the following label definition for Smartphone Box Scanning:
+  // const smartphoneBoxLabel = await new LabelDefinitionBuilder()
+  //   .addCustomBarcode(
+  //     await new CustomBarcodeBuilder()
+  //       .isOptional(false)
+  //       .setSymbologies([Symbology.EAN13UPCA, Symbology.Code128, Symbology.Code39, Symbology.InterleavedTwoOfFive])
+  //       .build("Barcode")
+  //   )
+  //   .addImeiOneBarcode(
+  //     await new ImeiOneBarcodeBuilder().isOptional(false).setSymbology(Symbology.Code128).build("IMEI1")
+  //   )
+  //   .addImeiTwoBarcode(
+  //     await new ImeiTwoBarcodeBuilder().isOptional(false).setSymbology(Symbology.Code128).build("IMEI2")
+  //   )
+  //   .addSerialNumberBarcode(
+  //     await new SerialNumberBarcodeBuilder().isOptional(false).setSymbology(Symbology.Code128).build("Serial Number")
+  //   )
+  //   .build("Smartphone Box");
 
   const settings = await new LabelCaptureSettingsBuilder()
     .addLabel(retailItem)
@@ -146,6 +137,13 @@ async function main() {
 
   // Set up the validation flow overlay
   const overlay = await LabelCaptureValidationFlowOverlay.withLabelCaptureForView(mode, view);
+
+  // Configure placeholder texts for input fields
+  const validationFlowSettings = await LabelCaptureValidationFlowSettings.create();
+  await validationFlowSettings.setPlaceholderTextForLabelDefinition("Expiry Date", "MM.DD.YY");
+  await validationFlowSettings.setPlaceholderTextForLabelDefinition("Total Price", "e.g., $13.66");
+  await overlay.applySettings(validationFlowSettings);
+
   overlay.listener = {
     onManualInput: (_field: LabelField, _oldValue: string | null, _newValue: string) => {
       // This function is called when the user manually inputs a value for a field.
