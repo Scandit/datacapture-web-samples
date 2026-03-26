@@ -3,9 +3,9 @@ import {
   BarcodeCapture,
   BarcodeCaptureOverlay,
   BarcodeCaptureSettings,
+  barcodeCaptureLoader,
   Symbology,
   SymbologyDescription,
-  barcodeCaptureLoader,
 } from "@scandit/web-datacapture-barcode";
 import {
   Camera,

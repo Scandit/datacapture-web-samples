@@ -41,6 +41,7 @@
     dateOfIssue: "Date of Issue",
     dateOfExpiry: "Date of Expiry",
     vehicleOwner: "Vehicle Owner",
+    visaDetails: "Visa Details",
   };
 </script>
 

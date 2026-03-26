@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
 import type { IncomingMessage, OutgoingMessage } from "node:http";
-import { type ConfigEnv, type Plugin, type PluginOption, type ServerOptions, defineConfig } from "vite";
+import dotenv from "dotenv";
+import { type ConfigEnv, defineConfig, type Plugin, type PluginOption, type ServerOptions } from "vite";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import manifest from "./manifest_icons_template.json";

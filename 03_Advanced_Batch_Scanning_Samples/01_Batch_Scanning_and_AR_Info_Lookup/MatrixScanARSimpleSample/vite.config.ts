@@ -1,6 +1,6 @@
 import type { IncomingMessage, OutgoingMessage } from "node:http";
 import dotenv from "dotenv";
-import { type ServerOptions, defineConfig, type Plugin, type ResolvedConfig } from "vite";
+import { defineConfig, type Plugin, type ResolvedConfig, type ServerOptions } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 dotenv.config();

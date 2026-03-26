@@ -13,6 +13,7 @@
     RegionSpecific,
     ResidencePermit,
     VisaIcao,
+    VisaLetter,
   } from "@scandit/web-datacapture-id";
   import { idCaptureApplyingSettingStore, idCaptureSettingsStore } from "./store";
   import Spinner from "@/components/atoms/Spinner.svelte";
@@ -74,6 +75,8 @@
         return new ResidencePermit(region);
       case IdCaptureDocumentType.VisaIcao:
         return new VisaIcao(region);
+      case IdCaptureDocumentType.VisaLetter:
+        return new VisaLetter(region);
       case IdCaptureDocumentType.RegionSpecific:
         if (subtype == null) {
           throw new Error("RegionSpecific document type requires a subtype");

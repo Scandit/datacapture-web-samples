@@ -67,7 +67,7 @@ export class SearchAndFindViewPresenter
 
   public didScan(_sparkScan: SparkScan, session: SparkScanSession): void {
     if (session.newlyRecognizedBarcode != null) {
-      this.itemList.push(session.newlyRecognizedBarcode);
+      this.itemList.unshift(session.newlyRecognizedBarcode);
       this.searchAndFindView.didScan(this.itemList);
     }
   }

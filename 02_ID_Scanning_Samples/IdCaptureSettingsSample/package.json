@@ -8,10 +8,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run check-types && vite build",
+    "check-types": "tsc && svelte-check --tsconfig ./tsconfig.json",
     "fast-build": "vite build",
     "serve": "vite preview",
-    "lint": "eslint --fix src/**/*.{ts,svelte} && svelte-check --tsconfig ./tsconfig.json",
+    "lint": "eslint --fix src/**/*.{ts,svelte}",
     "format": "prettier --write --plugin-search-dir=. ./src/**/*"
   },
   "devDependencies": {
@@ -50,7 +51,7 @@
     "prettier": "^2.8.3",
     "prettier-plugin-svelte": "^2.9.0",
     "svelte": "^3.54.0",
-    "svelte-check": "^2.10.0",
+    "svelte-check": "^2.10.3",
     "tailwind-merge": "^1.12.0",
     "tailwindcss": "^3.3.1",
     "tslib": "^2.4.1",
@@ -60,8 +61,8 @@
     "vite-plugin-static-copy": "^0.16.0"
   },
   "dependencies": {
-    "@scandit/web-datacapture-core": "8.2.1",
-    "@scandit/web-datacapture-id": "8.2.1",
+    "@scandit/web-datacapture-core": "8.3.0",
+    "@scandit/web-datacapture-id": "8.3.0",
     "history": "^5.3.0",
     "svelte-navigator-no-postinstall": "3.2.4"
   }

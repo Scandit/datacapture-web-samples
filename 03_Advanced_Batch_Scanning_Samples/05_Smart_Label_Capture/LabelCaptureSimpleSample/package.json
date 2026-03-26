@@ -13,7 +13,7 @@
     "format": "biome format ."
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
+    "@biomejs/biome": "2.3.11",
     "autoprefixer": "^10.4.21",
     "dotenv": "^16.5.0",
     "postcss": "^8.5.3",
@@ -23,8 +23,8 @@
     "vite-plugin-static-copy": "^0.17.1"
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.2.1",
-    "@scandit/web-datacapture-core": "8.2.1",
-    "@scandit/web-datacapture-label": "8.2.1"
+    "@scandit/web-datacapture-barcode": "8.3.0",
+    "@scandit/web-datacapture-core": "8.3.0",
+    "@scandit/web-datacapture-label": "8.3.0"
   }
 }

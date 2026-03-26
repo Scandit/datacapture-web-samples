@@ -7,7 +7,7 @@
   import NumberSetting from "@/components/molecules/NumberSetting.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
   import { valueFromInput, valueFromCheckbox, camelCaseToTitleCase } from "@/helper";
-  import { IdAnonymizationMode, IdCaptureTrigger, IdCaptureScanner } from "@scandit/web-datacapture-id";
+  import { IdCaptureTrigger } from "@scandit/web-datacapture-id";
   import Spinner from "@/components/atoms/Spinner.svelte";
 
   export let rejectIdsExpiringInDays = $idCaptureSettingsStore.rejectIdsExpiringIn

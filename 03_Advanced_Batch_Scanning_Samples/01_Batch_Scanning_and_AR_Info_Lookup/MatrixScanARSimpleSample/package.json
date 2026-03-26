@@ -14,13 +14,13 @@
     "format": "biome format ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.2.1",
-    "@scandit/web-datacapture-core": "8.2.1",
+    "@scandit/web-datacapture-barcode": "8.3.0",
+    "@scandit/web-datacapture-core": "8.3.0",
     "temporal-polyfill": "~0.2.5",
     "uhtml": "^4.7.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
+    "@biomejs/biome": "2.3.11",
     "@types/node": "~22.15.0",
     "dotenv": "^17.2.0",
     "npm-packlist": "^5.1.1",
