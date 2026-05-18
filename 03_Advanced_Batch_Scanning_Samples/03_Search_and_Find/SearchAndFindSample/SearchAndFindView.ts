@@ -28,7 +28,7 @@ export class SearchAndFindView {
       this.itemList.innerHTML += `
         <li>
           <div class="p-4 flex flex-col gap-2">
-            <p class="font-bold">${item.data ?? ""}</p>
+            <p class="w-full truncate font-bold">${item.data ?? ""}</p>
             <p>${item.symbology}</p>
           </div>
         </li>

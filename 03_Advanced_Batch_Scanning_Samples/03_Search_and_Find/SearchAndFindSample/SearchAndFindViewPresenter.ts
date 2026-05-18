@@ -75,7 +75,6 @@ export class SearchAndFindViewPresenter
   public async didTapBarcodeFindButton(view: SparkScanView): Promise<void> {
     if (this.itemList.length > 0) {
       await view.stopScanning();
-      view.remove();
       await this.switchToBarcodeFind();
     }
   }
@@ -92,19 +91,21 @@ export class SearchAndFindViewPresenter
   }
 
   private async switchToSparkScan(): Promise<void> {
-    this.sparkScanSettings = new SparkScanSettings();
+    this.sparkScanSettings ??= new SparkScanSettings();
     this.sparkScanSettings.enableSymbologies(this.symbologyList);
 
-    this.sparkScan = SparkScan.forSettings(this.sparkScanSettings);
+    this.sparkScan ??= SparkScan.forSettings(this.sparkScanSettings);
     this.sparkScan.addListener(this);
 
-    this.sparkScanView = SparkScanView.forElement(
-      this.searchAndFindView.sparkScanViewRootElement,
-      this.dataCaptureContext!,
-      this.sparkScan
-    );
-    this.sparkScanView.barcodeFindButtonVisible = true;
-    this.sparkScanView.setListener(this);
+    if (!this.sparkScanView) {
+      this.sparkScanView = SparkScanView.forElement(
+        this.searchAndFindView.sparkScanViewRootElement,
+        this.dataCaptureContext!,
+        this.sparkScan
+      );
+      this.sparkScanView.barcodeFindButtonVisible = true;
+      this.sparkScanView.setListener(this);
+    }
 
     this.searchAndFindView.switchToSparkScan();
     await this.sparkScanView.prepareScanning();
@@ -114,10 +115,10 @@ export class SearchAndFindViewPresenter
     this.dataCaptureView = await DataCaptureView.forContext(this.dataCaptureContext!);
     this.dataCaptureView.connectToElement(this.searchAndFindView.dataCaptureViewRootElement);
 
-    this.barcodeFindSettings = new BarcodeFindSettings();
+    this.barcodeFindSettings ??= new BarcodeFindSettings();
     this.barcodeFindSettings.enableSymbologies(this.symbologyList);
 
-    this.barcodeFind = await BarcodeFind.forSettings(this.barcodeFindSettings);
+    this.barcodeFind ??= await BarcodeFind.forSettings(this.barcodeFindSettings);
 
     this.barcodeFindView = await BarcodeFindView.create(
       this.dataCaptureView,

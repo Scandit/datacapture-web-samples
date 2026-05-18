@@ -102,8 +102,9 @@ async function run(): Promise<void> {
   // Add a control to be able to switch cameras.
   view.addControl(new CameraSwitchControl());
 
-  // Add a barcode tracking overlay to the data capture view to render the location of tracked barcodes on top of
-  // the video preview. This is optional, but recommended for better visual feedback.
+  // Add a Barcode Batch overlay to the data capture view to render the tracked barcodes on
+  // top of the video preview.
+  // This is optional, but recommended for better visual feedback.
   await BarcodeBatchBasicOverlay.withBarcodeBatchForViewWithStyle(
     barcodeBatch,
     view,

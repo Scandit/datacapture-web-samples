@@ -199,7 +199,7 @@ class SDKProvider {
             },
           };
           this.barcodeArView.highlightProvider = {
-            // biome-ignore lint/suspicious/useAwait: <explanation>
+            // biome-ignore lint/suspicious/useAwait: intentionally async for API compliance
             async highlightForBarcode(
               barcode: Barcode,
               callback: (highlight: BarcodeArHighlight) => void
@@ -215,7 +215,7 @@ class SDKProvider {
       case Presets.InfoAnnotations:
         {
           this.barcodeArView.highlightProvider = {
-            // biome-ignore lint/suspicious/useAwait: <explanation>
+            // biome-ignore lint/suspicious/useAwait: intentionally async for API compliance
             async highlightForBarcode(
               barcode: Barcode,
               callback: (highlight: BarcodeArHighlight) => void
@@ -429,7 +429,7 @@ class SDKProvider {
           let barcodeIndex = 0;
 
           this.barcodeArView.highlightProvider = {
-            // biome-ignore lint/suspicious/useAwait: <explanation>
+            // biome-ignore lint/suspicious/useAwait: intentionally async for API compliance
             async highlightForBarcode(
               barcode: Barcode,
               callback: (highlight: BarcodeArHighlight) => void

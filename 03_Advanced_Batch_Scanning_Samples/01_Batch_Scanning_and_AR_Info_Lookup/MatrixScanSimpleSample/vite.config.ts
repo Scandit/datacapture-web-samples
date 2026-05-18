@@ -54,6 +54,7 @@ export default defineConfig({
   },
   base: "./",
   build: {
+    target: ["chrome85", "firefox105", "safari14.1", "edge85"],
     emptyOutDir: true,
     rollupOptions: {
       output: {
