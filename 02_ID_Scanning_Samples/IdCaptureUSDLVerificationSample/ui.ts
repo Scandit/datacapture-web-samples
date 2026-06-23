@@ -1,5 +1,5 @@
 import * as SDCId from "@scandit/web-datacapture-id";
-import type { AamvaBarcodeVerificationResult } from "@scandit/web-datacapture-id";
+import { AamvaBarcodeVerificationStatus, type AamvaBarcodeVerificationResult } from "@scandit/web-datacapture-id";
 
 export enum Action {
   CLOSE_RESULT = "CLOSE_RESULT",
@@ -365,10 +365,19 @@ export async function showDocumentResult(
           "warn",
           "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits barcode verification."
         );
-      } else if (barcodeVerificationResult.allChecksPassed) {
-        barcodeVerificationResultBlock = getPanel("passed", "Verification checks passed.");
       } else {
-        barcodeVerificationResultBlock = getPanel("warn", "Verification checks failed.");
+        switch (barcodeVerificationResult.status) {
+          case AamvaBarcodeVerificationStatus.Authentic:
+            barcodeVerificationResultBlock = getPanel("passed", "Verification checks passed.");
+            break;
+          case AamvaBarcodeVerificationStatus.LikelyForged:
+            barcodeVerificationResultBlock = getPanel("warn", "Verification result is uncertain — the document is likely forged.");
+            break;
+          case AamvaBarcodeVerificationStatus.Forged:
+          default:
+            barcodeVerificationResultBlock = getPanel("warn", "Verification checks failed.");
+            break;
+        }
       }
 
       // Update the timer panel with the actual result
