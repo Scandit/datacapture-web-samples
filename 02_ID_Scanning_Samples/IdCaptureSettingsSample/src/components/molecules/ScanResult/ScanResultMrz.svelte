@@ -17,6 +17,7 @@
     omittedCharacterCountInGbkName: "Omitted Character Count In GBK Name",
     omittedNameCount: "Omitted Name Count",
     issuingAuthorityCode: "Issuing Authority Code",
+    passportType: "Passport Type",
     passportNumber: "Passport Number",
     passportIssuerIso: "Passport Issuer ISO",
     passportDateOfExpiry: "Passport Date of Expiry",

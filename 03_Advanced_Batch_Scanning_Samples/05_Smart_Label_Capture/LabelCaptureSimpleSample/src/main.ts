@@ -1,26 +1,26 @@
 import { Symbology } from "@scandit/web-datacapture-barcode";
 import { Camera, DataCaptureContext, DataCaptureView, FrameSourceState } from "@scandit/web-datacapture-core";
 import {
-  // SerialNumberBarcodeBuilder,
-  // AdaptiveRecognitionMode,
-  CustomBarcodeBuilder,
-  ExpiryDateTextBuilder,
-  // ImeiOneBarcodeBuilder,
-  // ImeiTwoBarcodeBuilder,
+  customBarcode,
+  expiryDateText,
   LabelCapture,
   LabelCaptureBasicOverlay,
-  LabelCaptureSettingsBuilder,
   LabelCaptureValidationFlowListener,
   LabelCaptureValidationFlowOverlay,
   LabelCaptureValidationFlowSettings,
   LabelDateComponentFormat,
   LabelDateFormat,
   LabelDateResult,
-  LabelDefinitionBuilder,
   LabelField,
   LabelFieldType,
+  // imeiOneBarcode,
+  // imeiTwoBarcode,
+  label,
   labelCaptureLoader,
-  TotalPriceTextBuilder,
+  // AdaptiveRecognitionMode,
+  labelCaptureSettings,
+  // serialNumberBarcode,
+  totalPriceText,
 } from "@scandit/web-datacapture-label";
 
 const elements = {
@@ -82,51 +82,39 @@ async function main() {
   await camera.switchToDesiredState(FrameSourceState.On);
   view.hideProgressBar();
 
-  const retailItem = await new LabelDefinitionBuilder()
-    // Uncomment this to enable adaptive recognition mode
-    // .adaptiveRecognitionMode(AdaptiveRecognitionMode.Auto)
-    .addCustomBarcode(
-      await new CustomBarcodeBuilder()
-        .isOptional(false)
-        .setSymbologies([Symbology.EAN13UPCA, Symbology.GS1DatabarExpanded, Symbology.Code128])
-        .build("Barcode")
+  const settings = await labelCaptureSettings()
+    .addLabel(
+      label("Perishable Product")
+        // Uncomment this to enable adaptive recognition mode
+        // .adaptiveRecognitionMode(AdaptiveRecognitionMode.Auto)
+        .addCustomBarcode(
+          customBarcode("Barcode")
+            .isOptional(false)
+            .setSymbologies([Symbology.EAN13UPCA, Symbology.GS1DatabarExpanded, Symbology.Code128])
+        )
+        .addExpiryDateText(
+          expiryDateText("Expiry Date")
+            .isOptional(false)
+            .resetAnchorRegexes()
+            .setLabelDateFormat(new LabelDateFormat(LabelDateComponentFormat.MDY))
+        )
+        .addTotalPriceText(totalPriceText("Total Price").isOptional(true))
     )
-    .addExpiryDateText(
-      await new ExpiryDateTextBuilder()
-        .isOptional(false)
-        .resetAnchorRegexes()
-        .setLabelDateFormat(new LabelDateFormat(LabelDateComponentFormat.MDY))
-        .build("Expiry Date")
-    )
-    .addTotalPriceText(await new TotalPriceTextBuilder().isOptional(true).build("Total Price"))
-    .build("Perishable Product");
-
-  // Note: You can customize the label definition to adapt it to your use-case.
-  // For example, you can use the following label definition for Smartphone Box Scanning:
-  // const smartphoneBoxLabel = await new LabelDefinitionBuilder()
-  //   .addCustomBarcode(
-  //     await new CustomBarcodeBuilder()
-  //       .isOptional(false)
-  //       .setSymbologies([Symbology.EAN13UPCA, Symbology.Code128, Symbology.Code39, Symbology.InterleavedTwoOfFive])
-  //       .build("Barcode")
-  //   )
-  //   .addImeiOneBarcode(
-  //     await new ImeiOneBarcodeBuilder().isOptional(false).setSymbology(Symbology.Code128).build("IMEI1")
-  //   )
-  //   .addImeiTwoBarcode(
-  //     await new ImeiTwoBarcodeBuilder().isOptional(false).setSymbology(Symbology.Code128).build("IMEI2")
-  //   )
-  //   .addSerialNumberBarcode(
-  //     await new SerialNumberBarcodeBuilder().isOptional(false).setSymbology(Symbology.Code128).build("Serial Number")
-  //   )
-  //   .build("Smartphone Box");
-
-  const settings = await new LabelCaptureSettingsBuilder()
-    .addLabel(retailItem)
-    /**
-     * Uncomment this and the smartphoneBoxLabel definition above to use smart device label
-     */
-    // .addLabel(smartphoneBoxLabel)
+    // Note: You can customize the label definition to adapt it to your use-case.
+    // For example, you can use the following label definition for Smartphone Box Scanning:
+    // .addLabel(
+    //   label("Smartphone Box")
+    //     .addCustomBarcode(
+    //       customBarcode("Barcode")
+    //         .isOptional(false)
+    //         .setSymbologies([Symbology.EAN13UPCA, Symbology.Code128, Symbology.Code39, Symbology.InterleavedTwoOfFive])
+    //     )
+    //     .addImeiOneBarcode(imeiOneBarcode("IMEI1").isOptional(false).setSymbology(Symbology.Code128))
+    //     .addImeiTwoBarcode(imeiTwoBarcode("IMEI2").isOptional(false).setSymbology(Symbology.Code128))
+    //     .addSerialNumberBarcode(
+    //       serialNumberBarcode("Serial Number").isOptional(false).setSymbology(Symbology.Code128)
+    //     )
+    // )
     .build();
 
   // Create the label capture mode

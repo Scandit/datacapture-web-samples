@@ -13,12 +13,12 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.4.1",
-    "@scandit/web-datacapture-core": "8.4.1",
+    "@scandit/web-datacapture-barcode": "8.5.0",
+    "@scandit/web-datacapture-core": "8.5.0",
     "lit": "^2.8.0"
   },
   "devDependencies": {
-    "@types/node": "^18.19.31",
+    "@types/node": "^24.0.0",
     "dotenv": "^16.0.3",
     "eslint": "~8.31.0",
     "eslint-config-airbnb": "~19.0.4",
@@ -46,7 +46,7 @@
     "prettier": "^2.8.8",
     "serve": "^14.2.1",
     "typescript": "~5.4.5",
-    "vite": "^5.2.11",
-    "vite-plugin-static-copy": "^1.0.4"
+    "vite": "^8.0.10",
+    "vite-plugin-static-copy": "^3.4.0"
   }
 }

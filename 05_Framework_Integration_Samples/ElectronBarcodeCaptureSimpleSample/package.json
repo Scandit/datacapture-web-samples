@@ -32,8 +32,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "~3.0.2",
     "@electron-toolkit/utils": "~3.0.0",
-    "@scandit/web-datacapture-barcode": "8.4.1",
-    "@scandit/web-datacapture-core": "8.4.1",
+    "@scandit/web-datacapture-barcode": "8.5.0",
+    "@scandit/web-datacapture-core": "8.5.0",
     "electron-updater": "~6.6.2",
     "express": "~4.21.2"
   },
@@ -48,14 +48,14 @@
     "electron": "~36.2.0",
     "electron-builder": "~26.0.12",
     "electron-playwright-helpers": "~1.7.1",
-    "electron-vite": "~2.2.0",
+    "electron-vite": "^6.0.0-beta.1",
     "eslint": "~8.56.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.5.4",
     "playwright": "~1.52.0",
     "prettier": "~3.5.3",
     "typescript": "~5.4.5",
-    "vite": "~5.2.10",
-    "vite-plugin-static-copy": "~1.0.3"
+    "vite": "^8.0.10",
+    "vite-plugin-static-copy": "^3.4.0"
   }
 }

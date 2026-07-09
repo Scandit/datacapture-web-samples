@@ -15,7 +15,7 @@
     "format": "prettier --write './src/**/*.ts'"
   },
   "devDependencies": {
-    "@types/node": "~20.6.2",
+    "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "~7.18.0",
     "@typescript-eslint/parser": "~7.18.0",
     "autoprefixer": "~10.4.15",
@@ -40,12 +40,12 @@
     "prettier": "~2.8.8",
     "tailwindcss": "~3.3.3",
     "typescript": "~5.0.2",
-    "vite": "~4.4.5",
-    "vite-plugin-static-copy": "~0.17.0"
+    "vite": "^8.0.10",
+    "vite-plugin-static-copy": "^3.4.0"
   },
   "dependencies": {
     "@preact/signals": "~1.2.3",
-    "@scandit/web-datacapture-barcode": "8.4.1",
-    "@scandit/web-datacapture-core": "8.4.1"
+    "@scandit/web-datacapture-barcode": "8.5.0",
+    "@scandit/web-datacapture-core": "8.5.0"
   }
 }
