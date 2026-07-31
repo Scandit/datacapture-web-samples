@@ -23,8 +23,8 @@
     "vite-plugin-static-copy": "^3.4.0"
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.5.1",
-    "@scandit/web-datacapture-core": "8.5.1",
-    "@scandit/web-datacapture-label": "8.5.1"
+    "@scandit/web-datacapture-barcode": "8.5.2",
+    "@scandit/web-datacapture-core": "8.5.2",
+    "@scandit/web-datacapture-label": "8.5.2"
   }
 }
