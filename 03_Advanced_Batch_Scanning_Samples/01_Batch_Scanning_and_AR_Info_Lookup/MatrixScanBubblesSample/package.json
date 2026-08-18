@@ -13,8 +13,8 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.5.2",
-    "@scandit/web-datacapture-core": "8.5.2",
+    "@scandit/web-datacapture-barcode": "8.5.3",
+    "@scandit/web-datacapture-core": "8.5.3",
     "lit": "^2.8.0"
   },
   "devDependencies": {
