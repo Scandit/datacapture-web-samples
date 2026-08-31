@@ -18,6 +18,8 @@
     issuingCountryIso: "Issuing Country ISO",
     issuingCountry: "Issuing Country",
     documentNumber: "Document Number",
+    visaNumber: "Visa Number",
+    passportNumber: "Passport Number",
     documentAdditionalNumber: "Document Additional Number",
     dateOfExpiry: "Date of Expiry",
     isExpired: "Is Expired",

@@ -1,15 +1,3 @@
-import { idCaptureSettingsStore } from "@/settings/id-capture/store";
-import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
-import {
-  BrushType,
-  layoutCapturedBrush,
-  layoutLineStyle,
-  layoutLocalizedBrush,
-  layoutStyle,
-  showTextHints,
-} from "@/settings/view/overlay/store";
-import { pointOfInterest } from "@/settings/view/point-of-interest/store";
-import { scanAreaMargins } from "@/settings/view/scan-area/store";
 import {
   Camera,
   CameraPosition,
@@ -22,6 +10,18 @@ import {
 } from "@scandit/web-datacapture-core";
 import type { IdCaptureOverlay } from "@scandit/web-datacapture-id";
 import { IdCapture, idCaptureLoader } from "@scandit/web-datacapture-id";
+import { idCaptureSettingsStore } from "@/settings/id-capture/store";
+import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
+import {
+  BrushType,
+  layoutCapturedBrush,
+  layoutLineStyle,
+  layoutLocalizedBrush,
+  layoutStyle,
+  showTextHints,
+} from "@/settings/view/overlay/store";
+import { pointOfInterest } from "@/settings/view/point-of-interest/store";
+import { scanAreaMargins } from "@/settings/view/scan-area/store";
 import {
   availableCameras,
   cameraSettings,

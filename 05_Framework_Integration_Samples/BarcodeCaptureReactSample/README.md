@@ -30,18 +30,16 @@ npm run build
 npm run serve
 ```
 
-Open http://localhost:8888 and start scanning.
+Open https://localhost:8888 and start scanning.
 
 ## How to test the sample from any device
 
-You can use an SSH tunnel to access the running sample from another device via the internet. To do so, you can install [ngrok](https://ngrok.com/) and create a tunnel to the running sample:
+The dev and preview servers run over HTTPS by default (using a self-signed certificate) and listen on every network interface, and they print a scannable QR code in the terminal when you run `npm run dev` or `npm run serve`. To test the sample on a phone or tablet on the same network:
 
-```bash
-# execute this after npm run serve
-ngrok http 8888
-```
+1. Scan the QR code shown in the terminal (or open `https://<your-computer-ip>:8888` on the device manually).
+2. Accept the self-signed certificate warning once.
 
-Make sure you use the HTTP**S** tunnel because most of the browsers will deny permission to access the camera in non-secure contexts.
+The HTTPS context is what lets the browser grant camera access. To reach the sample from outside your network you can still expose it with a tool such as [ngrok](https://ngrok.com/) (`ngrok http 8888`) and use the HTTPS URL.
 
 ## Development
 
@@ -57,4 +55,11 @@ Start the development server:
 npm run dev
 ```
 
-Open http://localhost:8888 and start scanning.
+Open https://localhost:8888 and start scanning.
+
+## AI Coding Skills
+
+Use the matching Scandit skill to get AI-assisted help for this sample. Install the Scandit skills collection once, then invoke the barcode-capture-web skill.
+
+[![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/scandit/skills)
+[![Install in Cursor](https://img.shields.io/badge/Install%20in-Cursor-blue?style=flat-square&logo=cursor)](https://cursor.com/marketplace/scandit)

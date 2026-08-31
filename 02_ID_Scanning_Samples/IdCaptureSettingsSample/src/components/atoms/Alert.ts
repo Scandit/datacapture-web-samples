@@ -1,8 +1,8 @@
-import { modalStore } from "@/settings/id-capture/store";
 import { Deferred } from "@/Deferred";
+import { modalStore } from "@/settings/id-capture/store";
 
 let currentAlertDeferred: Deferred<void> | null = null;
-export async function showAlert(title: string, content: string): Promise<void> {
+export function showAlert(title: string, content: string): Promise<void> {
   // resolve previous modal promise, if any
   currentAlertDeferred?.resolve();
 

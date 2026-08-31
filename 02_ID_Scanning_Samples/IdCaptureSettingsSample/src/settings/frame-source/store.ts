@@ -1,4 +1,4 @@
-import type { TorchState, Camera, CameraSettings, SingleImageUploader } from "@scandit/web-datacapture-core";
+import type { Camera, CameraSettings, SingleImageUploader, TorchState } from "@scandit/web-datacapture-core";
 import { VideoResolution } from "@scandit/web-datacapture-core";
 import { writable } from "svelte/store";
 

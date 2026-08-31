@@ -8,18 +8,18 @@ import {
 } from "@scandit/web-datacapture-core";
 import type { CapturedId } from "@scandit/web-datacapture-id";
 import {
-  RejectionReason,
   DriverLicense,
+  FullDocumentScanner,
   IdCapture,
   IdCaptureOverlay,
+  IdCaptureScanner,
   IdCaptureSettings,
   IdCard,
+  IdImageType,
+  idCaptureLoader,
   Passport,
   Region,
-  idCaptureLoader,
-  FullDocumentScanner,
-  IdCaptureScanner,
-  IdImageType,
+  RejectionReason,
 } from "@scandit/web-datacapture-id";
 import * as UI from "./ui";
 

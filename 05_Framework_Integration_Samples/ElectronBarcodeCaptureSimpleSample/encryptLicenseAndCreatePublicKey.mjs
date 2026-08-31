@@ -1,15 +1,8 @@
 import fs from "node:fs/promises";
-import dotenv from "dotenv";
-import path from "node:path";
 import chalk from "chalk";
+import dotenv from "dotenv";
 
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-import { saveKeyAndIVToEnvFile, encryptText } from "./utils/index.mjs";
+import { encryptText, saveKeyAndIVToEnvFile } from "./utils/index.mjs";
 
 dotenv.config();
 
@@ -28,7 +21,7 @@ async function createLicenseAndPublicKey() {
   try {
     await fs.unlink("sdc-license.data");
     await fs.unlink(".env");
-  } catch (e) {
+  } catch (_e) {
     // pass
   }
 
@@ -36,10 +29,6 @@ async function createLicenseAndPublicKey() {
 
   const encrypted = encryptText(license, key, iv);
   await fs.writeFile("sdc-license.data", Buffer.from(encrypted), "utf8");
-
-  const outPath = path.join(__dirname, "out/renderer/data");
-  await fs.mkdir(outPath, { recursive: true });
-  await fs.writeFile(path.join(outPath, "sdc-license.data"), Buffer.from(encrypted), "utf8");
 
   // !!IMPORTANT save your key in another place and don't bundle it within your application
   console.log(

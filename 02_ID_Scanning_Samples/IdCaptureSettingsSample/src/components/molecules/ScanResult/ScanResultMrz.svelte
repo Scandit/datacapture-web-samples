@@ -19,6 +19,10 @@
     issuingAuthorityCode: "Issuing Authority Code",
     passportType: "Passport Type",
     passportNumber: "Passport Number",
+    visaNumber: "Visa Number",
+    visaNumberOfEntries: "Visa Number of Entries",
+    visaMultipleEntries: "Visa Multiple Entries",
+    visaDurationInDays: "Visa Duration in Days",
     passportIssuerIso: "Passport Issuer ISO",
     passportDateOfExpiry: "Passport Date of Expiry",
     firstName: "First Name",
@@ -30,7 +34,7 @@
     address: "Address",
     documentNumber: "Document Number",
     dateOfIssue: "Date of Issue",
-    dateOfExpiry: "Date of Expiry"
+    dateOfExpiry: "Date of Expiry",
   };
 </script>
 

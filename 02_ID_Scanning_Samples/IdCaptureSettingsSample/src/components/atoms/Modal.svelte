@@ -27,7 +27,7 @@
 >
   <div
     class={twMerge(
-      "h-[100dvh] sm-xy:h-[90dvh] w-full sm-xy:w-[90vw] max-w-[768px] m-auto p-4 bg-white rounded shadow z-20 flex flex-col",
+      "h-[100dvh] max-h-[95dvh] sm-xy:h-[90dvh] w-full sm-xy:w-[90vw] max-w-[768px] m-auto p-4 bg-white rounded shadow z-20 flex flex-col",
       className
     )}
   >

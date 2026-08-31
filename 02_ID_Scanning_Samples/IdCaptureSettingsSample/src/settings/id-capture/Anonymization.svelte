@@ -12,13 +12,13 @@
     return (event: Event) => {
       const isChecked = valueFromCheckbox(event);
       const currentFields = new Set($anonymizedFieldsStore);
-      
+
       if (isChecked) {
         currentFields.add(fieldType);
       } else {
         currentFields.delete(fieldType);
       }
-      
+
       anonymizedFieldsStore.set(currentFields);
       sdkManager.idCapture.updateAnonymizedFields(currentFields);
     };
@@ -52,7 +52,8 @@
       checked={$idCaptureSettingsStore.anonymizeDefaultFields}
       disabled={$idCaptureApplyingSettingStore}
       on:change={(e) => sdkManager.idCapture.updateAnonymizeDefaultFields(valueFromCheckbox(e))}
-      >Anonymize Default Fields</CheckboxSetting>
+      >Anonymize Default Fields</CheckboxSetting
+    >
 
     <div class="px-4 py-2 font-semibold text-gray-600 text-sm">Anonymized Fields</div>
     {#each Object.values(IdFieldType) as fieldType}

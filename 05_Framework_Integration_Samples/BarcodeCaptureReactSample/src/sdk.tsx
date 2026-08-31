@@ -1,9 +1,9 @@
 import type { BarcodeCaptureListener } from "@scandit/web-datacapture-barcode";
 import {
   BarcodeCapture,
-  barcodeCaptureLoader,
   BarcodeCaptureOverlay,
   BarcodeCaptureSettings,
+  barcodeCaptureLoader,
   Symbology,
 } from "@scandit/web-datacapture-barcode";
 import {
@@ -60,7 +60,9 @@ class SDKController {
   };
 
   public async initialize(): Promise<void> {
-    if (this.state.status !== SDKStatus.Uninitialized) return;
+    if (this.state.status !== SDKStatus.Uninitialized) {
+      return;
+    }
 
     try {
       this.state.status = SDKStatus.Initializing;
@@ -107,7 +109,9 @@ class SDKController {
   }
 
   public async enableScanning(enabled: boolean): Promise<void> {
-    if (this.state.status !== SDKStatus.Ready) return;
+    if (this.state.status !== SDKStatus.Ready) {
+      return;
+    }
 
     if (enabled && !this.state.isScanning) {
       await this.enableCamera(true);
@@ -120,7 +124,9 @@ class SDKController {
   }
 
   public async enableCamera(enabled: boolean): Promise<void> {
-    if (this.state.status !== SDKStatus.Ready || this.state.isCameraOn === enabled) return;
+    if (this.state.status !== SDKStatus.Ready || this.state.isCameraOn === enabled) {
+      return;
+    }
 
     if (this.state.context?.frameSource) {
       await this.state.context.frameSource.switchToDesiredState(enabled ? FrameSourceState.On : FrameSourceState.Off);
@@ -129,7 +135,9 @@ class SDKController {
   }
 
   public async setViewfinderVisible(visible: boolean): Promise<void> {
-    if (this.state.status !== SDKStatus.Ready || !this.state.overlay) return;
+    if (this.state.status !== SDKStatus.Ready || !this.state.overlay) {
+      return;
+    }
 
     if (visible && this.state.laserlineViewfinder) {
       await this.state.overlay.setViewfinder(this.state.laserlineViewfinder);
@@ -139,7 +147,9 @@ class SDKController {
   }
 
   public async enableSymbology(symbology: Symbology, enabled: boolean): Promise<void> {
-    if (this.state.status !== SDKStatus.Ready) return;
+    if (this.state.status !== SDKStatus.Ready) {
+      return;
+    }
     this.state.settings?.enableSymbology(symbology, enabled);
     if (this.state.settings) {
       await this.state.barcodeCapture?.applySettings(this.state.settings);
@@ -147,13 +157,17 @@ class SDKController {
   }
 
   public connectToElement(element: HTMLElement): void {
-    if (!this.state.host || this.state.status !== SDKStatus.Ready) return;
+    if (!this.state.host || this.state.status !== SDKStatus.Ready) {
+      return;
+    }
     this.state.host.style.display = "block";
     element.append(this.state.host);
   }
 
   public detachFromElement(): void {
-    if (!this.state.host) return;
+    if (!this.state.host) {
+      return;
+    }
     this.state.host.style.display = "none";
     document.body.append(this.state.host);
   }
@@ -237,12 +251,14 @@ export const SDKProvider = function SDKProvider({ children }: { children: ReactN
       }
     };
 
-    void initialize();
+    initialize();
 
     return (): void => {
       const isStrictModeCleanup = strictModeReference.current;
       strictModeReference.current = false;
-      void sdk.cleanup(isStrictModeCleanup);
+      sdk.cleanup(isStrictModeCleanup).catch((error) => {
+        console.error("Failed to clean up SDK:", error);
+      });
     };
   }, [sdk]);
 

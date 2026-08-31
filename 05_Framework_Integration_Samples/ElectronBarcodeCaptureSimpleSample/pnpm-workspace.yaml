@@ -1,0 +1,22 @@
+nodeLinker: hoisted
+allowBuilds:
+  canvas: true
+  electron: true
+  electron-builder: true
+  electron-winstaller: true
+  esbuild: true
+blockExoticSubdeps: false
+# Override git-resolved @electron/node-gyp (via electron-builder→@electron/rebuild)
+# with the npm-published version to avoid ERR_PNPM_EXOTIC_SUBDEP.
+overrides:
+  "@electron/node-gyp": "10.2.0-electron.2"
+minimumReleaseAgeExclude:
+  - '@biomejs/biome@2.5.6'
+  - '@biomejs/cli-darwin-arm64@2.5.6'
+  - '@biomejs/cli-darwin-x64@2.5.6'
+  - '@biomejs/cli-linux-arm64-musl@2.5.6'
+  - '@biomejs/cli-linux-arm64@2.5.6'
+  - '@biomejs/cli-linux-x64-musl@2.5.6'
+  - '@biomejs/cli-linux-x64@2.5.6'
+  - '@biomejs/cli-win32-arm64@2.5.6'
+  - '@biomejs/cli-win32-x64@2.5.6'

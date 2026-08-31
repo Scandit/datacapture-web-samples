@@ -10,21 +10,21 @@ import {
   SingleImageUploader,
   SingleImageUploaderSettings,
 } from "@scandit/web-datacapture-core";
-import type { IdCaptureError, Listener, CapturedId } from "@scandit/web-datacapture-id";
+import type { CapturedId, IdCaptureError, Listener } from "@scandit/web-datacapture-id";
 import {
-  RejectionReason,
+  DriverLicense,
+  FullDocumentScanner,
   IdCapture,
   IdCaptureErrorCode,
   IdCaptureOverlay,
+  IdCaptureScanner,
   IdCaptureSettings,
   IdCaptureTrigger,
-  idCaptureLoader,
-  DriverLicense,
-  Region,
-  IdSide,
   IdImageType,
-  FullDocumentScanner,
-  IdCaptureScanner,
+  IdSide,
+  idCaptureLoader,
+  Region,
+  RejectionReason,
 } from "@scandit/web-datacapture-id";
 import * as UI from "./ui";
 
@@ -39,7 +39,7 @@ let frontSideData: string | null | undefined = null;
 let backSideData: string | null | undefined = null;
 let lastCameraFrameSource: FrameSource | null = null;
 let singleImageFrameSource: SingleImageUploader | null = null;
-let finalCapturedId: CapturedId | null = null;
+let _finalCapturedId: CapturedId | null = null;
 
 const idCaptureListener: Listener = {
   didCaptureId: onCapturedId,
@@ -98,7 +98,7 @@ async function onCapturedId(capturedId: CapturedId): Promise<void> {
   frontSideData = capturedId.images.getFrame(IdSide.Front);
   backSideData = capturedId.images.getFrame(IdSide.Back);
 
-  finalCapturedId = capturedId;
+  _finalCapturedId = capturedId;
   showImagesForReview();
 }
 
@@ -128,8 +128,10 @@ async function onRejectedId(capturedId: CapturedId, reason: RejectionReason): Pr
     case RejectionReason.SingleImageNotRecognized: {
       if (frontSideData == null) {
         frontSideData = capturedId.images.getFrame(IdSide.Front);
-        void UI.showDialog("Success", "Front side image saved", [{ id: "ok", label: "Proceed with back side" }]);
-        void showManualUpload();
+        UI.showDialog("Success", "Front side image saved", [{ id: "ok", label: "Proceed with back side" }]).catch(
+          console.error
+        );
+        showManualUpload().catch(console.error);
         return;
       }
 
@@ -183,11 +185,11 @@ function initUIElements(): void {
   UI.elements.timeoutManualUploadButton.addEventListener("click", () => {
     UI.elements.timeout.hidden = true;
     // reset state to start a new capture from the images that will be submitted
-    void idCapture.reset();
-    void showManualUpload();
+    idCapture.reset().catch(console.error);
+    showManualUpload().catch(console.error);
   });
   UI.elements.reviewRetryButton.addEventListener("click", async () => {
-    void UI.showLoader();
+    UI.showLoader().catch(console.error);
     await startScanner(false);
     frontSideData = null;
     backSideData = null;
@@ -196,7 +198,7 @@ function initUIElements(): void {
   });
   UI.elements.reviewOkButton.addEventListener("click", () => {
     // the images are in variables frontSideData and backSideData
-    // the captured data is in variable "finalCapturedId"
+    // the captured data is in variable "_finalCapturedId"
     alert("Rest of your workflow...");
   });
   // add scroll variables to review images to manage the scroll hint image
@@ -221,7 +223,7 @@ function initUIElements(): void {
 async function startScanner(reset: boolean = false): Promise<void> {
   if (reset) {
     await idCapture.reset();
-    finalCapturedId = null;
+    _finalCapturedId = null;
     frontSideData = null;
     backSideData = null;
   }
@@ -248,7 +250,6 @@ start().catch((error: unknown) => {
         — or by inserting your license key into \`index.ts\`, replacing the placeholder \`-- ENTER YOUR SCANDIT LICENSE KEY HERE --\` with the key.
     `;
   }
-  // eslint-disable-next-line no-console
   console.error(error);
   alert(errorMessage);
 });

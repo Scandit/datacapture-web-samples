@@ -40,6 +40,8 @@ You can also try them directly in StackBlitz by following the links below.
 
 - LabelCaptureSimpleSample [![LabelCaptureSimpleSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/03_Advanced_Batch_Scanning_Samples/05_Smart_Label_Capture/LabelCaptureSimpleSample?file=index.ts)
 
+- PriceCaptureSample [![PriceCaptureSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/03_Advanced_Batch_Scanning_Samples/05_Smart_Label_Capture/PriceCaptureSample?file=src/main.ts)
+
 ## 05_Framework_Integration_Samples
 
 - BarcodeCaptureReactSample [![BarcodeCaptureReactSample](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/Scandit/datacapture-web-samples/tree/master/05_Framework_Integration_Samples/BarcodeCaptureReactSample?file=src/sdk.tsx)

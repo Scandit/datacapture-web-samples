@@ -7,17 +7,17 @@ import {
 } from "@scandit/web-datacapture-core";
 import type { CapturedId } from "@scandit/web-datacapture-id";
 import {
-  RejectionReason,
   AamvaBarcodeVerifier,
   DriverLicense,
+  FullDocumentScanner,
   IdCapture,
   IdCaptureOverlay,
+  IdCaptureScanner,
   IdCaptureSettings,
   IdImageType,
-  Region,
   idCaptureLoader,
-  FullDocumentScanner,
-  IdCaptureScanner,
+  Region,
+  RejectionReason,
 } from "@scandit/web-datacapture-id";
 
 import * as UI from "./ui";
@@ -93,14 +93,14 @@ async function run(): Promise<void> {
       // (not expired, data consistent). Now run manual AAMVA verification.
       const aamvaVerificationPromise = barcodeVerifier.verify(capturedId);
 
-      void UI.showDocumentResult(capturedId, undefined, aamvaVerificationPromise);
+      UI.showDocumentResult(capturedId, undefined, aamvaVerificationPromise);
     },
     didRejectId: async (capturedId: CapturedId, reason: RejectionReason) => {
       await idCapture.setEnabled(false);
 
       // Check if this is a verification failure that should show detailed results
       if (reason === RejectionReason.DocumentExpired || reason === RejectionReason.InconsistentData) {
-        void UI.showDocumentResult(capturedId, reason);
+        UI.showDocumentResult(capturedId, reason);
       } else {
         // Handle other rejection reasons with warning dialogs
         let warningMessage: string;
@@ -112,9 +112,9 @@ async function run(): Promise<void> {
             break;
           case RejectionReason.NotAcceptedDocumentType:
             warningMessage =
-              capturedId.issuingCountry !== Region.Us
-                ? "Document is not a US driver's license"
-                : "Document not supported. Try scanning another document";
+              capturedId.issuingCountry === Region.Us
+                ? "Document not supported. Try scanning another document"
+                : "Document is not a US driver's license";
             break;
           default:
             warningMessage = "Document not supported. Try scanning another document";

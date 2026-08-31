@@ -1,16 +1,14 @@
-import { app, shell, BrowserWindow, ipcMain, systemPreferences } from "electron";
-import path from "node:path";
-import { electronApp, optimizer, is } from "@electron-toolkit/utils";
-import icon from "../../resources/icon.png?asset";
-
-import { startServer } from "./productionServer";
-
-import fs from "node:fs/promises";
 import crypto from "node:crypto";
+import { watch as fsWatch } from "node:fs";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { electronApp, is, optimizer } from "@electron-toolkit/utils";
 import { register, unregister } from "@scandit/web-datacapture-core/build/electron/main";
+import { app, BrowserWindow, ipcMain, shell, systemPreferences } from "electron";
+import { isE2E_TESTS } from "../../env";
+import icon from "../../resources/icon.png?asset";
+import { startServer } from "./productionServer";
 import { isRemoteDebuggingEnabled } from "./utils";
-
-import { isCI } from "../../isCI.js";
 
 async function createWindow(): Promise<void> {
   // Create the browser window.
@@ -24,7 +22,7 @@ async function createWindow(): Promise<void> {
       autoplayPolicy: "no-user-gesture-required",
       sandbox: false, // needed from bytenode https://electron-vite.org/guide/source-code-protection#enable-bytecode-to-protect-your-electron-source-code
       preload: path.join(__dirname, "../preload/index.js"),
-      devTools: isCI() ? true : !app.isPackaged,
+      devTools: isE2E_TESTS() ? true : !app.isPackaged,
     },
   });
 
@@ -35,12 +33,44 @@ async function createWindow(): Promise<void> {
    * If possible to fetch the public key from a secure remote location under authentication.
    * https://electron-vite.org/guide/source-code-protection or https://github.com/bytenode/bytenode
    * */
-  const publicKey = import.meta.env.MAIN_VITE_PUBLIC_KEY;
+  let publicKey = import.meta.env.MAIN_VITE_PUBLIC_KEY;
   if (publicKey == null) {
     throw new Error("MAIN_VITE_PUBLIC_KEY not injected");
   }
 
   register({ fs, ipcMain, app, path, crypto }, publicKey);
+
+  // In dev mode, watch .env so running create-license-data while the server is up
+  // rotates the decryption key without requiring a full restart.
+  if (is.dev) {
+    const envFile = path.join(process.cwd(), ".env");
+    let keyTimer: ReturnType<typeof setTimeout> | null = null;
+    try {
+      fsWatch(envFile, () => {
+        if (keyTimer) {
+          clearTimeout(keyTimer);
+        }
+        keyTimer = setTimeout(() => {
+          fs.readFile(envFile, "utf8")
+            .then((content) => {
+              const m = /MAIN_VITE_PUBLIC_KEY="([^"]+)"/.exec(content);
+              const newKey = m?.[1];
+              if (newKey && newKey !== publicKey) {
+                publicKey = newKey;
+                unregister();
+                register({ fs, ipcMain, app, path, crypto }, newKey);
+              }
+            })
+            .catch((e) => {
+              // .env may be mid-write when the watcher fires; the next change event will retry.
+              console.warn("[key-rotation] failed to read .env:", e);
+            });
+        }, 1000);
+      });
+    } catch (e) {
+      console.warn("[key-rotation] fs.watch failed — restart to pick up new keys:", e);
+    }
+  }
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
@@ -53,12 +83,12 @@ async function createWindow(): Promise<void> {
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
-  if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
+  if (is.dev && process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
     mainWindow.webContents.openDevTools({ mode: "right" });
   } else {
     // for e2e testing
-    if (!isCI()) {
+    if (!isE2E_TESTS()) {
       mainWindow.webContents.on("devtools-opened", () => {
         mainWindow.webContents.closeDevTools();
       });
@@ -95,7 +125,9 @@ app.whenReady().then(() => {
   app.on("activate", () => {
     // On macOS, it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
   });
   createWindow();
 });

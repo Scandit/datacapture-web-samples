@@ -3,9 +3,9 @@ import "./index.css";
 import type { Barcode, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";
 import {
   BarcodeCapture,
-  barcodeCaptureLoader,
   BarcodeCaptureOverlay,
   BarcodeCaptureSettings,
+  barcodeCaptureLoader,
   Symbology,
   SymbologyDescription,
 } from "@scandit/web-datacapture-barcode";

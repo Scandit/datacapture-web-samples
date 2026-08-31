@@ -1,15 +1,17 @@
 import {
-  CameraSwitchControl,
   type Anchor,
+  Brush,
+  CameraSwitchControl,
+  Color,
   type LogoStyle,
+  MarginsWithUnit,
+  NumberWithUnit,
   type PointWithUnit,
   TorchSwitchControl,
 } from "@scandit/web-datacapture-core";
-import { MarginsWithUnit, NumberWithUnit, Brush, Color } from "@scandit/web-datacapture-core";
-import type { SDKManager } from "./sdkManager";
-import { scanAreaMargins } from "@/settings/view/scan-area/store";
-import { pointOfInterest } from "@/settings/view/point-of-interest/store";
 import type { IdLayoutLineStyle, IdLayoutStyle } from "@scandit/web-datacapture-id";
+import { cameraSwitchControlEnabled, torchSwitchControlEnabled } from "@/settings/view/controls/store";
+import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
 import {
   BrushType,
   layoutCapturedBrush,
@@ -18,8 +20,9 @@ import {
   layoutStyle,
   showTextHints,
 } from "@/settings/view/overlay/store";
-import { logoAnchor, logoOffset, logoStyle } from "@/settings/view/logo/store";
-import { cameraSwitchControlEnabled, torchSwitchControlEnabled } from "@/settings/view/controls/store";
+import { pointOfInterest } from "@/settings/view/point-of-interest/store";
+import { scanAreaMargins } from "@/settings/view/scan-area/store";
+import type { SDKManager } from "./sdkManager";
 
 export class SDKViewManager {
   private static readonly cameraSwitchControl: CameraSwitchControl = new CameraSwitchControl();

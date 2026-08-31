@@ -1,0 +1,31 @@
+{
+  "name": "price-capture-sample",
+  "displayName": "PriceCaptureSample",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "fast-build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview",
+    "lint": "biome lint .",
+    "format": "biome format ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.6",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "dotenv": "^16.5.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vite-plugin-qrcode": "^0.4.1",
+    "vite-plugin-static-copy": "^3.4.0"
+  },
+  "dependencies": {
+    "@scandit/web-datacapture-barcode": "8.6.0",
+    "@scandit/web-datacapture-core": "8.6.0",
+    "@scandit/web-datacapture-label": "8.6.0"
+  },
+  "packageManager": "pnpm@11.5.2"
+}

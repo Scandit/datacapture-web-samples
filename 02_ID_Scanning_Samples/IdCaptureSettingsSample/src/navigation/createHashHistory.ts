@@ -13,7 +13,7 @@ export function createHashHistorySource(): HistorySource {
     }
 
     for (const listener of listeners) {
-      void listener(location);
+      listener(location);
     }
   });
 

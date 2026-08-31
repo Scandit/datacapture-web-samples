@@ -1,28 +1,33 @@
+import type { Sound } from "@scandit/web-datacapture-core";
+import { Feedback, Vibration } from "@scandit/web-datacapture-core";
 import type {
-  IdAnonymizationMode,
-  IdCaptureTrigger,
   CapturedId,
+  IdAnonymizationMode,
   IdCaptureDocument,
+  IdCaptureTrigger,
   IdFieldType,
 } from "@scandit/web-datacapture-id";
 import {
-  RejectionReason,
-  SingleSideScanner,
+  Duration,
+  FullDocumentScanner,
   IdCapture,
+  IdCaptureFeedback,
+  IdCaptureOverlay,
   IdCaptureSettings,
   IdImageType,
-  IdCaptureOverlay,
   IdSide,
-  FullDocumentScanner,
-  IdCaptureFeedback,
-  Duration,
   MobileDocumentScanner,
+  RejectionReason,
+  SingleSideScanner,
 } from "@scandit/web-datacapture-id";
-import type { SDKManager } from "./sdkManager";
+import { get } from "svelte/store";
+import { showAlert } from "@/components/atoms/Alert";
+import { parseNullableNumber } from "@/helper";
+import { FeedbackType } from "@/settings/id-capture/FeedbackType";
 import {
+  anonymizedFieldsStore,
   idCaptureApplyingSettingStore,
   idCaptureSettingsStore,
-  anonymizedFieldsStore,
 } from "@/settings/id-capture/store";
 import {
   dataConsistencyResult,
@@ -37,12 +42,7 @@ import {
   showScanResults,
 } from "@/store";
 import { ScannerType } from "./enums";
-import { FeedbackType } from "@/settings/id-capture/FeedbackType";
-import type { Sound } from "@scandit/web-datacapture-core";
-import { Feedback, Vibration } from "@scandit/web-datacapture-core";
-import { showAlert } from "@/components/atoms/Alert";
-import { parseNullableNumber } from "@/helper";
-import { get } from "svelte/store";
+import type { SDKManager } from "./sdkManager";
 
 function fromFeedbackType(feedbackType: FeedbackType, vibration: Vibration | null, sound: Sound | null): Feedback {
   switch (feedbackType) {
@@ -81,7 +81,7 @@ export class SDKIdCaptureManager {
   }
 
   public didCaptureId(capturedId: CapturedId): void {
-    void this.setEnabled(false);
+    this.setEnabled(false);
 
     scannedDocumentFrontImage.set(capturedId.images.getCroppedDocument(IdSide.Front));
     scannedDocumentBackImage.set(capturedId.images.getCroppedDocument(IdSide.Back));
@@ -94,7 +94,7 @@ export class SDKIdCaptureManager {
 
   public async didRejectId(capturedId: CapturedId, rejectedReason: RejectionReason): Promise<void> {
     const onAlertClosed: () => void = () => {
-      void this.setEnabled(true);
+      this.setEnabled(true);
     };
 
     let errorMessage: string | null = null;
@@ -160,8 +160,7 @@ export class SDKIdCaptureManager {
 
     if (errorMessage !== null) {
       await this.setEnabled(false);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-      void showAlert("Error", errorMessage).then(onAlertClosed);
+      showAlert("Error", errorMessage).then(onAlertClosed);
     }
   }
 
@@ -172,11 +171,11 @@ export class SDKIdCaptureManager {
     showScanResults.set(true);
   }
 
-  public async setEnabled(enabled: boolean): Promise<void> {
+  public setEnabled(enabled: boolean): Promise<void> {
     return this.idCapture.setEnabled(enabled);
   }
 
-  public async reset(): Promise<void> {
+  public reset(): Promise<void> {
     scannedDocumentFrontImage.set(null);
     scannedDocumentBackImage.set(null);
     scannedDocumentFaceImage.set(null);
@@ -226,14 +225,14 @@ export class SDKIdCaptureManager {
     await this.applyIdCaptureSettings(newSettings);
   }
 
-  public async setIdCapturedFeedback(feedback: string): Promise<void> {
+  public setIdCapturedFeedback(feedback: string): Promise<void> {
     const defaultVibration = IdCaptureFeedback.defaultFeedback.idCaptured.vibration;
     const defaultSound = IdCaptureFeedback.defaultFeedback.idCaptured.sound;
     this.idCapture.feedback.idCaptured = fromFeedbackType(feedback as FeedbackType, defaultVibration, defaultSound);
     return this.idCapture.setFeedback(this.idCapture.feedback);
   }
 
-  public async setIdRejectedFeedback(feedback: string): Promise<void> {
+  public setIdRejectedFeedback(feedback: string): Promise<void> {
     const { defaultVibration } = Vibration;
     const defaultSound = IdCaptureFeedback.defaultFailureSound;
     this.idCapture.feedback.idRejected = fromFeedbackType(feedback as FeedbackType, defaultVibration, defaultSound);
@@ -306,7 +305,7 @@ export class SDKIdCaptureManager {
 
   public async updateRejectionTimeoutSeconds(rejectionTimeoutSeconds: string): Promise<void> {
     const newSettings = this.idCaptureSettings.clone();
-    const value = parseInt(rejectionTimeoutSeconds, 10);
+    const value = Number.parseInt(rejectionTimeoutSeconds, 10);
     newSettings.rejectionTimeoutSeconds = isNaN(value) ? 6 : value;
     await this.applyIdCaptureSettings(newSettings);
   }

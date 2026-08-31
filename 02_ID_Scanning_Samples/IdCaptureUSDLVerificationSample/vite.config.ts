@@ -1,6 +1,8 @@
-import dotenv from "dotenv";
 import type { IncomingMessage, OutgoingMessage } from "node:http";
-import { type ConfigEnv, type Plugin, type ServerOptions, defineConfig } from "vite";
+import basicSsl from "@vitejs/plugin-basic-ssl";
+import dotenv from "dotenv";
+import { type ConfigEnv, defineConfig, type Plugin, type ServerOptions } from "vite";
+import { qrcode } from "vite-plugin-qrcode";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 dotenv.config();
@@ -70,6 +72,8 @@ export default defineConfig({
   },
   envPrefix: "SCANDIT",
   plugins: [
+    basicSsl(),
+    qrcode(),
     viteStaticCopy({
       targets: ["core", "id"].map((module) => ({
         src: `./node_modules/@scandit/web-datacapture-${module}/sdc-lib/*`,

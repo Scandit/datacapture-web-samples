@@ -22,7 +22,7 @@ function hideBackdrop(): void {
   elements.backdrop.setAttribute("hidden", "true");
 }
 
-export async function showDialog<T extends string>(
+export function showDialog<T extends string>(
   title: string,
   text: string,
   buttons: { id: T; label: string }[]
@@ -33,10 +33,8 @@ export async function showDialog<T extends string>(
         document.querySelector(`#warn-${button.id}`)?.removeEventListener("click", onButtonClicked);
       }
       closeDialog();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       resolve((event.target as HTMLButtonElement).id.replace("warn-", "") as T);
     }
-    // eslint-disable-next-line no-unsanitized/property
     elements.alert.innerHTML = `
     <div>
       <h3>${title}</h3>

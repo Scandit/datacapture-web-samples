@@ -1,5 +1,7 @@
+import { qrcode } from "vite-plugin-qrcode";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 import dotenv from "dotenv";
-import { ConfigEnv, Plugin, defineConfig } from "vite";
+import { ConfigEnv, Plugin, ServerOptions, defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 import type { IncomingMessage, OutgoingMessage } from "node:http";
@@ -47,11 +49,15 @@ function scandit(options: VitePluginScanditOptions): Plugin {
   };
 }
 
+const serverOptions: ServerOptions = {
+  port: 8888,
+  host: true,
+  allowedHosts: true,
+};
+
 export default defineConfig({
-  server: {
-    port: 8888,
-    allowedHosts: true,
-  },
+  server: serverOptions,
+  preview: serverOptions,
   base: "./",
   build: {
     target: ["chrome85", "firefox105", "safari14.1", "edge85"],
@@ -66,6 +72,8 @@ export default defineConfig({
   },
   envPrefix: "SCANDIT",
   plugins: [
+    basicSsl(),
+    qrcode(),
     viteStaticCopy({
       targets: ["core", "barcode"].map((module) => ({
         src: `./node_modules/@scandit/web-datacapture-${module}/sdc-lib/*`,

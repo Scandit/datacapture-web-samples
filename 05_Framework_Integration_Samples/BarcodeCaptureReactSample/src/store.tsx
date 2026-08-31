@@ -17,9 +17,15 @@ export const StoreContext = createContext<Store>({
   barcode: undefined,
   keepCameraOn: true,
   symbologies: {},
-  setBarcode: () => {},
-  setKeepCameraOn: () => {},
-  setSymbologies: () => {},
+  setBarcode: () => {
+    // Default no-op, replaced by StoreProvider
+  },
+  setKeepCameraOn: () => {
+    // Default no-op, replaced by StoreProvider
+  },
+  setSymbologies: () => {
+    // Default no-op, replaced by StoreProvider
+  },
 });
 
 export interface StoreProviderProps {

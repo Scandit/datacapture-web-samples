@@ -8,9 +8,7 @@
   // Split content into intro and JSON if diagnostic report exists
   const diagnosticMarker = "\n\nDiagnostic Report:\n";
   const hasDiagnostic = content.includes(diagnosticMarker);
-  const [introText, jsonText] = hasDiagnostic
-    ? content.split(diagnosticMarker)
-    : [content, null];
+  const [introText, jsonText] = hasDiagnostic ? content.split(diagnosticMarker) : [content, null];
 </script>
 
 <Modal className="h-auto sm-xy:h-auto w-80 max-w-auto sm-xy:w-80" show>

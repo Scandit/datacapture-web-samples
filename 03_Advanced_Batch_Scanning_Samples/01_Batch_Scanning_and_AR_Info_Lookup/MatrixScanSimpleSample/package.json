@@ -6,6 +6,7 @@
   "description": "MatrixScanSimpleSample for the Web",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "build": "tsc && vite build",
     "fast-build": "vite build",
@@ -13,12 +14,13 @@
     "lint": "eslint --fix ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.5.3",
-    "@scandit/web-datacapture-core": "8.5.3",
+    "@scandit/web-datacapture-barcode": "8.6.0",
+    "@scandit/web-datacapture-core": "8.6.0",
     "lit": "^2.8.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "dotenv": "^16.0.3",
     "eslint": "~8.31.0",
     "eslint-config-airbnb": "~19.0.4",
@@ -47,6 +49,8 @@
     "serve": "^14.2.1",
     "typescript": "~5.4.5",
     "vite": "^8.0.10",
+    "vite-plugin-qrcode": "^0.4.1",
     "vite-plugin-static-copy": "^3.4.0"
-  }
+  },
+  "packageManager": "pnpm@11.5.2"
 }

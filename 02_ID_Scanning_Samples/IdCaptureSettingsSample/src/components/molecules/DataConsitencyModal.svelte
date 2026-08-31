@@ -1,12 +1,7 @@
 <script lang="ts">
   import Modal from "@/components/atoms/Modal.svelte";
   import { sdkManager } from "@/sdkManager/sdkManager";
-  import {
-    dataConsistencyResult,
-    isSidebarOpen,
-    frontReviewImage,
-    showDataConsistency,
-  } from "@/store";
+  import { dataConsistencyResult, isSidebarOpen, frontReviewImage, showDataConsistency } from "@/store";
   import DataConsistencyFields from "./DataConsistencyFields.svelte";
   import { get } from "svelte/store";
 
@@ -31,11 +26,7 @@
         <div class="font-bold">Front Review Image</div>
         {#if $frontReviewImage}
           <div>
-            <img
-              class="doc-image"
-              src={`${get(frontReviewImage)}`}
-              alt="front review"
-            />
+            <img class="doc-image" src={`${get(frontReviewImage)}`} alt="front review" />
           </div>
         {/if}
       {/if}

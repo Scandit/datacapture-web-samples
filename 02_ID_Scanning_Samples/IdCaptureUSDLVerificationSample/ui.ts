@@ -1,5 +1,5 @@
 import * as SDCId from "@scandit/web-datacapture-id";
-import { AamvaBarcodeVerificationStatus, type AamvaBarcodeVerificationResult } from "@scandit/web-datacapture-id";
+import { type AamvaBarcodeVerificationResult, AamvaBarcodeVerificationStatus } from "@scandit/web-datacapture-id";
 
 export enum Action {
   CLOSE_RESULT = "CLOSE_RESULT",
@@ -126,8 +126,12 @@ function getPanel(
   extraAttributes: Record<string, string> = {}
 ): DocumentFragment {
   let iconType: keyof typeof svgIcons = "checkmark";
-  if (type === "warn") iconType = "warn";
-  if (type === "timer") iconType = "timer";
+  if (type === "warn") {
+    iconType = "warn";
+  }
+  if (type === "timer") {
+    iconType = "timer";
+  }
 
   const fragment = document.createDocumentFragment();
   const panel = document.createElement("div");
@@ -360,24 +364,27 @@ export async function showDocumentResult(
       const barcodeVerificationResult = await aamvaVerificationPromise;
 
       let barcodeVerificationResultBlock: DocumentFragment;
-      if (barcodeVerificationResult.error != null) {
-        barcodeVerificationResultBlock = getPanel(
-          "warn",
-          "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits barcode verification."
-        );
-      } else {
+      if (barcodeVerificationResult.error == null) {
         switch (barcodeVerificationResult.status) {
           case AamvaBarcodeVerificationStatus.Authentic:
             barcodeVerificationResultBlock = getPanel("passed", "Verification checks passed.");
             break;
           case AamvaBarcodeVerificationStatus.LikelyForged:
-            barcodeVerificationResultBlock = getPanel("warn", "Verification result is uncertain — the document is likely forged.");
+            barcodeVerificationResultBlock = getPanel(
+              "warn",
+              "Verification result is uncertain — the document is likely forged."
+            );
             break;
           case AamvaBarcodeVerificationStatus.Forged:
           default:
             barcodeVerificationResultBlock = getPanel("warn", "Verification checks failed.");
             break;
         }
+      } else {
+        barcodeVerificationResultBlock = getPanel(
+          "warn",
+          "An error was encountered when trying to connect to the verification service. Please make sure that the device has internet access and your Scandit license key permits barcode verification."
+        );
       }
 
       // Update the timer panel with the actual result

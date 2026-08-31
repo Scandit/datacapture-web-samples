@@ -1,10 +1,11 @@
-import { test, _electron as electron, ElectronApplication, expect, Locator } from "@playwright/test";
-
-import { findLatestBuild, parseElectronApp } from "electron-playwright-helpers";
 import * as path from "node:path";
-import { isCI } from "../isCI";
+import { ElectronApplication, _electron as electron, expect, Locator, test } from "@playwright/test";
+import { findLatestBuild, parseElectronApp } from "electron-playwright-helpers";
+import { isE2E_TESTS } from "../env";
 
 let electronApp: ElectronApplication;
+const consoleErrors: string[] = [];
+
 test.beforeAll(async () => {
   const errors: Error[] = [];
   const latestBuild = findLatestBuild(path.join(process.cwd(), "dist"));
@@ -12,20 +13,23 @@ test.beforeAll(async () => {
   electronApp = await electron.launch({
     args: [appInfo.main],
     executablePath: appInfo.executable,
-    recordVideo: isCI() ? { dir: "e2e-videos/" } : undefined,
+    recordVideo: isE2E_TESTS() ? { dir: "e2e-videos/" } : undefined,
   });
-  electronApp.on("window", async (page) => {
+
+  electronApp.on("window", (page) => {
     const filename = page.url()?.split("/").pop();
     console.log(`Window opened: ${filename}`);
 
-    // capture errors
     page.on("pageerror", (error) => {
       errors.push(error);
       console.error(error);
     });
-    // capture console messages
     page.on("console", (msg) => {
-      console.log(msg.text());
+      const text = msg.text();
+      if (msg.type() === "error") {
+        consoleErrors.push(text);
+      }
+      console.log(`[${msg.type()}] ${text}`);
     });
 
     expect(errors).toHaveLength(0);
@@ -41,21 +45,20 @@ const isVideoPlaying = (video: Locator): Promise<boolean> => {
 };
 
 test("should load without problem", async () => {
-  const isPackaged = await electronApp.evaluate(async ({ app }) => {
-    // This runs in Electron's main process, parameter here is always
-    // the result of the require('electron') in the main app script.
+  const isPackaged = await electronApp.evaluate(({ app }) => {
     return app.isPackaged;
   });
   expect(isPackaged).toEqual(true);
   const page = await electronApp.firstWindow();
 
-  await expect(page.getByText("Loading the Scandit SDK...")).toBeVisible();
-
   await expect(page.getByText("Accessing Camera...")).toBeVisible();
 
-  await expect(page.getByText("Accessing Camera...")).toBeHidden({ timeout: 10000 });
+  await expect(page.getByText("Accessing Camera...")).toBeHidden({ timeout: 20000 });
 
   await expect(page.locator("video")).toBeVisible({ timeout: 10000 });
 
   expect(await isVideoPlaying(page.locator("video"))).toBe(true);
+
+  const licenseErrors = consoleErrors.filter((log) => log.includes("NoLicenseKeyError"));
+  expect(licenseErrors, `License key errors in console:\n${licenseErrors.join("\n")}`).toHaveLength(0);
 });

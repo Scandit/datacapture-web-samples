@@ -44,7 +44,9 @@ export default function ScannerComponent(): ReactElement {
       }
     }
 
-    void onMount();
+    onMount().catch((error) => {
+      console.error("Failed to mount scanner:", error);
+    });
     return () => {
       if (loaded) {
         sdk.removeBarcodeCaptureListener(onScan);

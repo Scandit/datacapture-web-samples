@@ -6,26 +6,30 @@
   "description": "BarcodeCaptureSimpleSample for the Web as Pwa",
   "type": "module",
   "scripts": {
-    "update-pwa-assets": "npx pwa-asset-generator assets/pwa/fullscreen.svg -m manifest_icons_template.json -i ./index.html -f --path-override 'pwa' assets/pwa -a pwa/",
+    "preinstall": "npx only-allow pnpm",
+    "update-pwa-assets": "pwa-asset-generator assets/pwa/fullscreen.svg -m manifest_icons_template.json -i ./index.html -f --path-override 'pwa' assets/pwa -a pwa/",
     "dev": "vite",
     "build": "tsc && vite build --mode production",
     "fast-build": "vite build",
     "serve": "vite preview",
-    "lint": "npx biome lint .",
-    "format": "npx biome format ."
+    "lint": "biome lint .",
+    "format": "biome format ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.5.3",
-    "@scandit/web-datacapture-core": "8.5.3"
+    "@scandit/web-datacapture-barcode": "8.6.0",
+    "@scandit/web-datacapture-core": "8.6.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.12",
+    "@biomejs/biome": "2.5.6",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "dotenv": "^16.0.3",
     "npm-packlist": "^5.1.1",
     "pwa-asset-generator": "^8.1.2",
     "typescript": "^5.9.3",
     "vite": "^8.0.10",
     "vite-plugin-pwa": "^1.3.0",
+    "vite-plugin-qrcode": "^0.4.1",
     "vite-plugin-static-copy": "^3.4.0"
-  }
+  },
+  "packageManager": "pnpm@11.5.2"
 }

@@ -9,17 +9,17 @@ import {
 } from "@scandit/web-datacapture-core";
 import type { CapturedId } from "@scandit/web-datacapture-id";
 import {
-  RejectionReason,
+  DriverLicense,
+  FullDocumentScanner,
   IdCapture,
   IdCaptureOverlay,
+  IdCaptureScanner,
   IdCaptureSettings,
   IdImageType,
-  idCaptureLoader,
-  DriverLicense,
-  Region,
-  FullDocumentScanner,
-  IdCaptureScanner,
   IdSide,
+  idCaptureLoader,
+  Region,
+  RejectionReason,
 } from "@scandit/web-datacapture-id";
 
 import * as UI from "./ui";
@@ -35,6 +35,7 @@ let view: DataCaptureView;
 let camera: Camera;
 let singleimageuploader: SingleImageUploader;
 let firstSideCapture: CapturedId | null = null;
+let usingManualUpload = false;
 
 async function run(): Promise<void> {
   Localization.getInstance().update({ "core.singleImageUploader.button": "Choose image for FRONT side" });
@@ -145,6 +146,31 @@ async function run(): Promise<void> {
   UI.showManualUploadOption();
 }
 
+async function switchToManualUpload(): Promise<void> {
+  await idCapture.setEnabled(false);
+  await camera.switchToDesiredState(FrameSourceState.Off);
+  UI.closeDialog();
+  UI.hideManualUploadOption();
+  await resetToInitialState();
+  await idCapture.reset();
+  await context.setFrameSource(singleimageuploader);
+  await context.frameSource?.switchToDesiredState(FrameSourceState.On);
+  await idCapture.setEnabled(true);
+  usingManualUpload = true;
+}
+
+async function switchBackToCamera(): Promise<void> {
+  await idCapture.setEnabled(false);
+  UI.closeDialog();
+  UI.closeResults();
+  await idCapture.reset();
+  await resetToInitialState(true);
+  await idCapture.setEnabled(true);
+  UI.showDataCaptureView();
+  UI.showManualUploadOption();
+  usingManualUpload = false;
+}
+
 async function resetToInitialState(resetFrameSource: boolean = false): Promise<void> {
   Localization.getInstance().update({ "core.singleImageUploader.button": "Choose image for FRONT side" });
   firstSideCapture = null;
@@ -160,6 +186,12 @@ window.dispatchAction = async (...arguments_) => {
   switch (action) {
     case UI.Action.CLOSE_RESULT: {
       UI.closeResults();
+      if (usingManualUpload) {
+        // The results close back into camera scanning; drop the manual-upload history entry
+        // so a later back press leaves the page instead of re-triggering a camera restore.
+        usingManualUpload = false;
+        history.back();
+      }
       await resetToInitialState(true);
       await idCapture.setEnabled(true);
       UI.showDataCaptureView();
@@ -173,19 +205,25 @@ window.dispatchAction = async (...arguments_) => {
       break;
     }
     case UI.Action.MANUAL_UPLOAD: {
-      await idCapture.setEnabled(false);
-      await camera.switchToDesiredState(FrameSourceState.Off);
-      UI.closeDialog();
-      UI.hideManualUploadOption();
-      await resetToInitialState();
-      await idCapture.reset();
-      await context.setFrameSource(singleimageuploader);
-      await context.frameSource?.switchToDesiredState(FrameSourceState.On);
-      await idCapture.setEnabled(true);
+      await switchToManualUpload();
+      // Let the browser back button return to camera scanning instead of leaving the page.
+      history.pushState({ scanMode: "manualUpload" }, "");
       break;
     }
   }
 };
+
+window.addEventListener("popstate", async (event: PopStateEvent) => {
+  const wantsManualUpload = (event.state as { scanMode?: string } | null)?.scanMode === "manualUpload";
+  if (wantsManualUpload === usingManualUpload) {
+    return;
+  }
+  if (wantsManualUpload) {
+    await switchToManualUpload();
+  } else {
+    await switchBackToCamera();
+  }
+});
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 run().catch((error: unknown) => {

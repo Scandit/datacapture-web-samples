@@ -1,8 +1,10 @@
-import dotenv from "dotenv";
 import type { IncomingMessage, OutgoingMessage } from "node:http";
 import { resolve } from "node:path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { type ConfigEnv, type Plugin, type ServerOptions, defineConfig } from "vite";
+import basicSsl from "@vitejs/plugin-basic-ssl";
+import dotenv from "dotenv";
+import { type ConfigEnv, defineConfig, type Plugin, type ServerOptions } from "vite";
+import { qrcode } from "vite-plugin-qrcode";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 dotenv.config();
@@ -72,6 +74,8 @@ export default defineConfig({
   },
   envPrefix: "SCANDIT",
   plugins: [
+    basicSsl(),
+    qrcode(),
     svelte(),
     viteStaticCopy({
       targets: ["core", "id"].map((module) => ({

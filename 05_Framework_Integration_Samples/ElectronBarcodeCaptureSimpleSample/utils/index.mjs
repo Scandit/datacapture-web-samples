@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
+import dotenv from "dotenv";
 
 export async function saveKeyAndIVToEnvFile(filepath = ".env", envKey = "MAIN_VITE_PUBLIC_KEY") {
   const key = crypto.randomBytes(32); // Generate a random key

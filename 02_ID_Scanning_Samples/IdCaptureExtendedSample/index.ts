@@ -9,19 +9,19 @@ import {
 } from "@scandit/web-datacapture-core";
 import type { CapturedId, IdCaptureError, Translations as IdTranslations } from "@scandit/web-datacapture-id";
 import {
-  RejectionReason,
   DriverLicense,
   IdCapture,
   IdCaptureErrorCode,
   IdCaptureOverlay,
+  IdCaptureScanner,
   IdCaptureSettings,
   IdCard,
   IdImageType,
+  idCaptureLoader,
   Passport,
   Region,
+  RejectionReason,
   SingleSideScanner,
-  idCaptureLoader,
-  IdCaptureScanner,
 } from "@scandit/web-datacapture-id";
 import * as UI from "./ui";
 
@@ -81,11 +81,11 @@ async function createIdCapture(settings: IdCaptureSettings): Promise<void> {
         UI.showWarning("Document not supported. Try scanning another document.");
       }
     },
-    didFailWithError: (_: IdCapture, error: IdCaptureError) => {
+    didFailWithError: async (_: IdCapture, error: IdCaptureError) => {
       // If an error occurred and the SDK recovered from it, we need to inform the user and reset the process.
       if (error.type === IdCaptureErrorCode.RecoveredAfterFailure) {
         UI.showWarning("Oops, something went wrong. Please start over by scanning the front-side of your document.");
-        void idCapture.reset();
+        await idCapture.reset();
       }
     },
   });
@@ -168,7 +168,7 @@ window.dispatchAction = async (...arguments_) => {
       UI.closeDialog();
       const [, capturedId] = arguments_;
       UI.showResult(capturedId);
-      void idCapture.reset();
+      await idCapture.reset();
       break;
     }
   }

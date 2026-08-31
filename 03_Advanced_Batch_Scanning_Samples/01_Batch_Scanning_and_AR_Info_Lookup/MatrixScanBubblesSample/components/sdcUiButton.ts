@@ -22,6 +22,7 @@ export class SdcUiButton extends LitElement {
         align-items: center;
         cursor: pointer;
         font-size: x-large;
+        -webkit-tap-highlight-color: transparent;
       }
     `,
   ];

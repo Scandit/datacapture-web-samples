@@ -7,6 +7,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "build": "tsc && vite build",
     "fast-build": "vite build",
@@ -18,6 +19,7 @@
     "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "~7.18.0",
     "@typescript-eslint/parser": "~7.18.0",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "autoprefixer": "~10.4.15",
     "dotenv": "~16.3.1",
     "eslint": "~8.57.1",
@@ -41,11 +43,13 @@
     "tailwindcss": "~3.3.3",
     "typescript": "~5.0.2",
     "vite": "^8.0.10",
+    "vite-plugin-qrcode": "^0.4.1",
     "vite-plugin-static-copy": "^3.4.0"
   },
   "dependencies": {
     "@preact/signals": "~1.2.3",
-    "@scandit/web-datacapture-barcode": "8.5.3",
-    "@scandit/web-datacapture-core": "8.5.3"
-  }
+    "@scandit/web-datacapture-barcode": "8.6.0",
+    "@scandit/web-datacapture-core": "8.6.0"
+  },
+  "packageManager": "pnpm@11.5.2"
 }

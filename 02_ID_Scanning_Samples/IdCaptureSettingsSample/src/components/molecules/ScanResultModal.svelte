@@ -37,47 +37,27 @@
         <div class="font-bold">Images</div>
         {#if $scannedDocumentFaceImage}
           <div>
-            <img
-              class="doc-image"
-              src={`${get(scannedDocumentFaceImage)}`}
-              alt="document's face"
-            />
+            <img class="doc-image" src={`${get(scannedDocumentFaceImage)}`} alt="document's face" />
           </div>
         {/if}
         {#if $scannedDocumentFrontImage}
           <div>
-            <img
-              class="doc-image"
-              src={`${get(scannedDocumentFrontImage)}`}
-              alt="document's front side"
-            />
+            <img class="doc-image" src={`${get(scannedDocumentFrontImage)}`} alt="document's front side" />
           </div>
         {/if}
         {#if $scannedDocumentBackImage}
           <div>
-            <img
-              class="doc-image"
-              src={`${get(scannedDocumentBackImage)}`}
-              alt="document's back side"
-            />
+            <img class="doc-image" src={`${get(scannedDocumentBackImage)}`} alt="document's back side" />
           </div>
         {/if}
         {#if $scannedDocumentFrontFrameImage}
           <div>
-            <img
-              class="doc-image"
-              src={`${get(scannedDocumentFrontFrameImage)}`}
-              alt="frame's front side"
-            />
+            <img class="doc-image" src={`${get(scannedDocumentFrontFrameImage)}`} alt="frame's front side" />
           </div>
         {/if}
         {#if $scannedDocumentBackFrameImage}
           <div>
-            <img
-              class="doc-image"
-              src={`${get(scannedDocumentBackFrameImage)}`}
-              alt="frame's back side"
-            />
+            <img class="doc-image" src={`${get(scannedDocumentBackFrameImage)}`} alt="frame's back side" />
           </div>
         {/if}
       {/if}

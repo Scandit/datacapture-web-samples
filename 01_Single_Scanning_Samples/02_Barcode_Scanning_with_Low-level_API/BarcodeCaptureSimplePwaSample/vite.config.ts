@@ -1,7 +1,9 @@
 import type { IncomingMessage, OutgoingMessage } from "node:http";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 import dotenv from "dotenv";
 import { type ConfigEnv, defineConfig, type Plugin, type PluginOption, type ServerOptions } from "vite";
 import { VitePWA, VitePWAOptions } from "vite-plugin-pwa";
+import { qrcode } from "vite-plugin-qrcode";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import manifest from "./manifest_icons_template.json";
 
@@ -145,6 +147,8 @@ export default defineConfig(({ mode }) => {
     },
     envPrefix: "SCANDIT",
     plugins: [
+      basicSsl(),
+      qrcode(),
       crossOriginIsolatedDevServer(),
       ...(mode === "development" ? [] : [VitePWA(createPwaOptions({ mode }))]),
       viteStaticCopy({

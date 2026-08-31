@@ -29,10 +29,7 @@
   const allDocumentTypes = Object.values(IdCaptureDocumentType);
   const normalizedDocumentsAndRegions = derived(idCaptureSettingsStore, (settings) => {
     return allDocumentTypes
-      .filter(
-        (type) =>
-          type !== IdCaptureDocumentType.RegionSpecific && type !== IdCaptureDocumentType.VisaLetter
-      )
+      .filter((type) => type !== IdCaptureDocumentType.RegionSpecific && type !== IdCaptureDocumentType.VisaLetter)
       .map((type) => ({
         type,
         regions: getRegionsFromDocuments(getDocumentsForType(type, getDocuments(settings))),

@@ -14,7 +14,9 @@ export default function HomePage(): ReactElement {
 
   useEffect(() => {
     if (!loading) {
-      void sdk.enableScanning(false);
+      sdk.enableScanning(false).catch((error) => {
+        console.error("Failed to disable scanning:", error);
+      });
     }
   }, [loading, sdk]);
 
