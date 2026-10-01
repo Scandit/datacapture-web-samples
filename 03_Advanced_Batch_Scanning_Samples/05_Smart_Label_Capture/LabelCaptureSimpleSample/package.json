@@ -26,9 +26,9 @@
     "vite-plugin-static-copy": "^3.4.0"
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.6.0",
-    "@scandit/web-datacapture-core": "8.6.0",
-    "@scandit/web-datacapture-label": "8.6.0"
+    "@scandit/web-datacapture-barcode": "8.6.1",
+    "@scandit/web-datacapture-core": "8.6.1",
+    "@scandit/web-datacapture-label": "8.6.1"
   },
   "packageManager": "pnpm@11.5.2"
 }
