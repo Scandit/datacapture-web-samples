@@ -16,8 +16,8 @@
     "format": "biome format ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.6.1",
-    "@scandit/web-datacapture-core": "8.6.1"
+    "@scandit/web-datacapture-barcode": "8.6.2",
+    "@scandit/web-datacapture-core": "8.6.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.6",

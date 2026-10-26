@@ -75,6 +75,7 @@ async function run(): Promise<void> {
     didCaptureId: async (capturedId: CapturedId) => {
       // Disable the IdCapture mode to handle the current result
       await idCapture.setEnabled(false);
+      await context.frameSource?.switchToDesiredState(FrameSourceState.Off);
       UI.showResult(capturedId);
     },
     didRejectId: async (_capturedId: CapturedId, reason: RejectionReason) => {
@@ -104,6 +105,7 @@ window.dispatchAction = async (action: UI.Action) => {
   switch (action) {
     case UI.Action.CLOSE_RESULT:
       UI.closeResults();
+      await context.frameSource?.switchToDesiredState(FrameSourceState.On);
       await idCapture.setEnabled(true);
       break;
     case UI.Action.CLOSE_WARNING:
