@@ -1,3 +1,5 @@
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import type { CameraSettings, Translations as CoreTranslations } from "@scandit/web-datacapture-core";
 import {
   Camera,

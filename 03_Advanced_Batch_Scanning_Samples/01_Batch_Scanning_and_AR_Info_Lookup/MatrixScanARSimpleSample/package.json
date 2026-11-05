@@ -15,8 +15,8 @@
     "format": "biome format ."
   },
   "dependencies": {
-    "@scandit/web-datacapture-barcode": "8.6.2",
-    "@scandit/web-datacapture-core": "8.6.2",
+    "@scandit/web-datacapture-barcode": "8.7.0",
+    "@scandit/web-datacapture-core": "8.7.0",
     "temporal-polyfill": "~0.2.5",
     "uhtml": "^4.7.1"
   },
@@ -32,5 +32,5 @@
     "vite-plugin-qrcode": "^0.4.1",
     "vite-plugin-static-copy": "^3.4.0"
   },
-  "packageManager": "pnpm@11.5.2"
+  "packageManager": "pnpm@11.18.0"
 }

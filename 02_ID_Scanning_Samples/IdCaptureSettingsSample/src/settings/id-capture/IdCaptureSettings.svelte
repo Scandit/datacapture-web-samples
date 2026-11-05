@@ -143,6 +143,18 @@
       on:change={(e) => sdkManager.idCapture.updateRejectInconsistentData(valueFromCheckbox(e))}
       >Reject inconsistent data</CheckboxSetting
     >
+    <SettingsEntry to="/settings/id-capture/reject-passport-types">
+      <div class="w-full flex">
+        <div>Reject passport types</div>
+        <div class="ml-auto">
+          {#if $idCaptureSettingsStore.rejectPassportTypes.size === 0}
+            None
+          {:else}
+            {$idCaptureSettingsStore.rejectPassportTypes.size} selected
+          {/if}
+        </div>
+      </div>
+    </SettingsEntry>
     <NumberSetting
       id="rejectHolderBelowAge"
       min="0"

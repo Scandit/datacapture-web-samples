@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/class-methods-use-this */
+
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import { effect } from "@preact/signals";
 import type {
   Barcode,

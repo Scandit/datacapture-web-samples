@@ -10,6 +10,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import {
   Anchor,
   Brush,

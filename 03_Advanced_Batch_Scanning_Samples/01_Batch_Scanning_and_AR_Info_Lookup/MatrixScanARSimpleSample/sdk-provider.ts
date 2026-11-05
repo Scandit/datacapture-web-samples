@@ -106,6 +106,21 @@ class SDKProvider {
     return infoAnnotation;
   }
 
+  private createMidRangeAnnotation(barcode: Barcode): BarcodeArInfoAnnotation {
+    const header = BarcodeArInfoAnnotationHeader.create();
+    header.text = "Header";
+
+    const body = BarcodeArInfoAnnotationBodyComponent.create();
+    body.text = "Body Text";
+
+    const infoAnnotation = BarcodeArInfoAnnotation.create(barcode);
+    infoAnnotation.widthPreset = BarcodeArInfoAnnotationWidthPreset.Small;
+    infoAnnotation.anchor = BarcodeArInfoAnnotationAnchor.Bottom;
+    infoAnnotation.header = header;
+    infoAnnotation.body = [body];
+    return infoAnnotation;
+  }
+
   private async createCloseUpAnnotation(barcode: Barcode): Promise<BarcodeArInfoAnnotation> {
     const iconBuilder = new ScanditIconBuilder()
       .withBackgroundShape(ScanditIconShape.Circle)
@@ -225,21 +240,19 @@ class SDKProvider {
             },
           };
 
-          BarcodeArResponsiveAnnotation.threshold = 0.5;
           this.barcodeArView.annotationProvider = {
             async annotationForBarcode(
               barcode: Barcode,
               callback: (annotation: BarcodeArAnnotation) => void
             ): Promise<void> {
-              const [closeUpAnnotation, farAwayAnnotation] = await Promise.all([
-                self.createCloseUpAnnotation(barcode),
-                self.createFarAwayAnnotation(barcode),
-              ]);
-              const barcodeResponsiveAnnotation = BarcodeArResponsiveAnnotation.create(
-                barcode,
-                closeUpAnnotation,
-                farAwayAnnotation
-              );
+              const farAwayAnnotation = self.createFarAwayAnnotation(barcode);
+              const midRangeAnnotation = self.createMidRangeAnnotation(barcode);
+              const closeUpAnnotation = await self.createCloseUpAnnotation(barcode);
+              const barcodeResponsiveAnnotation = BarcodeArResponsiveAnnotation.create(barcode, {
+                0.15: farAwayAnnotation,
+                0.5: midRangeAnnotation,
+                1.0: closeUpAnnotation,
+              });
               callback(barcodeResponsiveAnnotation);
             },
           };

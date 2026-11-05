@@ -4,6 +4,10 @@ This repository contains both simple and advanced samples that show you how use 
 
 You can also try them directly in StackBlitz by following the links below.
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## 01_Single_Scanning_Samples
 
 ### Barcode Scanning with Pre-built UI (Recommended)

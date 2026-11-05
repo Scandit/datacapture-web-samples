@@ -12,6 +12,7 @@
   import ViewSettingsPage from "@/settings/view/ViewSettings.svelte";
   import IdCaptureSettingsPage from "@/settings/id-capture/IdCaptureSettings.svelte";
   import ResultWithImageTypes from "./settings/id-capture/ResultWithImageTypes.svelte";
+  import RejectPassportTypes from "./settings/id-capture/RejectPassportTypes.svelte";
   import ScanAreaSettingsPage from "./settings/view/scan-area/ScanAreaSettings.svelte";
   import PointOfInterestSettingsPage from "./settings/view/point-of-interest/PointOfInterestSettings.svelte";
   import OverlaySettingsPage from "./settings/view/overlay/OverlaySettings.svelte";
@@ -86,6 +87,9 @@
     </Route>
     <Route path="/settings/id-capture/result-with-image-types">
       <ResultWithImageTypes />
+    </Route>
+    <Route path="/settings/id-capture/reject-passport-types">
+      <RejectPassportTypes />
     </Route>
     <Route path="/settings/view/scan-area">
       <ScanAreaSettingsPage />

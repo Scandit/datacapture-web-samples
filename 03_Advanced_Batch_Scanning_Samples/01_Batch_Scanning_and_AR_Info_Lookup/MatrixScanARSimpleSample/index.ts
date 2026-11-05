@@ -1,3 +1,5 @@
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import "./components/app-root.js";
 import "./components/feature-card.js";
 import "./components/home-section.js";

@@ -1,4 +1,5 @@
 <script lang="ts">
+  // AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
   import { sdkManager } from "@/sdkManager/sdkManager";
   import { onMount } from "svelte";
 

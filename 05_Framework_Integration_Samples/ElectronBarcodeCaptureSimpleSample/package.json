@@ -98,8 +98,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "~3.0.2",
     "@electron-toolkit/utils": "~3.0.0",
-    "@scandit/web-datacapture-barcode": "8.6.2",
-    "@scandit/web-datacapture-core": "8.6.2",
+    "@scandit/web-datacapture-barcode": "8.7.0",
+    "@scandit/web-datacapture-core": "8.7.0",
     "electron-updater": "~6.6.2",
     "express": "~4.21.2"
   },
@@ -119,5 +119,5 @@
     "vite": "^8.0.16",
     "vite-plugin-static-copy": "^3.4.0"
   },
-  "packageManager": "pnpm@11.5.2"
+  "packageManager": "pnpm@11.18.0"
 }

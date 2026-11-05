@@ -6,6 +6,7 @@ import type {
   IdCaptureDocument,
   IdCaptureTrigger,
   IdFieldType,
+  PassportType,
 } from "@scandit/web-datacapture-id";
 import {
   Duration,
@@ -294,6 +295,12 @@ export class SDKIdCaptureManager {
   public async updateRejectInconsistentData(rejectInconsistentData: boolean): Promise<void> {
     const newSettings = this.idCaptureSettings.clone();
     newSettings.rejectInconsistentData = rejectInconsistentData;
+    await this.applyIdCaptureSettings(newSettings);
+  }
+
+  public async updateRejectPassportTypes(rejectPassportTypes: Set<PassportType>): Promise<void> {
+    const newSettings = this.idCaptureSettings.clone();
+    newSettings.rejectPassportTypes = rejectPassportTypes;
     await this.applyIdCaptureSettings(newSettings);
   }
 

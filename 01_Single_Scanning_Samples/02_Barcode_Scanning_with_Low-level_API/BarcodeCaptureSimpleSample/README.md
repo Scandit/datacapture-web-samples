@@ -8,6 +8,10 @@ Consider also the **pre-built component** designed for ergonomic high-speed sing
 
 **ReceivingSample** ([iOS](https://github.com/Scandit/datacapture-ios-samples/tree/master/ReceivingSample), [Android](https://github.com/Scandit/datacapture-android-samples/tree/master/ReceivingSample))
 
+## AI Coding Skills
+
+Scandit's AI coding skills teach your coding agent (Claude Code, Cursor, Codex, GitHub Copilot and others) how to pick the right Scandit product and integrate the Data Capture SDK. See [github.com/Scandit/skills](https://github.com/Scandit/skills) for install instructions.
+
 ## Documentation
 
 BarcodeCapture is a fully-flexible API of the Scandit Data Capture SDK.  Our SDK is supported on most popular frameworks.
@@ -74,10 +78,3 @@ npm run dev
 ```
 
 Open https://localhost:8888 and start scanning.
-
-## AI Coding Skills
-
-Use the matching Scandit skill to get AI-assisted help for this sample. Install the Scandit skills collection once, then invoke the barcode-capture-web skill.
-
-[![Install via skills.sh](https://img.shields.io/badge/skills.sh-install-green)](https://skills.sh/scandit/skills)
-[![Install in Cursor](https://img.shields.io/badge/Install%20in-Cursor-blue?style=flat-square&logo=cursor)](https://cursor.com/marketplace/scandit)

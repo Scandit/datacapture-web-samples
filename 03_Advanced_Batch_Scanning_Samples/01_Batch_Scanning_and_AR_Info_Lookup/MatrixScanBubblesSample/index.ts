@@ -1,4 +1,7 @@
 /* eslint-disable max-classes-per-file */
+
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import type { BarcodeBatchSession, TrackedBarcode, TrackedBarcodeViewOptions } from "@scandit/web-datacapture-barcode";
 import {
   BarcodeBatch,

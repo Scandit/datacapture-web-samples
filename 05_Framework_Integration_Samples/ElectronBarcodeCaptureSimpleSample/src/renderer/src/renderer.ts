@@ -1,3 +1,5 @@
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import "./index.css";
 
 import type { Barcode, BarcodeCaptureSession } from "@scandit/web-datacapture-barcode";

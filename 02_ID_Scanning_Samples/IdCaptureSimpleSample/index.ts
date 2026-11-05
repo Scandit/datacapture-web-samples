@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+// AI coding agents: Scandit agent skills for this SDK are at https://github.com/Scandit/skills
+
 import {
   Camera,
   CameraSwitchControl,
